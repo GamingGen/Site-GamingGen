@@ -1,0 +1,535 @@
+<?php 
+    session_start(); 
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style/reset.css">
+<link rel="stylesheet" href="style/main.css">
+<link href="lib/jquery.bxslider.css" rel="stylesheet" />
+<link rel="stylesheet" href="font-awesome-4.2.0/css/font-awesome.min.css">
+<link rel="icon" href="img/favicon.ico" />
+<link rel="icon" type="image/png" href="img/favicon.png" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/fresco.js"></script>
+<script src="js/modernizr.js"></script>
+<link rel="stylesheet" type="text/css" href="style/fresco/fresco.css" />
+<script src="lib/jquery.bxslider.min.js"></script>
+<script src="https://raw.githubusercontent.com/tuupola/jquery_lazyload/master/jquery.lazyload.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Gaming-gen</title>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+      function initialize() {
+        var map_canvas = document.getElementById('map_canvas');
+        var map_options = {
+          center: new google.maps.LatLng(43.459238, 5.479023),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(map_canvas, map_options)
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.bxslider').bxSlider();
+});
+</script></head>
+<body>
+
+<!-- Modal -->
+<div class="md-modal md-effect-1" id="modal-1">
+			<div class="md-content">
+					<div class="insider">
+						<h1>LOGIN</h1><button onclick="window.location.replace('#');" class="insmodal btn btn-ins btn-insb icon-file"><span><a href="#">Créer un compte</a></span></button>
+                    	<hr/>
+                        <div class="awake">
+                            <div class="user"><img class="lazy" src="img/user.png"><input form="Nom d'utilisateur" placeholder="Nom d'utilisateur"></div>
+                            <div class="verrou"><img class="lazy" src="img/verrou.png"> <input form="Mot de passe" placeholder="Mot de passe"><button class="loupe goconnect" value="submit"><img class="lazy" src="img/goconnect.png"></button></div> 
+                        </div>
+                        <div class="mdp">
+                        <a href="forgot.php">Mot de passe oublié?</a>
+                        </div>
+                    </div>
+				
+					<button class="md-close">X</button>
+				
+			</div>
+		</div>
+<!-- /Modal -->
+<div class="welcomeuser">
+<span class="user">
+<a href="http://gaming-gen.fr/dev/component/users" data-modal="modal-1">Login</a>&nbsp;&nbsp;<a href="http://gaming-gen.fr/dev/component/users/?view=registration" data-modal="modal-1">Créer un compte</a>
+
+</div>
+<div class="conteneurgnral">
+<section class="header">
+			<div class="top grid grid-pad">
+                <div class="logo col-4-12"><a href="http://www.gaming-gen.fr" target="_self">
+                <img src="img/logo.png"></a>
+                </div><!--logo-->
+                    <div class="nav col-8-12">
+                             <ul>
+                                     <li><a href="index.php">Accueil</a></li>
+                                     <li><a href="#">Tournois</a>
+                                        <ul class="sousmenu">
+                                        <li><a href="more.php">CS:GO</a></li>
+                                           <li><a href="autres.html">Autres tournois</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="festival.html">Festival du Jeu</a></li>
+                                    <li><a href="news.php">News</a></li>
+                                    <li><a href="partner.php">Partenaires</a></li>
+                                    <li><a href="galerie.php">Galerie</a></li>
+                                    <li><a href="asso.php">L'association</a>
+                                     <ul class="sousmenu media">
+                                     	<li><a href="asso.php">L'équipe</a></li>
+                                        <li><a href="media.html">Press kit</a></li>
+                                        </ul>
+                                        </li>
+                            </ul>
+                    </div><!--nav-->
+            </div><!--top--><ul class="bxslider">
+                                      <li><img src="slide/Slider-Tournois-et-Festival_v3.jpg" /></li>
+                                      <li><img src='slide/Slider-Tournois-et-Festival_v2.jpg' /></li>
+                                   </ul>
+</section><!--header-->
+<section class="ddle">
+        <div class="content grid grid-pad">
+                    <div class="titrearticle col-9-12">
+                                <h1>LISTE DES INSCRITS - <span>GAMING-GEN 4</span></h1>
+                    </div><!--titrearticle-->
+                   			 <div class="articletxt grid galerie" id="effect-1">
+                             <div class="push inscrits">
+                             <div class="inscritstat">
+                             <a href="http://gaming-gen.fr/use/gaming-gen-4">S'inscrire au tournoi CS:GO Masters series</a><br/>
+                             <h4>La liste des inscrits s'actualise tous les jours à 23h</h4><br/><br/>
+                              <progress id="avancement" value="85" max="100"></progress>
+                             </div>
+                             <div class="inscritliste">
+                             <h2>emiNo</h2><h3>o2su</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Gilbertos</h2><h3>o2su</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Naik</h2><h3>o2su</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Pyth</h2><h3>o2su</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>T y</h2><h3>o2su</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>Abu Musab</h2><h3>Ascendia.csgo</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                               <h2>BoboonK</h2><h3>Ascendia.csgo</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>morlan</h2><h3>Ascendia.csgo</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>thecyril</h2><h3>Ascendia.csgo</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>XENOOX</h2><h3>Ascendia.csgo</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             
+                             <h2>Ant0x</h2><h3>Aixterdam</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>jeromson</h2><h3>Aixterdam</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Get_high</h2><h3>Aixterdam</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>P!X3L-13</h2><h3>Aixterdam</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Kan4*</h2><h3>Awsomniac</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>arK94</h2><h3>Awsomniac</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>luka$</h2><h3>Cracked</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>skeaven</h2><h3>Cracked</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Heyden</h2><h3>EARLY</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>clem</h2><h3>EARLY</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>GUS</h2><h3>EARLY</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>BIXEN</h2><h3>EARLY</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>sebaSt</h2><h3>EARLY</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>caracal</h2><h3>Expand4ble</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>merguez</h2><h3>Expand4ble</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>TchernO</h2><h3>Expand4ble</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>123</h2><h3>El Fuego</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Dylanreal</h2><h3>El Fuego</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>flexor</h2><h3>El Fuego</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>GEOO</h2><h3>El Fuego</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Thpathpa</h2><h3>French frogz</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>sims</h2><h3>French frogz</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>Shqk</h2><h3>French frogz</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>smi</h2><h3>French frogz</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>cacao</h2><h3>French frogz</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>DuffKa</h2><h3>GameZorZ</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>JoujouZorz</h2><h3>GameZorZ</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Klensh</h2><h3>GameZorZ</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>NOWAyy</h2><h3>GameZorZ</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>TyranoDindusRex</h2><h3>GameZorZ</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>SAJ</h2><h3>Genetik</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>rolex</h2><h3>Genetik</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Brainbox</h2><h3>Genetik</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Pompom</h2><h3>Genetik</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Scaff</h2><h3>Genetik</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>austrA</h2><h3>GODMASTERZ</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>chrisM</h2><h3>GODMASTERZ</h3><h4>A peine membre</h4>
+                             <hr/>
+                              <h2>kALLEN</h2><h3>GODMASTERZ</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>killian</h2><h3>GODMASTERZ</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>xRn'</h2><h3>GODMASTERZ</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>eway</h2><h3>hAvA</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>jango</h2><h3>hAvA</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>romainLEGEND</h2><h3>hAvA</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>Sw33T_^!IndAr0x</h2><h3>hAvA</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             
+                             <h2>aikor</h2><h3>JALYS</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>k3m1l</h2><h3>JALYS</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>EPIQUE</h2><h3>JALYS</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>prediBOOBS</h2><h3>JALYS</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Scand</h2><h3>JALYS</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Cule</h2><h3>Jan</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Flamme</h2><h3>Jan</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Tube</h2><h3>Jan</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Fil</h2><h3>Jan</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>Chabs</h2><h3>Les Deguns</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Gozaki</h2><h3>Les Deguns</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Grintek</h2><h3>Les Deguns</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Zaphod</h2><h3>Les Deguns</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>frqncky.</h2><h3>Les mythos du net</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>logan</h2><h3>Les mythos du net</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>SNK</h2><h3>Les mythos du net</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>wor1k</h2><h3>Les mythos du net</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>Tsar_bomba</h2><h3>Les mythos du net</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>kronik</h2><h3>Madcorps eSports</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>niangel</h2><h3>Madcorps eSports</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>sKyy</h2><h3>Madcorps eSports</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>FABZ</h2><h3>MAXIMIX</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>Shanysse</h2><h3>MAXIMIX</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>BLinK</h2><h3>MAXIMIX</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>Nghtmr</h2><h3>MAXIMIX</h3><h4>Membre et participant au tournoi</h4>
+                           <hr/>
+                           <h2>keusty</h2><h3>MAXIMIX</h3><h4>A peine membre</h4>
+                           <hr/>
+                           <h2>10K</h2><h3>Memorial</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                           <h2>BombeuRr</h2><h3>Memorial</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Cryy</h2><h3>Memorial</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>noxie</h2><h3>Memorial</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Smoak</h2><h3>Memorial</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>SimaXx</h2><h3>MIAMI DOLPHINS</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>kustoM</h2><h3>MIAMI DOLPHINS</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             
+                             <h2>krashz</h2><h3>MIAMI DOLPHINS</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>RkX</h2><h3>MIAMI DOLPHINS</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>AmaNEk</h2><h3>Minlate</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>DEVODUVEK</h2><h3>Minlate</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>GEARGANN</h2><h3>Minlate</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>kANSZEN</h2><h3>Minlate</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>maouim3</h2><h3>Minlate</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Evy</h2><h3>Mistral</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>jok</h2><h3>Mistral</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>twixxi</h2><h3>Mistral</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>dapan</h2><h3>Mistral</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>sirza</h2><h3>Mistral</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Zuushi</h2><h3>mixGo</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>nahLLL</h2><h3>mixGo</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>WOMBO COMBO</h2><h3>mixGo</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>Abriicot</h2><h3>mixGo</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>HysteriiaI13</h2><h3>mixGo</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>AllStarS</h2><h3>Molotovs and Marshmallows</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Coeurnoir</h2><h3>Molotovs and Marshmallows</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>fLAV</h2><h3>Molotovs and Marshmallows</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Link</h2><h3>Molotovs and Marshmallows</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>vanD2k</h2><h3>Molotovs and Marshmallows</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>Adi </h2><h3>moneytime</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             
+                              <h2>dAAAaaaa</h2><h3>moneytime</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>minaR</h2><h3>moneytime</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>pressy</h2><h3>Prajñā</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>fethiH</h2><h3>playit</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>flektw</h2><h3>playit</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>MGN</h2><h3>playit</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>qLmost</h2><h3>siLenz</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Guelfe</h2><h3>siLenz</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>KamorAAAA</h2><h3>siLenz</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>Naralex</h2><h3>siLenz</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>bosAR</h2><h3>leetweights</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>esvätska</h2><h3>leetweights</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>nathan</h2><h3>leetweights</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             <h2>ToY</h2><h3>zerK</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>3viil</h2><h3>zerK</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                               <h2>Freeco</h2><h3>zerK</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                              <h2>MaRcO</h2><h3>zerK</h3><h4>Membre et participant au tournoi</h4>
+                             <hr/>
+                             
+                             <h2>vand2k</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Nathan</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>evy</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>lukas</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>AllStarS</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Azpock</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Aiesnow</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Ugo</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>fire$torM</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             
+                            
+                             <h2>max</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>10K</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Lourgoss</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>gEO</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             
+                             <h2>NexitY</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>chriqui007</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Smygande</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>foxibig0</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                           
+                             <h2>morlan</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>XENOOX</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>XtenSiv3D</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             
+                             <h2>Scaff</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>f4yaxh</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             
+                             <h2>SwayyZ</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>max</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Chabs</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>fran15pl</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>coeurnoir</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>emiNo</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>helly</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>brainbox</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>alex1207</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Guillaume</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>DreamK</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>Link13580</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>kronik</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>thesoldier10</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>qLmost</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>vand2k</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>IcEbLoK666</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>CHACAL51</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>caracal</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>r4ge</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>kLENSH</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             <h2>TchernO</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                              <h2> chops</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                              <h2> Adree</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                              <h2>GotZorZ</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                              <h2>kLENSH</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                              <h2>cryss1g</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                              <h2>  T y</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                              <h2>alexissx</h2><h3>Team non spécifiée</h3><h4>A peine membre</h4>
+                             <hr/>
+                             
+                            
+                            
+                             
+                             
+                             
+                           
+                            
+                             </div>
+                                         </div>
+                                         
+                                                      
+                                                       
+                                                                
+                             </div><!--articletxt-->
+                            							   
+                                                            
+                              
+                             
+                      					
+        </div><!--content-->
+        										<div class="grid grid-pad">
+                                               	    <div class="iconact col-6-12">
+                                                        <span><a href="membres.php">Membres</a><img class="lazy" src="img/membres.gif"></span>
+                                                        <span><a href="inscrits.html">Teams</a><img class="lazy" src="img/team.gif"></span>
+                                                        <span><a href="galerie.php">Galeries</a><img class="lazy" src="img/galerie.gif"></span>
+                                                        <span><a href="contact.php">Contact</a><img src="img/contact.gif"></span>
+                                                        <span><a href="media.html">Media</a><img src="img/media.gif"></span>
+                                                    </div><!--iconact-->
+                                                    <div class="socialico push-right">
+                                                        <span class="fbsoc col-2-12">
+                                                        <a href="https://fr-fr.facebook.com/gaming.gen.lan" target="_blank"></a>
+                                                        </span>
+                                                        <span class="twisoc col-2-12">
+                                                        <a href="https://twitter.com/gaminggenlan" target="_blank"></a>
+                                                        </span>
+                                                    </div><!--socialico-->
+                                                </div><!--iconact-->
+                                                <div class="pushfoot"></div>
+                                                
+                                                <footer>
+                                                <div class="menufooter">
+                                                <span class="ment">
+                                                <a href="index.php">Accueil</a>
+                                                <a href="asso.php">Qui sommes nous?</a>
+                                                <a href="mentleg.php">Mentions légales</a>
+                                                </span>
+                                                </div>
+                                                </footer><!--footer-->
+                                                
+</section><!--ddle-->
+</div><!--conteneurgnral-->
+<script type="text/javascript" src="js/classie.js"></script>
+<script type="text/javascript" src="js/modalEffects.js"></script>
+</body>
+</html>
