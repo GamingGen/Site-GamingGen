@@ -1,0 +1,36 @@
+{
+  "name": "users",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Pseudo": {
+      "type": "string",
+      "required": true,
+      "index": true,
+      "comments": "Champ obligatoire & Indéxé pour pouvoir effectuer des recherche optimisé depuis"
+    },
+    "Mail": {
+      "type": "string",
+      "required": true,
+      "comments": "Cham obligatoire pour pouvoir contacter l'ut"
+    },
+    "Last_Name": {
+      "type": "string",
+      "required": true,
+      "comments": "Champ obligatoire"
+    },
+    "First_Name": {
+      "type": "string",
+      "required": true,
+      "comments": "Champ obligatoire"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

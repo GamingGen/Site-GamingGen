@@ -1,0 +1,14 @@
+{
+  "MongoDB": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "sitegg",
+    "name": "MongoDB",
+    "connector": "mongodb"
+  },
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  }
+}
