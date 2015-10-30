@@ -43,5 +43,9 @@
     "public": true,
     "$promise": {},
     "$resolved": true
+  },
+  "news": {
+    "dataSource": "MongoDB",
+    "public": true
   }
 }
