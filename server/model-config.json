@@ -46,6 +46,20 @@
   },
   "news": {
     "dataSource": "MongoDB",
-    "public": true
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "watchList": {
+    "dataSource": "MongoDB",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "partners": {
+    "dataSource": "MongoDB",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
   }
 }

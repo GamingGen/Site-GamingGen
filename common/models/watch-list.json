@@ -1,5 +1,5 @@
 {
-  "name": "news",
+  "name": "watchList",
   "base": "PersistedModel",
   "strict": false,
   "idInjection": false,
@@ -9,18 +9,11 @@
   "properties": {
     "NickName": {
       "type": "string",
-      "required": true
+      "required": true,
+      "index": true
     },
-    "Text": {
-      "type": "string"
-    },
-    "Post_Date": {
-      "type": "date",
-      "required": true
-    },
-    "Titre": {
-      "type": "string",
-      "required": true
+    "Watch_List_Date": {
+      "type": "date"
     }
   },
   "validations": [],

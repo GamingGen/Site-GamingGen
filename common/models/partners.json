@@ -1,5 +1,5 @@
 {
-  "name": "news",
+  "name": "partners",
   "base": "PersistedModel",
   "strict": false,
   "idInjection": false,
@@ -7,18 +7,22 @@
     "validateUpsert": true
   },
   "properties": {
-    "NickName": {
+    "Name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "index": true
     },
-    "Text": {
+    "Description": {
       "type": "string"
     },
-    "Post_Date": {
+    "IMG_Path": {
+      "type": "string"
+    },
+    "Register_Date": {
       "type": "date",
       "required": true
     },
-    "Titre": {
+    "URL": {
       "type": "string",
       "required": true
     }
