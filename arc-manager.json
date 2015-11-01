@@ -5,7 +5,7 @@
   },
   "models": {
     "ManagerHost": {
-      "6e94dd8b-e2c2-4e90-ac62-be493b8c60cb": "{\"id\":\"6e94dd8b-e2c2-4e90-ac62-be493b8c60cb\",\"host\":\"darkterra.fr\",\"port\":8701,\"actions\":[\"delete\",\"edit\"],\"protocol\":\"http\",\"created\":1445957380717,\"error\":{\"message\":\"connect ECONNREFUSED 62.210.214.22:8701\"},\"errorType\":\"connection\",\"app\":null,\"processes\":null,\"$$hashKey\":\"object:12354\",\"isHostProblem\":true}"
+      "6e94dd8b-e2c2-4e90-ac62-be493b8c60cb": "{\"id\":\"6e94dd8b-e2c2-4e90-ac62-be493b8c60cb\",\"host\":\"darkterra.fr\",\"port\":8701,\"actions\":[\"delete\",\"edit\",\"env-set\",\"env-get\"],\"protocol\":\"http\",\"created\":1445957380717,\"error\":null,\"errorType\":null,\"app\":null,\"processes\":{\"pids\":[]},\"$$hashKey\":\"object:12354\",\"isHostProblem\":true}"
     },
     "LoadBalancer": {}
   }
