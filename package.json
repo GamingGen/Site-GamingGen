@@ -22,5 +22,15 @@
     "type": "",
     "url": ""
   },
-  "description": "site-gaminggen"
+  "description": "site-gaminggen",
+  "bundleDependencies": [
+    "compression",
+    "cors",
+    "loopback",
+    "loopback-boot",
+    "loopback-component-explorer",
+    "loopback-connector-mongodb",
+    "loopback-datasource-juggler",
+    "serve-favicon"
+  ]
 }
