@@ -2,6 +2,11 @@
   "name": "site-gaminggen",
   "version": "1.0.0",
   "main": "server/server.js",
+  "homepage": "https://github.com/GamingGen/Site-GamingGen",
+  "description": "site-gaminggen",
+  "bugs": {
+    "url": "https://github.com/GamingGen/Site-GamingGen/issues"
+  },
   "scripts": {
     "pretest": "jshint ."
   },
@@ -19,10 +24,9 @@
     "jshint": "^2.5.6"
   },
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "url": "https://github.com/GamingGen/Site-GamingGen.git"
   },
-  "description": "site-gaminggen",
   "bundleDependencies": [
     "compression",
     "cors",
@@ -32,5 +36,11 @@
     "loopback-connector-mongodb",
     "loopback-datasource-juggler",
     "serve-favicon"
-  ]
+  ],
+  "engines": {
+    "node": ">=4.2.1"
+  },
+  "os" : [ 
+    "!win32"
+    ]
 }
