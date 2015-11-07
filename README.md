@@ -23,7 +23,7 @@ Installation Prod (Ubuntu Server 14.04 LTS):
         - echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
         - sudo apt-get update
         - sudo apt-get install -y mongodb-org
-        * [INFO]: 
+        * [INFO]: https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/
     4. Installer StrongLoop
         - npm install -g strong-pm
         - sudo sl-pm-install
@@ -36,7 +36,7 @@ Installation Prod (Ubuntu Server 14.04 LTS):
         - sudo apt-get install git
 
 2. Configuration du serveur
-    1. Ouvrir les ports :
+    1. Ouvrir les ports (TCP):
         - 8701
         - 3000
         - 3001
