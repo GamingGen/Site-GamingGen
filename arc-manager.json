@@ -5,7 +5,7 @@
   },
   "models": {
     "ManagerHost": {
-      "cdd7ace2-1fef-49a1-b2fd-7a86a59af750": "{\"id\":\"cdd7ace2-1fef-49a1-b2fd-7a86a59af750\",\"host\":\"darkterra.fr\",\"port\":8701,\"actions\":[\"delete\",\"edit\",\"env-set\",\"env-get\"],\"protocol\":\"http\",\"created\":1446883743055,\"error\":null,\"errorType\":null,\"app\":null,\"processes\":{\"pids\":[]}}"
+      "cdd7ace2-1fef-49a1-b2fd-7a86a59af750": "{\"id\":\"cdd7ace2-1fef-49a1-b2fd-7a86a59af750\",\"host\":\"darkterra.fr\",\"port\":8701,\"actions\":[\"delete\",\"edit\",\"env-set\",\"env-get\"],\"protocol\":\"http\",\"created\":1446883743055,\"error\":null,\"errorType\":null,\"app\":null,\"processes\":{\"pids\":[]},\"$$hashKey\":\"object:252\",\"isHostProblem\":true}"
     },
     "LoadBalancer": {}
   }
