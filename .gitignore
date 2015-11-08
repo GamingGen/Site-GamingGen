@@ -27,6 +27,3 @@ npm-debug.log
 # DataBase
 data
 mongod
-
-# Temp rm before commit !
-client
