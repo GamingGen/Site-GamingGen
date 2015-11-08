@@ -1,3 +1,4 @@
+# Dev Files
 *.csv
 *.dat
 *.iml
@@ -14,9 +15,18 @@
 .idea
 .project
 .strong-pm
-.c9
 coverage
+
+# Configuration Cloud9 Files
+.c9
+
+# Dependency directory
 node_modules
 npm-debug.log
+
+# DataBase
 data
 mongod
+
+# Temp rm before commit !
+client
