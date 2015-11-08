@@ -12,11 +12,11 @@ Accessible à :
 Installation Prod (Ubuntu Server 14.04 LTS):
 1. Install
     1. Sécuriser le Serveur
-    2. Installer Node.JS(4.2.x) & NPM (3.X)
+    2. Installer Node.JS(4.2.x) & NPM (3.x)
         - sudo apt-get install curl
         - curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
         - sudo apt-get install -y nodejs
-        - sudo npm install - g npm
+        - sudo npm install -g npm
         * [INFO]: https://github.com/nodesource/distributions
     3. Installer MongoDB (3.x)
         - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10

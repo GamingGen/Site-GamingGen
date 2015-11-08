@@ -1,11 +1,11 @@
 {
   "ids": {
-    "ManagerHost": 3,
+    "ManagerHost": 2,
     "LoadBalancer": 1
   },
   "models": {
     "ManagerHost": {
-      "cdd7ace2-1fef-49a1-b2fd-7a86a59af750": "{\"id\":\"cdd7ace2-1fef-49a1-b2fd-7a86a59af750\",\"host\":\"darkterra.fr\",\"port\":8701,\"actions\":[\"delete\",\"edit\",\"env-set\",\"env-get\"],\"protocol\":\"http\",\"created\":1446883743055,\"error\":null,\"errorType\":null,\"app\":null,\"processes\":{\"pids\":[]},\"$$hashKey\":\"object:252\",\"isHostProblem\":true}"
+      "b2977cbf-4963-4143-831e-9ce0bd6b883d": "{\"id\":\"b2977cbf-4963-4143-831e-9ce0bd6b883d\",\"host\":\"darkterra.fr\",\"port\":8701,\"actions\":[\"delete\",\"edit\",\"env-set\",\"env-get\"],\"protocol\":\"http\",\"created\":1446970026217,\"error\":null,\"errorType\":null,\"app\":null,\"processes\":{\"pids\":[]}}"
     },
     "LoadBalancer": {}
   }
