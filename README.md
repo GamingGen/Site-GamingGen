@@ -40,7 +40,7 @@ Installation Prod (Ubuntu Server 14.04 LTS):
         - 8701
         - 3000
         - 3001
-    2. Git :
+    2. Git : (A supprimer ?)
         - git config --global http.postBuffer 1048576000
         
 ```
