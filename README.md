@@ -3,7 +3,6 @@ Site Web de l'association GamingGen
 
 Accessible à :
 ```
-
 * DEV-URL : http://site-gaminggen-darkterra.c9.io:8080/
 * PROD-URL : http://darkterra.fr:3001/
 ```
@@ -96,7 +95,6 @@ Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
         
         # Dependency directory
         node_modules
-        npm-debug.log
         
         # DataBase
         data
