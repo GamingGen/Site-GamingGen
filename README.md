@@ -1,15 +1,15 @@
 # Site-GamingGen
 Site Web de l'association GamingGen
 
-```
 Accessible à :
+```
 
 * DEV-URL : http://site-gaminggen-darkterra.c9.io:8080/
 * PROD-URL : http://darkterra.fr:3001/
 ```
 
-```
 Installation Prod (Ubuntu Server 14.04 LTS):
+```
 1. Install
     1. Sécuriser le Serveur
     
@@ -50,8 +50,8 @@ Installation Prod (Ubuntu Server 14.04 LTS):
         
 ```
 
-```
 Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
+```
 1. Préparation
     - Créer le Workspase (préciser le repo Github)
 
