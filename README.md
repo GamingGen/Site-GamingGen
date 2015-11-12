@@ -44,8 +44,11 @@ Installation Prod (Ubuntu Server 14.04 LTS):
         - 3000
         - 3001
     
-    2. Git : (A supprimer ?)
-        - git config --global http.postBuffer 1048576000
+    2. Git :
+        - git config --global color.diff auto
+        - git config --global color.status auto
+        - git config --global color.branch auto
+        - git config --global http.postBuffer 1048576000 (A supprimer ?)
         
 ```
 
