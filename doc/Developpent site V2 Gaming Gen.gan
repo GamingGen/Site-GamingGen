@@ -25,7 +25,7 @@ Ce document est amené à évoluer avec le temps. Il faut garder en tête que le
         <field id="tpd3" name="Nom" width="56" order="0"/>
         <field id="tpd4" name="Date de début" width="21" order="1"/>
         <field id="tpd5" name="Date de fin" width="21" order="2"/>
-        <timeline><![CDATA[152,158,94,0,102,171,28]]></timeline>
+        <timeline><![CDATA[0,102,28,94,158,171,152]]></timeline>
         <option id="color.recent"><![CDATA[#009966 #ffff00 #ff0000]]></option>
     </view>
     <view id="resource-table">
@@ -75,7 +75,7 @@ Ce document est amené à évoluer avec le temps. Il faut garder en tête que le
                 <notes><![CDATA[Création d'un projet sous Cloude9 (IDE)]]></notes>
             </task>
         </task>
-        <task id="28" name="Phase 1" color="#009966" meeting="false" start="2015-10-21" duration="23" complete="17" expand="true">
+        <task id="28" name="Phase 1" color="#009966" meeting="false" start="2015-10-21" duration="23" complete="58" expand="true">
             <notes><![CDATA[Installation de la base des nouvelles techno "Back-End' (Node.JS, StrongLoop et MongoDB) avec les pages du site existant.]]></notes>
             <depend id="94" type="2" difference="0" hardness="Strong"/>
             <task id="52" name="Installation des technos" color="#8cb6ce" meeting="false" start="2015-10-21" duration="1" complete="100" expand="true">
@@ -86,19 +86,19 @@ Ce document est amené à évoluer avec le temps. Il faut garder en tête que le
                 <notes><![CDATA[Récupération complete du site actuel sur le répo GitHub de l'Association Gaming Generation]]></notes>
                 <depend id="61" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="61" name="Rendre les pages actuelles accesible" color="#8cb6ce" meeting="false" start="2015-10-23" duration="3" complete="77" expand="true">
+            <task id="61" name="Rendre les pages actuelles accesible" color="#8cb6ce" meeting="false" start="2015-10-23" duration="3" complete="100" expand="true">
                 <notes><![CDATA[Vu que le site actuel n'a pas d'architecture, il faut temporairement adapter Node.JS et StrongLoop pour pouvoir déservir les pages actuelles.]]></notes>
                 <depend id="57" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="57" name="Création des models" color="#8cb6ce" meeting="false" start="2015-10-28" duration="3" complete="0" expand="true">
+            <task id="57" name="Création des models" color="#8cb6ce" meeting="false" start="2015-10-28" duration="3" complete="100" expand="true">
                 <notes><![CDATA[Création des Modeles de données avec StrongLoop]]></notes>
                 <depend id="66" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="66" name="Test unitaires" color="#8cb6ce" meeting="false" start="2015-11-02" duration="2" complete="0" expand="true">
+            <task id="66" name="Test unitaires" color="#8cb6ce" meeting="false" start="2015-11-02" duration="2" complete="100" expand="true">
                 <notes><![CDATA[Vérification que chaque partie atomique joue bien son rôle]]></notes>
                 <depend id="69" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="69" name="Intégration du design" color="#8cb6ce" meeting="false" start="2015-11-04" duration="1" complete="0" expand="true">
+            <task id="69" name="Intégration du design" color="#8cb6ce" meeting="false" start="2015-11-04" duration="1" complete="100" expand="true">
                 <notes><![CDATA[Ajout du CSS créer par Dolz]]></notes>
                 <depend id="72" type="2" difference="0" hardness="Strong"/>
             </task>
@@ -106,7 +106,7 @@ Ce document est amené à évoluer avec le temps. Il faut garder en tête que le
                 <notes><![CDATA[Vérification que l'ensemble fonctionne]]></notes>
                 <depend id="75" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="75" name="Ajout d'un début de back office" color="#8cb6ce" meeting="false" start="2015-11-11" duration="5" complete="0" expand="true">
+            <task id="75" name="Ajout d'un début de back office" color="#8cb6ce" meeting="false" start="2015-11-11" duration="5" complete="61" expand="true">
                 <notes><![CDATA[Développement d'un début de back office, permettant de gérer les news]]></notes>
                 <depend id="78" type="2" difference="0" hardness="Strong"/>
                 <depend id="83" type="2" difference="0" hardness="Strong"/>
@@ -118,16 +118,16 @@ Ce document est amené à évoluer avec le temps. Il faut garder en tête que le
             <task id="127" name="Mise en Prod" color="#8cb6ce" meeting="false" start="2015-11-20" duration="1" complete="0" expand="true"/>
             <task id="83" name="Déplacement nom de domaine" color="#8cb6ce" meeting="false" start="2015-11-18" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="94" name="Phase 2" color="#009966" meeting="false" start="2015-11-23" duration="48" complete="0" expand="true">
+        <task id="94" name="Phase 2" color="#009966" meeting="false" start="2015-11-23" duration="48" complete="12" expand="true">
             <notes><![CDATA[Modification des pages du site existant pour ajouter Angular et rendre "Dynamique", Alimentation de la BDD, Ajout des nouvelles fonctionnalitées]]></notes>
             <depend id="171" type="2" difference="0" hardness="Strong"/>
-            <task id="125" name="Création des models supplémentaires" color="#8cb6ce" meeting="false" start="2015-11-23" duration="2" complete="0" expand="true">
+            <task id="125" name="Création des models supplémentaires" color="#8cb6ce" meeting="false" start="2015-11-23" duration="2" complete="100" expand="true">
                 <depend id="102" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="102" name="Conception du Back Office" color="#000000" meeting="false" start="2015-11-25" duration="22" complete="0" expand="true">
+            <task id="102" name="Conception du Back Office" color="#000000" meeting="false" start="2015-11-25" duration="22" complete="18" expand="true">
                 <notes><![CDATA[Zone pure de Dev]]></notes>
                 <depend id="152" type="2" difference="0" hardness="Strong"/>
-                <task id="104" name="Conception des API" color="#8cb6ce" meeting="false" start="2015-11-25" duration="16" complete="0" expand="true">
+                <task id="104" name="Conception des API" color="#8cb6ce" meeting="false" start="2015-11-25" duration="16" complete="25" expand="true">
                     <depend id="118" type="2" difference="0" hardness="Strong"/>
                 </task>
                 <task id="118" name="Installation de Socket.IO" meeting="false" start="2015-12-17" duration="1" complete="0" expand="true">
