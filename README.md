@@ -65,12 +65,17 @@ Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
         - WIP...
 
 3. Configuration
-    1. Créer un fichier
+    1. Créer un dossier permettant d'accueil la BDD
         - mkdir data
+        
+    2. Créer un fichier pour démarer la BDD
         - echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"' > mongod
         - chmod a+x mongod
         - To start the Server : ./mongod
         * [INFO]: https://docs.c9.io/docs/setting-up-mongodb
+      
+    3. Créer un fichier pour réparer la BDD (en cas 'Unclean shutdown detected')
+        - echo -e '# Only for Cloude9!\nmongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@" --repair' > mongodRepair
 
   2. Git :
     - ajouter à .gitignore:
