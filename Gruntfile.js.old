@@ -1,0 +1,22 @@
+module.exports = function(grunt) {
+  // Project configuration.
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    docular: {
+      groups: [],
+      showDocularDocs: true,
+      showAngularDocs: true
+    },
+    
+    docularserver: {
+      targetDir: "./docular_generated",
+      port: 8080
+    }
+  });
+  
+  // Load the plugin that provides the "docular" tasks.
+  grunt.loadNpmTasks('grunt-docular');
+  
+  // Default task(s).
+  grunt.registerTask('default', ['docular']);
+};

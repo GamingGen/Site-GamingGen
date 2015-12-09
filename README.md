@@ -63,6 +63,9 @@ Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
 
     2. MongoDB (x.x)
         - WIP...
+    
+    3. Grunt CLI
+        - npm install -g grunt-cli
 
 3. Configuration
     1. Créer un dossier permettant d'accueil la BDD
@@ -76,6 +79,9 @@ Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
       
     3. Créer un fichier pour réparer la BDD (en cas 'Unclean shutdown detected')
         - echo -e '# Only for Cloude9!\nmongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@" --repair' > mongodRepair
+    
+    4. Grunt & Docular
+        - echo -e 'module.exports = function(grunt) {\n  // Project configuration.\n  grunt.initConfig({\n    pkg: grunt.file.readJSON("package.json"),\n    docular: {\n      groups: [],\n      showDocularDocs: true,\n      showAngularDocs: true\n    },\n\n    docularserver: {\n    targetDir: "./docular_generated",\n    port: 8080\n}\n  });\n\n  // Load the plugin that provides the "docular" tasks.\n  grunt.loadNpmTasks("grunt-docular");\n\n  // Default task(s).\n  grunt.registerTask("default", ["docular"]);\n};' > Gruntfile.js
 
   2. Git :
     - ajouter à .gitignore:
