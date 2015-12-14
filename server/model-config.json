@@ -61,5 +61,11 @@
     "public": true,
     "$promise": {},
     "$resolved": true
+  },
+  "Teams": {
+    "dataSource": "MongoDB",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
   }
 }

@@ -12,10 +12,6 @@
       "required": true,
       "comments": "Champ obligatoire pour pouvoir contacter l'ut"
     },
-    "Team": {
-      "type": "object",
-      "comments": "Champ optionnel (contient toutes les infos de la Team)"
-    },
     "Acces": {
       "type": "object",
       "required": true,
@@ -36,6 +32,10 @@
       "required": true,
       "index": true,
       "comments": "Champ obligatoire & Indéxé pour pouvoir effectuer des recherche optimisé depuis"
+    },
+    "Team": {
+      "type": "Teams",
+      "comments": "Champ optionnel (contient toutes les infos de la Team)"
     }
   },
   "validations": [],
