@@ -7,7 +7,17 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<div ng-app="backPlayer">
+<div ng-app="frontPlayer">
+    <div class="playlist">
+        <ul>
+            <li><a ng-click="controller.setVideo(0)">Pale Blue Dot</a></li>
+            <li><a ng-click="controller.setVideo(1)">Big Buck Bunny</a></li>
+        </ul>
+    </div>
 </div>
+<script src="../node_modules/angular/angular.min.js"></script>
+<script src="../node_modules/socket.io/lib/socket.js"></script>
+<script src="js/io.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

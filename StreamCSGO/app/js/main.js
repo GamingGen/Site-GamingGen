@@ -2,18 +2,20 @@
  * Created by alexandre.leclerc on 16/12/2015.
  */
 'use strict';
-angular.module('frontPlayer',
+var app = angular.module('frontPlayer',
     [
         "ngSanitize",
         "com.2fdevs.videogular",
         "com.2fdevs.videogular.plugins.controls",
         "com.2fdevs.videogular.plugins.overlayplay",
         "com.2fdevs.videogular.plugins.poster",
-        "com.2fdevs.videogular.plugins.buffering"
+        "com.2fdevs.videogular.plugins.buffering",
+        "btford.socket-io",
+        "frontPlayer.HomeCtrl"
     ]
-)
-    .controller('FrontCtrl',
-    ["$sce","$timeout", function ($sce, $timeout) {
+);
+    app.controller('HomeCtrl',
+    ["$sce",'socket',"$timeout", function ($sce, socket, $timeout) {
         var controller = this;
         controller.API = null;
         controller.onPlayerReady = function (API) {
@@ -73,8 +75,15 @@ angular.module('frontPlayer',
         };
 
         $timeout( function(){ $sce.callAtTimeout(); }, 500);
+
     }]
 );
+
+app.factory('mySocket', function (socketFactory) {
+    var mySocket = socketFactory();
+    mySocket.forward('error');
+    return mySocket;
+});
 
 function callAtTimeout() {
     console.log("Timeout occurred");
