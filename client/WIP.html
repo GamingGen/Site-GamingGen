@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html ng-app="store">
+  <head>
+    <title>Gaming-gen</title>
+    
+    <link rel="icon" href="img/favicon.ico"/>
+    <link rel="icon" type="image/png" href="img/favicon.png"/>
+    
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  </head>
+  
+  <body>
+          
+          <svg id="svg" style="background-color: Gray;height:500;width:800;"></svg>
+          
+          <!--<div ng-include="'index.html'"></div>-->
+          
+          <!--<script type="text/javascript" src="js/raphael.min.js"></script>-->
+          
+          <!--<script type="text/javascript">-->
+          <!--  var step = 25;-->
+          <!--  var R = Raphael(0, 0, "100%", "100%"),-->
+          <!--    r = R.circle(100, 100, 50).attr({fill: "hsb(0, 1, 1)", stroke: "none", opacity: .9}),-->
+          <!--    g = R.circle(210, 100, 50).attr({fill: "hsb(.3, 1, 1)", stroke: "none", opacity: .9}),-->
+          <!--    b = R.circle(320, 100, 50).attr({fill: "hsb(.6, 1, 1)", stroke: "none", opacity: .9}),-->
+          <!--    p = R.circle(430, 100, 50).attr({fill: "hsb(.8, 1, 1)", stroke: "none", opacity: .9});-->
+              
+          <!--  var start = function () {-->
+              
+          <!--    this.ox = this.attr("cx");-->
+          <!--    this.oy = this.attr("cy");-->
+          <!--    this.step = step;-->
+          <!--    this.animate({r: 60, opacity: .5}, 500, ">");-->
+          <!--  },-->
+            
+          <!--  move = function (dx, dy) {-->
+              <!--// if ((this.attr("cx") > (dx - step) || this.attr("cx") < (dx + step)) || (this.attr("cy") < (dy + step) || this.attr("cy") > (dy - step))) {-->
+              <!--// this.step = step;-->
+              
+          <!--    this.attr({cx: this.ox + dx + this.step, cy: this.oy + dy + this.step});-->
+          <!--    console.log('cx: ' + (this.ox + dx + this.step) + ', cy: ' + (this.oy + dy + this.step) + ' step: ' + this.step);-->
+              <!--// }-->
+              
+          <!--  },-->
+            
+          <!--  up = function () {-->
+          <!--    this.animate({r: 50, opacity: .9}, 500, ">");-->
+          <!--  };-->
+            
+          <!--  R.set(r, g, b, p).drag(move, start, up);-->
+          <!--</script>-->
+          
+    
+    <!--Ajout des .JS-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/angular-resource.min.js"></script>
+    <script type="text/javascript" src="js/lb-services.js"></script>
+    
+    
+    <script type="text/javascript" src="js/snap.svg.js"></script>
+    
+    <script>
+      // var s = Snap("#svg");
+      // var block = s.rect(100, 100, 100, 100, 20, 20);
+      // block.attr({
+      //     fill: "rgb(236, 240, 241)",
+      //     stroke: "#1f2c39",
+      //     strokeWidth: 3
+      // });
+ 
+      // block.drag();
+      
+      var S = Snap("#svg");
+      var gridSize = 100;
+      var orig = {
+        x: 0,
+        y: 0
+      };
+      
+      var block = S.rect(100, 100, 100, 50, 10, 10).attr({opacity: .9});
+      var block2 = S.rect(100, 0, 100, 50, 10, 10).attr({opacity: .9});
+      
+      block.attr({
+          fill: "rgb(236, 240, 241)",
+          stroke: "#1f2c39",
+          strokeWidth: 2
+      });
+      
+      block2.attr({
+          fill: "rgb(26, 255, 255)",
+          stroke: "#1f2c39",
+          strokeWidth: 2
+      });
+      
+      var gridMove = function (dx, dy, x, y, e) {
+        var xSnap = Snap.snapTo(gridSize, orig.x + dx, 100000000);
+        var ySnap = Snap.snapTo(gridSize, orig.y + dy, 100000000);
+        this.attr({
+          x: xSnap,
+          y: ySnap
+          //opacity: .5
+        });
+      };
+      
+      var start = function (x, y, e) {
+        orig.x = e.toElement.x.baseVal.value;
+        orig.y = e.toElement.y.baseVal.value;
+        //this.animate({opacity: .5}, 500, ">");
+      };
+      
+      // var end = function () {
+      //   this.animate({opacity: .9}, 500, ">");
+      // };
+      
+      block.drag(gridMove, start);
+      block2.drag(gridMove, start);
+      
+      // var st = Snap.set();
+      // st.push(block, block2);
+      // st.drag(gridMove, start);
+    </script>
+    <!--<script type="text/javascript" src="js/fresco.js"></script>-->
+    <!--<script type="text/javascript" src="js/modernizr.js"></script>-->
+    <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
+    <!--<script type="text/javascript" src="js/classie.js"></script>-->
+    <!--<script type="text/javascript" src="js/modalEffects.js"></script>-->
+  </body>
+</html>
