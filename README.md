@@ -12,7 +12,7 @@ Installation Prod (Ubuntu Server 14.04 LTS):
 1. Install
     1. Sécuriser le Serveur
     
-    2. Installer Node.JS(4.2.x) & NPM (3.x)
+    2. Installer Node.JS(5.11.x) & NPM (3.x)
         - sudo apt-get install curl
         - curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
         - sudo apt-get install -y nodejs
@@ -58,10 +58,10 @@ Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
     - Créer le Workspase (préciser le repo Github)
 
 2. Installation
-    1. Node.JS (4.2.x)
+    1. Node.JS (5.11.x)
         - WIP...
 
-    2. MongoDB (x.x)
+    2. MongoDB (3.x)
         - WIP...
     
     3. Grunt CLI
