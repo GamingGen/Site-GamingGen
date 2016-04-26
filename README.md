@@ -1,5 +1,5 @@
 # Site-GamingGen
-Site Web de l'association GamingGen
+Site Web de l'association GamingGen (built on Cloud9 IDE!)
 
 Accessible à :
 ```

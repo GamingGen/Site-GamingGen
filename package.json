@@ -8,9 +8,6 @@
   "bugs": {
     "url": "https://github.com/GamingGen/Site-GamingGen/issues"
   },
-  "scripts": {
-    "pretest": "jshint ."
-  },
   "dependencies": {
     "angular": "^1.5.5",
     "bcrypt": "^0.8.6",
