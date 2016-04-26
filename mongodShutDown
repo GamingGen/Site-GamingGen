@@ -1,1 +1,1 @@
-mongod --shutdown
+mongod --dbpath=data --shutdown

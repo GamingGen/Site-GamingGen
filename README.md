@@ -64,7 +64,10 @@ Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
     2. MongoDB (3.x)
         - WIP...
     
-    3. Grunt CLI
+    3. PM2
+        - 
+    
+    4. Grunt CLI
         - npm install -g grunt-cli
 
 3. Configuration
