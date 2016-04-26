@@ -20,8 +20,8 @@ Installation Prod (Ubuntu Server 14.04 LTS):
         * [INFO]: https://github.com/nodesource/distributions
     
     3. Installer MongoDB (3.x)
-        - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-        - echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+        - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+        - echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
         - sudo apt-get update
         - sudo apt-get install -y mongodb-org
         * [INFO]: https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/
@@ -62,10 +62,14 @@ Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
         - WIP...
 
     2. MongoDB (3.x)
-        - WIP...
+        - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+        - echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+        - sudo apt-get update
+        - sudo apt-get install -y mongodb-org
+        * [INFO]: https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/
     
     3. PM2
-        - 
+        - sudo npm install -g pm2
     
     4. Grunt CLI
         - npm install -g grunt-cli
