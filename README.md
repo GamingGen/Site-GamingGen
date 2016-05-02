@@ -89,6 +89,9 @@ Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
     
     4. Grunt & Docular
         - echo -e 'module.exports = function(grunt) {\n  // Project configuration.\n  grunt.initConfig({\n    pkg: grunt.file.readJSON("package.json"),\n    docular: {\n      groups: [],\n      showDocularDocs: true,\n      showAngularDocs: true\n    },\n\n    docularserver: {\n    targetDir: "./docular_generated",\n    port: 8080\n}\n  });\n\n  // Load the plugin that provides the "docular" tasks.\n  grunt.loadNpmTasks("grunt-docular");\n\n  // Default task(s).\n  grunt.registerTask("default", ["docular"]);\n};' > Gruntfile.js
+    
+    5. Docco
+        - 
 
   2. Git :
     - ajouter à .gitignore:

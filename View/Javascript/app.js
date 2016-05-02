@@ -1,7 +1,7 @@
 (function() {
-  var app = angular.module('store', ['lbServices']);
+  var app = angular.module('store', []);
   
-  app.controller('StoreController', function(User){
+  app.controller('StoreController', function(){
     this.products = gems;
   });
   

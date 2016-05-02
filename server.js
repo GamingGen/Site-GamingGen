@@ -23,30 +23,46 @@ var pmx = require('pmx').init({
 
 
 // Requires de bases
-let express         = require('express');
-let app             = express();
-let compression     = require('compression');
-let http            = require('http').Server(app);
-let path            = require('path');
-// let favicon         = require('serve-favicon');
-let cookieParser    = require('cookie-parser');
-let bodyParser      = require('body-parser');
-let session         = require('express-session');
-// let os              = require('os');
-// let cpu             = require('cpu-load');
-let colors          = require('colors');
-// let resumable       = require('./resumable-node.js')('tmp/');
-// let shelljs         = require('shelljs');
-let fs              = require('fs');
+const express       = require('express');
+const app           = express();
+const compression   = require('compression');
+const http          = require('http').Server(app);
+const path          = require('path');
+// let favicon       = require('serve-favicon');
+const cookieParser  = require('cookie-parser');
+const bodyParser    = require('body-parser');
+// let os            = require('os');
+// let cpu           = require('cpu-load');
+const colors        = require('colors');
+// let resumable     = require('./resumable-node.js')('tmp/');
+// let shelljs       = require('shelljs');
+const fs            = require('fs');
 
+const session       = require('express-session');
+const mongoose      = require('mongoose');
 
-// Require des controllers
-/*var compte          = require('./controllers/compte');
-var accueil         = require('./controllers/accueil');
-var oublie          = require('./controllers/oublie');*/
+const passport      = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+var logger          = require('./Controller/logger');
+
+// mongoose
+mongoose.connect('mongodb://localhost/gaminggen', function (error) {
+    if (error) {
+        console.log(error);
+    }
+});
+
+// Require des Controllers
+var Users = require('./Controller/users');
+var Conf = require('./Controller/conf');
+
+// Require des Models
+var userSchema = require('./Model/userSchema');
 
 // Variables
 let dataJson = "";
+
 
 // Configuration de la coloration des logs
 colors.setTheme({
@@ -71,6 +87,7 @@ var sessionMiddleware = session({
     secret              : EXPRESS_SID_VALUE,
     resave              : false,
     saveUninitialized   : true,
+    //store               : new MongoStore(connexion)
 });
 
 // Configuration de l'application
@@ -80,7 +97,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(sessionMiddleware);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(pmx.expressErrorHandler());
+app.use(require('morgan')("combined", { "stream": logger.stream }));
+
+// passport config
+passport.use(new LocalStrategy(userSchema.authenticate()));
+passport.serializeUser(userSchema.serializeUser());
+passport.deserializeUser(userSchema.deserializeUser());
 
 // Events
 let EventEmitter    = require('events').EventEmitter;
@@ -94,7 +119,8 @@ require('./Controller/sockets').listen(http, sessionMiddleware, ServerEvent, col
 
 // Routing
 app.use(express.static(path.join(__dirname, 'View')));
-/*app.use('/compte', compte);*/
+app.use('/users', Users);
+app.use('/conf', Conf);
 
 // Build client side bundle
 // builder.build({ socket: '', ServerEvent: ServerEvent });
@@ -123,6 +149,11 @@ function shouldCompress(req, res) {
   // fallback to standard filter function 
   return compression.filter(req, res);
 }
+
+
+
+
+
 
 // Check Version of Node before Launch.
 fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
