@@ -94,7 +94,7 @@ var sessionMiddleware = session({
 // app.use(compression({filter: shouldCompress}));
 // app.use(favicon(__dirname + '/View/Images/favicon.ico'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(sessionMiddleware);
 app.use(passport.initialize());

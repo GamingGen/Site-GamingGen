@@ -13,30 +13,29 @@ router.get('/', function (req, res) {
 
 router.post('/insert', function(req, res) {
   var newConf = new confSchema({
-    name  : req.params.name,
+    name  : req.query.name,
     teams   : {
-                  nb_max_player               : req.params.max_player,
-                  nb_max_manager              : req.params.max_manager,
-                  nb_hour_before_team_freez   : req.params.before_team_freez
+                  nb_max_player               : req.query.max_player,
+                  nb_max_manager              : req.query.max_manager,
+                  nb_hour_before_team_freez   : req.query.before_team_freez
                 },
     users    : {
-                  password_min_length   : req.params.password_min_length
-                }
+                  password_min_length   : req.query.password_min_length
+                },
+    roles :  req.query.roles || []
   });
   
   newConf.save(function(err) {
     if (err) {
-      throw err;
-      console.log(req.params.name + ' Existe Déjà !');
+      //throw err;
+      console.log(req.query.name + ' Existe Déjà !');
     }
-    
-    console.log('User saved successfully!');
   });
 });
 
 router.post('/update', function(req, res) {
   confSchema.findOne({
-    'name': req.params.name
+    'name': req.query.name
   },
   function(err, user) {
     console.log((user));

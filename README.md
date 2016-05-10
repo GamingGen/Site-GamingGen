@@ -52,14 +52,13 @@ Installation Prod (Ubuntu Server 14.04 LTS):
         
 ```
 
-Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
+Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
 ```
 1. Préparation
     - Créer le Workspase (préciser le repo Github)
 
 2. Installation
-    1. Node.JS (5.11.x)
-        - WIP...
+    1. Node.JS (6.0.x)
 
     2. MongoDB (3.x)
         - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
@@ -75,7 +74,7 @@ Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
         - npm install -g grunt-cli
 
 3. Configuration
-    1. Créer un dossier permettant d'accueil la BDD
+    1. Créer un dossier permettant d'accueillir la BDD
         - mkdir data
         
     2. Créer un fichier pour démarer la BDD
@@ -87,39 +86,54 @@ Installation Dev (Cloude9 - Ubuntu xx.xx LTS):
     3. Créer un fichier pour réparer la BDD (en cas 'Unclean shutdown detected')
         - echo -e '# Only for Cloude9!\nmongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@" --repair' > mongodRepair
     
-    4. Grunt & Docular
+    4. 
+        - 
+    
+    5. Grunt & Docular (A remplacer / Supprimer ?)
         - echo -e 'module.exports = function(grunt) {\n  // Project configuration.\n  grunt.initConfig({\n    pkg: grunt.file.readJSON("package.json"),\n    docular: {\n      groups: [],\n      showDocularDocs: true,\n      showAngularDocs: true\n    },\n\n    docularserver: {\n    targetDir: "./docular_generated",\n    port: 8080\n}\n  });\n\n  // Load the plugin that provides the "docular" tasks.\n  grunt.loadNpmTasks("grunt-docular");\n\n  // Default task(s).\n  grunt.registerTask("default", ["docular"]);\n};' > Gruntfile.js
     
-    5. Docco
+    6. Docco
         - 
+    
+    7. Git :
+        - ajouter à .gitignore:
+            # Dev Files
+            *.csv
+            *.dat
+            *.iml
+            *.log
+            *.out
+            *.pid
+            *.seed
+            *.sublime-*
+            *.swo
+            *.swp
+            *.tgz
+            *.xml
+            .DS_Store
+            .idea
+            .project
+            .strong-pm
+            coverage
+            
+            # Configuration Cloud9 Files
+            .c9
+            
+            # Dependency directory
+            node_modules
+            
+            # DataBase
+            data
 
-  2. Git :
-    - ajouter à .gitignore:
-        # Dev Files
-        *.csv
-        *.dat
-        *.iml
-        *.log
-        *.out
-        *.pid
-        *.seed
-        *.sublime-*
-        *.swo
-        *.swp
-        *.tgz
-        *.xml
-        .DS_Store
-        .idea
-        .project
-        .strong-pm
-        coverage
-        
-        # Configuration Cloud9 Files
-        .c9
-        
-        # Dependency directory
-        node_modules
-        
-        # DataBase
-        data
+4. Tools
+    - http://blog.mlab.com/2012/06/introducing-dex-the-index-bot/
+    - https://github.com/mrvautin/adminMongo
+
+5. Infos
+    - https://github.com/imperugo/NodeJs-Sample/blob/master/Logging/WinstonSample/express-configuration/index.js
+    - https://blog.serverdensity.com/monitor-mongodb/
+    - http://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619
+    - https://github.com/jaredhanson/passport-local
+    - http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/
+    - http://www.synbioz.com/blog/les_collections_avec_mongodb
 ```
