@@ -126,12 +126,16 @@
                 Pour célébrer les 10 ans de sa 1ère aventure (CS Arena, Avril 2005, 60 joueurs), l’association Gaming Generation vous propose un événement inoubliable ! <br/>
                 Tout l’univers du Jeu y sera représenté : une partie Festival (profitez d’une vingtaine de stands et d’animations gratuites pour tous) et une partie Tournois (200 joueurs vont se rassembler autour de 3 jours de compétitions acharnées).<br/><br/>
                 Gaming Gen, le Jeu est dans nos gènes !
+                
+                
               </h4>
               <!--buttonmore-->
             </div><!--articleinfo-->
-            <section class="buttonmore col-7-12">
+            <section ng-controller="myCtrl" class="buttonmore col-7-12">
               <button onclick="window.location.replace('festival.html');" class="btn btn-5 btn-5b icon-plus"><span><a href="more.html">Festival</a></span></button>
               <button onclick="window.location.replace('more.html');" class="btn btn-ins btn-insb icon-file"><span><a href="#">Tournois</a></span></button>
+              <button ng-click="FullScreen()" class="btn btn-5 btn-5b icon-plus">FullScreen</button>
+              <button ng-click="ExitFullScreen()" class="btn btn-5 btn-5b icon-plus">ExitFullScreen</button>
             </section>
             <div id="map_canvas" class="map_savnac">
             </div>
@@ -210,6 +214,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script type="text/javascript" src="Javascript/angular-resource.min.js"></script>
     <script type="text/javascript" src="Javascript/app.js"></script>
+    <script type="text/javascript" src="Javascript/testFullScreen.js"></script>
     <!--<script type="text/javascript" src="js/fresco.js"></script>-->
     <!--<script type="text/javascript" src="js/modernizr.js"></script>-->
     <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->

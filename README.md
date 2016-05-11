@@ -136,4 +136,7 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     - https://github.com/jaredhanson/passport-local
     - http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/
     - http://www.synbioz.com/blog/les_collections_avec_mongodb
+    - https://davidwalsh.name/fullscreen
+    - http://stackoverflow.com/questions/22189544/print-a-div-using-javascript-in-angularjs-single-page-aplication
+    - http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr
 ```
