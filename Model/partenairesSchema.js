@@ -24,8 +24,9 @@ PartenaireSchema.pre('findOneAndUpdate', function(next) {
   next();
 });
 
-PartenaireSchema.post('save', function() {
+PartenaireSchema.post('save', function(next) {
   console.log('Partenaire saved successfully!');
+  next();
 });
 
 

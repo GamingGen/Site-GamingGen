@@ -21,8 +21,9 @@ WatchListSchema.pre('findOneAndUpdate', function(next) {
   next();
 });
 
-WatchListSchema.post('save', function() {
+WatchListSchema.post('save', function(next) {
   console.log('WatchList saved successfully!');
+  next();
 });
 
 

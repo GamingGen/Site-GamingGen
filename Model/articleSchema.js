@@ -23,8 +23,9 @@ ArticleSchema.pre('findOneAndUpdate', function(next) {
   next();
 });
 
-ArticleSchema.post('save', function() {
+ArticleSchema.post('save', function(next) {
   console.log('Article saved successfully!');
+  next();
 });
 
 

@@ -55,7 +55,10 @@ mongoose.connect('mongodb://localhost/gaminggen', function (error) {
 
 // Require des Controllers
 var Users = require('./Controller/users');
-var Conf = require('./Controller/conf');
+var Conf = require('./Controller/confs');
+var Article = require('./Controller/articles');
+var Partenaire = require('./Controller/partenaires');
+var WatchList = require('./Controller/watchLists');
 
 // Require des Models
 var userSchema = require('./Model/userSchema');
@@ -120,7 +123,8 @@ require('./Controller/sockets').listen(http, sessionMiddleware, ServerEvent, col
 // Routing
 app.use(express.static(path.join(__dirname, 'View')));
 app.use('/users', Users);
-app.use('/conf', Conf);
+app.use('/confs', Conf);
+app.use('/articles', Article);
 
 // Build client side bundle
 // builder.build({ socket: '', ServerEvent: ServerEvent });

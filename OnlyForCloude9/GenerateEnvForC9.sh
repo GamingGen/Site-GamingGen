@@ -159,6 +159,7 @@ testDirectory "data"
 
 # Deplacement de la console sur le bon dosser
 cd $DirNameScript
+cd ../
 
 # Boucle permettan la vérification et la génération des fichiers pour la BDD
 for ((j=0; $j < $NbrTest; j=$(($j + 2))))

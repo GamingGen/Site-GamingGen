@@ -23,29 +23,23 @@ router.get('/', function (req, res) {
 //   });
 // });
 
-router.get('/:username/:password/:mail', function (req, res) {
+router.post('/insert', function (req, res) {
   var newUser = new userSchema({
-    username  : req.params.username,
-    password  : req.params.password,
-    email     : req.params.mail,
+    username  : req.query.username,
+    password  : req.query.password,
+    email     : req.query.email,
     general   : {
-                  first_name    : 'Jérémy',
-                  last_name     : 'Young',
-                  birthday      : Date.now(),
-                  zip           : 13500,
-                  register_date : Date.now()
-                },
-    access    : {
-                  level   :10,
-                  groups  : ['Admin'],
-                  ban     : false
+                  first_name    : req.query.first_name,
+                  last_name     : req.query.last_name,
+                  birthday      : req.query.birthday,
+                  zip           : req.query.zip
                 }
   });
   
   newUser.save(function(err) {
     if (err) {
-      throw err;
-      console.log(req.params.username + ' Existe Déjà !');
+      //throw err;
+      console.log(err);
     }
     // TODO Something if nessesary
   });

@@ -139,4 +139,7 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     - https://davidwalsh.name/fullscreen
     - http://stackoverflow.com/questions/22189544/print-a-div-using-javascript-in-angularjs-single-page-aplication
     - http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr
+
+6. Utilisation Navigateur
+    - http://www.zdnet.fr/actualites/chiffres-cles-les-navigateurs-internet-39381322.htm
 ```

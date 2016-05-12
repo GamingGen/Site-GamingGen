@@ -24,6 +24,7 @@ ConfSchema.pre('validate', function(next) {
 
 ConfSchema.post('save', function(next) {
   console.log('User saved successfully!');
+  next();
 });
 
 module.exports = mongoose.model('conf', ConfSchema);

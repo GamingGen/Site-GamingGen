@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module('store', []);
+  var app = angular.module('articles', []);
   
   
   // Find the right method, call on correct element
@@ -37,29 +37,13 @@
     };
   });
   
-  app.controller('StoreController', function(){
-    this.products = gems;
-  });
-  
-  var gems = [
-    {
-      name: 'Dodecahedron',
-      price: 2.95,
-      description: '1. 2. 3.',
-      canPurchase: true
-    },
-    {
-      name: 'Pentagonal Gem',
-      price: 5.95,
-      description: '. . .',
-      canPurchase: false
-    }
-  ];
-  
+  app.controller('NewsController', ['$http', '$scope', function($http, $scope){
+    var news = this;
+    news.articles = [];
+    
+    $http.get('/articles').success(function(data) {
+      news.articles = data;
+      //console.log(JSON.stringify(data));
+    });
+  }]);
 })();
-
-var tests = [];
-
-for(var test of tests){
-  console.log(test);
-}

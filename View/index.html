@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="store">
+<html ng-app="articles">
   <head>
     <title>Gaming-gen</title>
     
@@ -7,11 +7,13 @@
     <link rel="icon" type="image/png" href="img/favicon.png"/>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="Style/jasny-bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style/reset.css">
-    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="Style/reset.css">
+    <link rel="stylesheet" href="Style/main.css">
     <link rel="stylesheet" href="lib/jquery.bxslider.css"/>
-    <link rel="stylesheet" type="text/css" href="style/fresco/fresco.css"/>
+    <link rel="stylesheet" type="text/css" href="Style/fresco/fresco.css"/>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   </head>
@@ -140,19 +142,18 @@
             <div id="map_canvas" class="map_savnac">
             </div>
             
-            <div class="blocpreviewnews" ng-controller="StoreController as store">
-              <div ng-repeat="product in store.products">
+            <div class="blocpreviewnews" ng-controller="NewsController as news">
+              <div ng-repeat="article in news.articles | orderBy : '-register_date'">
                 <a href="article4.html">
-                  <h2>{{product.name}}</h2>
+                  <h2>{{article.title}}</h2>
                 </a>
                 <hr class="sepanews"/>
                 <div class="preznews grid">
-                  <h5 class="col-3-12">{{product.price}}</h5>
+                  <h5 class="col-3-12">{{article.username}} - {{article.register_date | date : 'MMMM yyyy'}}</h5>
                 </div>
                 <hr class="sepanews"/><br/>
                 <h3>
-                  Ami gamer, <br/>
-                  {{product.description}}{...}
+                  {{article.text}}
                   <br/>
                 </h3><br/>
                 <h3>
@@ -212,13 +213,16 @@
     
     <!--Ajout des .JS-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <script type="text/javascript" src="Javascript/angular-resource.min.js"></script>
+    <script type="text/javascript" src="Javascript/Lib/angular-resource.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="Javascript/Lib/jasny-bootstrap.min.js"></script>
     <script type="text/javascript" src="Javascript/app.js"></script>
-    <script type="text/javascript" src="Javascript/testFullScreen.js"></script>
-    <!--<script type="text/javascript" src="js/fresco.js"></script>-->
-    <!--<script type="text/javascript" src="js/modernizr.js"></script>-->
-    <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
-    <!--<script type="text/javascript" src="js/classie.js"></script>-->
-    <!--<script type="text/javascript" src="js/modalEffects.js"></script>-->
+    <script type="text/javascript" src="Javascript/Locales/angular-locale_fr-fr.js"></script>
+    <script type="text/javascript" src="js/fresco.js"></script>
+    <script type="text/javascript" src="js/modernizr.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="js/classie.js"></script>
+    <script type="text/javascript" src="js/modalEffects.js"></script>
   </body>
 </html>

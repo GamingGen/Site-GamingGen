@@ -26,4 +26,6 @@ npm-debug.log
 
 # DataBase
 data
-#mongod
+mongod
+mongodRepair
+mongodShutDown

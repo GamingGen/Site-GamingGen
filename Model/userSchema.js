@@ -14,8 +14,8 @@ var UserSchema = new Schema({
                   last_name     : { type: String, required: true },
                   birthday      : { type: Date, required: true },
                   zip           : { type: Number, required: true },
-                  register_date : { type: Date },
-                  update_at     : { type: Date }
+                  update_at     : { type: Date, default: Date.now },
+                  register_date : Date
                 },
     team      : {
                   name          : String,
@@ -24,15 +24,15 @@ var UserSchema = new Schema({
                   table         : Number
                 },
     access    : {
-                  level   : { type: Number, required: true },
+                  level   : { type: Number, required: true, default: 1 },
                   groups  : { type: Array, required: true, default: ['member'] }, // TODO Save a referential Array in DB
-                  ban     : { type: Boolean, required: true }
+                  ban     : { type: Boolean, required: true, default: false }
                 }
 });
 
 UserSchema.pre('validate', function(next) {
-  if (this.password.length > 8) {
-    console.log('This Password: ' + this.password + ' is too short');
+  if (this.password.length < 8) {
+    console.log('This Password: is too short');
     next(new Error('This Password is too short'));
   }
   else {
@@ -41,9 +41,12 @@ UserSchema.pre('validate', function(next) {
 });
 
 UserSchema.pre('save', function(next) {
-  // if (this.isNew) {
+  var dateNow = Date.now();
+  //this.general.update_at = dateNow;
+  if (this.isNew) {
+    this.general.register_date = dateNow;
     this.password = bcrypt.hashSync(this.password, saltRounds);
-  // }
+  }
   next();
 });
 
@@ -55,7 +58,7 @@ UserSchema.pre('findOneAndUpdate', function(next) {
   //   }
   // });
   console.log(this.password);
-  this.update({}, {$set: { update_at:  Date.now() } });
+  this.update({}, {$set: { update_at:  Date.now } });
   next();
 });
 
