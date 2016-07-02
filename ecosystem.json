@@ -10,7 +10,7 @@
       "exec_mode"           : "cluster",
       "max_memory_restart"  : "512M",
       "port"                : 80,
-      "watch"               : true,
+      "watch"               : false,
       "env" : {
         "COMMON_VARIABLE": "true"
       },
