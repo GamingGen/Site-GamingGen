@@ -1,6 +1,5 @@
 var mongoose              = require('mongoose');
 var Schema                = mongoose.Schema;
-// var passportLocalMongoose = require('passport-local-mongoose');
 var bcrypt                = require('bcrypt');
 
 const saltRounds          = 10;
@@ -85,7 +84,5 @@ UserSchema.statics.authenticate = function(email, password, callback) {
 		}
 	});
 };
-
-// UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', UserSchema);

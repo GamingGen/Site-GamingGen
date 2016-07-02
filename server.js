@@ -20,17 +20,18 @@ const app           = express();
 const compression   = require('compression');
 const http          = require('http').Server(app);
 const path          = require('path');
-// let favicon       = require('serve-favicon');
+// let favicon      = require('serve-favicon');
 const cookieParser  = require('cookie-parser');
 const bodyParser    = require('body-parser');
 const colors        = require('colors');
-// let resumable     = require('./resumable-node.js')('tmp/');
-// let shelljs       = require('shelljs');
+// let resumable    = require('./resumable-node.js')('tmp/');
+// let shelljs      = require('shelljs');
 const fs            = require('fs');
 const session       = require('express-session');
 const mongoose      = require('mongoose');
 const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const MongoStore    = require('connect-mongo')(session);
 
 var logger          = require('./Controller/logger');
 
@@ -95,7 +96,7 @@ var sessionMiddleware = session({
     secret              : EXPRESS_SID_VALUE,
     resave              : false,
     saveUninitialized   : true,
-    //store               : new MongoStore(connexion)
+    store               : new MongoStore({ mongooseConnection: mongoose.connection })
 });
 
 // Conf app
