@@ -65,18 +65,18 @@ router.get('/getYears', function (req, res) {
 
 // ------------------------------ Events ------------------------------
 var snackEvent = function(ServerEvent) {
-  var number = 0;
-  var register_date;
+  // var number = 0;
+  // var register_date;
   
-  snackSchema.findOne({}, null, {sort: {number: -1}}, function(err, result) {
-    if (err) {
-      console.log(err);
-    }
-    else {
-      number = result.number;
-      register_date = result.register_date;
-    }
-  });
+  // snackSchema.findOne({}, null, {sort: {number: -1}}, function(err, result) {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   else {
+  //     number = result.number;
+  //     register_date = result.register_date;
+  //   }
+  // });
   
   
   
@@ -124,8 +124,8 @@ var snackEvent = function(ServerEvent) {
       total         : data.total,
       paid          : data.paid,
       free          : data.free,
-      number        : ++number,
-      register_date : register_date
+      // number        : ++number,
+      // register_date : register_date
     });
       
       

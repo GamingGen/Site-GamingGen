@@ -3,14 +3,22 @@ Site Web de l'association GamingGen (built on Cloud9 IDE!)
 
 Accessible à :
 ```
-* DEV-URL : http://site-gaminggen-darkterra.c9.io:8080/
-* PROD-URL : http://darkterra.fr:3001/
+* DEV-URL : http://si-gaminggen-darkterra-1.c9users.io/
+* PRE-PROD-URL : http://darkterra.fr/
 ```
 
-Installation Prod (Ubuntu Server 14.04 LTS):
+Installation Prod (Ubuntu Server 16.04 LTS):
 ```
 1. Install
     1. Sécuriser le Serveur
+        - Génération des certificats
+        - sudo apt-get update && sudo apt-get upgrade
+        - sudo apt-get install fail2ban
+        - sudo useradd -s /bin/bash -m -d /home/nodeuser -c "Node Safe User" nodeuser
+        - sudo passwd nodeuser
+        - sudo usermod -aG sudo nodeuser
+        - sudo apt-get install libcap2-bin
+        - sudo setcap cap_net_bind_service=+ep /usr/bin/nodejs
     
     2. Installer Node.JS(6.xx.x) & NPM (3.x)
         - sudo apt-get install curl
@@ -24,7 +32,9 @@ Installation Prod (Ubuntu Server 14.04 LTS):
         - echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
         - sudo apt-get update
         - sudo apt-get install -y mongodb-org
+        - sudo nano /etc/systemd/system/mongodb.service => Voir le lien ci-dessous (how-to-install-mongob-on-ubuntu-16-04)
         * [INFO]: https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/
+        * [INFO]: https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04
     
     4. Installer Git
         - sudo apt-get install software-properties-common
@@ -34,6 +44,7 @@ Installation Prod (Ubuntu Server 14.04 LTS):
     
     5. Installer PM2
         - sudo npm install pm2 -g
+        - pm2 install pm2-mongodb (Déjà activé ?)
         * [INFO]: http://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/
 
 2. Configuration du serveur
@@ -41,12 +52,6 @@ Installation Prod (Ubuntu Server 14.04 LTS):
         - 8701
         - 3000
         - 3001
-    
-    2. Git : (A supprimer ?)
-        - git config --global color.diff auto
-        - git config --global color.status auto
-        - git config --global color.branch auto
-        - git config --global http.postBuffer 1048576000
         
 ```
 
@@ -56,7 +61,7 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     - Créer le Workspase (préciser le repo Github)
 
 2. Installation
-    1. Node.JS (6.0.x)
+    1. Node.JS (6.x.x)
 
     2. MongoDB (3.x)
         - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927

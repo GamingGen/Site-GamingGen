@@ -44,26 +44,25 @@ router.get('/:id', function (req, res) {
 
 var articleEvent = function(ServerEvent) {
   
-  var id = 0;
-  var register_date;
+  // var id = 0;
   
-  articleSchema.findOne({}, null, {sort: {id: -1}}, function(err, result) {
-    if (err) {
-      console.log(err);
-    }
-    else {
-      if (result.id !== NaN) {
-        id = result.id;
-      }
-    }
-  });
+  // articleSchema.findOne({}, null, {sort: {id: -1}}, function(err, result) {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   else {
+  //     if (result.id !== NaN) {
+  //       id = result.id;
+  //     }
+  //   }
+  // });
   
   
   // TODO déplacer la gestion de id dans le schéma
   ServerEvent.on('saveArticle', function(data, socket) {
-    data.id = ++id;
+    // data.id = ++id;
     var newArticle = new articleSchema({
-      id            : data.id,
+      // id            : data.id,
       username      : data.username,
       title         : data.title,
       desc          : data.desc,

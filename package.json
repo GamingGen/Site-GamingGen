@@ -1,6 +1,6 @@
 {
   "name": "site-gaminggen",
-  "version": "1.0.0",
+  "version": "ALPHA-1.0.0",
   "main": "server/server.js",
   "homepage": "https://github.com/GamingGen/Site-GamingGen",
   "description": "site-gaminggen",
@@ -25,14 +25,15 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
     "paypal-rest-sdk": "^1.6.8",
-    "pm2": "^1.1.3",
     "pmx": "^0.6.1",
     "rcon": "^1.0.2",
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.4.5",
     "winston": "^2.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "pm2": "^1.1.3",
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/GamingGen/Site-GamingGen.git"
