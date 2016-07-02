@@ -89,8 +89,9 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     3. Créer un fichier pour réparer la BDD (en cas 'Unclean shutdown detected')
         - echo -e '# Only for Cloude9!\nmongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@" --repair' > mongodRepair
     
-    4. 
-        - 
+    4. SSH remember
+        - ssh-agent bash
+        - ssh-add /home/$USER/.ssh/id_rsa_nodeuser
     
     5. Grunt & Docular (A remplacer / Supprimer ?)
         - echo -e 'module.exports = function(grunt) {\n  // Project configuration.\n  grunt.initConfig({\n    pkg: grunt.file.readJSON("package.json"),\n    docular: {\n      groups: [],\n      showDocularDocs: true,\n      showAngularDocs: true\n    },\n\n    docularserver: {\n    targetDir: "./docular_generated",\n    port: 8080\n}\n  });\n\n  // Load the plugin that provides the "docular" tasks.\n  grunt.loadNpmTasks("grunt-docular");\n\n  // Default task(s).\n  grunt.registerTask("default", ["docular"]);\n};' > Gruntfile.js
@@ -116,7 +117,6 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
             .DS_Store
             .idea
             .project
-            .strong-pm
             coverage
             
             # Configuration Cloud9 Files
@@ -124,9 +124,16 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
             
             # Dependency directory
             node_modules
+            npm-debug.log
             
             # DataBase
             data
+            
+            # Only for Dev
+            mongod
+            mongodRepair
+            mongodShutDown
+            adminMongo
 
 4. Tools
     - http://blog.mlab.com/2012/06/introducing-dex-the-index-bot/
