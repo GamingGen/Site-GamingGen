@@ -51,10 +51,8 @@ var articleEvent = function(ServerEvent) {
       console.log(err);
     }
     else {
-      if (result !== undefined) {
-        if (result.id !== NaN) {
-          id = result.id;
-        }
+      if (result !== undefined && result !== null && result.id !== NaN) {
+        id = result.id;
       }
     }
   });

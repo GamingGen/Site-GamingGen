@@ -263,9 +263,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', func
     // console.log('Editor Title:', $scope.title);
     // console.log('Editor Desc:', $scope.desc);
     // console.log('Editor Content:', tinymce.activeEditor.getContent());
-    console.log(tinymce.activeEditor.getContent());
     var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
-    console.log(text);
     // TODO Récupérer l'username une fois la partie gestion des connexions fonctionnel
     var article = {
           username  : 'DarkTerra',

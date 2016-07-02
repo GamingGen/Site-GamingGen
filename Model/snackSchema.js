@@ -41,12 +41,13 @@ SnackSchema.pre('validate', function(next) {
   if (!this.year) {
     this.year = new Date().getFullYear();
   }
-  if (!this.number) {
-    this.number = 0;
-  }
-  else {
-    this.number++;
-  }
+  
+  // if (!this.number) {
+  //   this.number = 0;
+  // }
+  // else {
+  //   this.number++;
+  // }
   
   if (!this.register_date) {
     this.register_date = Date.now();
