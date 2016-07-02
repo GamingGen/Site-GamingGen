@@ -8,7 +8,7 @@ const logPath = './Logs/all-logs.log';
 fs.access(logPath, fs.R_OK | fs.W_OK, (err) => {
   console.log(err ? 'no access!' : 'can read/write');
   if (err) {
-    fs.mkdir('.Logs', (err) => {
+    fs.mkdir('Logs', (err) => {
       if (err) {
         console.log(err);
       }
