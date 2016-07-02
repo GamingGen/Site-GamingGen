@@ -2,8 +2,10 @@ var mongoose              = require('mongoose');
 var Schema                = mongoose.Schema;
 
 var ArticleSchema = new Schema({
+    id            : { type: Number, required: true, unique: true, index: true, trim: true },
     username      : { type: String, required: true },
     title         : { type: String, required: true },
+    desc          : { type: String, required: true },
     text          : { type: String, required: true },
     register_date : { type: Date, required: true }
 });
@@ -23,10 +25,9 @@ ArticleSchema.pre('findOneAndUpdate', function(next) {
   next();
 });
 
-ArticleSchema.post('save', function(next) {
+ArticleSchema.post('save', function() {
   console.log('Article saved successfully!');
-  next();
 });
 
 
-module.exports = mongoose.model('article', ArticleSchema);
+module.exports = mongoose.model('Article', ArticleSchema);

@@ -1,228 +1,419 @@
 <!DOCTYPE html>
-<html ng-app="articles">
+<html ng-app="GamingGen">
   <head>
-    <title>Gaming-gen</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="theme-color" content="#004d00">
+    
+    <title>Gaming-Gen</title>
+    
+    <base href="/">
     
     <link rel="icon" href="img/favicon.ico"/>
     <link rel="icon" type="image/png" href="img/favicon.png"/>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="Style/jasny-bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="Style/reset.css">
     <link rel="stylesheet" href="Style/main.css">
-    <link rel="stylesheet" href="lib/jquery.bxslider.css"/>
-    <link rel="stylesheet" type="text/css" href="Style/fresco/fresco.css"/>
-    
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  </head>
-  
-  <body>
-    <!-- Modal -->
-    <div class="md-modal md-effect-1" id="modal-1">
-      <div class="md-content">
-        <div class="insider">
-          <h1>LOGIN</h1>
-          <button onclick="window.location.replace('inscription.html');" class="insmodal btn btn-ins btn-insb icon-file">
-            <span>Créer un compte</span>
-          </button>
-          <hr/>
-          <div class="awake">
-            <form action="login.html" method="POST">
-              <div class="user"><img src="img/user.png"><input placeholder="Email" name="email"></div>
-              <div class="verrou"><img src="img/verrou.png"> <input placeholder="Mot de passe" name="password">
-                <button class="loupe goconnect" value="submit"><img src="img/goconnect.png"></button>
-              </div> 
-            </form>
-          </div>
-          <div class="mdp">
-          <a href="#">Mot de passe oublié?</a>
-          </div>
-        </div>
-        
-        <button class="md-close">X</button>
-      </div>
-    </div>
-    
-    <!-- /Modal -->
-    <div class="welcomeuser">
-      <span class="user"></span>
-      <a href="http://gaming-gen.fr/use/component/users/" data-modal="modal-1">Login</a>&nbsp;&nbsp;
-      <a href="http://gaming-gen.fr/dev/component/users/?view=registration" data-modal="modal-1">Créer un compte</a>
-    </div>
-    <div class="conteneurgnral">
-      <section class="header">
-        <div class="top grid grid-pad">
-          <div class="logo col-4-12"><a href="http://www.gaming-gen.fr" target="_self">
-            <img src="img/logo.png"></a>
-          </div><!--logo-->
-          <div class="nav col-8-12">
-            <ul>
-              <li>
-                <a href="index.html">Accueil</a>
-              </li>
-              <li>
-                <a href="#">Tournois</a>
-                <ul class="sousmenu">
-                  <li>
-                    <a href="more.html">CS:GO</a>
-                  </li>
-                  <li>
-                    <a href="autres.html">Autres tournois</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="festival.html">Festival du Jeu</a>
-              </li>
-              <li>
-                <a href="news.html">News</a>
-              </li>
-              <li>
-                <a href="partner.html">Partenaires</a>
-              </li>
-              <li>
-                <a href="galerie.html">Galerie</a>
-              </li>
-              <li>
-                <a href="asso.html">L'association</a>
-                <ul class="sousmenu media">
-                  <li>
-                    <a href="asso.html">L'équipe</a>
-                  </li>
-                  <li>
-                    <a href="media.html">Press kit</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div><!--nav-->
-        </div><!--top-->
-        <ul class="bxslider">
-          <li>
-            <img src="slide/Slide-Festival-1.jpg" />
-          </li>
-          <li>
-            <img src="slide/Slide-Festival-2.jpg" />
-          </li>
-          <li>
-            <img src="slide/Slide-Festival-3.jpg" />
-          </li>
-        </ul>
-      </section><!--header-->
-      <section class="ddle">
-        <div class="content grid grid-pad">
-          <div class="titrearticle col-9-12">
-            <h1>
-              GAMING GEN 4 <span>- 15 - 17 MAI 2015</span>
-            </h1>
-          </div><!--titrearticle-->
-          <div class="articletxt col-9-12">
-            <div class="articleinfo col-7-12">
-              <h5>
-                Du 15 au 17 Mai 2015 à La Halle de Gardanne, l’univers du Jeu est à l’honneur : tournois et animations gratuites
-              </h5>
-              <hr class="col-5-12"/>
-              <h4 class="col-12-12">
-                Pour célébrer les 10 ans de sa 1ère aventure (CS Arena, Avril 2005, 60 joueurs), l’association Gaming Generation vous propose un événement inoubliable ! <br/>
-                Tout l’univers du Jeu y sera représenté : une partie Festival (profitez d’une vingtaine de stands et d’animations gratuites pour tous) et une partie Tournois (200 joueurs vont se rassembler autour de 3 jours de compétitions acharnées).<br/><br/>
-                Gaming Gen, le Jeu est dans nos gènes !
-                
-                
-              </h4>
-              <!--buttonmore-->
-            </div><!--articleinfo-->
-            <section ng-controller="myCtrl" class="buttonmore col-7-12">
-              <button onclick="window.location.replace('festival.html');" class="btn btn-5 btn-5b icon-plus"><span><a href="more.html">Festival</a></span></button>
-              <button onclick="window.location.replace('more.html');" class="btn btn-ins btn-insb icon-file"><span><a href="#">Tournois</a></span></button>
-              <button ng-click="FullScreen()" class="btn btn-5 btn-5b icon-plus">FullScreen</button>
-              <button ng-click="ExitFullScreen()" class="btn btn-5 btn-5b icon-plus">ExitFullScreen</button>
-            </section>
-            <div id="map_canvas" class="map_savnac">
-            </div>
-            
-            <div class="blocpreviewnews" ng-controller="NewsController as news">
-              <div ng-repeat="article in news.articles | orderBy : '-register_date'">
-                <a href="article4.html">
-                  <h2>{{article.title}}</h2>
-                </a>
-                <hr class="sepanews"/>
-                <div class="preznews grid">
-                  <h5 class="col-3-12">{{article.username}} - {{article.register_date | date : 'MMMM yyyy'}}</h5>
-                </div>
-                <hr class="sepanews"/><br/>
-                <h3>
-                  {{article.text}}
-                  <br/>
-                </h3><br/>
-                <h3>
-                  <a href="article4.html">Lire la suite</a>
-                </h3>
-                <hr/>
-                <br/>
-              </div>
-            </div>
-          </div><!--articletxt-->
-          
-          
-          <div class="hotfix col-3-12">
-            <h6>RECHERCHER</h6>
-            <div class="rechloupe">
-              <input form="Recherche">
-              <button class="loupe" value="submit"><img src="img/loupe.jpg"></button>
-            </div><!--rechloupe-->
-            <div class="lastarticle">
-              <div class="stats"> <span class="csgoimg col-1-4"></span> <h3>COUNTER-STRIKE:GO</h3> <h4>30 Teams / 32 Slots</h4>
-                <progress id="avancement" value="85" max="100"></progress><br/>
-                <a href="inscrits.html">Voir les inscrits/équipes</a>
-              </div>
-            </div><!--lastarticle-->
-            <div class="surleforum">
-            </div><!--surleforum-->
-          </div><!--hotfix-->
-        
-        </div><!--content-->
-        <div class="grid grid-pad">
-          <div class="iconact col-6-12">
-            <span><a href="membres.html">Membres</a><img src="img/membres.gif"></span>
-            <span><a href="inscrits.html">Teams</a><img class="lazy" src="img/team.gif"></span>
-            <span><a href="galerie.html">Galeries</a><img src="img/galerie.gif"></span>
-            <span><a href="contact.html">Contact</a><img src="img/contact.gif"></span>
-            <span><a href="media.html">Media</a><img src="img/media.gif"></span>
-          </div><!--iconact-->
-          <div class="socialico push-right">
-            <span class="fbsoc col-3-12"><a href="https://fr-fr.facebook.com/gaming.gen.lan" target="_blank"></a></span>
-            <span class="twisoc col-3-12"><a href="https://twitter.com/gaminggenlan" target="_blank"></a></span>
-          </div><!--socialico-->
-        </div><!--iconact-->
-        <div class="pushfoot"></div>
-        
-        <footer>
-          <div class="menufooter">
-            <span class="ment">
-              <a href="index.html">Accueil</a>
-              <a href="asso.html">Qui sommes nous?</a>
-              <a href="mentleg.html">Mentions légales</a>
-            </span>
-          </div>
-        </footer><!--footer-->
-      </section><!--ddle-->
-    </div><!--conteneurgnral-->
-    
+    <link rel="stylesheet" href="Style/loading-bar.css" media="all">
     
     <!--Ajout des .JS-->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <script type="text/javascript" src="Javascript/Lib/angular-resource.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-alpha.5/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-animate.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Javascript/Lib/jasny-bootstrap.min.js"></script>
+    <script type="text/javascript" src="Javascript/Lib/jquery.carouFredSel-6.2.0-packed.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="Javascript/app.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/AppControllers.js"></script>
+    <script type="text/javascript" src="Javascript/Factories/Socket.io.js"></script>
+    <script type="text/javascript" src="Javascript/Factories/HttpBuffer.js"></script>
+    <script type="text/javascript" src="Javascript/Services/Slider.js"></script>
+    <script type="text/javascript" src="Javascript/Services/AuthService.js"></script>
     <script type="text/javascript" src="Javascript/Locales/angular-locale_fr-fr.js"></script>
-    <script type="text/javascript" src="js/fresco.js"></script>
-    <script type="text/javascript" src="js/modernizr.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-    <script type="text/javascript" src="js/classie.js"></script>
-    <script type="text/javascript" src="js/modalEffects.js"></script>
+    
+    <script type="text/javascript" src="Javascript/tinyMCE/bower_components/tinymce-dist/tinymce.js"></script>
+    <script type="text/javascript" src="Javascript/tinyMCE/bower_components/angular-ui-tinymce/src/tinymce.js"></script>
+    
+    <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+    <script type="text/javascript" src="Javascript/Lib/angular-youtube-embed.min.js"></script>
+    <script type="text/javascript" src="Javascript/Lib/loading-bar.js"></script>
+    <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
+  </head>
+  
+  <body ng-controller="mainCtrl">
+    <!--<div class="row">-->
+      <!--<div class="col-md-12">-->
+        
+        <!-- Inscription Modal -->
+        <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="registrationModalLabel">Inscription</h4>
+              </div>
+              <div class="modal-body">
+                <form ng-submit="formRegistration.$valid && submitRegister()" name="formRegistration" novalidate>
+                  <div class="row">
+                    <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.firstName.$invalid && !formRegistration.firstName.$pristine }">
+                      <div class="form-group">
+                        <label for="firstName">Nom : </label>
+                        <input type="text" ng-model="firstName" class="form-control" id="firstName" name="firstName" placeholder="Nom" required/>
+                      </div>
+                    </div>
+                    <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.lastName.$invalid && !formRegistration.lastName.$pristine }">
+                      <div class="form-group">
+                        <label for="lastName">Prenom : </label>
+                        <input type="text" ng-model="lastName" class="form-control" id="lastName" name="lastName" placeholder="Prenom" required/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6" ng-class="{ 'has-error' : (formRegistration.pseudo.$invalid && !formRegistration.pseudo.$pristine) || isPseudoExist }">
+                      <div class="form-group has-feedback">
+                        <label for="pseudo">Pseudo : </label>
+                        <input type="text" ng-model="pseudo" ng-model-options="{ debounce: 1000 }" class="form-control" id="pseudo" name="pseudo" placeholder="Pseudo" required/>
+                        <span ng-show="isPseudoExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="isPseudoExist" id="emailStatus" class="sr-only">(warning)</span>
+                      </div>
+                    </div>
+                    <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.password.$invalid && !formRegistration.password.$pristine }">
+                      <div class="form-group">
+                        <label for="password">Mot de Passe : </label>
+                        <input type="password" ng-model="password" class="form-control" id="password" name="password" placeholder="Mot de Passe" required/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.zip.$invalid && !formRegistration.zip.$pristine }">
+                      <div class="form-group">
+                        <label for="email">Code Postale : </label>
+                        <input type="number" min="0100" max="9999" ng-model="zip" class="form-control" id="zip" name="zip" placeholder="Code Postale" required/>
+                      </div>
+                    </div>
+                    <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.birthday.$invalid && !formRegistration.birthday.$pristine }">
+                      <div class="form-group">
+                        <label for="email">Date de Naissance : </label>
+                        <input type="date" ng-model="birthday" class="form-control" id="birthday" name="birthday" placeholder="Date de Naissance" required/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12" ng-class="{ 'has-error' : (formRegistration.email.$invalid && !formRegistration.email.$pristine) || isMailExist }">
+                      <div class="form-group has-feedback">
+                        <label for="email">Email : </label>
+                        <input type="email" ng-model="email" ng-model-options="{ debounce: 1000 }" class="form-control" id="email" name="email" placeholder="Email" required/>
+                        <span ng-show="isMailExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="isMailExist" id="emailStatus" class="sr-only">(warning)</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div ng-show="isPseudoExist" class="alert alert-danger" role="alert">Ce pseudo existe déjà</div>
+                      <div ng-show="isMailExist" class="alert alert-danger" role="alert">Cette adresse mail existe déjà</div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btn btn-primary" ng-disabled="formRegistration.$invalid">Submit</button>
+                <button type="button" id="closeRegister" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Connexion Modal -->
+        <div class="modal fade" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="connectionModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="connectionModalLabel">Connexion</h4>
+              </div>
+              <div class="modal-body">
+                <form ng-submit="submitLogin()" name="formConnection" novalidate>
+                  <div class="row">
+                    <div class="col-md-6 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
+                      <label for="connectionEmail">Email : </label>
+                      <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
+                    </div>
+                    <div class="col-md-6 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
+                      <label for="connectionPassword">Mot de Passe : </label>
+                      <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" ng-click="submitLogin()" class="btn btn-primary" ng-disabled="formConnection.$invalid" data-dismiss="modal">Submit</button>
+                <button type="button" id="closeConnection" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" ui-sref="home"><img class="logo img-rounded" alt="Logo" src="Img/logo.png"></a>
+            </div>
+        
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li ui-sref-active="active" class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    GamingGen<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a ui-sref="competitions">Les compétitions</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="festival">Festival du jeu</a></li>
+                    <li><a ui-sref="forum">Forum des métiers du digital</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ui-sref="galerie">La Galerie</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ui-sref="partenaires">Les Partenaires</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ui-sref="comm">Ils parlent de nous</a></li>
+                    <li><a ui-sref="staff">L'équipe GamingGen</a></li>
+                  </ul>
+                </li>
+                <li ui-sref-active="active" class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Snack<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
+                    <li><a ui-sref="snack.carte">La Carte</a></li>
+                    <li><a ui-sref="snack.info">Infos Snack</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.histo">Historique des commandes</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a class="autoCollapse" href="#">Live <img src="../Img/live-icone-16.png" ng-show="live"></a>
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li ng-hide="User.isLoggedIn">
+                  <a href="" class="toCollapse" data-toggle="modal" data-target="#registrationModal">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i> Inscription
+                  </a>
+                </li>
+                <li ng-hide="User.isLoggedIn">
+                  <a href="" class="toCollapse" data-toggle="modal" data-target="#connectionModal">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i> Connexion
+                  </a>
+                </li>
+                <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
+                <!--ng-if="isConnected && isAdmin" -->
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cogs" aria-hidden="true"></i> Admin<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+                  </ul>
+                </li>
+                <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
+                <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Mon Compte<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a>Bienvenu <b>{{User.pseudo}}</b></a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                    <li><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                    <li><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>
+                    <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <span class="greenLine"></span>
+        </nav>
+    <!--  </div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--  <div class="col-md-12">-->
+        <div class="body">
+          <section ng-if="showSlider">
+            <div id="wrapper">
+            	<div id="slider">
+            	
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide1.jpg);">
+            			<div class="slide-block">
+            				<h4>GamingGen 5</h4>
+            				<p>Nos Tomb Rider ;)</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide2.jpg);">
+            			<div class="slide-block">
+            				<h4>L'accueil</h4>
+            				<p>Comme toujours un qui travail et 3 qui regarde.</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide3.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide4.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide5.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide6.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide7.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide8.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide9.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide10.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide11.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide12.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            		<div class="slide" style="background-image: url(../Img/Slider/Slide13.jpg);">
+            			<div class="slide-block">
+            				<h4>La GG6 bientôt</h4>
+            				<p>Commentaire ici...</p>
+            			</div>
+            		</div>
+             
+            	</div>
+            </div>
+          </section>
+          
+          <div class="container">
+            <div ui-view></div>
+          </div>
+        </div>
+        
+        <!--<div class="grid grid-pad">-->
+        <!--  <div class="iconact col-6-12">-->
+        <!--    <span><a href="membres.html">Membres</a><img src="img/membres.gif"></span>-->
+        <!--    <span><a href="inscrits.html">Teams</a><img class="lazy" src="img/team.gif"></span>-->
+        <!--    <span><a href="galerie.html">Galeries</a><img src="img/galerie.gif"></span>-->
+        <!--    <span><a href="contact.html">Contact</a><img src="img/contact.gif"></span>-->
+        <!--    <span><a href="media.html">Media</a><img src="img/media.gif"></span>-->
+        <!--  </div><!--iconact-->
+        <!--  <div class="socialico push-right">-->
+        <!--    <span class="fbsoc col-3-12"><a href="https://fr-fr.facebook.com/gaming.gen.lan" target="_blank"></a></span>-->
+        <!--    <span class="twisoc col-3-12"><a href="https://twitter.com/gaminggenlan" target="_blank"></a></span>-->
+        <!--  </div><!--socialico-->
+        <!--</div><!--iconact-->
+        <!--<div class="pushfoot"></div>-->
+        
+        <!--<footer>-->
+        <!--  <div class="menufooter">-->
+        <!--    <span class="ment">-->
+        <!--      <a href="index.html">Accueil</a>-->
+        <!--      <a href="asso.html">Qui sommes nous?</a>-->
+        <!--      <a href="mentleg.html">Mentions légales</a>-->
+        <!--    </span>-->
+        <!--  </div>-->
+        <!--</footer>-->
+    <!--  </div>-->
+    <!--</div>-->
   </body>
 </html>

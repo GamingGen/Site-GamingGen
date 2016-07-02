@@ -1,0 +1,127 @@
+<div ng-controller="adminLiveCtrl as live">
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="button" ng-click="toogleLive()" class="btn btn-info">Toogle Live</button>
+      <button type="button" ng-click="sendPost()" ng-disabled="true" class="btn btn-danger">POST</button>
+    </div>
+  </div>
+  <!--<div class="row">-->
+  <!--  <div class="col-xs-7 table-snack">-->
+  <!--    <table class="table table-striped table-condensed table-hover">-->
+  <!--      <thead>-->
+  <!--        <tr>-->
+  <!--          <th>-->
+  <!--            #-->
+  <!--          </th>-->
+  <!--          <th>-->
+  <!--            N°-->
+  <!--          </th>-->
+  <!--          <th>-->
+  <!--            Element-->
+  <!--          </th>-->
+  <!--          <th>-->
+  <!--            Prix-->
+  <!--          </th>-->
+  <!--          <th>-->
+  <!--            +/--->
+  <!--          </th>-->
+  <!--        </tr>-->
+  <!--      </thead>-->
+  <!--      <tbody>-->
+  <!--        <tr ng-repeat="element in order.elements" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">-->
+  <!--          <td>-->
+  <!--            <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
+  <!--          </td>-->
+  <!--          <td>-->
+  <!--            {{element.quantity}}-->
+  <!--          </td>-->
+  <!--          <td>-->
+  <!--            {{element.name}}-->
+  <!--          </td>-->
+  <!--          <td>-->
+  <!--            {{element.price | currency}}-->
+  <!--          </td>-->
+  <!--          <td>-->
+  <!--            <button ng-click="addQuantity($index)" class="btn btn-success btn-xs"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>-->
+  <!--            <button ng-click="subQuantity($index)" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>-->
+  <!--          </td>-->
+  <!--        </tr>-->
+  <!--      </tbody>-->
+  <!--    </table>-->
+  <!--  </div>-->
+    
+  <!--  <div class="col-xs-5 ">-->
+      
+      <!--<a href="" ng-click="addRow(0, 'hot', 'hot_unit_price')" class="label-success">Steack Frites</a>-->
+      
+      
+  <!--    <table class="table table-condensed table-command">-->
+  <!--      <thead>-->
+  <!--        <tr>-->
+  <!--          <th>-->
+  <!--            Commande-->
+  <!--          </th>-->
+  <!--        </tr>-->
+  <!--      </thead>-->
+  <!--      </tbody>-->
+  <!--        <tr>-->
+  <!--          <td class="clear">-->
+  <!--            <div class="btn-group input-block-level">-->
+  <!--              <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+  <!--                Plat <span class="caret"></span>-->
+  <!--              </button>-->
+  <!--              <ul class="dropdown-menu">-->
+  <!--                <li ng-repeat="element in order.lists"><a href="" ng-show="element.hot" ng-click="addRow($index, 'hot', 'hot_unit_price')" class="label-success"><b>{{element.hot}}</b></a></li>-->
+  <!--              </ul>-->
+  <!--            </div>-->
+  <!--          </td>-->
+  <!--          <td class="clear">-->
+  <!--            <div class="btn-group input-block-level">-->
+  <!--              <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+  <!--                Accompagnement <span class="caret"></span>-->
+  <!--              </button>-->
+  <!--              <ul class="dropdown-menu">-->
+  <!--                <li ng-repeat="element in order.lists"><a href="" ng-show="element.accompaniment" ng-click="addElement($index, 'accompaniment', 'accompaniment_unit_price')" class="label-warning"><b>+ {{element.accompaniment}}</b></a></li>-->
+  <!--              </ul>-->
+  <!--            </div>-->
+  <!--          </td>-->
+  <!--        </tr>-->
+  <!--        <tr>-->
+  <!--          <td class="clear">-->
+  <!--            <div class="btn-group">-->
+  <!--              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+  <!--                Boison <span class="caret"></span>-->
+  <!--              </button>-->
+  <!--              <ul class="dropdown-menu">-->
+  <!--                <li ng-repeat="element in order.lists"><a href="" ng-show="element.drink" ng-click="addRow($index, 'drink', 'drink_unit_price')" class="label-primary"><b>{{element.drink}}</b></a></li>-->
+  <!--              </ul>-->
+  <!--            </div>-->
+  <!--          </td>-->
+  <!--          <td class="clear">-->
+  <!--            <div class="btn-group">-->
+  <!--              <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+  <!--                Dessert <span class="caret"></span>-->
+  <!--              </button>-->
+  <!--              <ul class="dropdown-menu">-->
+  <!--                <li ng-repeat="element in order.lists"><a href="" ng-show="element.dessert" ng-click="addRow($index, 'dessert', 'dessert_unit_price')" class="label-info"><b>{{element.dessert}}</b></a></li>-->
+  <!--              </ul>-->
+  <!--            </div>-->
+  <!--          </td>-->
+  <!--        </tr>-->
+  <!--        <tr>-->
+  <!--          <td class="clear">-->
+  <!--            <div class="btn-group">-->
+  <!--              <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+  <!--                Encas <span class="caret"></span>-->
+  <!--              </button>-->
+  <!--              <ul class="dropdown-menu">-->
+  <!--                <li ng-repeat="element in order.lists"><a href="" ng-show="element.snack" ng-click="addRow($index, 'snack', 'snack_unit_price')" class="label-danger"><b>{{element.snack}}</b></a></li>-->
+  <!--              </ul>-->
+  <!--            </div>-->
+  <!--          </td>-->
+  <!--        </tr>-->
+  <!--      </tbody>-->
+  <!--    </table>-->
+  <!--  </div>-->
+  <!--</div>-->
+</div>

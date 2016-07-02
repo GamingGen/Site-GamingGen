@@ -1,0 +1,32 @@
+var confSchema = require('../Model/confSchema');
+
+module.exports.event = function(ServerEvent) {
+
+
+  ServerEvent.on('saveConf', function(data, socket) {
+    var newConf = new confSchema({
+      name    : data.name,
+      teams   : data.teams,
+      users   : data.users,
+      roles   : data.roles,
+      payment : data.payement,
+      snack   : data.snack
+    });
+    
+    console.log(newConf);
+    console.log(data);
+    console.log();
+    
+    newConf.save(function(err) {
+      if (err) {
+        //throw err;
+        console.log(err);
+        console.log('Ko');
+      }
+      else
+      {
+        console.log('Ok');
+      }
+    });
+  });
+};

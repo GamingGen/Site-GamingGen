@@ -14,7 +14,6 @@
 .DS_Store
 .idea
 .project
-.strong-pm
 coverage
 
 # Configuration Cloud9 Files
@@ -26,6 +25,8 @@ npm-debug.log
 
 # DataBase
 data
+
+# Only for Dev
 mongod
 mongodRepair
 mongodShutDown

@@ -1,0 +1,28 @@
+<div ng-controller="adminArticleCtrl as article">
+  <div class="row">
+    <div class="col-md-3">
+      <form>
+        <input type="text" class="form-control" id="title" ng-model="title" placeholder="Titre" required>
+      </form>
+    </div>
+    <div class="col-md-9">
+      <form>
+        <input type="text" class="form-control" id="desc" ng-model="desc" placeholder="Description" required>
+      </form>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-12">
+      <form>
+        <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
+      </form>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-12">
+      <button type="button" ng-click="getContent()" class="btn btn-primary">Enregistrer l'article</button>
+    </div>
+  </div>
+</div>

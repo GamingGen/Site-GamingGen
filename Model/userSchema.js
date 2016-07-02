@@ -1,12 +1,12 @@
 var mongoose              = require('mongoose');
 var Schema                = mongoose.Schema;
-var passportLocalMongoose = require('passport-local-mongoose');
+// var passportLocalMongoose = require('passport-local-mongoose');
 var bcrypt                = require('bcrypt');
 
 const saltRounds          = 10;
 
 var UserSchema = new Schema({
-    username  : { type: String, required: true, unique: true, index: true, trim: true },
+    pseudo    : { type: String, required: true, unique: true, index: true, trim: true },
     password  : { type: String, required: true },
     email     : { type: String, required: true, unique: true, match: /.{2,}\@.{2,10}\..{2,3}/ },
     general   : {
@@ -18,12 +18,13 @@ var UserSchema = new Schema({
                   register_date : Date
                 },
     team      : {
-                  name          : String,
-                  leader        : Boolean,
-                  members       : Array,
-                  table         : Number
+                  name          : { type: String, ref: 'Team' },
+                  coach         : Boolean,
+                  payment       : Number,
+                  presale_snack : Number
                 },
     access    : {
+                  token   : String,
                   level   : { type: Number, required: true, default: 1 },
                   groups  : { type: Array, required: true, default: ['member'] }, // TODO Save a referential Array in DB
                   ban     : { type: Boolean, required: true, default: false }
@@ -62,11 +63,29 @@ UserSchema.pre('findOneAndUpdate', function(next) {
   next();
 });
 
-UserSchema.post('save', function(next) {
+UserSchema.post('save', function() {
   console.log('User saved successfully!');
-  // next();
 });
 
-UserSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('user', UserSchema);
+
+UserSchema.statics.authenticate = function(email, password, callback) {
+  console.log(email);
+  console.log(password);
+	this.findOne({ email: email }, function(error, user) {
+		if (user && bcrypt.compareSync(password, user.password)) {
+			callback(null, user);
+		} else if (user || !error) {
+			// Email or password was invalid (no MongoDB error)
+			error = new Error("Your email address or password is invalid. Please try again.");
+			callback(error, null);
+		} else {
+			// Something bad happened with MongoDB. You shouldn't run into this often.
+			callback(error, null);
+		}
+	});
+};
+
+// UserSchema.plugin(passportLocalMongoose);
+
+module.exports = mongoose.model('User', UserSchema);

@@ -23,8 +23,7 @@ WatchListSchema.pre('findOneAndUpdate', function(next) {
 
 WatchListSchema.post('save', function(next) {
   console.log('WatchList saved successfully!');
-  next();
 });
 
 
-module.exports = mongoose.model('watchList', WatchListSchema);
+module.exports = mongoose.model('WatchList', WatchListSchema);

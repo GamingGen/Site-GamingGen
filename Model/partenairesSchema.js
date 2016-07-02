@@ -26,8 +26,7 @@ PartenaireSchema.pre('findOneAndUpdate', function(next) {
 
 PartenaireSchema.post('save', function(next) {
   console.log('Partenaire saved successfully!');
-  next();
 });
 
 
-module.exports = mongoose.model('partenaire', PartenaireSchema);
+module.exports = mongoose.model('Partenaire', PartenaireSchema);

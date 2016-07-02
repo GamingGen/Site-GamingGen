@@ -2,29 +2,40 @@ var mongoose              = require('mongoose');
 var Schema                = mongoose.Schema;
 
 var ConfSchema = new Schema({
-    name  : { type: String, required: true, unique: true, index: true, trim: true },
-    teams : {
-              nb_max_player             : Number,
-              nb_max_manager            : Number,
-              nb_hour_before_team_freez : Number
-            },
-    users : {
-               password_min_length : { type: Number, required: true }
-            },
-    roles :  { type: Array, required: true }
+    name    : { type: String, required: true, unique: true, index: true, trim: true },
+    teams   : {
+                nb_max_teams              : Number,
+                nb_max_players            : Number,
+                nb_max_managers           : Number,
+                nb_hour_before_team_freez : Number
+              },
+    users   : {
+                 password_min_length : { type: Number, required: true }
+              },
+                roles                     : { type: Array, required: true },
+                payment                   : {
+                nominal_price             : Number,
+                bonus_price               : Number,
+                minimal_payement_to_bonus : Number
+              },
+    snack   : {
+                nominal_time_preparation      : Number,
+                printer_client_length_element : Number,
+                printer_cook_length_element   : Number,
+                type_menu                     : Array
+              }
 });
 
 
 ConfSchema.pre('validate', function(next) {
   if (this.roles.length == 0) {
-    this.roles = ['member'];
+    this.roles = ['Admin', 'Member'];
   }
   next();
 });
 
-ConfSchema.post('save', function(next) {
-  console.log('User saved successfully!');
-  next();
+ConfSchema.post('save', function() {
+  console.log('Conf saved successfully!');
 });
 
-module.exports = mongoose.model('conf', ConfSchema);
+module.exports = mongoose.model('Conf', ConfSchema);

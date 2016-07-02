@@ -26,8 +26,7 @@ AccueilSchema.pre('findOneAndUpdate', function(next) {
 
 AccueilSchema.post('save', function(next) {
   console.log('Article saved successfully!');
-  next();
 });
 
 
-module.exports = mongoose.model('accueil', AccueilSchema);
+module.exports = mongoose.model('Accueil', AccueilSchema);

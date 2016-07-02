@@ -1,10 +1,12 @@
 /*
- * Version 0.0.0
+ * Version Alpha 1.0.0
  * Date de Création 30/04/2016
- * Date de modification 30/04/2016
+ * Date de modification 24/06/2016
+ *
+ * ~2 769 835 de lignes de code
  *
  * server.js
- *  Point d'entrée de l'application (Main) 'Gaming-Gen' qui permet de gérer un serveur NAS
+ * Point d'entrée de l'application 'Gaming-Gen' qui permet de gérer l'évènement
  * 
  * Conçu par l'équipe de Gaming-Gen :
  *  - Jérémy Young      <darkterra01@gmail.com>
@@ -12,6 +14,28 @@
 
 'use strict';
 
+// Requires
+const express       = require('express');
+const app           = express();
+const compression   = require('compression');
+const http          = require('http').Server(app);
+const path          = require('path');
+// let favicon       = require('serve-favicon');
+const cookieParser  = require('cookie-parser');
+const bodyParser    = require('body-parser');
+const colors        = require('colors');
+// let resumable     = require('./resumable-node.js')('tmp/');
+// let shelljs       = require('shelljs');
+const fs            = require('fs');
+const session       = require('express-session');
+const mongoose      = require('mongoose');
+const passport      = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+var logger          = require('./Controller/logger');
+
+
+// PMX For PM2
 var pmx = require('pmx').init({
   http          : true, // HTTP routes logging (default: true)
   ignore_routes : [/socket\.io/, /notFound/], // Ignore http routes with this pattern (Default: [])
@@ -21,71 +45,52 @@ var pmx = require('pmx').init({
   ports         : true  // Shows which ports your app is listening on (default: false)
 });
 
-
-// Requires de bases
-const express       = require('express');
-const app           = express();
-const compression   = require('compression');
-const http          = require('http').Server(app);
-const path          = require('path');
-// let favicon       = require('serve-favicon');
-const cookieParser  = require('cookie-parser');
-const bodyParser    = require('body-parser');
-// let os            = require('os');
-// let cpu           = require('cpu-load');
-const colors        = require('colors');
-// let resumable     = require('./resumable-node.js')('tmp/');
-// let shelljs       = require('shelljs');
-const fs            = require('fs');
-
-const session       = require('express-session');
-const mongoose      = require('mongoose');
-
-const passport      = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-
-var logger          = require('./Controller/logger');
-
 // mongoose
-mongoose.connect('mongodb://localhost/gaminggen', function (error) {
+mongoose.connect('mongodb://localhost/gaminggen', (error) => {
     if (error) {
         console.log(error);
+        
+        // TODO à changer (gestion tentatire reconnexions)
+        process.exit(1);
     }
 });
 
-// Require des Controllers
-var Users = require('./Controller/users');
-var Conf = require('./Controller/confs');
-var Article = require('./Controller/articles');
-var Partenaire = require('./Controller/partenaires');
-var WatchList = require('./Controller/watchLists');
+// Server Events
+let EventEmitter  = require('events').EventEmitter;
+let ServerEvent		= new EventEmitter();
+
+// Require Controllers
+var User        = require('./Controller/users');
+var Conf        = require('./Controller/confs');
+var Article     = require('./Controller/articles');
+var Partenaire  = require('./Controller/partenaires');
+var WatchList   = require('./Controller/watchLists');
+var Team        = require('./Controller/teams');
+var Snack       = require('./Controller/snacks');
+var MenuSnack   = require('./Controller/menuSnacks');
 
 // Require des Models
 var userSchema = require('./Model/userSchema');
 
-// Variables
-let dataJson = "";
-
-
-// Configuration de la coloration des logs
+// Conf color
 colors.setTheme({
-  silly     : 'rainbow',
-  input     : 'grey',
-  verbose   : 'cyan',
-  prompt    : 'grey',
-  info      : 'green',
-  data      : 'grey',
-  help      : 'cyan',
-  warn      : 'yellow',
-  debug     : 'blue',
-  error     : 'red'
+  silly   : 'rainbow',
+  input   : 'grey',
+  verbose : 'cyan',
+  prompt  : 'grey',
+  info    : 'green',
+  data    : 'grey',
+  help    : 'cyan',
+  warn    : 'yellow',
+  debug   : 'blue',
+  error   : 'red'
 });
 
-// Configuration du port
+// Conf port
 var port = process.env.PORT || 3000;
 
-// Configuration des sessions
-var EXPRESS_SID_VALUE = 'secret keyboard cat';
+// Conf session
+var EXPRESS_SID_VALUE = 'Secret Keyboard DarkTerra Cat';
 var sessionMiddleware = session({
     secret              : EXPRESS_SID_VALUE,
     resave              : false,
@@ -93,8 +98,8 @@ var sessionMiddleware = session({
     //store               : new MongoStore(connexion)
 });
 
-// Configuration de l'application
-// app.use(compression({filter: shouldCompress}));
+// Conf app
+app.use(compression({filter: shouldCompress}));
 // app.use(favicon(__dirname + '/View/Images/favicon.ico'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -105,45 +110,66 @@ app.use(passport.session());
 app.use(pmx.expressErrorHandler());
 app.use(require('morgan')("combined", { "stream": logger.stream }));
 
-// passport config
-passport.use(new LocalStrategy(userSchema.authenticate()));
-passport.serializeUser(userSchema.serializeUser());
-passport.deserializeUser(userSchema.deserializeUser());
+// // Conf passport
+// passport.use(new LocalStrategy(userSchema.authenticate()));
+// passport.serializeUser(userSchema.serializeUser());
+// passport.deserializeUser(userSchema.deserializeUser());
 
-// Events
-let EventEmitter    = require('events').EventEmitter;
-let ServerEvent			= new EventEmitter();
-// let builder         = require('./Controller/builder');
-// let scanNAS         = require('./Controller/scanNAS');
+
+// Conf passport
+var authStrategy = new LocalStrategy({
+	usernameField: 'email',
+	passwordField: 'password'
+}, function(email, password, done) {
+	userSchema.authenticate(email, password, function(error, user){
+		// You can write any kind of message you'd like.
+		// The message will be displayed on the next page the user visits.
+		// We're currently not displaying any success message for logging in.
+		done(error, user, error ? { message: error.message } : null);
+	});
+});
+
+var authSerializer = function(user, done) {
+	done(null, user.id);
+};
+
+var authDeserializer = function(id, done) {
+	userSchema.findById(id, function(error, user) {
+		done(error, user);
+	});
+};
+
+passport.use(authStrategy);
+passport.serializeUser(authSerializer);
+passport.deserializeUser(authDeserializer);
+
+
+
 
 // Socket io
 require('./Controller/sockets').listen(http, sessionMiddleware, ServerEvent, colors);
 
+// Call Events Management
+Snack.snackEvent(ServerEvent);
+Conf.confEvent(ServerEvent);
+MenuSnack.menuSnackEvent(ServerEvent);
+Article.articleEvent(ServerEvent);
+User.userEvent(ServerEvent);
+
+// Log Error
+ServerEvent.on('error', (err) => {
+  console.log(err);
+});
 
 // Routing
 app.use(express.static(path.join(__dirname, 'View')));
-app.use('/users', Users);
-app.use('/confs', Conf);
-app.use('/articles', Article);
+app.use('/users', User.router);
+app.use('/confs', Conf.router);
+app.use('/articles', Article.router);
+app.use('/teams', Team.router);
+app.use('/snacks', Snack.router);
+app.use('/menusnacks', MenuSnack.router);
 
-// Build client side bundle
-// builder.build({ socket: '', ServerEvent: ServerEvent });
-
-// Server Events
-// ServerEvent.on('ReloadModule', function() {
-//   fs.readFile(__dirname + '/config.json', 'utf8', (err, data) => {
-//     if (err) throw err;
-//     dataJson = data;
-//     ServerEvent.emit('DataRead', dataJson);
-//   });
-// });
-// ServerEvent.on('RebuildModule', (socket) => {
-//   var params = {
-//     socket: socket,
-//     ServerEvent: ServerEvent
-//   };
-//   builder.build(params);
-// });
 
 function shouldCompress(req, res) {
   if (req.headers['x-no-compression']) {
@@ -154,20 +180,28 @@ function shouldCompress(req, res) {
   return compression.filter(req, res);
 }
 
-
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 // Check Version of Node before Launch.
 fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     if (err) throw err;
     
     
-    var refVersion = parseInt(JSON.parse(data).engines.node.replace(/[^0-9]/g, ''), 10);
-    var nodeVersion = parseInt(process.version.replace(/[^0-9]/g, ''), 10);
+    // var refVersion = parseInt(JSON.parse(data).engines.node.replace(/[^0-9]/g, ''), 10);
+    // var nodeVersion = parseInt(process.version.replace(/[^0-9]/g, ''), 10);
     
-    if (nodeVersion >= refVersion) {
+    var operator = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
+    var refVersion = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
+    var nodeVersion = process.version.replace(/[^0-9.]/g, '').split('.');
+    
+    console.log(operator);
+    console.log(refVersion);
+    console.log(nodeVersion);
+    
+    
+    
+    
+    if (parseInt(nodeVersion[0], 10) > parseInt(refVersion[0], 10)) {
       console.log('Version du server OK...'.verbose);
       console.log('La version du serveur Node.JS : '.data + process.version.warn);
       console.log('Le serveur Node.JS fonctionne sur la plateforme : '.data + process.platform.warn);
@@ -179,7 +213,7 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     }
     
     // Création du serveur
-    http.listen(port, function () {
+    http.listen(port, () => {
       console.log('\nNode Nas Management listening at 127.0.0.1:'.verbose + port.verbose);
       // console.log('La plateforme fonctionne depuis : '.data + tools.convertTimeToHuman(os.uptime()).warn);
     });

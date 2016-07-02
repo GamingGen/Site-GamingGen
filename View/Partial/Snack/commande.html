@@ -1,0 +1,139 @@
+<div ng-controller="snackCtrl as order">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="pull-left">
+        <span class="label label-primary">Total: <b>{{order.total | currency}}</b></span>
+        <br/>
+        <span class="label label-default">Elements: {{order.elements.length}}</span>
+      </div>
+      <div class="col-xs-8 col-xs-offset-1">
+        <form ng-submit="sendOrder()" name="formPseudo" class="form-inline" novalidate>
+          <div class="form-group">
+            <label for="pseudo">Prénom : </label>
+            <input type="text" class="form-control" id="pseudo" ng-model="pseudo" placeholder="ou Pseudo" required>
+            <button type="button" ng-click="formPseudo.$valid && sendOrder($pseudo)" ng-disabled="!formPseudo.$valid && order.elements.length === 0" class="btn btn-info">valider</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-7 table-snack">
+      <table class="table table-striped table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>
+              #
+            </th>
+            <th>
+              N°
+            </th>
+            <th>
+              Element
+            </th>
+            <th>
+              Prix
+            </th>
+            <th>
+              +/-
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="element in order.elements" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
+            <td>
+              <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </td>
+            <td>
+              {{element.quantity}}
+            </td>
+            <td>
+              {{element.name}}
+            </td>
+            <td>
+              {{element.price | currency}}
+            </td>
+            <td>
+              <button ng-click="addQuantity($index)" class="btn btn-success btn-xs"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+              <button ng-click="subQuantity($index)" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="col-xs-5 ">
+      
+      <!--<a href="" ng-click="addRow(0, 'hot', 'hot_unit_price')" class="label-success">Steack Frites</a>-->
+      
+      <!--TODO Faire une boucle master qui génère les boutons et les filtres interne des boutons (menu full dynamic)-->
+      <table class="table table-condensed table-command">
+        <thead>
+          <tr>
+            <th>
+              Commande
+            </th>
+          </tr>
+        </thead>
+        </tbody>
+          <tr>
+            <td class="clear">
+              <div class="btn-group input-block-level">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Plat<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="element in order.lists | filter:{type:'Plat'}"><a href="" ng-click="addRow(element.name, element.unit_price)" class="label-success"><b>{{element.name}}</b></a></li>
+                </ul>
+              </div>
+            </td>
+            <td class="clear">
+              <div class="btn-group input-block-level">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Accompagnement<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="element in order.lists | filter:{type:'Accompagnement'}"><a href="" ng-click="addElement(element.name, element.unit_price)" class="label-warning"><b>+ {{element.name}}</b></a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="clear">
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Boisson<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="element in order.lists | filter:{type:'Boisson'}"><a href="" ng-click="addRow(element.name, element.unit_price)" class="label-primary"><b>{{element.name}}</b></a></li>
+                </ul>
+              </div>
+            </td>
+            <td class="clear">
+              <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dessert <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="element in order.lists | filter:{type:'Dessert'}"><a href="" ng-click="addRow(element.name, element.unit_price)" class="label-info"><b>{{element.name}}</b></a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="clear">
+              <div class="btn-group">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Encas <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="element in order.lists | filter:{type:'Encas'}"><a href="" ng-click="addRow(element.name, element.unit_price)" class="label-danger"><b>{{element.name}}</b></a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

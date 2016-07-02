@@ -1,0 +1,20 @@
+var menuSnackSchema = require('../Model/menuSnackSchema');
+
+module.exports.event = function(ServerEvent) {
+  
+  ServerEvent.on('saveMenuSnack', function(data, socket) {
+    var newMenuSnack = new menuSnackSchema({
+      elements  : data,
+    });
+    
+    newMenuSnack.save(function(err) {
+      if (err) {
+        //throw err;
+        console.log(err);
+      }
+      else {
+        ServerEvent.emit('MenuSnackSaved', data, socket);
+      }
+    });
+  });
+};

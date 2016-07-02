@@ -1,0 +1,49 @@
+var articleSchema = require('../Model/articleSchema');
+
+module.exports.event = function(ServerEvent) {
+  
+  var id = 0;
+  var register_date;
+  
+  articleSchema.findOne({}, null, {sort: {id: -1}}, function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      if (result.id !== NaN) {
+        id = result.id;
+      }
+    }
+  });
+  
+  
+  // TODO déplacer la gestion de id dans le schéma
+  ServerEvent.on('saveArticle', function(data, socket) {
+    data.id = ++id;
+    var newArticle = new articleSchema({
+      id            : data.id,
+      username      : data.username,
+      title         : data.title,
+      desc          : data.desc,
+      text          : data.text
+    });
+      
+      
+    // data = newArticle.CheckOrder(function(err) {
+    //   if(err) {
+    //     console.log(err);
+    //   }
+    // });
+    
+    newArticle.save(function(err) {
+      if (err) {
+        //throw err;
+        console.log(err);
+      }
+      else {
+        delete data.text;
+        ServerEvent.emit('ArticleSaved', data, socket);
+      }
+    });
+  });
+};

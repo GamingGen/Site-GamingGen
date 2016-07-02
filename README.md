@@ -12,9 +12,9 @@ Installation Prod (Ubuntu Server 14.04 LTS):
 1. Install
     1. Sécuriser le Serveur
     
-    2. Installer Node.JS(5.11.x) & NPM (3.x)
+    2. Installer Node.JS(6.xx.x) & NPM (3.x)
         - sudo apt-get install curl
-        - curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+        - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
         - sudo apt-get install -y nodejs
         - sudo npm install -g npm
         * [INFO]: https://github.com/nodesource/distributions
@@ -26,17 +26,15 @@ Installation Prod (Ubuntu Server 14.04 LTS):
         - sudo apt-get install -y mongodb-org
         * [INFO]: https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/
     
-    4. Installer StrongLoop
-        - sudo npm install -g strong-pm
-        - sudo sl-pm-install
-        - sudo /sbin/initctl start strong-pm
-        * [INFO]: https://docs.strongloop.com/display/SLC/Setting+up+a+production+host
-    
-    5. Installer Git
+    4. Installer Git
         - sudo apt-get install software-properties-common
         - sudo add-apt-repository ppa:git-core/ppa
         - sudo apt-get update
         - sudo apt-get install git
+    
+    5. Installer PM2
+        - sudo npm install pm2 -g
+        * [INFO]: http://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/
 
 2. Configuration du serveur
     1. Ouvrir les ports (TCP):
@@ -128,8 +126,26 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
 4. Tools
     - http://blog.mlab.com/2012/06/introducing-dex-the-index-bot/
     - https://github.com/mrvautin/adminMongo
+    - https://github.com/tojocky/node-printer
+    - http://scruss.com/blog/2015/07/12/thermal-printer-driver-for-cups-linux-and-raspberry-pi-zj-58/
+    - http://wowslider.com/angular-slider-collage-demo.html
+    - http://coolcarousels.frebsite.nl/
+    - http://angular-ui.github.io/
+    - https://www.npmjs.com/package/escape-html
+    - http://jasmine.github.io/2.0/introduction.html
+    - http://www.responsinator.com/?url=https://si-gaminggen-darkterra-1.c9users.io/#/home
 
 5. Infos
+    - https://cdnjs.com/libraries/angular.js/1.5.7
+    - http://www.angular-js.fr/decouvrez-angularjs/
+    - https://openclassrooms.com/courses/developpez-vos-applications-web-avec-angularjs/
+    - http://stackoverflow.com/questions/22189544/print-a-div-using-javascript-in-angularjs-single-page-aplication
+    - http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr
+    - http://www.tutoriel-angularjs.fr/tutoriel/2-utilisation-complete-d-angularjs/1-le-routage
+    - http://www.tinci.fr/blog/apprendre-angular-en-un-jour-le-guide-ultime/
+    - http://www.funnyant.com/angularjs-ui-router/
+    - https://egghead.io/lessons/angularjs-introduction-ui-router
+    - http://slides.com/timkindberg/ui-router#/
     - https://github.com/imperugo/NodeJs-Sample/blob/master/Logging/WinstonSample/express-configuration/index.js
     - https://blog.serverdensity.com/monitor-mongodb/
     - http://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619
@@ -137,9 +153,27 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     - http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/
     - http://www.synbioz.com/blog/les_collections_avec_mongodb
     - https://davidwalsh.name/fullscreen
-    - http://stackoverflow.com/questions/22189544/print-a-div-using-javascript-in-angularjs-single-page-aplication
-    - http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr
+    - http://jsfiddle.net/rabidGadfly/GF3Xg/
+    - https://scotch.io/bar-talk/bootstrap-3-tips-and-tricks-you-still-might-not-know
+    - http://www.tutorialspoint.com/mongodb/mongodb_quick_guide.htm
+    - https://jsfiddle.net/alexsuch/RLQhh/
+    - http://blogs.infinitesquare.com/b/seb/archives/gestion-authorization-angularjs#.V2vaP_mLTRY
+    - http://maxlab.fr/javascript/securiser-spa-partie2-client-angularjs/
+    - https://www.occitech.fr/blog/2014/04/lauthentification-avec-angularjs/
+    - https://hnryjms.github.io/2014/04/authentication/
+    
+    - https://www.tipeeestream.com/
 
 6. Utilisation Navigateur
     - http://www.zdnet.fr/actualites/chiffres-cles-les-navigateurs-internet-39381322.htm
+    
+7. Votre clé API Steam Web
+    - Clé: 5CAF214792FBDB8B3F4FAC365E8AAD3E
+    - Nom de domaine: http://darkterra.fr/
+
+8. A tester
+    - https://angular-ui.github.io/bootstrap/
+
+9. Securité
+    - http://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html
 ```

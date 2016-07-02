@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 ################################################################################
 #                               GenerateEnvForC9                               #
@@ -6,7 +6,7 @@
 
 
 # Variables
-Workspase=`find / -type d -name workspace 2> /dev/null | grep workspace -m 1`
+Workspace=`find / -type d -name workspace 2> /dev/null | grep workspace -m 1`
 DirNameScript=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 NameScript=`basename "$0"`
 ShortNameScript=`echo $NameScript | cut -d'.' -f 1`
@@ -152,7 +152,7 @@ lectureConf $NOMCONF
 NbrTest=${#InfoConf[*]}
 
 # Deplacement de la console sur le bon dosser
-cd $Workspase
+cd $Workspace
 
 # Vérification si le dosser de log est présent sur le Master
 testDirectory "data"
