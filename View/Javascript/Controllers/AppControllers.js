@@ -182,33 +182,50 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
 
 AppControllers.controller('adminLiveCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
   // ----- Init -----
-  
+  var idLive;
   
   // ----- GET / SET Data -----
+  $scope.playerVars = {
+    controls: 0,
+    autoplay: 1
+  };
+  
+  socket.on('ChangeLiveSource', function(data) {
+    $scope.youtubeAdminLive = data;
+  });
   
   
   // ----- Public Méthode -----
   $scope.toogleLive = function () { 
     socket.emit('toogleLive');
   };
-
-  $scope.sendPost = function() {
-    var data = {
-      name: "test003",
-      users: {
-        password_min_length: 8
-      },
-      roles: ["Admin", "Player"],
-      snack: {
-        nominal_time_preparation: 10,
-        printer_client_length_element: 12,
-        printer_cook_length_element: 18,
-        type_menu: ["Plat", "Accompagnement", "Boisson", "Dessert", "Encas"]
-      }
-    };
-    
-    socket.emit('saveConf', data);
+  
+  $scope.Somevideo = function() {
+    idLive = "dGRWO7C6m6M";
+    socket.emit('ChangeLiveSource', idLive);
   };
+  $scope.youtubeLive = function() {
+    idLive = "L4x7NOl2_To";
+    socket.emit('ChangeLiveSource', idLive);
+  };
+
+  // // $scope.sendPost = function() {
+  // //   var data = {
+  // //     name: "test003",
+  // //     users: {
+  // //       password_min_length: 8
+  // //     },
+  // //     roles: ["Admin", "Player"],
+  // //     snack: {
+  // //       nominal_time_preparation: 10,
+  // //       printer_client_length_element: 12,
+  // //       printer_cook_length_element: 18,
+  // //       type_menu: ["Plat", "Accompagnement", "Boisson", "Dessert", "Encas"]
+  // //     }
+  ////    };
+    
+  // //   socket.emit('saveConf', data);
+  // // };
   
   // ----- Private Méthode -----
 }]);
@@ -246,13 +263,15 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', func
     // console.log('Editor Title:', $scope.title);
     // console.log('Editor Desc:', $scope.desc);
     // console.log('Editor Content:', tinymce.activeEditor.getContent());
-    
+    console.log(tinymce.activeEditor.getContent());
+    var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
+    console.log(text);
     // TODO Récupérer l'username une fois la partie gestion des connexions fonctionnel
     var article = {
           username  : 'DarkTerra',
           title     : $scope.title,
           desc      : $scope.desc,
-          text      : tinymce.activeEditor.getContent()
+          text      : text
         };
     
     socket.emit('saveArticle', article);
@@ -449,6 +468,39 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
     modal.find('.modal-body').text('');
     modal.find('.modal-footer').html('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
   });
+}]);
+
+
+AppControllers.controller('liveCtrl', ['$http', '$scope', 'socket', '$filter', function($http, $scope, socket, $filter){
+  // ----- Init -----
+  var live      = this;
+  
+  
+  // ----- GET / SET Data -----
+  $scope.playerVars = {
+    controls: 0,
+    autoplay: 1
+  };
+  
+  
+  socket.emit('getLiveSource');
+  
+  socket.on('getLiveSource', function(data) {
+    $scope.youtubeLive = data;
+  });
+  
+  socket.on('ChangeLiveSource', function(data) {
+    $scope.youtubeLive = data;
+  });
+  
+  
+  // ----- Public Méthode -----
+  
+  
+  // ----- Private Méthode -----
+  
+  
+  // ----- jQuery -----
 }]);
 
 

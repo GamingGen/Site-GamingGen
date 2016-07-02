@@ -44,6 +44,11 @@
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript" src="Javascript/Lib/angular-youtube-embed.min.js"></script>
     <script type="text/javascript" src="Javascript/Lib/loading-bar.js"></script>
+    
+    
+    <script type="text/javascript" src="http://static.videogular.com/scripts/controls/latest/vg-controls.js"></script>
+    <script type="text/javascript" src="http://static.videogular.com/scripts/videogular/latest/videogular.js"></script>
+    <script type="text/javascript" src="http://static.videogular.com/scripts/overlay-play/latest/vg-overlay-play.js"></script>
     <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
   </head>
   
@@ -211,7 +216,7 @@
                   </ul>
                 </li>
                 <li>
-                  <a class="autoCollapse" href="#">Live <img src="../Img/live-icone-16.png" ng-show="live"></a>
+                  <a class="autoCollapse" ui-sref="live">Live <img src="../Img/live-icone-16.png" ng-show="live"></a>
                 </li>
               </ul>
               <ul class="nav navbar-nav navbar-right">

@@ -11,12 +11,13 @@ var ArticleSchema = new Schema({
 });
 
 ArticleSchema.pre('validate', function(next) {
-  if (!this.id) {
-    this.id = 0;
-  }
-  else {
-    this.id++;
-  }
+  console.log('ArticleID: ' + this.id);
+  // if (!this.id) {
+  //   this.id = 8;
+  // }
+  // else {
+  //   this.id++;
+  // }
   
   if (!this.register_date) {
     this.register_date = Date.now();

@@ -18,6 +18,7 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
     let io							= socketio.listen(server);
     let printerClientId	= "";
     let printerCookId		= "";
+    let liveSource			= "";
     let toogleLive			= false; // TODO A déplacer
     
     // Configuration de Socket.IO pour pouvoir avoir accès au sessions
@@ -153,6 +154,15 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
   		toogleLive = !toogleLive;
   		console.log(toogleLive);
   		io.sockets.emit('toogleLive', toogleLive);
+  	});
+  	
+  	socket.on('getLiveSource', function() {
+  		socket.emit('getLiveSource', liveSource);
+  	});
+  	
+  	socket.on('ChangeLiveSource', function(data) {
+  		liveSource = data;
+  		io.sockets.emit('ChangeLiveSource', data);
   	});
 		
 		// ----------------------- Décompte uniquement des User Connecté ----------------------- //

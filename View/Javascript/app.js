@@ -9,6 +9,10 @@
           url         : '/home',
           templateUrl : '../Partial/home.html'
         })
+        .state('live', {
+          url         : '/live',
+          templateUrl : '../Partial/live.html'
+        })
         .state('snack', {
           url         : '/snack',
           templateUrl : '../Partial/Admin/admin.html'
