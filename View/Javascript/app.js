@@ -1,5 +1,10 @@
+'use strict';
+
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'AppControllers', 'Socket', 'Slider', 'youtube-embed', 'angular-loading-bar', 'ngAnimate']);
+  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'ContainerService', 'AppControllers', 'Socket', 'Slider', 'youtube-embed', 'angular-loading-bar', 'ngAnimate']);
+  
+  const adminLayout = 'container-fluid admin';
+  const normalLayout = 'container';
   
   app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -15,30 +20,38 @@
         })
         .state('snack', {
           url         : '/snack',
-          templateUrl : '../Partial/Admin/admin.html'
+          templateUrl : '../Partial/Snack/snack.html'
         })
         .state('snack.staff', {
           url         : '/snack',
-          templateUrl : '../Partial/Snack/staff.html'
+          templateUrl : '../Partial/Snack/staff.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In Snack Section !');
+            ManageViewService.setView(adminLayout);
+          }],
+          onExit      : ['ManageViewService', function(ManageViewService) {
+            console.log('I am Out Snack Section !');
+            ManageViewService.setView(normalLayout);
+          }]
         })
         .state('snack.staff.commande', {
           url         : '/commande',
           templateUrl : '../Partial/Snack/commande.html'
         })
-        .state('snack.histo', {
+        .state('snack.staff.histo', {
           url         : '/histoSnack',
           templateUrl : '../Partial/Snack/histoSnack.html',
         })
         .state('admin', {
           url         : '/admin',
           templateUrl : '../Partial/Admin/admin.html',
-          onEnter     : ['UserService', function(UserService) {
-            console.log('I am In !');
-            // UserService.setLoginState(true);
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In Admin Section !');
+            ManageViewService.setView(adminLayout);
           }],
-          onExit      : ['UserService', function(UserService) {
-            console.log('I am Out !');
-            // UserService.setLoginState(false);
+          onExit      : ['ManageViewService', function(ManageViewService) {
+            console.log('I am Out Admin Section !');
+            ManageViewService.setView(normalLayout);
           }]
           // authorized  : true
         })
@@ -49,7 +62,6 @@
         .state('admin.snack', {
           url         : '/adminSnack',
           templateUrl : '../Partial/Admin/adminSnack.html',
-          // controllerAs: 'adminMenuSnackCtrl as menuSnack'
         })
         .state('admin.accueil', {
           url         : '/adminAccueil',

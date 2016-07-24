@@ -46,6 +46,11 @@ Installation Prod (Ubuntu Server 16.04 LTS):
         - sudo npm install pm2 -g
         - pm2 install pm2-mongodb (Déjà activé ?)
         * [INFO]: http://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/
+    
+    6. Certificat SSL
+        - Faire la demande (ou en créer un en auto-signé mais fortement déconseillé)
+        - pm2 install pm2-mongodb (Déjà activé ?)
+        * [INFO]: https://www.sitepoint.com/how-to-use-ssltls-with-node-js/
 
 2. Configuration du serveur
     1. Ouvrir les ports (TCP):
@@ -173,6 +178,12 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     - http://maxlab.fr/javascript/securiser-spa-partie2-client-angularjs/
     - https://www.occitech.fr/blog/2014/04/lauthentification-avec-angularjs/
     - https://hnryjms.github.io/2014/04/authentication/
+    - https://gist.github.com/aheckmann/2408370
+    - http://marketblog.envato.com/web-design/addons-plugins-extending-bootstrap/
+    - http://connect.adfab.fr/outils/les-tests-de-charge-kesako
+    - https://github.com/mlazarov/ddos-stress
+    - https://github.com/justintv/Twitch-API
+    
     
     - https://www.tipeeestream.com/
 

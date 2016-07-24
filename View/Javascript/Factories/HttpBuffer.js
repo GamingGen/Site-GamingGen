@@ -1,3 +1,5 @@
+'use strict';
+
 // var HttpBufferFactory = angular.module('HttpBufferFactory', []);
 
 // HttpBufferFactory.factory("httpBufferService", function($injector) {

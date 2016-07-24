@@ -1,3 +1,5 @@
+'use strict';
+
 var Socket = angular.module('Socket', []);
 
 Socket.factory('socket', function ($rootScope) {

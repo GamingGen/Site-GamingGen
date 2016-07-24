@@ -1,3 +1,5 @@
+'use strict';
+
 // var AuthService = angular.module('AuthService', []);
 
 // AuthService.service("SessionService", function() {

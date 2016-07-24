@@ -11,51 +11,27 @@
         </h1>
       </div>
       
-      <div ng-show="!$parent.live">
-        <img src="../Img/Live/LiveInPause.png" class="img-rounded img-responsive" alt="Responsive image"></img>
+      <div ng-show="!($parent.live.Youtube || $parent.live.Twitch)">
+        <img ng-src="../Img/Live/LiveInPause2.jpg" class="img-rounded img-responsive" alt="Responsive image"></img>
       </div>
       
-      <div ng-if="$parent.live" class="embed-responsive embed-responsive-16by9">
+      <div ng-if="$parent.live.Youtube">
         <!-- Use 'youtube-video' as an element or attribute. -->
-        <youtube-video video-id="youtubeLive" player="bestPlayer" player-vars="playerVars"></youtube-video>
+        <div class="embed-responsive embed-responsive-16by9">
+          <youtube-video video-id="youtubeLive" player="bestPlayer" player-vars="playerVars"></youtube-video>
+        </div>
       </div>
       
-      <!--<div class="videogular-container">-->
-      <!--  <videogular-->
-      <!--      vg-player-ready="controller.onPlayerReady($API)"-->
-      <!--      vg-theme="controller.config.theme.url"-->
-      <!--      vg-auto-play="controller.config.autoPlay">-->
-      <!--    <vg-media-->
-      <!--        vg-src="controller.config.sources"-->
-      <!--        vg-tracks="controller.config.tracks"-->
-      <!--        vg-preload="controller.config.preload">-->
-      <!--    </vg-media>-->
-          
-      <!--    <vg-controls-->
-      <!--        vg-autohide="controller.config.plugins.controls.autoHide"-->
-      <!--        vg-autohide-time="controller.config.plugins.controls.autoHideTime">-->
-      <!--      <div class="bottom-right">-->
-      <!--        <vg-volume>-->
-      <!--          <vg-mute-button></vg-mute-button>-->
-      <!--          <vg-volume-bar></vg-volume-bar>-->
-      <!--        </vg-volume>-->
-      <!--        <vg-fullscreen-button></vg-fullscreen-button>-->
-      <!--      </div>-->
-      <!--    </vg-controls>-->
-          
-          <!--<vg-overlay-play></vg-overlay-play>-->
-      <!--    <div class="ng-cloak state" ng-show="controller.live" >-->
-      <!--      <img src="img/live.png">-->
-      <!--    </div>-->
-      <!--    <div class="ng-cloak state" ng-show="!controller.live" >-->
-      <!--      <img src="img/off.png">-->
-      <!--    </div>-->
-          <!--<vg-buffering></vg-buffering>-->
-          <!--<vg-poster vg-url='controller.config.plugins.poster'></vg-poster>-->
-      <!--  </videogular>-->
-      <!--</div>-->
-      
-      <br/><br/>
+      <div ng-if="$parent.live.Twitch">
+        <div class="embed-responsive embed-responsive-16by9">
+          <!--<div id="TwitchPlayer"></div>-->
+          <iframe ng-src="{{channel}}" frameborder="0" scrolling="no"></iframe>
+        </div>
+        
+        <div class="well chat hidden-sm hidden-xs">
+          <iframe ng-src="{{chatChannel}}" frameborder="0" scrolling="no" height="500" width="340"></iframe>
+        </div>
+      </div>
     </div>
   </div>
 </div>

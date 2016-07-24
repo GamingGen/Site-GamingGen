@@ -1,56 +1,20 @@
+'use strict';
+
 var Slider = angular.module('Slider', []);
 
-Slider.service('slider', function ($rootScope, $location, $window, $timeout) {
+Slider.service('slider', function ($rootScope, $window, $timeout) {
   console.log('Service for Slider Created');
   
-  var pages = {};
-  pages.admin = [];
-  pages.gaminggen = [];
-  pages.snack = [];
-  pages.snackRPI = [];
-
-  pages.admin.push('/admin/adminStream', '/admin/adminSnack', '/admin/adminArticles');
-  pages.gaminggen.push('/competition', '/festival', '/forum', '/autresJeux');
-  pages.snack.push('/snack/snack/commande', '/snack/histoSnack');
-  pages.snackRPI.push('/snack/snack/commande', '/snack/histoSnack');  
-  
-  // Hide slider
-  function hideSlider() {
-    var desactiveSlide = false;
-    for (var page of pages.admin.concat(pages.snackRPI)) {
-      if (page === $location.path()) {
-        desactiveSlide = true;
-        break;
-      }
-    };
+  this.hide = function(desactiveSlide) {
+    // if($window.innerWidth < 768) {
+    //   desactiveSlide = true;
+    // }
+    $rootScope.showSlider = !desactiveSlide;
     
-    if($window.innerWidth < 768) {
-      desactiveSlide = true;
-    }
-    
-    return desactiveSlide;
-  };
-  
-  // this.manageSlider = function() {
-  function manageSlider() {
-    var showSlider = !hideSlider();
-    $rootScope.showSlider = showSlider;
-    
-    if (showSlider) {
+    if (!desactiveSlide) {
       $timeout(function(){initSlider();});
     }
-    
-    return showSlider;
   };
-  
-  
-  // TODO Trouver une méthode qui n'est appelé qu'une seule fois par redirection
-  $rootScope.$on('$viewContentLoaded', function() {
-    // if (viewConfig === undefined) {
-      manageSlider();
-    // }
-  });
-  
   
   
   // Private Method

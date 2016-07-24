@@ -1,13 +1,77 @@
 <div ng-controller="adminLiveCtrl as live">
   <div class="row">
-    <div class="col-xs-12">
-      <button type="button" ng-click="toogleLive()" class="btn btn-info">Toogle Live</button>
-      <button type="button" ng-click="Somevideo()" class="btn btn-info">Vidéo Prez</button>
-      <button type="button" ng-click="youtubeLive()" class="btn btn-info">Live</button>
-      <br/><br/>
-      <div class="embed-responsive embed-responsive-16by9">
-        <!-- Use 'youtube-video' as an element or attribute. -->
-        <youtube-video video-id="youtubeAdminLive" player="bestPlayer" player-vars="playerVars"></youtube-video>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" ng-click="LiveOff()" class="btn btn-danger"><i class="fa fa-power-off" aria-hidden="true"></i></button>
+          <button type="button" ng-click="LiveYoutube()" class="btn" ng-class="$parent.live.Youtube ? 'btn-success' : 'btn-default'"><i class="fa fa-youtube" aria-hidden="true"></i></button>
+          <button type="button" ng-click="LiveTwitch()" class="btn" ng-class="$parent.live.Twitch ? 'btn-success' : 'btn-default'"><i class="fa fa-twitch" aria-hidden="true"></i></button>
+          <!--<button type="button" ng-click="muteYoutube()" class="btn btn-warning"><i class="fa fa-youtube" aria-hidden="true"></i></button>-->
+        </div>
+      </div>
+      <!--<div class="row">-->
+      <!--  <div class="col-md-12">-->
+          <ul class="nav nav-tabs nav-justified">
+            <li role="presentation" ng-click="unmuteYoutube()" ng-class="{active: isSelected(1)}"><a ng-click="selectTab(1)"><i class="fa fa-youtube-play" aria-hidden="true"></i> Youtube <img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube"></a></li>
+            <li role="presentation" ng-click="muteYoutube()" ng-class="{active: isSelected(2)}"><a ng-click="selectTab(2)"><i class="fa fa-twitch" aria-hidden="true"></i> Twitch <img src="../Img/Live/live-icone-16.png" ng-show="live.Twitch"></a></li>
+          </ul>
+      <!--  </div>-->
+      <!--</div>-->
+      <div class"pannel" ng-show="isSelected(1)">
+        <div class="row">
+          <div class="col-md-12">
+            <form ng-submit="setIdYoutube()" name="formIdYoutube" class="form-inline" novalidate>
+              <div class="form-group">
+                <!--<div class="col-xs-4">-->
+                  <label for="idYoutube">Id Vidéo / Live : </label>
+                <!--</div>-->
+                <!--<div class="col-xs-6">-->
+                  <input type="text" class="form-control" id="idYoutube" ng-model="idYoutube" placeholder="idYoutube" required>
+                <!--</div>-->
+                <!--<button type="button" ng-click="formIdYoutube.$valid && setIdYoutube()" ng-disabled="!formIdYoutube.$valid" class="btn btn-info">valider</button>-->
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="embed-responsive embed-responsive-16by9">
+              <!-- Use 'youtube-video' as an element or attribute. -->
+              <youtube-video video-id="AdminYoutubeLive" player="bestPlayer" player-vars="playerVars"></youtube-video>
+            </div>
+          </div>
+          <!--<div class="col-md-3">-->
+          <!--  <div class="embed-responsive embed-responsive-16by9">-->
+          <!--    <iframe src="https://www.twitch.tv/darkterra01/chat?popout=" frameborder="0" scrolling="no" class="embed-responsive-item"></iframe>-->
+               <!--height="756" width="430"-->
+          <!--  </div>-->
+          <!--</div>-->
+        </div>
+      </div>
+      <div class"pannel" ng-show="isSelected(2)">
+        <form ng-submit="setChannelTwitch()" name="formChannelTwitch" class="form-inline" novalidate>
+          <div class="form-group">
+            <label for="channel">Chaine Twitch : </label>
+            <input type="text" class="form-control" id="channel" ng-model="channel" placeholder="channel" required>
+            <!--<button type="button" ng-click="formChannelTwitch.$valid && setChannelTwitch()" ng-disabled="!formChannelTwitch.$valid" class="btn btn-info">valider</button>-->
+          </div>
+        </form>
+        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="embed-responsive embed-responsive-16by9">
+              <!--<iframe id="interactiveTwitchPlayer" ng-src="{{AdminChannel}}" scrolling="no"></iframe>-->
+              
+              <div id="adminTwitchPlayer"></div>
+              
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="embed-responsive embed-responsive-fill">
+              <iframe ng-src="{{AdminChatChannel}}" scrolling="no"></iframe>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

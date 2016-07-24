@@ -215,7 +215,7 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     
     // Création du serveur
     http.listen(port, () => {
-      console.log('\nNode Nas Management listening at 127.0.0.1:'.verbose + port.verbose);
+      console.log('\nSI-GamingGen listening at 127.0.0.1:'.verbose + port.verbose);
       // console.log('La plateforme fonctionne depuis : '.data + tools.convertTimeToHuman(os.uptime()).warn);
     });
   });

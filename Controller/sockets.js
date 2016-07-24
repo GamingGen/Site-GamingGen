@@ -15,167 +15,191 @@ let socketio			= require('socket.io');
 let check					= require('check-types');
 
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
-    let io							= socketio.listen(server);
-    let printerClientId	= "";
-    let printerCookId		= "";
-    let liveSource			= "";
-    let toogleLive			= false; // TODO A déplacer
+	let io                = socketio.listen(server);
+	let printerClientId   = "";
+	let printerCookId     = "";
+	let youtube           = {};
+	let twitch            = {};
+	let Live              = {}; // TODO A déplacer
     
-    // Configuration de Socket.IO pour pouvoir avoir accès au sessions
-		io.use(function(socket, next) {
-			sessionMiddleware(socket.request, socket.request.res, next);
+	// Configuration de Socket.IO pour pouvoir avoir accès au sessions
+	io.use(function(socket, next) {
+		sessionMiddleware(socket.request, socket.request.res, next);
+	});
+	
+	ServerEvent.on('isMailExistResult', function(data, socket) {
+		socket.emit('isMailExist', data);
+		console.log('EmitClient: isMailExistResult');
+	});
+	
+	ServerEvent.on('isPseudoExistResult', function(data, socket) {
+		socket.emit('isPseudoExist', data);
+		console.log('EmitClient: isPseudoExistResult');
+	});
+	
+	ServerEvent.on('OrderSaved', function(data, socket) {
+		// console.log(printerClientId);
+		// console.log(printerCookId);
+		if (check.nonEmptyString(printerClientId)) {
+			io.to(printerClientId).emit('generate&printPDF', data);
+			// socket.emit('generate&printPDF', data);
+			console.log('EmitClient: generate&printPDF');
+		}
+		if (check.nonEmptyString(printerCookId)) {
+			io.to(printerCookId).emit('generate&printPDF', data);
+			// socket.emit('generate&printPDF', data);
+			console.log('EmitCook: generate&printPDF');
+		}
+	});
+		
+	ServerEvent.on('ArticleSaved', function(data, socket) {
+		io.sockets.emit('NewArticle', data);
+	});
+	
+	ServerEvent.on('AllOrdersFound', function(data, socket) {
+		socket.emit('AllOrders', data);
+		console.log('EmitClient: AllOrders');
+	});
+	
+	ServerEvent.on('RePrintOrderFind', function(data) {
+		if (check.nonEmptyString(printerClientId) && data != null) {
+			io.to(printerClientId).emit('generate&printPDF', data);
+			console.log('EmitClient: generate&printPDF');
+		}
+	});
+	
+	ServerEvent.on('ClientPrinterPrintedDone', function(data) {
+		io.sockets.emit('ClientPrinterPrintedDone', data);
+	});
+	
+	/***********************************************************************************
+	*														Initialisation des variables												   *
+	***********************************************************************************/
+  // Ouverture de la socket
+  io.sockets.on('connection', function (socket) {
+	  
+	  console.log('Client Connecté');
+	  
+	  
+	  socket.on('isMailExist', function(data) {
+	  	ServerEvent.emit('isMailExist', data, socket);
+	  });
+		
+		socket.on('isPseudoExist', function(data) {
+			ServerEvent.emit('isPseudoExist', data, socket);
 		});
 		
-		
-		ServerEvent.on('isMailExistResult', function(data, socket) {
-			socket.emit('isMailExist', data);
-			console.log('EmitClient: isMailExistResult');
-		});
-		
-		ServerEvent.on('isPseudoExistResult', function(data, socket) {
-			socket.emit('isPseudoExist', data);
-			console.log('EmitClient: isPseudoExistResult');
-		});
-		
-		ServerEvent.on('OrderSaved', function(data, socket) {
-			// console.log(printerClientId);
-			// console.log(printerCookId);
-			if (check.nonEmptyString(printerClientId)) {
-				io.to(printerClientId).emit('generate&printPDF', data);
-				// socket.emit('generate&printPDF', data);
-				console.log('EmitClient: generate&printPDF');
+		socket.on('IamTheClientPrinter', function() {
+			if (check.emptyString(printerClientId)) {
+	  		printerClientId = socket.id;
+				console.log('Printer Client Found');
+				console.log(socket.id);
 			}
-			if (check.nonEmptyString(printerCookId)) {
-				io.to(printerCookId).emit('generate&printPDF', data);
-				// socket.emit('generate&printPDF', data);
-				console.log('EmitCook: generate&printPDF');
+		});
+		
+		socket.on('IamTheCookPrinter', function() {
+			if (check.emptyString(printerCookId)) {
+	  		printerCookId = socket.id;
+				console.log('Printer Cook Found');
+				console.log(socket.id);
 			}
 		});
 		
-		ServerEvent.on('ArticleSaved', function(data, socket) {
-			io.sockets.emit('NewArticle', data);
-		});
 		
-		ServerEvent.on('AllOrdersFound', function(data, socket) {
-			socket.emit('AllOrders', data);
-			console.log('EmitClient: AllOrders');
-		});
 		
-		ServerEvent.on('RePrintOrderFind', function(data) {
-			if (check.nonEmptyString(printerClientId) && data != null) {
-				io.to(printerClientId).emit('generate&printPDF', data);
-				console.log('EmitClient: generate&printPDF');
-			}
-		});
-		
-		ServerEvent.on('ClientPrinterPrintedDone', function(data) {
-			io.sockets.emit('ClientPrinterPrintedDone', data);
-		});
-		
-		/***********************************************************************************
-		*														Initialisation des variables												   *
-		***********************************************************************************/
-    // Ouverture de la socket
-    io.sockets.on('connection', function (socket) {
-  	
-  	console.log('Client Connecté');
-  	
-  	
-  	socket.on('isMailExist', function(data) {
-  		ServerEvent.emit('isMailExist', data, socket);
-  	});
-  	
-  	socket.on('isPseudoExist', function(data) {
-  		ServerEvent.emit('isPseudoExist', data, socket);
-  	});
-  	
-  	socket.on('IamTheClientPrinter', function() {
-  		if (check.emptyString(printerClientId)) {
-    		printerClientId = socket.id;
-  			console.log('Printer Client Found');
-  			console.log(socket.id);
-  		}
-  	});
-  	
-  	socket.on('IamTheCookPrinter', function() {
-  		if (check.emptyString(printerCookId)) {
-    		printerCookId = socket.id;
-  			console.log('Printer Cook Found');
-  			console.log(socket.id);
-  		}
-  	});
-  	
-  	
-  	
-  	socket.on('saveConf', function(data) {
-  		ServerEvent.emit('saveConf', data);
+		socket.on('saveConf', function(data) {
+			ServerEvent.emit('saveConf', data);
 			console.log('Emit: saveConf');
-  	});
-  	
-  	
-  	
-  	socket.on('saveMenuSnack', function(data) {
-  		ServerEvent.emit('saveMenuSnack', data);
+		});
+		
+		
+		
+		socket.on('saveMenuSnack', function(data) {
+			ServerEvent.emit('saveMenuSnack', data);
 			console.log('Emit: saveMenuSnack');
-  	});
-  	
-  	
-  	socket.on('RePrintPDF', function(data) {
-  		ServerEvent.emit('RePrintPDF', data, socket);
-  	});
-  	
-  	socket.on('generatePDF', function(data) {
-  		console.log('Reception order Client');
-  		ServerEvent.emit('saveOrder', data, socket);
+		});
+		
+		
+		socket.on('RePrintPDF', function(data) {
+			ServerEvent.emit('RePrintPDF', data, socket);
+		});
+		
+		socket.on('generatePDF', function(data) {
+			console.log('Reception order Client');
+			ServerEvent.emit('saveOrder', data, socket);
 			console.log('Emit: saveOrder');
-  	});
-  	
-  	socket.on('saveArticle', function(data) {
-  		console.log('Reception article Client');
-  		ServerEvent.emit('saveArticle', data, socket);
+		});
+		
+		socket.on('saveArticle', function(data) {
+			console.log('Reception article Client');
+			ServerEvent.emit('saveArticle', data, socket);
 			console.log('Emit: saveArticle');
-  	});
-  	
-  	socket.on('getAllOrders', function() {
-  		ServerEvent.emit('findAllOrders', socket);
+		});
+		
+		socket.on('getAllOrders', function() {
+			ServerEvent.emit('findAllOrders', socket);
 			console.log('Emit: findAllOrders');
-  	});
-  	
-  	socket.on('ClientPrinterPrinted', function(number) {
-  		ServerEvent.emit('ClientPrinterPrinted', number);
+		});
+		
+		socket.on('ClientPrinterPrinted', function(number) {
+			ServerEvent.emit('ClientPrinterPrinted', number);
 			console.log('Emit: ClientPrinterPrinted');
-  	});
-  	
-  	socket.on('getToogleLive', function() {
-  		socket.emit('getToogleLive', toogleLive);
-  	});
-  	
-  	socket.on('toogleLive', function() {
-  		toogleLive = !toogleLive;
-  		console.log(toogleLive);
-  		io.sockets.emit('toogleLive', toogleLive);
-  	});
-  	
-  	socket.on('getLiveSource', function() {
-  		socket.emit('getLiveSource', liveSource);
-  	});
-  	
-  	socket.on('ChangeLiveSource', function(data) {
-  		liveSource = data;
-  		io.sockets.emit('ChangeLiveSource', data);
-  	});
+		});
+		
+		socket.on('getLive', function() {
+			socket.emit('toogleLive', Live);
+		});
+		
+		socket.on('LiveOff', function() {
+			Live.Youtube = false;
+			Live.Twitch = false;
+			io.sockets.emit('toogleLive', Live);
+			console.log(Live);
+		});
+		
+		socket.on('LiveYoutube', function() {
+			Live.Youtube = true;
+			Live.Twitch = false;
+			io.sockets.emit('toogleLive', Live);
+			console.log(Live);
+		});
+		
+		socket.on('LiveTwitch', function() {
+			Live.Twitch = true;
+			Live.Youtube = false;
+			io.sockets.emit('toogleLive', Live);
+			console.log(Live);
+		});
+		
+		socket.on('getLiveSource', function() {
+			socket.emit('ChangeLiveSource', youtube);
+		});
+		
+		socket.on('ChangeLiveSource', function(data) {
+			youtube = data;
+			io.sockets.emit('ChangeLiveSource', data);
+		});
+		
+		socket.on('getChannelTwitch', function() {
+			socket.emit('ChangeChannelTwitch', twitch);
+		});
+		
+		socket.on('ChangeChannelTwitch', function(data) {
+			twitch = data;
+			io.sockets.emit('ChangeChannelTwitch', data);
+		});
 		
 		// ----------------------- Décompte uniquement des User Connecté ----------------------- //
-		socket.on('disconnect', function(){
+		socket.on('disconnect', function() {
 			console.log('Client Disconnect');
-				if (check.nonEmptyString(printerClientId) && socket.id == printerClientId) {
-					printerClientId = "";
-					console.log('We lost the Client Printer');
-				}
-				if (check.nonEmptyString(printerCookId) && socket.id == printerCookId) {
-					printerCookId = "";
-					console.log('We lost the Cook Printer');
-				}
+			if (check.nonEmptyString(printerClientId) && socket.id == printerClientId) {
+				printerClientId = "";
+				console.log('We lost the Client Printer');
+			}
+			if (check.nonEmptyString(printerCookId) && socket.id == printerCookId) {
+				printerCookId = "";
+				console.log('We lost the Cook Printer');
+			}
 		});
 	});
 };

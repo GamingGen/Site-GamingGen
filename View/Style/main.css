@@ -35,7 +35,7 @@ body {
   background: -o-linear-gradient(to right, #000, #000);
   background: linear-gradient(to right, #000, #000),
               linear-gradient(to right,#7EB400,  #7EB400),
-              url(../img/background-body.png);
+              url(../Img/background-body.png);
 
   background-repeat: no-repeat,
                      no-repeat,
@@ -64,26 +64,6 @@ body {
 .navbar a {
   outline : none;
 }
-
-/* unvisited link */
-/*a:link {*/
-/*    color: red !important;*/
-/*}*/
-
-/* visited link */
-/*a:visited {*/
-/*    color: green !important;*/
-/*}*/
-
-/* mouse over link */
-/*a:hover {*/
-/*    color: hotpink !important;*/
-/*}*/
-
-/* selected link */
-/*a:active {*/
-/*    color: blue !important;*/
-/*}*/
 
 p {
   color: #000;
@@ -182,14 +162,6 @@ hr {
 }
 
 
-/*.table-command {*/
-/*  margin-top: -16px;*/
-/*  margin-left: -15px;*/
-/*  font-size: 1px;*/
-/*}*/
-/*.table-command tbody tr td .btn-group {*/
-/*  width: 1%; display: table-cell;*/
-/*}*/
 .clear {
   width: 50%; 
 }
@@ -198,74 +170,14 @@ hr {
   display: table-cell;
 }
 
-/*.table-command thead tr th, .table-command tbody tr td {*/
-/*  padding-left: 0;*/
-/*  padding-right: 0;*/
-/*  margin-left: 0;*/
-/*  margin-right: 0;*/
-/*}*/
 
-/*.table-snack thead {*/
-/*  display: inline-block;*/
-/*}*/
 
-/*.table-snack {*/
-/*  height: 315px;*/
-/*}*/
 
-/*.table-snack table thead th {*/
-/*  text-align: center;*/
-/*  min-width: 65px;*/
-/*}*/
 
-/*.table-snack table tbody {*/
-  /*height: 243px;*/
-/*  overflow-y: scroll;*/
-/*  text-align: center;*/
-/*  min-width: 65px;*/
-/*}*/
-
-.table-snack table thead th {
-  text-align: center;
-  min-width: 65px;
+.embed-responsive-fill {
+  /*padding: initial;*/
+  padding-bottom: 115.5%;
 }
-
-.table-snack table tbody {
-  overflow-y: scroll;
-  text-align: center;
-  min-width: 65px;
-}
-
-
-
-
-
-
-
-
-.embed-responsive {
-  position: relative;
-  display: block;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-.embed-responsive.embed-responsive-16by9 {
-  padding-bottom: 56.25%;
-}
-
-.embed-responsive-item {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-
 
 .modal {
   margin-top: 50px;
@@ -336,4 +248,22 @@ hr {
 }
 #slider .slide-block p {
 	margin: 0;
+}
+
+
+
+
+.resizeProfil {
+  width: 33px;
+  height: auto;
+}
+
+
+
+.chat {
+  margin-top: 115px;
+  height: 400px;
+  /*float: right;*/
+  /*display: inline-block;*/
+  /*position: fixed;*/
 }

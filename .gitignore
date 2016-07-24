@@ -31,3 +31,7 @@ mongod
 mongodRepair
 mongodShutDown
 adminMongo
+
+# Only for LeadDev
+*.pem
+*.csr

@@ -1,34 +1,30 @@
 /**
  * Définition des contrôleurs
  */
+'use strict';
+
 var AppControllers = angular.module('AppControllers', []);
 
-AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$scope', 'socket', '$window', 'slider', function(UserService, $location, $state, $scope, socket, $window, slider) {
+AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$location', '$state', '$scope', 'socket', '$window', function(UserService, ManageViewService, $location, $state, $scope, socket, $window) {
   // ----- Init -----
+  var user        = {};
   var pages       = {};
   pages.admin     = [];
   pages.gaminggen = [];
   pages.snack     = [];
   pages.snackRPI  = [];
   
-  var user = {};
   
-  console.log('mainCtrl is executed');
-  
+  // ----- GET / SET Data -----
   $scope.User = UserService.currentUser;
   $scope.isMailExist = false;
   $scope.isPseudoExist = false;
-  
-  // ----- GET / SET Data -----
+  ManageViewService.setView('container');
   
   // Pour récupérer les infos en cas de coupure réseau
   socket.on('connect', function() {
-    socket.emit('getToogleLive');
+    socket.emit('getLive');
     console.log('Connexion || Reconnexion');
-  });
-  
-  socket.on('getToogleLive', function(live) {
-    $scope.live = live;
   });
   
   socket.on('toogleLive', function(live) {
@@ -180,54 +176,98 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   });
 }]);
 
-AppControllers.controller('adminLiveCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
+AppControllers.controller('adminLiveCtrl', ['$scope', '$http', 'socket', '$sce', function($scope, $http, socket, $sce) {
   // ----- Init -----
-  var idLive;
+  var twitch  = {};
+  var youtube = {};
+  var options = {};
+  var playerAdmin;
+  $scope.tab  = 1;
+  
   
   // ----- GET / SET Data -----
   $scope.playerVars = {
-    controls: 0,
+    controls: 1,
     autoplay: 1
   };
   
+  playerAdmin = new Twitch.Player("adminTwitchPlayer", options);
+  
+  socket.emit('getLiveSource');
+  
   socket.on('ChangeLiveSource', function(data) {
-    $scope.youtubeAdminLive = data;
+    $scope.AdminYoutubeLive = data.id;
+    $scope.idYoutube        = data.id;
+  });
+  
+  socket.emit('getChannelTwitch');
+  
+  socket.on('ChangeChannelTwitch', function(data) {
+    $scope.channel          = data.name;
+    $scope.AdminChatChannel = $sce.trustAsResourceUrl(data.chat);
+    $scope.AdminChannel     = $sce.trustAsResourceUrl(data.url);
+    ChangeChannelTwitch(data.name);
+  });
+  
+  socket.on('toogleLive', function(live) {
+    $scope.live = live;
   });
   
   
   // ----- Public Méthode -----
-  $scope.toogleLive = function () { 
-    socket.emit('toogleLive');
+  $scope.selectTab = function(setTab) {
+    $scope.tab = setTab;
   };
   
-  $scope.Somevideo = function() {
-    idLive = "dGRWO7C6m6M";
-    socket.emit('ChangeLiveSource', idLive);
+  $scope.isSelected = function(checkTab) {
+    return $scope.tab === checkTab;
   };
-  $scope.youtubeLive = function() {
-    idLive = "L4x7NOl2_To";
-    socket.emit('ChangeLiveSource', idLive);
+  
+  $scope.LiveOff = function() {
+    socket.emit('LiveOff');
   };
-
-  // // $scope.sendPost = function() {
-  // //   var data = {
-  // //     name: "test003",
-  // //     users: {
-  // //       password_min_length: 8
-  // //     },
-  // //     roles: ["Admin", "Player"],
-  // //     snack: {
-  // //       nominal_time_preparation: 10,
-  // //       printer_client_length_element: 12,
-  // //       printer_cook_length_element: 18,
-  // //       type_menu: ["Plat", "Accompagnement", "Boisson", "Dessert", "Encas"]
-  // //     }
-  ////    };
-    
-  // //   socket.emit('saveConf', data);
-  // // };
+  
+  $scope.muteYoutube = function() {
+    $scope.bestPlayer.mute();
+    // player.setMuted(false);
+  };
+  
+  $scope.unmuteYoutube = function() {
+    $scope.bestPlayer.unMute();
+    // player.setMuted(true);
+  };
+  
+  $scope.setIdYoutube = function() {
+    // idLive = "L4x7NOl2_To";
+    youtube.id = $scope.idYoutube;
+    socket.emit('ChangeLiveSource', youtube);
+  };
+  
+  $scope.LiveYoutube = function() {
+    socket.emit('LiveYoutube');
+  };
+  
+  $scope.setChannelTwitch = function() {
+    twitch.name = $scope.channel;
+    twitch.url  = "https://player.twitch.tv/?channel=" + $scope.channel;
+    twitch.chat = "https://www.twitch.tv/" + $scope.channel + "/chat?popout=";
+    socket.emit('ChangeChannelTwitch', twitch);
+  };
+  
+  $scope.LiveTwitch = function() {
+    socket.emit('LiveTwitch');
+  };
   
   // ----- Private Méthode -----
+  function ChangeChannelTwitch(channel) {
+    playerAdmin.setChannel(channel);
+    // playerAdmin.setVolume(1.0);
+    playerAdmin.setMuted(false);
+    if (playerAdmin.isPaused()) {
+      playerAdmin.play();
+      console.log('Player play ?');
+    }
+  }
 }]);
 
 AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
@@ -298,6 +338,7 @@ AppControllers.controller('adminMenuSnackCtrl', ['$scope', '$http', 'socket', fu
   // ----- GET / SET Data -----
   $http.get('/confs/typeMenu').success(function(data) {
     menu.list = data;
+    console.log(menu.list);
     $scope.type.name = menu.list[0].name;
   });
   
@@ -469,10 +510,11 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
 }]);
 
 
-AppControllers.controller('liveCtrl', ['$http', '$scope', 'socket', '$filter', function($http, $scope, socket, $filter){
+AppControllers.controller('liveCtrl', ['$http', '$scope', 'socket', '$filter', '$sce', function($http, $scope, socket, $filter, $sce){
   // ----- Init -----
-  var live      = this;
-  
+  var live    = this;
+  var options = {};
+  var player;
   
   // ----- GET / SET Data -----
   $scope.playerVars = {
@@ -480,15 +522,27 @@ AppControllers.controller('liveCtrl', ['$http', '$scope', 'socket', '$filter', f
     autoplay: 1
   };
   
+  // player = new Twitch.Player("TwitchPlayer", options);
+  // player.setVolume(1.0);
   
   socket.emit('getLiveSource');
   
   socket.on('getLiveSource', function(data) {
-    $scope.youtubeLive = data;
+    $scope.youtubeLive = data.id;
   });
   
   socket.on('ChangeLiveSource', function(data) {
-    $scope.youtubeLive = data;
+    $scope.youtubeLive = data.id;
+    console.log(data);
+  });
+  
+  socket.emit('getChannelTwitch');
+  
+  socket.on('ChangeChannelTwitch', function(data) {
+    console.log(data);
+    $scope.channel = $sce.trustAsResourceUrl(data.url);
+    $scope.chatChannel = $sce.trustAsResourceUrl(data.chat);
+    ChangeChannelTwitch(data.name);
   });
   
   
@@ -496,6 +550,14 @@ AppControllers.controller('liveCtrl', ['$http', '$scope', 'socket', '$filter', f
   
   
   // ----- Private Méthode -----
+  function ChangeChannelTwitch(channel) {
+    // player.setChannel(channel);
+    
+    // if (player.isPaused()) {
+    //   player.play();
+    //   console.log('Player play ?');
+    // }
+  }
   
   
   // ----- jQuery -----

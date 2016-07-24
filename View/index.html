@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
     <link rel="stylesheet" href="Style/jasny-bootstrap.min.css">
     <link rel="stylesheet" href="Style/main.css">
     <link rel="stylesheet" href="Style/loading-bar.css" media="all">
@@ -27,15 +28,18 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-animate.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/locale/bootstrap-table-fr-FR.js"></script>
     <script type="text/javascript" src="Javascript/Lib/jasny-bootstrap.min.js"></script>
     <script type="text/javascript" src="Javascript/Lib/jquery.carouFredSel-6.2.0-packed.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="Javascript/app.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/AppControllers.js"></script>
     <script type="text/javascript" src="Javascript/Factories/Socket.io.js"></script>
-    <script type="text/javascript" src="Javascript/Factories/HttpBuffer.js"></script>
+    <!--<script type="text/javascript" src="Javascript/Factories/HttpBuffer.js"></script>-->
     <script type="text/javascript" src="Javascript/Services/Slider.js"></script>
     <script type="text/javascript" src="Javascript/Services/AuthService.js"></script>
+    <script type="text/javascript" src="Javascript/Services/ContainerService.js"></script>
     <script type="text/javascript" src="Javascript/Locales/angular-locale_fr-fr.js"></script>
     
     <script type="text/javascript" src="Javascript/tinyMCE/bower_components/tinymce-dist/tinymce.js"></script>
@@ -43,12 +47,10 @@
     
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript" src="Javascript/Lib/angular-youtube-embed.min.js"></script>
+    <script type="text/javascript" src= "https://player.twitch.tv/js/embed/v1.js"></script>
     <script type="text/javascript" src="Javascript/Lib/loading-bar.js"></script>
     
     
-    <script type="text/javascript" src="http://static.videogular.com/scripts/controls/latest/vg-controls.js"></script>
-    <script type="text/javascript" src="http://static.videogular.com/scripts/videogular/latest/videogular.js"></script>
-    <script type="text/javascript" src="http://static.videogular.com/scripts/overlay-play/latest/vg-overlay-play.js"></script>
     <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
   </head>
   
@@ -211,12 +213,12 @@
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.histo">Historique des commandes</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
                   </ul>
                 </li>
                 <li>
-                  <a class="autoCollapse" ui-sref="live">Live <img src="../Img/live-icone-16.png" ng-show="live"></a>
+                  <a class="autoCollapse" ui-sref="live">Live <img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a>
                 </li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
@@ -262,7 +264,7 @@
                     Mon Compte<span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a>Bienvenu <b>{{User.pseudo}}</b></a></li>
+                    <li><a><img src="../Img/Profil_JY.jpg" alt="..." class="resizeProfil img-circle"> Bienvenu <b>{{User.pseudo}}</b></a></li>
                     <li role="separator" class="divider"></li>
                     <li><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
                     <li><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
@@ -290,7 +292,7 @@
     <!--<div class="row">-->
     <!--  <div class="col-md-12">-->
         <div class="body">
-          <section ng-if="showSlider">
+          <section ng-if="showSlider" class="hidden-xs">
             <div id="wrapper">
             	<div id="slider">
             	
@@ -389,8 +391,18 @@
             </div>
           </section>
           
-          <div class="container">
-            <div ui-view></div>
+          <div class="container-fluid">
+            <!--<div class="row">-->
+              <!--<div class="pull-right col-md-2">-->
+              <!--  <div class="chat hidden-sm hidden-xs">-->
+              <!--    <iframe src="https://www.twitch.tv/darkterra01/chat?popout=" class="embed-responsive-item" frameborder="0" scrolling="no" height="500" width="340"></iframe>-->
+              <!--  </div>-->
+              <!--</div>-->
+            <!--</div>-->
+            
+            <div ng-class="mainView" >
+              <div ui-view></div>
+            </div>
           </div>
         </div>
         
