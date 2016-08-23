@@ -46,6 +46,7 @@ UserSchema.pre('save', function(next) {
   var dateNow = Date.now();
   //this.general.update_at = dateNow;
   if (this.isNew) {
+    console.log(this);
     this.general.register_date = dateNow;
     this.password = bcrypt.hashSync(this.password, saltRounds);
   }

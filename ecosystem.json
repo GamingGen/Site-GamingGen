@@ -5,14 +5,15 @@
    */
   "apps" : [
     {
-      "name"                : "SI-GamingGen",
-      "script"              : "server.js",
-      "exec_mode"           : "cluster",
-      "max_memory_restart"  : "512M",
-      "port"                : 80,
-      "watch"               : false,
-      "env" : {
-        "COMMON_VARIABLE": "true"
+      "name"              : "SI-GamingGen",
+      "script"            : "server.js",
+      "exec_mode"         : "cluster",
+      "instances"         : "max",              // A vérifier !
+      "max_memory_restart": "512M",
+      "port"              : 80,
+      "watch"             : false,
+      "env"               : {
+        "COMMON_VARIABLE"   : "true"
       },
       "env_production" : {
         "NODE_ENV": "production"

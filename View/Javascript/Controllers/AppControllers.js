@@ -5,10 +5,12 @@
 
 var AppControllers = angular.module('AppControllers', []);
 
-AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$location', '$state', '$scope', 'socket', '$window', function(UserService, ManageViewService, $location, $state, $scope, socket, $window) {
+AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$location', '$state', '$scope', 'socket', '$window', '$http', function(UserService, ManageViewService, $location, $state, $scope, socket, $window, $http) {
   // ----- Init -----
   var user        = {};
   var pages       = {};
+  
+  user.general    = {};
   pages.admin     = [];
   pages.gaminggen = [];
   pages.snack     = [];
@@ -43,8 +45,8 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
   $scope.$watch('email', isMailExist);
   $scope.$watch('pseudo', isPseudoExist);
   
-  $scope.connectionEmail = 'darkterra01@gmail.com';
-  $scope.connectionPassword = 'darkterra';
+  // $scope.connectionEmail = 'darkterra01@gmail.com';
+  // $scope.connectionPassword = 'darkterra';
   
   
   // ----- Public Méthode -----
@@ -56,33 +58,49 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
     user.email = $scope.connectionEmail;
     user.password = $scope.connectionPassword;
     
+    // $scope.connectionEmail = '';
+    // $scope.connectionPassword = '';
+    
     UserService.login(user)
-    .success(function() {
+    .then(function success() {
       console.log('Connexion !!!');
       UserService.MajCurrentUser();
       $scope.User = UserService.currentUser;
       console.log($scope.User);
-    })
-    .error(function() {
+      
+      $scope.connectionEmail = '';
+      $scope.connectionPassword = '';
+    }, function error() {
       console.log('Connexion Error -_-');
+      
+      $scope.connectionEmail = '';
+      $scope.connectionPassword = '';
     });
-    
-    // $scope.connectionEmail = '';
-    // $scope.connectionPassword = '';
   };
   
   // Submit Register Modal
   $scope.submitRegister = function() {
     console.log('submitRegister Call');
+    user.pseudo = $scope.pseudo;
+    user.password = $scope.password;
+    user.email = $scope.email;
+    user.general.first_name = $scope.firstName;
+    user.general.last_name = $scope.lastName;
+    user.general.birthday = $scope.birthday;
+    user.general.zip = $scope.zip;
     
+    console.log(JSON.stringify(user));
+    $http.post('/users/insert', JSON.stringify(user)).success(function() {
+      
+      $scope.firstName = '';
+      $scope.lastName  = '';
+      $scope.pseudo    = '';
+      $scope.password  = '';
+      $scope.zip       = '';
+      $scope.birthday  = '';
+      $scope.email     = '';
+    });
     
-    $scope.firstName = '';
-    $scope.lastName  = '';
-    $scope.pseudo    = '';
-    $scope.password  = '';
-    $scope.zip       = '';
-    $scope.birthday  = '';
-    $scope.email     = '';
   };
   
   

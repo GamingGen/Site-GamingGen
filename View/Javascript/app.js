@@ -23,7 +23,7 @@
           templateUrl : '../Partial/Snack/snack.html'
         })
         .state('snack.staff', {
-          url         : '/snack',
+          url         : '/staff',
           templateUrl : '../Partial/Snack/staff.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             console.log('I am In Snack Section !');
@@ -78,11 +78,15 @@
         return {
           "responseError": function(response) {
             var deferred = $q.defer();
+            
+            console.log('interceptor response :');
+            console.log(response);
               
             if (response.status === 401) {
+              console.log('401');
               // $location.path('#/home');
-              // $state.go('home');
-              $timeout(function(){$state.go('home');});
+              $state.go('snack.staff.commande');
+              // $timeout(function(){$state.go('home');});
               
               // TODO à voir si utile
               // HttpBufferService.storeRequest({

@@ -102,7 +102,7 @@
                     <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.zip.$invalid && !formRegistration.zip.$pristine }">
                       <div class="form-group">
                         <label for="email">Code Postale : </label>
-                        <input type="number" min="0100" max="9999" ng-model="zip" class="form-control" id="zip" name="zip" placeholder="Code Postale" required/>
+                        <input type="number" min="0100" max="99999" ng-model="zip" class="form-control" id="zip" name="zip" placeholder="Code Postale" required/>
                       </div>
                     </div>
                     <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.birthday.$invalid && !formRegistration.birthday.$pristine }">
@@ -131,7 +131,7 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btn btn-primary" ng-disabled="formRegistration.$invalid">Submit</button>
+                <button type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btn btn-primary" ng-disabled="formRegistration.$invalid" data-dismiss="modal">Submit</button>
                 <button type="button" id="closeRegister" class="btn btn-danger" data-dismiss="modal">Cancel</button>
               </div>
             </div>
@@ -186,39 +186,62 @@
               <ul class="nav navbar-nav">
                 <li ui-sref-active="active" class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    GamingGen<span class="caret"></span>
+                    Gaming Gen 6<span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
                     <li><a ui-sref="competitions">Les compétitions</a></li>
+                    <li role="separator" class="divider"></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="festival">Festival du jeu</a></li>
                     <li><a ui-sref="forum">Forum des métiers du digital</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a ui-sref="galerie">La Galerie</a></li>
+                    <li><a ui-sref="galerie">Le Plan</a></li>
+                    <!--<li role="separator" class="divider"></li>-->
+                    <li><a ui-sref="partenaires">Le Programme</a></li>
+                    <!--<li role="separator" class="divider"></li>-->
+                    <li><a ui-sref="comm">Le Plan</a></li>
+                    <li><a ui-sref="staff">Le Snack</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a ui-sref="partenaires">Les Partenaires</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a ui-sref="comm">Ils parlent de nous</a></li>
-                    <li><a ui-sref="staff">L'équipe GamingGen</a></li>
+                    <li><a ui-sref="live">Live <img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a></li>
                   </ul>
                 </li>
+                <!--<li ui-sref-active="active" class="dropdown">-->
+                <!--  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
+                <!--    Les Partenaires<span class="caret"></span>-->
+                <!--  </a>-->
+                  <!--<ul class="dropdown-menu">-->
+                    <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
+                  <!--  <li><a ui-sref="snack.carte">La Carte</a></li>-->
+                  <!--  <li><a ui-sref="snack.info">Infos Snack</a></li>-->
+                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>-->
+                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>-->
+                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>-->
+                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>-->
+                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>-->
+                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>-->
+                  <!--</ul>-->
+                <!--</li>-->
+                <li>
+                  <a class="autoCollapse" ui-sref="live">Les Partenaires</a>
+                </li>
+                <li>
+                  <a class="autoCollapse" ui-sref="live">News</a>
+                </li>
+                <li>
+                  
+                </li>
+                
                 <li ui-sref-active="active" class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Snack<span class="caret"></span>
+                    L'association<span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
                     <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-                    <li><a ui-sref="snack.carte">La Carte</a></li>
-                    <li><a ui-sref="snack.info">Infos Snack</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
+                    <li><a ui-sref="snack.carte">L'équipe Gaming Gen</a></li>
+                    <li><a ui-sref="snack.info">Nos précédents événements</a></li>
+                    <li><a ui-sref="snack.joueur.commande">Médias</a></li>
+                    <li><a ui-sref="snack.staff.commande">Mentions légales</a></li>
+                    <li><a ui-sref="snack.staff.histo">Contact</a></li>
                   </ul>
-                </li>
-                <li>
-                  <a class="autoCollapse" ui-sref="live">Live <img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a>
                 </li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
@@ -234,7 +257,7 @@
                 </li>
                 <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
                 <!--ng-if="isConnected && isAdmin" -->
-                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown">
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 0" ui-sref-active="active" class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cogs" aria-hidden="true"></i> Admin<span class="caret"></span>
                   </a>
