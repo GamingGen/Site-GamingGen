@@ -257,7 +257,7 @@
                 </li>
                 <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
                 <!--ng-if="isConnected && isAdmin" -->
-                <li ng-show="User.isLoggedIn && User.accessLvl >= 0" ui-sref-active="active" class="dropdown">
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cogs" aria-hidden="true"></i> Admin<span class="caret"></span>
                   </a>
