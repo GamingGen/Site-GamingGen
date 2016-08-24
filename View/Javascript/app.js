@@ -67,6 +67,10 @@
           url         : '/adminAccueil',
           templateUrl : '../Partial/Admin/adminAccueil.html'
         })
+        .state('admin.roles', {
+          url         : '/adminRoles',
+          templateUrl : '../Partial/Admin/adminRoles.html'
+        })
         .state('admin.articles', {
           url         : '/adminArticles',
           templateUrl : '../Partial/Admin/adminArticles.html'
