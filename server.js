@@ -203,7 +203,7 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     
     
     if (parseInt(nodeVersion[0], 10) > parseInt(refVersion[0], 10)) {
-      console.log('Version du server OK...'.verbose);
+      console.log('Version du server OK...');
       console.log('La version du serveur Node.JS : '.data + process.version.warn);
       console.log('Le serveur Node.JS fonctionne sur la plateforme : '.data + process.platform.warn);
     }
@@ -215,7 +215,7 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     
     // Création du serveur
     http.listen(port, () => {
-      console.log('\nSI-GamingGen listening at 127.0.0.1:'.verbose + port.verbose);
+      console.log('\nSI-GamingGen listening at 127.0.0.1:' + port);
       // console.log('La plateforme fonctionne depuis : '.data + tools.convertTimeToHuman(os.uptime()).warn);
     });
   });
