@@ -5,6 +5,7 @@
 
 var AppControllers = angular.module('AppControllers', []);
 
+
 AppControllers.directive('modal', function () {
   return {
     template: '../Partial/modal.html',

@@ -124,7 +124,7 @@ angular.module("AuthServices", [])
       return $http.post("/users/login", {
           "email": user.email,
           "password": user.password
-      }).success(function(response) {
+      }).then(function success(response) {
         
         console.log('response:');
         console.log(response);
@@ -139,7 +139,12 @@ angular.module("AuthServices", [])
         // $location.path("/");
         // or
         // HttpBufferService.retryLastRequest();
+      }, function error(err) {
+        console.log('err');
+        console.log(err);
+        
       });
+      
   };
   
   this.logout = function() {

@@ -13,7 +13,7 @@ function(req, res, next) {
   passport.authenticate("local", function(err, user, info) {
     console.log(info);
     if (!user) {
-      return res.send(401) ;
+      return res.sendStatus(401) ;
     }
     if (err) {
       return next(err);
@@ -23,7 +23,7 @@ function(req, res, next) {
         return next(err);
       }
       return res.end(JSON.stringify(user));
-      // return res.send(200);
+      // return res.sendStatus(200);
     });
   })(req, res, next);
 });
@@ -50,7 +50,7 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    userSchema.findOne({username: 'DarkTerra'}).populate('name').exec(function (err, docs) {
+    userSchema.findOne({pseudo: 'DarkTerra'}).populate('name').exec(function (err, docs) {
       if (err) {
         console.log(err);
       }
@@ -74,14 +74,14 @@ router.get('/', (req, res) => {
 
 router.post('/insert', function (req, res) {
   var newUser = new userSchema({
-    username  : req.query.username,
-    password  : req.query.password,
-    email     : req.query.email,
+    pseudo    : req.body.pseudo,
+    password  : req.body.password,
+    email     : req.body.email,
     general   : {
-                  first_name    : req.query.first_name,
-                  last_name     : req.query.last_name,
-                  birthday      : req.query.birthday,
-                  zip           : req.query.zip
+                  first_name    : req.body.general.first_name,
+                  last_name     : req.body.general.last_name,
+                  birthday      : req.body.general.birthday,
+                  zip           : req.body.general.zip
                 }
   });
   
