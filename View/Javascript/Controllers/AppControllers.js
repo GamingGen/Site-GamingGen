@@ -288,42 +288,6 @@ AppControllers.controller('adminLiveCtrl', ['$scope', '$http', 'socket', '$sce',
   }
 }]);
 
-
-AppControllers.controller('adminRolesCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
-  // ----- Init -----
-  $scope.tab  = 1;
-  
-  
-  // ----- GET / SET Data -----
-  // socket.emit('getChannelTwitch');
-  
-  // socket.on('toogleLive', function(live) {
-  //   $scope.live = live;
-  // });
-  
-  
-  // ----- Public Méthode -----
-  $scope.selectTab = function(setTab) {
-    $scope.tab = setTab;
-  };
-  
-  $scope.isSelected = function(checkTab) {
-    return $scope.tab === checkTab;
-  };
-  
-  
-  // ----- Private Méthode -----
-  // function ChangeChannelTwitch(channel) {
-  //   playerAdmin.setChannel(channel);
-  //   // playerAdmin.setVolume(1.0);
-  //   playerAdmin.setMuted(false);
-  //   if (playerAdmin.isPaused()) {
-  //     playerAdmin.play();
-  //     console.log('Player play ?');
-  //   }
-  // }
-}]);
-
 AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
   // ----- Init -----
   tinymce.init({

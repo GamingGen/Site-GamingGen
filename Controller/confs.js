@@ -15,10 +15,23 @@ router.get('/', function (req, res) {
 
 
 router.get('/typeMenu', function (req, res) {
-    confSchema.findOne({}, 'snack', {sort: {$natural: -1}}, function (err, docs) {
-      console.log(docs);
-      res.json(docs.snack.type_menu);
-    });
+  confSchema.findOne({}, 'snack', {sort: {$natural: -1}}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(docs);
+    res.json(docs.snack.type_menu);
+  });
+});
+
+router.get('/roles', function (req, res) {
+  confSchema.findOne({}, 'roles', {sort: {$natural: -1}}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(docs);
+    res.json(docs.roles);
+  });
 });
 
 

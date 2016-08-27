@@ -14,11 +14,11 @@ var ConfSchema = new Schema({
     users   : {
                  password_min_length : { type: Number, required: true }
               },
-                roles                     : { type: Array, required: true },
-                payment                   : {
-                nominal_price             : Number,
-                bonus_price               : Number,
-                minimal_payement_to_bonus : Number
+    roles     : { type: Array, required: true },
+    payment   : {
+                  nominal_price             : Number,
+                  bonus_price               : Number,
+                  minimal_payement_to_bonus : Number
               },
     snack   : {
                 nominal_time_preparation      : Number,

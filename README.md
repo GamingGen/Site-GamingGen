@@ -183,6 +183,7 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     - http://connect.adfab.fr/outils/les-tests-de-charge-kesako
     - https://github.com/mlazarov/ddos-stress
     - https://github.com/justintv/Twitch-API
+    - https://www.atlassian.com/git/tutorials/undoing-changes/git-clean
     
     
     - https://www.tipeeestream.com/
