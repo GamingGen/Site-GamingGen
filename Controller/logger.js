@@ -5,7 +5,8 @@ winston.emitErrs = true;
 
 const fs = require('fs');
 
-const logPath = './Logs/all-logs.log';
+const logPath      = './Logs/all-logs.log';
+const logErrorPath = './Logs/all-errors-logs.log';
 
 fs.access(logPath, fs.R_OK | fs.W_OK, (err) => {
   console.log(err ? 'no access!' : 'can read/write');
@@ -25,8 +26,19 @@ fs.access(logPath, fs.R_OK | fs.W_OK, (err) => {
 var logger = new winston.Logger({
   transports: [
     new winston.transports.File({
+      name: 'info-file',
       level: 'info',
       filename: logPath,
+      handleExceptions: false,
+      json: true,
+      maxsize: 5242880, //5MB
+      maxFiles: 5,
+      colorize: false
+    }),
+    new winston.transports.File({
+      name: 'error-file',
+      level: 'error',
+      filename: logErrorPath,
       handleExceptions: true,
       json: true,
       maxsize: 5242880, //5MB
@@ -34,7 +46,7 @@ var logger = new winston.Logger({
       colorize: false
     }),
     new winston.transports.Console({
-      level: 'debug',
+      level: 'error',
       handleExceptions: true,
       json: false,
       colorize: true

@@ -14,7 +14,8 @@ var ConfSchema = new Schema({
     users   : {
                  password_min_length : { type: Number, required: true }
               },
-    roles     : { type: Array, required: true },
+    roles     : { type: Array, required: true, unique: true, trim: true },
+    pages     : { type: Array, unique: true, trim: true },
     payment   : {
                   nominal_price             : Number,
                   bonus_price               : Number,
