@@ -98,6 +98,7 @@ testDirectory()
 	then
 		# Création du dossier
 		sudo mkdir $1
+		chmod 777 $1
 
 		log "Dosser: '$1' créer"
 	else
@@ -177,7 +178,7 @@ do
 	fi
 	
 	log "Changement des droits pour $NameFile"
-	chmod 744 $NameFile
+	sudo chmod 744 $NameFile
 done
 
 
