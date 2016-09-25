@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "angular-youtube-embed": "^1.2.0",
-    "bcrypt": "^0.8.6",
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.0",
     "bower": "^1.7.9",
     "check-types": "^7.0.0",
