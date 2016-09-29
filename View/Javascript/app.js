@@ -56,23 +56,27 @@
           // authorized  : true
         })
         .state('admin.stream', {
-          url         : '/adminStream',
-          templateUrl : '../Partial/Admin/adminStream.html'
+          url         : '/Stream',
+          templateUrl : '../Partial/Admin/Stream.html'
         })
         .state('admin.snack', {
-          url         : '/adminSnack',
-          templateUrl : '../Partial/Admin/adminSnack.html',
+          url         : '/Snack',
+          templateUrl : '../Partial/Admin/Snack.html',
         })
         .state('admin.accueil', {
-          url         : '/adminAccueil',
-          templateUrl : '../Partial/Admin/adminAccueil.html'
+          url         : '/Accueil',
+          templateUrl : '../Partial/Admin/Accueil.html'
         })
         .state('admin.roles', {
-          url         : '/adminRoles',
-          templateUrl : '../Partial/Admin/adminRoles.html'
+          url         : '/Roles',
+          templateUrl : '../Partial/Admin/Roles.html'
+        })
+        .state('admin.roles.role', {
+          url         : '/:role',
+          templateUrl : '../Partial/Admin/ListRoles.html'
         })
         .state('admin.articles', {
-          url         : '/adminArticles',
+          url         : '/Articles',
           templateUrl : '../Partial/Admin/adminArticles.html'
         });
       $urlRouterProvider.otherwise('/home');

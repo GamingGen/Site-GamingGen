@@ -1,0 +1,24 @@
+<div class="col-md-3">
+  <table class="table table-striped table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>
+          #
+        </th>
+        <th>
+          Pages
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="pages in admRoles.pageList | orderBy : 'name'" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
+        <td>
+          <input type="checkbox"><!--<button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
+        </td>
+        <td>
+          {{pages.name}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

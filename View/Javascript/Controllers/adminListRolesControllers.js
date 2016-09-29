@@ -4,13 +4,12 @@
  
 'use strict';
 
-var adminRolesCtrl = angular.module('AppControllers');
+var ListRolesCtrl = angular.module('AppControllers');
 
-adminRolesCtrl.controller('adminRolesCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
+ListRolesCtrl.controller('ListRolesCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
   // ----- Init -----
-  var adminRoles           = this;
-  adminRoles.pageList      = [];
-  $scope.tab               = 2;
+  var lstRoles             = this;
+  lstRoles.roleList        = [];
   $scope.idSelectedElement = undefined;
   
   
@@ -21,9 +20,9 @@ adminRolesCtrl.controller('adminRolesCtrl', ['$scope', '$http', 'socket', functi
   //   $scope.live = live;
   // });
   
-  $http.get('/confs/pages').success(function(data) {
-    adminRoles.pageList = data;
-    console.log(adminRoles.pageList);
+  $http.get('/confs/roles').success(function(data) {
+    lstRoles.roleList = data;
+    console.log(lstRoles.roleList);
   });
   
   
