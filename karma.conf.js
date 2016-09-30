@@ -21,7 +21,7 @@ module.exports = function(config) {
       '*.js',
       'Controllers/AppControllers.js', // A supprimer
       '**/*.js',
-      'Tests/*Spec.js',
+      // 'Tests/*Spec.js', // A supprimer
     ],
 
 
@@ -37,9 +37,9 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       '*.js'   : ['babel'],
-      // 'Controllers/*.js': ['babel'],
-      // 'Factories/*.js': ['babel'],
-      // 'Services/*.js': ['babel'],
+      // 'Controllers/*.js': ['babel'], // A supprimer
+      // 'Factories/*.js': ['babel'], // A supprimer
+      // 'Services/*.js': ['babel'], // A supprimer
       '**/*.js': ['babel'],
     },
     
@@ -80,8 +80,7 @@ module.exports = function(config) {
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
-
-
+    
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['PhantomJS'],
