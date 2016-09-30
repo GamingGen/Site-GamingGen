@@ -1,4 +1,4 @@
-describe('DTtest', function(){
+describe('DTtestBasic', function(){
 
   var Social;
   
