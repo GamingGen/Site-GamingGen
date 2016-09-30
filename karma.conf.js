@@ -19,9 +19,8 @@ module.exports = function(config) {
       '/home/ubuntu/workspace/node_modules/angular-ui-router/release/angular-ui-router.min.js',
       '/home/ubuntu/workspace/node_modules/angular-mocks/angular-mocks.js',
       '*.js',
-      'Controllers/AppControllers.js', // A supprimer
       '**/*.js',
-      // 'Tests/*Spec.js', // A supprimer
+      'http://localhost:8080/socket.io/socket.io.js'
     ],
 
 
@@ -37,9 +36,6 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       '*.js'   : ['babel'],
-      // 'Controllers/*.js': ['babel'], // A supprimer
-      // 'Factories/*.js': ['babel'], // A supprimer
-      // 'Services/*.js': ['babel'], // A supprimer
       '**/*.js': ['babel'],
     },
     
