@@ -15,13 +15,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '/home/ubuntu/workspace/node_modules/angular/angular.js',
-      // 'Services/*.js',
-      // 'Controllers/*.js',
+      '/home/ubuntu/workspace/node_modules/angular/angular.min.js',
       '/home/ubuntu/workspace/node_modules/angular-ui-router/release/angular-ui-router.min.js',
-      '/home/ubuntu/workspace/node_modules/angular-mocks/angular-mocks.js',
-      // 'app.js',
+      // '/home/ubuntu/workspace/node_modules/angular-mocks/angular-mocks.js',
       '*.js',
+      'Controllers/AppControllers.js', // A supprimer
       '**/*.js',
       'Tests/*Spec.js',
     ],
