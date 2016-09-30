@@ -17,7 +17,7 @@ module.exports = function(config) {
     files: [
       '/home/ubuntu/workspace/node_modules/angular/angular.min.js',
       '/home/ubuntu/workspace/node_modules/angular-ui-router/release/angular-ui-router.min.js',
-      // '/home/ubuntu/workspace/node_modules/angular-mocks/angular-mocks.js',
+      '/home/ubuntu/workspace/node_modules/angular-mocks/angular-mocks.js',
       '*.js',
       'Controllers/AppControllers.js', // A supprimer
       '**/*.js',
@@ -36,10 +36,11 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      // '*.js'   : ['es6'],
-      // '**/*.js': ['es6']
       '*.js'   : ['babel'],
-      '**/*.js': ['babel']
+      // 'Controllers/*.js': ['babel'],
+      // 'Factories/*.js': ['babel'],
+      // 'Services/*.js': ['babel'],
+      '**/*.js': ['babel'],
     },
     
     
