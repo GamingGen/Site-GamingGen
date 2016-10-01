@@ -1,5 +1,6 @@
 <div ng-controller="ListRolesCtrl as lstRoles">
   <div class="col-md-4">
+    <input ng-model="filter" placeholder="Filter les Roles" />
     <table class="table table-striped table-condensed table-hover">
       <thead>
         <tr>
@@ -9,21 +10,15 @@
           <th>
             Roles
           </th>
-          <th>
-            #
-          </th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="roles in lstRoles.roleList" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
+        <tr ng-repeat="role in lstRoles.roleList | orderBy : 'name' | filter : filter" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
           <td>
             <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
           </td>
           <td>
-            <a ng-href="#/admin/Roles/{{roles.name}}">{{roles.name}}</a>
-          </td>
-          <td>
-            <button ng-click="removeRow($index)" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            {{role.name}}
           </td>
         </tr>
       </tbody>

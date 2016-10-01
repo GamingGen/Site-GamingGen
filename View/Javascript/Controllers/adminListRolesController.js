@@ -4,15 +4,14 @@
  
 'use strict';
 
-var adminRolesCtrl = angular.module('AppControllers');
+var ListRolesCtrl = angular.module('AppControllers');
 
-adminRolesCtrl.controller('adminRolesCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
+ListRolesCtrl.controller('ListRolesCtrl', ['$scope', '$http', 'socket', 'rolesService', function($scope, $http, socket, rolesService) {
   // ----- Init -----
-  var adminRoles           = this;
-  adminRoles.pageList      = [];
-  $scope.tab               = 2;
+  var lstRoles             = this;
+  lstRoles.roleList        = [];
+  lstRoles.selectedRole    = rolesService;
   $scope.idSelectedElement = undefined;
-  
   
   // ----- GET / SET Data -----
   // socket.emit('getChannelTwitch');
@@ -21,11 +20,9 @@ adminRolesCtrl.controller('adminRolesCtrl', ['$scope', '$http', 'socket', functi
   //   $scope.live = live;
   // });
   
-  $http.get('/confs/pages').success(function(data) {
-    adminRoles.pageList = data;
-    console.log(adminRoles.pageList);
+  $http.get('/confs/roles').success(function(data) {
+    lstRoles.roleList = data;
   });
-  
   
   // Utiliser des sous vue, comparer la liste des pages avec les pages du role pour check ou non une checkbox
   
@@ -34,14 +31,12 @@ adminRolesCtrl.controller('adminRolesCtrl', ['$scope', '$http', 'socket', functi
   $scope.setSelected = function (idSelectedElement) {
     if (idSelectedElement != undefined){
       $scope.idSelectedElement = idSelectedElement;
+      lstRoles.selectedRole.data = lstRoles.roleList[idSelectedElement];
+      console.log(rolesService);
     }
   };
-  $scope.selectTab = function(setTab) {
-    $scope.tab = setTab;
-  };
-  
-  $scope.isSelected = function(checkTab) {
-    return $scope.tab === checkTab;
+  $scope.getSelected = function() {
+    return rolesService;
   };
   
   

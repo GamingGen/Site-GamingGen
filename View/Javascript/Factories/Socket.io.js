@@ -1,8 +1,8 @@
 'use strict';
 
-var Socket = angular.module('Socket', []);
+var Socket = angular.module('SocketF', []);
 
-Socket.factory('socket', function ($rootScope) {
+Socket.factory('socket', ['$rootScope', function ($rootScope) {
   console.log('socket.io create');
   
   var socket = io.connect();
@@ -26,4 +26,4 @@ Socket.factory('socket', function ($rootScope) {
       });
     }
   };
-});
+}]);

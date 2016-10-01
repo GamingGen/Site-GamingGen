@@ -154,6 +154,7 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
 
 5. Infos
     - https://cdnjs.com/libraries/angular.js/1.5.7
+    - https://www.grafikart.fr/formations/angularjs/directives
     - http://www.angular-js.fr/decouvrez-angularjs/
     - https://openclassrooms.com/courses/developpez-vos-applications-web-avec-angularjs/
     - http://stackoverflow.com/questions/22189544/print-a-div-using-javascript-in-angularjs-single-page-aplication
