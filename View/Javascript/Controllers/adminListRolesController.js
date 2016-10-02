@@ -9,9 +9,7 @@ var ListRolesCtrl = angular.module('AppControllers');
 ListRolesCtrl.controller('ListRolesCtrl', ['$scope', '$http', 'socket', 'rolesService', function($scope, $http, socket, rolesService) {
   // ----- Init -----
   var lstRoles             = this;
-  lstRoles.roleList        = [];
-  lstRoles.selectedRole    = rolesService;
-  $scope.idSelectedElement = undefined;
+  lstRoles.data            = rolesService;
   
   // ----- GET / SET Data -----
   // socket.emit('getChannelTwitch');
@@ -21,22 +19,31 @@ ListRolesCtrl.controller('ListRolesCtrl', ['$scope', '$http', 'socket', 'rolesSe
   // });
   
   $http.get('/confs/roles').success(function(data) {
-    lstRoles.roleList = data;
+    lstRoles.data.roleList = data;
   });
   
   // Utiliser des sous vue, comparer la liste des pages avec les pages du role pour check ou non une checkbox
   
   // ----- Public Méthode -----
   
-  $scope.setSelected = function (idSelectedElement) {
-    if (idSelectedElement != undefined){
-      $scope.idSelectedElement = idSelectedElement;
-      lstRoles.selectedRole.data = lstRoles.roleList[idSelectedElement];
-      console.log(rolesService);
+  $scope.setSelected = function (id, selectedElement) {
+    if (id !== undefined && selectedElement !== undefined){
+      $scope.idSelectedElement = id;
+      lstRoles.data.selectedRole = selectedElement;
+      console.log(selectedElement);
+      rolesService.copyAllouedPages();
+      
+      // angular.forEach(lstRoles.data.pageList, function(value, key) {
+      //   if (lstRoles.data.roleList.indexOf(value.name) !== -1) {
+      //     value.allowed = true;
+      //   }
+      // });
+      
+      
     }
   };
   $scope.getSelected = function() {
-    return rolesService;
+    return lstRoles.data.selectedRole;
   };
   
   
