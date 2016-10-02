@@ -2,26 +2,39 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('adminMenuSnackCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
+AppControllers.controller('adminSnackCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
   // ----- Init -----
-  var menu      = this;
-  menu.elements = [];
-  menu.list     = [];
-  menu.cartes   = [];
-  $scope.tab    = 1;
-  $scope.type   = {};
+  var filter          = {};
+  var snack            = this;
+  snack.elements       = [];
+  snack.list           = [];
+  snack.cartes         = [];
+  snack.histo          = {};
+  snack.histo.elements = [];
+  $scope.tab          = 1;
+  $scope.type         = {};
   
   
   // ----- GET / SET Data -----
   $http.get('/confs/typeMenu').success(function(data) {
-    menu.list = data;
-    console.log(menu.list);
-    $scope.type.name = menu.list[0].name;
+    snack.list = data;
+    $scope.type.name = snack.list[0].name;
   });
   
   $http.get('/menusnacks/').success(function(data) {
-    menu.cartes = data;
+    snack.cartes = data;
   });
+  
+  socket.on('ClientPrinterPrintedDone', function(number) {
+    if (snack.histo.elements.length > 0) {
+      snack.histo.elements.find(findElement, number);
+    }
+  });
+  
+  $http.get('/snacks/getYears').success(function(data) {
+    snack.histo.years = data;
+  });
+  
   
   $scope.idSelectedElement = undefined;
   $scope.idChildSelectedElement = undefined;
@@ -32,7 +45,7 @@ AppControllers.controller('adminMenuSnackCtrl', ['$scope', '$http', 'socket', fu
   $scope.setSelected = function (idSelectedElement) {
     if (idSelectedElement != undefined){
       $scope.idSelectedElement = idSelectedElement;
-      $scope.carte.elements = menu.cartes[idSelectedElement].elements;
+      $scope.carte.elements = snack.cartes[idSelectedElement].elements;
     }
   };
   
@@ -54,44 +67,67 @@ AppControllers.controller('adminMenuSnackCtrl', ['$scope', '$http', 'socket', fu
     console.log($scope);
     console.log($scope.type.name + " " + $scope.name + " " + $scope.unit_price);
     if ($scope.type != undefined && $scope.name != undefined && $scope.unit_price != undefined && $scope.quantity != undefined && $scope.quantity_min != undefined) {
-      menu.elements.push({name: $scope.name, unit_price: $scope.unit_price, type: $scope.type.name, quantity: $scope.quantity, quantity_min: $scope.quantity_min});
-      console.log(menu);
+      snack.elements.push({name: $scope.name, unit_price: $scope.unit_price, type: $scope.type.name, quantity: $scope.quantity, quantity_min: $scope.quantity_min});
+      console.log(snack);
       
       $scope.name         = '';
       $scope.unit_price   = '';
       $scope.quantity     = '';
       $scope.quantity_min = '';
-      $scope.type.name    = menu.list[0].name;
+      $scope.type.name    = snack.list[0].name;
       // $scope.type.name    = '';
     }
   };
   
   $scope.removeRow = function(index) {
-    if (index != undefined && menu.elements.length >= index && index >= 0)
-    menu.elements.splice(index, 1);
+    if (index != undefined && snack.elements.length >= index && index >= 0)
+    snack.elements.splice(index, 1);
   };
   
   $scope.sendMenu = function() {
-    if (menu.elements.length > 0) {
-      socket.emit('saveMenuSnack', menu.elements);
+    if (snack.elements.length > 0) {
+      socket.emit('saveMenuSnack', snack.elements);
       
-      menu.elements = [];
+      snack.elements = [];
     }
   };
   
   $scope.editRow = function(index) {
-    if (index != undefined && menu.elements.length >= index && index >= 0)
-    menu.elements.splice(index, 1);
+    if (index != undefined && snack.elements.length >= index && index >= 0)
+    snack.elements.splice(index, 1);
+  };
+  
+  $scope.SearchByYear = function(year) {
+    $http.get('/snacks/getOrders/' + year).success(function(data) {
+      snack.histo.elements = data;
+    });
+  };
+  
+  $scope.Print  = function(index) {
+    filter.number = snack.histo.elements[index].number;
+    filter.year   = snack.histo.elements[index].year;
+    filter.index  = index;
+    socket.emit('RePrintPDF', filter);
   };
   
   
   // ----- Private Méthode -----
+  // function findElement(element, index) {
+  //   if (element.number == this) {
+  //     menu.cartes[index].printed_client++;
+  //   }
+  //   return element.number == this;
+  // };
+  
   function findElement(element, index) {
     if (element.number == this) {
-      menu.cartes[index].printed_client++;
+      snack.histo.elements[index].printed_client++;
     }
     return element.number == this;
   };
+  
+  
+  
   
   
   // ----- jQuery -----

@@ -41,7 +41,7 @@
     
     <script type="text/javascript" src="Javascript/Controllers/AdminArticleController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/AdminLiveController.js"></script>
-    <script type="text/javascript" src="Javascript/Controllers/AdminMenuSnackController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/AdminSnackController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/HistoSnackController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/HomeController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/LiveController.js"></script>
@@ -200,7 +200,7 @@
               <ul class="nav navbar-nav">
                 <li ui-sref-active="active" class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Gaming Gen 6<span class="caret"></span>
+                    Gaming Gen 6<img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"><span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
                     <li><a ui-sref="competitions">Les compétitions</a></li>
@@ -208,12 +208,11 @@
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="festival">Festival du jeu</a></li>
                     <li><a ui-sref="forum">Forum des métiers du digital</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a ui-sref="galerie">Le Plan</a></li>
+                    <li><a ui-sref="plan">Le Plan</a></li>
                     <!--<li role="separator" class="divider"></li>-->
-                    <li><a ui-sref="partenaires">Le Programme</a></li>
+                    <li><a ui-sref="programme">Le Programme</a></li>
                     <!--<li role="separator" class="divider"></li>-->
-                    <li><a ui-sref="comm">Le Plan</a></li>
-                    <li><a ui-sref="staff">Le Snack</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a ui-sref="live">Live <img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a></li>
                   </ul>
@@ -235,10 +234,10 @@
                   <!--</ul>-->
                 <!--</li>-->
                 <li>
-                  <a class="autoCollapse" ui-sref="live">Les Partenaires</a>
+                  <a class="autoCollapse" ui-sref="partenaires">Les Partenaires</a>
                 </li>
                 <li>
-                  <a class="autoCollapse" ui-sref="live">News</a>
+                  <a class="autoCollapse" ui-sref="news">News</a>
                 </li>
                 <li>
                   
@@ -249,12 +248,12 @@
                     L'association<span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
-                    <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-                    <li><a ui-sref="snack.carte">L'équipe Gaming Gen</a></li>
-                    <li><a ui-sref="snack.info">Nos précédents événements</a></li>
-                    <li><a ui-sref="snack.joueur.commande">Médias</a></li>
-                    <li><a ui-sref="snack.staff.commande">Mentions légales</a></li>
-                    <li><a ui-sref="snack.staff.histo">Contact</a></li>
+                    <!--snack.carte  A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
+                    <li><a ui-sref="staff">L'équipe Gaming Gen</a></li>
+                    <li><a ui-sref="events">Nos précédents événements</a></li>
+                    <li><a ui-sref="media">Médias</a></li>
+                    <li><a ui-sref="info.mention">Mentions légales</a></li>
+                    <li><a ui-sref="info.contact">Contact</a></li>
                   </ul>
                 </li>
               </ul>
@@ -284,7 +283,8 @@
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="snack.staff.commande"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Commande Snack</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> Gestion Snack</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
