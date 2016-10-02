@@ -31,7 +31,7 @@
       "host"              : "darkterra.fr",
       "port"              : "22",
       "key"               : "/home/ubuntu/.ssh/id_rsa_nodeuser",
-      "ref"               : "origin/master",
+      "ref"               : "origin/develop",
       "repo"              : "https://github.com/GamingGen/Site-GamingGen.git",
       "path"              : "/home/nodeuser/www/pre-production",
       "pre-deploy-local"  : "echo 'This is a local executed command test Prod'",
