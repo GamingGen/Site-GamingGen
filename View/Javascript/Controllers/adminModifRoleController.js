@@ -9,7 +9,7 @@ var ListRolesCtrl = angular.module('AppControllers');
 ListRolesCtrl.controller('ModifRoleCtrl', ['$scope', '$http', 'socket', 'rolesService', function($scope, $http, socket, rolesService) {
   // ----- Init -----
   var mdfRoles             = this;
-  mdfRoles.infos           = rolesService;
+  mdfRoles.data            = rolesService;
   $scope.idSelectedElement = undefined;
   
   // ----- GET / SET Data -----

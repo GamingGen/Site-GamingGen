@@ -84,14 +84,6 @@
             },
           }
         })
-        // .state('admin.roles', {
-        //   url         : '/Roles',
-        //   templateUrl : '../Partial/Admin/Roles.html'
-        // })
-        // .state('admin.roles.role', {
-        //   url         : '/:role',
-        //   templateUrl : '../Partial/Admin/ModifRole.html'
-        // })
         .state('admin.articles', {
           url         : '/Articles',
           templateUrl : '../Partial/Admin/adminArticles.html'

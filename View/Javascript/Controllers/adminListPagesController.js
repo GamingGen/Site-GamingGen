@@ -8,10 +8,8 @@ var ListRolesCtrl = angular.module('AppControllers');
 
 ListRolesCtrl.controller('ListPagesCtrl', ['$scope', '$http', 'socket', 'rolesService', function($scope, $http, socket, rolesService) {
   // ----- Init -----
-  var lstPages             = this;
-  lstPages.pageList        = [];
-  lstPages.selectedPages   = rolesService;
-  $scope.idSelectedElement = undefined;
+  var lstPages  = this;
+  lstPages.data = rolesService;
   
   
   // ----- GET / SET Data -----
@@ -22,8 +20,7 @@ ListRolesCtrl.controller('ListPagesCtrl', ['$scope', '$http', 'socket', 'rolesSe
   // });
   
   $http.get('/confs/pages').success(function(data) {
-    lstPages.pageList = data;
-    console.log(lstPages.pageList);
+    lstPages.data.pageList = data;
   });
   
   
@@ -31,14 +28,22 @@ ListRolesCtrl.controller('ListPagesCtrl', ['$scope', '$http', 'socket', 'rolesSe
   
   // ----- Public Méthode -----
   
-  $scope.setSelected = function (idSelectedElement) {
-    if (idSelectedElement != undefined){
-      $scope.idSelectedElement = idSelectedElement;
-      
-      if (lstPages.selectedPages.data.pages.indexOf(lstPages.pageList[idSelectedElement].name) === -1) {
-        lstPages.selectedPages.data.pages.push(lstPages.pageList[idSelectedElement].name);
+  $scope.setSelected = function (id, selectedElement) {
+    if (id !== undefined && selectedElement !== undefined){
+      $scope.idSelectedElement = id;
+      if (lstPages.data.selectedRole !== undefined) {
+        selectedElement.allowed = !selectedElement.allowed;
+        rolesService.togglePage(selectedElement);
+        
       }
     }
+  };
+  
+  $scope.selectAll = function () {
+    rolesService.selectAll();
+  };
+  $scope.unselectAll = function () {
+    rolesService.unselectAll();
   };
   
   

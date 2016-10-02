@@ -1,8 +1,8 @@
 <div ng-controller="ListPagesCtrl as lstPages">
   <div class="col-md-3">
     <input ng-model="filter" placeholder="Filter les Pages" />
-    <button type="button" class="btn btn-xs btn-danger">Tout sélectionner</button>
-    <button type="button" class="btn btn-xs btn-warning">Tout désélectionner</button>
+    <button type="button" ng-click="selectAll()" class="btn btn-xs btn-danger">Tout sélectionner</button>
+    <button type="button" ng-click="unselectAll()" class="btn btn-xs btn-warning">Tout désélectionner</button>
     <table class="table table-striped table-condensed table-hover">
       <thead>
         <tr>
@@ -15,12 +15,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="pages in lstPages.pageList | orderBy : 'name' | filter : filter" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
+        <tr ng-repeat="page in lstPages.data.pageList | orderBy : 'name' | filter : filter" ng-click="setSelected($index, page)" ng-class="{success: page.allowed}">
           <td>
-            <input type="checkbox">
+            <input type="checkbox" ng-model="page.allowed">
           </td>
           <td>
-            {{pages.name}}
+            {{page.name}}
           </td>
         </tr>
       </tbody>
