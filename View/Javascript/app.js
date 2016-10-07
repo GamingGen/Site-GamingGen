@@ -86,7 +86,7 @@
         })
         .state('admin.articles', {
           url         : '/Articles',
-          templateUrl : '../Partial/Admin/adminArticles.html'
+          templateUrl : '../Partial/Admin/Articles.html'
         });
       $urlRouterProvider.otherwise('/home');
       
