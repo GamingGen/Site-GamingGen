@@ -98,6 +98,57 @@ router.post('/insert', function (req, res) {
   });
 });
 
+/**
+ * Récupération de la liste des utilisateurs non-bannis
+ */
+router.get('/listNoBan', function (req, res) {
+  userSchema.find({'access.ban' : false}, function (err, rows) {
+    if (err) {
+      console.log(err);
+    }
+    res.json(rows);
+  });
+});
+
+/**
+ * Récupération de la liste des utilisateurs bannis
+ */
+router.get('/listBan', function (req, res) {
+  userSchema.find({'access.ban' : true}, function (err, rows) {
+    if (err) {
+      console.log(err);
+    }
+    res.json(rows);
+  });
+});
+
+/**
+ * Bannissement d'un utilisateur
+ */
+router.post('/ban', function(req, res) {
+   userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : true},function (err, rows) {
+    if (err) {
+      console.log(err);
+    } else {
+      let serverEvent  = require('./ServerEvent');
+      serverEvent.emit('BanUser', req.body.user);
+    }
+    res.sendStatus(200);
+  });
+});
+
+/**
+ * Dé-bannissement d'un utilisateur
+ */
+router.post('/unban', function(req, res) {
+  userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : false}, function (err, rows) {
+    if (err) {
+      console.log(err);
+    }
+    res.sendStatus(200);
+  });
+});
+
 // ------------------------------ Events ------------------------------
 var userEvent = function(ServerEvent) {
   ServerEvent.on('isMailExist', function(email, socket) {

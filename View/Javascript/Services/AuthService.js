@@ -129,13 +129,13 @@ angular.module("AuthServices", [])
         console.log('response:');
         console.log(response);
         
-        self.currentUser.email = response.email;
+        self.currentUser.email = response.data.email;
         self.currentUser.isLoggedIn = true;
-        SessionService.setValue("session.email", response.email);
-        SessionService.setValue("session.pseudo", response.pseudo);
-        SessionService.setValue("session.access", JSON.stringify(response.access));
-        SessionService.setValue("session.general", JSON.stringify(response.general));
-        SessionService.setValue("session.team", JSON.stringify(response.team));
+        SessionService.setValue("session.email", response.data.email);
+        SessionService.setValue("session.pseudo", response.data.pseudo);
+        SessionService.setValue("session.access", JSON.stringify(response.data.access));
+        SessionService.setValue("session.general", JSON.stringify(response.data.general));
+        SessionService.setValue("session.team", JSON.stringify(response.data.team));
         // $location.path("/");
         // or
         // HttpBufferService.retryLastRequest();

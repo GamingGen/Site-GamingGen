@@ -39,6 +39,15 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
     $scope.isPseudoExist = data;
   });
   
+  // Déconnexion si utilisateur banni
+  socket.on('BanUser', function(user) {
+    if ($scope.User !== undefined && $scope.User.pseudo === user) {
+      UserService.logout().success(function() {
+        $state.go('home');
+      });
+    }
+  });
+  
   $scope.$watch('email', isMailExist);
   $scope.$watch('pseudo', isPseudoExist);
   
