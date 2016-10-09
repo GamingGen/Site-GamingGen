@@ -3,13 +3,17 @@
  * Date de Création 30/04/2016
  * Date de modification 24/06/2016
  *
- * ~2 769 835 de lignes de code
+ * ~3 984 748 de lignes de code
  *
  * server.js
- * Point d'entrée de l'application 'Gaming-Gen' qui permet de gérer l'évènement
+ * Point d'entrée de l'application 'Gaming-Gen' qui permet de gérer les évènements de la Gaming-Gen
  * 
  * Conçu par l'équipe de Gaming-Gen :
- *  - Jérémy Young      <darkterra01@gmail.com>
+ *  - Jérémy Young          <darkterra01@gmail.com>
+ *  - Loïc Tardivel-Lacombe <loic.tardivel@gmail.com>
+ *  - Laura ...             <lala@gaming-gen.fr>
+ *  - Fred Guazzini         <dolz@gaming-gen.fr>
+ *  - Emmanuel Cook         <ecook.graphisme@gmail.com>
  */
 
 'use strict';
