@@ -95,11 +95,11 @@ angular.module("AuthServices", [])
     level = JSON.parse(SessionService.getValue("session.access")).level;
   }
   this.currentUser = {
-      email       : SessionService.getValue("session.email") || "",
-      pseudo      : SessionService.getValue("session.pseudo") || "",
+      email       : SessionService.getValue("session.email") || "null",
+      pseudo      : SessionService.getValue("session.pseudo") || "null",
       accessLvl   : level || 0,
-      general     : SessionService.getValue("session.general") || "",
-      team        : SessionService.getValue("session.team") || "",
+      general     : SessionService.getValue("session.general") || "null",
+      team        : SessionService.getValue("session.team") || "null",
       isLoggedIn  : (SessionService.getValue("session.email") ? true : false)
   };
   
@@ -109,11 +109,11 @@ angular.module("AuthServices", [])
     }
     
     this.currentUser = {
-      email       : SessionService.getValue("session.email") || "",
-      pseudo      : SessionService.getValue("session.pseudo") || "",
+      email       : SessionService.getValue("session.email") || "null",
+      pseudo      : SessionService.getValue("session.pseudo") || "null",
       accessLvl   : level || 0,
-      general     : SessionService.getValue("session.general") || "",
-      team        : SessionService.getValue("session.team") || "",
+      general     : SessionService.getValue("session.general") || "null",
+      team        : SessionService.getValue("session.team") || "null",
       isLoggedIn  : (SessionService.getValue("session.email") ? true : false)
     };
   };

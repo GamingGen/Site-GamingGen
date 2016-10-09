@@ -102,7 +102,7 @@
             if (response.status === 401) {
               console.log('401');
               // $location.path('#/home');
-              $state.go('snack.staff.commande');
+              $state.go('home');
               // $timeout(function(){$state.go('home');});
               
               // TODO à voir si utile
