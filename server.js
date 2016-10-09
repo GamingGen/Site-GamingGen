@@ -1,7 +1,7 @@
 /*
  * Version Alpha 1.0.0
  * Date de Création 30/04/2016
- * Date de modification 24/06/2016
+ * Date de modification 09/10/2016
  *
  * ~3 984 748 de lignes de code
  *
