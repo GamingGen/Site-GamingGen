@@ -105,8 +105,10 @@ router.get('/listNoBan', function (req, res) {
   userSchema.find({'access.ban' : false}, function (err, rows) {
     if (err) {
       console.log(err);
+      res.sendStatus(500);
+    } else {
+      res.json(rows);
     }
-    res.json(rows);
   });
 });
 
@@ -117,8 +119,10 @@ router.get('/listBan', function (req, res) {
   userSchema.find({'access.ban' : true}, function (err, rows) {
     if (err) {
       console.log(err);
+      res.sendStatus(500);
+    } else {
+      res.json(rows);
     }
-    res.json(rows);
   });
 });
 
@@ -129,11 +133,12 @@ router.post('/ban', function(req, res) {
    userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : true},function (err, rows) {
     if (err) {
       console.log(err);
+      res.sendStatus(500);
     } else {
       let serverEvent  = require('./ServerEvent');
       serverEvent.emit('BanUser', req.body.user);
+      res.sendStatus(200);
     }
-    res.sendStatus(200);
   });
 });
 
@@ -144,8 +149,10 @@ router.post('/unban', function(req, res) {
   userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : false}, function (err, rows) {
     if (err) {
       console.log(err);
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
     }
-    res.sendStatus(200);
   });
 });
 

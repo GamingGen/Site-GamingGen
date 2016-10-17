@@ -267,3 +267,11 @@ hr {
   /*display: inline-block;*/
   /*position: fixed;*/
 }
+
+/* Message d'erreur sur la page d'accueil */
+.errorMessage {
+	position: absolute;
+	right: 0;
+	margin: 5px;
+	display: none;
+}

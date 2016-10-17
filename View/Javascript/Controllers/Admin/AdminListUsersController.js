@@ -15,12 +15,14 @@ AppControllers.controller('AdminListUsersCtrl', ['$scope', '$http', 'socket', 'u
     lstUsers.data.userList = data;
   });
   
-  $scope.banUser = function(index) {
-    let user = lstUsers.data.userList[index];
+  $scope.banUser = function(user) {
     if (user !== undefined) {
       $http.post('/users/ban', {'user' : user.pseudo}).success(function() {
         usersService.addUserToList(user, true);
-        lstUsers.data.userList.splice(index, 1);
+        lstUsers.data.userList.splice(lstUsers.data.userList.indexOf(user), 1);
+      }).error(function() {
+        $("#msgError").html("Erreur lors de l'opération, veuillez réessayer ultérieurement.");
+        $("#msgError").show().delay(3000).fadeOut();
       });
     }
   }
