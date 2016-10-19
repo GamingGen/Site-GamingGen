@@ -27,7 +27,7 @@ ListRolesCtrl.controller('ListRolesCtrl', ['$scope', '$http', 'socket', 'rolesSe
   // ----- Public Méthode -----
   
   $scope.setSelected = function (id, selectedElement) {
-    if (id !== undefined && selectedElement !== undefined){
+    if (id !== undefined && selectedElement !== undefined) {
       $scope.idSelectedElement = id;
       lstRoles.data.selectedRole = selectedElement;
       console.log(selectedElement);
