@@ -40,7 +40,7 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
       if (articleModal.is(':visible')) {
         let commentsDiv = articleModal.find('#comments');
         // Si on a déjà des commentaires, on l'ajoute
-        if (commentsDiv.find('blockquote')) {
+        if (commentsDiv.find('blockquote').length > 0) {
           commentsDiv.html(commentsDiv.html() + getCommentHTML(data));
         }
         // Sinon on remplace
