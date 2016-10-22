@@ -1,7 +1,9 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'ContainerService', 'AppControllers', 'Socket', 'Slider', 'youtube-embed', 'angular-loading-bar', 'ngAnimate']);
+  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'ContainerService', 'AppControllers', 'Socket', 'Slider', 'youtube-embed', 'angular-loading-bar', 'ngAnimate',
+  'UserS', // Services
+  ]);
   
   const adminLayout = 'container-fluid admin';
   const normalLayout = 'container';
@@ -13,6 +15,13 @@
         .state('home', {
           url         : '/home',
           templateUrl : '../Partial/home.html'
+        })
+        .state('usersValidate', {
+          url         : '/users/validate/:hash',
+          templateUrl : '../Partial/home.html',
+          onEnter     : ['$stateParams', 'UserService', function($stateParams, UserService) {
+            UserService.validate($stateParams.hash);
+          }]
         })
         .state('live', {
           url         : '/live',
@@ -70,6 +79,20 @@
         .state('admin.articles', {
           url         : '/adminArticles',
           templateUrl : '../Partial/Admin/adminArticles.html'
+        })
+        .state('admin.ban', {
+          url         : '/Ban',
+          views       : {
+            ''  : {
+              templateUrl : '../Partial/Admin/Ban.html'
+            },
+            'lstUsers@admin.ban'  : {
+              templateUrl : '../Partial/Admin/ListUsers.html'
+            },
+            'lstBans@admin.ban'  : {
+              templateUrl : '../Partial/Admin/ListBans.html'
+            },
+          }
         });
       $urlRouterProvider.otherwise('/home');
       

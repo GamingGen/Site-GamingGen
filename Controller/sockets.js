@@ -71,6 +71,11 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	ServerEvent.on('ClientPrinterPrintedDone', function(data) {
 		io.sockets.emit('ClientPrinterPrintedDone', data);
 	});
+		
+	// Banissement et déconnexion auto
+	ServerEvent.on('BanUser', function(data) {
+		io.sockets.emit('BanUser', data);
+	});
 	
 	/***********************************************************************************
 	*														Initialisation des variables												   *

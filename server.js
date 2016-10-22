@@ -57,8 +57,7 @@ mongoose.connect('mongodb://localhost/gaminggen', (error) => {
 });
 
 // Server Events
-let EventEmitter  = require('events').EventEmitter;
-let ServerEvent		= new EventEmitter();
+let ServerEvent  = require('./Controller/ServerEvent');
 
 // Require Controllers
 var User        = require('./Controller/users');

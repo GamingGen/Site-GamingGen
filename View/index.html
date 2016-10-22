@@ -47,6 +47,10 @@
     <script type="text/javascript" src="Javascript/Controllers/LiveController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/MainController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/SnackController.js"></script>
+    
+    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminBanController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminListBansController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminListUsersController.js"></script>
     <!-- Controllers ===== END -->
     
     <script type="text/javascript" src="Javascript/Factories/SocketIO.js"></script>
@@ -55,6 +59,7 @@
     <script type="text/javascript" src="Javascript/Services/AuthService.js"></script>
     <script type="text/javascript" src="Javascript/Services/ContainerService.js"></script>
     <script type="text/javascript" src="Javascript/Locales/angular-locale_fr-fr.js"></script>
+    <script type="text/javascript" src="Javascript/Services/UserService.js"></script>
     
     <script type="text/javascript" src="Javascript/tinyMCE/bower_components/tinymce-dist/tinymce.js"></script>
     <script type="text/javascript" src="Javascript/tinyMCE/bower_components/angular-ui-tinymce/src/tinymce.js"></script>
@@ -329,6 +334,11 @@
     <!--<div class="row">-->
     <!--  <div class="col-md-12">-->
         <div class="body">
+          
+          <!-- Messages d'erreur -->
+          <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
+          <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>
+          
           <section ng-if="showSlider" class="hidden-xs">
             <div id="wrapper">
             	<div id="slider">
@@ -438,6 +448,7 @@
             <!--</div>-->
             
             <div ng-class="mainView" >
+              
               <div ui-view></div>
             </div>
           </div>
