@@ -269,9 +269,10 @@ hr {
 }
 
 /* Message d'erreur sur la page d'accueil */
-.errorMessage {
+.popUpMessage {
 	position: absolute;
 	right: 0;
 	margin: 5px;
 	display: none;
+	z-index: 1000;
 }

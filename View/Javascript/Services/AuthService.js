@@ -158,6 +158,24 @@ angular.module("AuthServices", [])
           SessionService.destroyItem("session.team");
       });
   };
+  
+  this.validate = function(hash) {
+      var self = this;
+      return $http.post("/users/validate", {hash})
+        // TODO quand le bypass de connexion sera implémenté
+        /*
+        .success(function(user){
+          self.login(user);
+        })*/
+        .success(function(){
+          $("#msgInfo").html("Compte validé !");
+          $("#msgInfo").show().delay(3000).fadeOut();
+        })
+        .error(function() {
+          $("#msgError").html("Validation du compte impossible.");
+          $("#msgError").show().delay(3000).fadeOut();
+      });
+  };
 
 
   // this.loginShowing = false;

@@ -25,10 +25,11 @@ var UserSchema = new Schema({
                   presale_snack : Number
                 },
     access    : {
-                  token   : String,
-                  level   : { type: Number, required: true, default: 1 },
-                  groups  : { type: Array, required: true, default: ['member'] }, // TODO Save a referential Array in DB
-                  ban     : { type: Boolean, required: true, default: false }
+                  token         : String,
+                  level         : { type: Number, required: true, default: 1 },
+                  groups        : { type: Array, required: true, default: ['member'] }, // TODO Save a referential Array in DB
+                  ban           : { type: Boolean, required: true, default: false },
+                  validationKey : String
                 }
 });
 

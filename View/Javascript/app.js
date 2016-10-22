@@ -16,6 +16,13 @@
           url         : '/home',
           templateUrl : '../Partial/home.html'
         })
+        .state('usersValidate', {
+          url         : '/users/validate/:hash',
+          templateUrl : '../Partial/home.html',
+          onEnter     : ['$stateParams', 'UserService', function($stateParams, UserService) {
+            UserService.validate($stateParams.hash);
+          }]
+        })
         .state('live', {
           url         : '/live',
           templateUrl : '../Partial/live.html'

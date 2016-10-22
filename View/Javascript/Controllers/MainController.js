@@ -96,15 +96,27 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
     user.general.zip = $scope.zip;
     
     console.log(JSON.stringify(user));
-    $http.post('/users/insert', JSON.stringify(user)).success(function() {
-      
-      $scope.firstName = '';
-      $scope.lastName  = '';
-      $scope.pseudo    = '';
-      $scope.password  = '';
-      $scope.zip       = '';
-      $scope.birthday  = '';
-      $scope.email     = '';
+    $http.post('/users/insert', JSON.stringify(user))
+      .success(function(){
+        $scope.firstName = '';
+        $scope.lastName  = '';
+        $scope.pseudo    = '';
+        $scope.password  = '';
+        $scope.zip       = '';
+        $scope.birthday  = '';
+        $scope.email     = '';
+        $scope.connectionEmail = user.email;
+        $scope.connectionPassword = user.password;
+        $scope.submitLogin();
+      })
+      .error(function() {
+        $scope.firstName = '';
+        $scope.lastName  = '';
+        $scope.pseudo    = '';
+        $scope.password  = '';
+        $scope.zip       = '';
+        $scope.birthday  = '';
+        $scope.email     = '';
     });
     
   };
