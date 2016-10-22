@@ -2,6 +2,7 @@
 
 var mongoose              = require('mongoose');
 var Schema                = mongoose.Schema;
+var Comment               = require('./commentSchema');
 
 var ArticleSchema = new Schema({
     id            : { type: Number, required: true, unique: true, index: true, trim: true },
@@ -9,7 +10,8 @@ var ArticleSchema = new Schema({
     title         : { type: String, required: true },
     desc          : { type: String, required: true },
     text          : { type: String, required: true },
-    register_date : { type: Date, required: true }
+    register_date : { type: Date, required: true },
+    comments      : { type: [Comment.Schema] }
 });
 
 ArticleSchema.pre('validate', function(next) {

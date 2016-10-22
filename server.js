@@ -63,6 +63,7 @@ let ServerEvent  = require('./Controller/ServerEvent');
 var User        = require('./Controller/users');
 var Conf        = require('./Controller/confs');
 var Article     = require('./Controller/articles');
+var Comment     = require('./Controller/comments');
 var Partenaire  = require('./Controller/partenaires');
 var WatchList   = require('./Controller/watchLists');
 var Team        = require('./Controller/teams');
@@ -154,6 +155,7 @@ Snack.snackEvent(ServerEvent);
 Conf.confEvent(ServerEvent);
 MenuSnack.menuSnackEvent(ServerEvent);
 Article.articleEvent(ServerEvent);
+Comment.commentEvent(ServerEvent);
 User.userEvent(ServerEvent);
 
 // Log Error
@@ -166,6 +168,7 @@ app.use(express.static(path.join(__dirname, 'View')));
 app.use('/users', User.router);
 app.use('/confs', Conf.router);
 app.use('/articles', Article.router);
+app.use('/comments', Comment.router);
 app.use('/teams', Team.router);
 app.use('/snacks', Snack.router);
 app.use('/menusnacks', MenuSnack.router);

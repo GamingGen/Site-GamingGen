@@ -276,3 +276,16 @@ hr {
 	display: none;
 	z-index: 1000;
 }
+
+.badge-right {
+	float:right;
+}
+
+blockquote {
+  font-size: 13px;
+}
+
+.comments-title {
+  color: #88B205;
+  font-weight: bold;
+}
