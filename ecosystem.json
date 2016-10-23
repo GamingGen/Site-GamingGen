@@ -8,7 +8,6 @@
       "name"              : "SI-GamingGen",
       "script"            : "server.js",
       "exec_mode"         : "fork",
-      "instances"         : "max",              // A vérifier !
       "max_memory_restart": "512M",
       "port"              : 80,
       "watch"             : false,
