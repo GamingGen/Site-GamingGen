@@ -31,11 +31,11 @@
       "host"              : "darkterra.fr",
       "port"              : "22",
       "key"               : "/home/ubuntu/.ssh/id_rsa_nodeuser",
-      "ref"               : "origin/master",
+      "ref"               : "origin/develop",
       "repo"              : "https://github.com/GamingGen/Site-GamingGen.git",
       "path"              : "/home/nodeuser/www/pre-production",
       "pre-deploy-local"  : "echo 'This is a local executed command test Prod'",
-      "post-deploy"       : "npm install ; pm2 startOrReload ecosystem.json --env production",
+      "post-deploy"       : "npm install ; export NODE_TLS_REJECT_UNAUTHORIZED=0 ; pm2 startOrReload ecosystem.json --env production",
       "env" : {
         "NODE_ENV"  : "production"
       }
