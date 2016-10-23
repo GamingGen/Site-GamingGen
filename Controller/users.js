@@ -5,10 +5,78 @@ var router      = express.Router();
 var crypto      = require('crypto');
 var passport    = require('passport');
 var mailer      = require('nodemailer');
-var transporter = mailer.createTransport({
-    host: 'localhost',
-    port: 25
+// var transporter = mailer.createTransport({
+//     host: 'localhost',
+//     port: 25
+// });
+
+
+var nodemailer    = require('nodemailer');
+
+const from      = 'CasberJS Bot ✔ <casperjs.darkterra@gmail.com>';
+let to        = 'darkterra01@gmail.com';
+const subject   = '[Test] CasperJS';
+let text        = 'Not Working';
+let textOk    = 'Working';
+let html        = `
+<b>
+  Test CasperJS
+</b>
+<br/><br/>
+Result: <b>Not Working</b>`;
+const testSucces  = `
+<b>
+  Test CasperJS !
+</b>
+<br/><br/>
+Result: <b>✔</b>`;
+
+
+
+// create reusable transporter object using SMTP transport 
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'casperjs.darkterra@gmail.com',
+        pass: '4kr5s2256'
+    }
 });
+
+function SendMail(req, res, from, to, subject, text, html) {
+  console.log('Sending Mail...'.info);
+    
+  // setup e-mail data with unicode symbols 
+  var mailOptions = {
+      from: from, // sender address 
+      to: to, // list of receivers 
+      subject: subject, // Subject line 
+      text: text, // plaintext body 
+      html: html, // html body
+      attachments: []
+  };
+  
+  // for(let IMG of tabIMG) {
+  //   attach = {};
+  //   attach.filename = IMG;
+  //   attach.path = IMG;
+  //   mailOptions.attachments.push(attach);
+  // }
+  
+    console.log(new Date());
+    
+  // send mail with defined transport object 
+  transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+          return console.log(error);
+        res.sendStatus(500);
+      }
+      else {
+        console.log('Message sent: ');
+        res.sendStatus(200);
+      }
+  });
+}
+
 
 var cryptoSecret = 'GamingGenCryptoCat';
 
@@ -102,14 +170,16 @@ router.post('/insert', function (req, res) {
         html: '<b>✔</b> Check : ' + validationLink
       };
       
-      transporter.sendMail(mail, function(error, info){
-        if(error){
-          console.log(error);
-          res.sendStatus(500);
-        } else {
-          res.sendStatus(200);
-        }
-      });
+      SendMail(req, res, mail.from, mail.to, mail.subject, textOk, mail.html);
+      
+      // transporter.sendMail(mail, function(error, info){
+      //   if(error){
+      //     console.log(error);
+      //     res.sendStatus(500);
+      //   } else {
+      //     res.sendStatus(200);
+      //   }
+      // });
     }
   });
 });
