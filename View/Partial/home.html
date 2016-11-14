@@ -1,33 +1,6 @@
 <!--<div class="container well">-->
-  <div class="well" ng-controller="homeCtrl as news">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="page-header">
-          <h1>
-            GAMING GEN V2.0 <span>- Soon !</span>
-            <br/>
-            <small>
-              Le site de la Gaming Gen fait peau neuve
-            </small>
-          </h1>
-        </div>
-        <h4>
-          Pour célébrer les 10 ans, la Gaming Gen à travailler sans relache pendant des mois pour vous préparer un tout nouveau site à la pointe de la technologie.
-          <br/>
-          Have Fun !
-        </h4>
-        <div class="embed-responsive embed-responsive-16by9">
-          <!-- Use 'youtube-video' as an element or attribute. -->
-          <youtube-video video-id="videoPresentation" player="bestPlayer" player-vars="playerVars"></youtube-video>
-        </div>
-        
-        <br/><br/>
-        
-        <!--<modal ng-show="showmodal"></modal>-->
-        <!--<ng-include src="../Partial/modal.html"></ng-include>-->
-        
-        <!-- Article Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="" ng-controller="homeCtrl as news">
+    <div class="articlesmodalhome modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -37,37 +10,156 @@
               <div class="modal-body">
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button style="border:0px" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
         </div>
-        
-        
-        <!--<div class="blocpreviewnews" ng-controller="homeCtrl as news">-->
-        <div ng-repeat="article in news.articles | orderBy : '-register_date'">
-          
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">{{article.title}}</h3>
-            </div>
-            <div class="panel-body">
-              {{article.desc}}...
-              <br/>
-              <div class="pull-right">
-                {{article.username}} - {{article.register_date | date : 'MMMM yyyy'}}
-              </div>
-            </div>
-            <div class="panel-footer">
-              <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="{{article.id}}">
-                Lire la suite
-              </button>
-            </div>
+<!--Présentations des deux univers, dernière apparition-->
+    <div class="triprez">
+      <div class="scrolldown">
+        <a href="#Articles"><img src="../Img/flechedown.png"></a>
+      </div>
+      <div class="box boxleft">
+        <div class="boxorange"></div>
+        <a href="">
+          <div>
+            <span class="orangetxt smalltxt">Découvrez</span><br/>
+            <span class="orangetxt">LE</span> FESTIVAL<br/>
+            <span class="orangetxt">DU</span> JEU
           </div>
+        </a>
+      </div>
+      <div class="box boxmid">
+        <div class="boxvert"></div>
+        <a href="#">
+          <div>
+            <span class="verttxt smalltxt">Entrez</span><br/>
+            <span class="verttxt">DANS LA</span><br/> 
+            COMPÉTITION
+          </div>
+        </a>
+      </div>
+      <div id="particles" class="box boxright">
+        <canvas id="testparticles"></canvas>
+         <a href="#">
+          <div class="infosprochaine"></div>
+          <span class="smalltxt">
+              Notre prochaine apparition :<br/>
+          </span>
+           <span class="orangetxt">
+             HERO<br/>FESTIVAL<br/>
+           </span> 
+           <span class="infosprochaineapparition smalltxt"> Le 28 septembre</span><span class="infosprochaineapparition smalltxt">au parc chanot</span><span class="infosprochaineapparition smalltxt"> à Marseille</span>
+           </span>
+        </a>
+        
+          </div>
+      </div>
+      <div class="toparticles row">
+        <div id="Articles" class="titresectionarticles col-lg-8 col-lg-offset-2" >
+          <h1 class="col-lg-2">Quoi de neuf, gamers&nbsp;?</h1>
+          <h2 class="col-lg-4">Toutes les news<br/> de la gaming gen<br/> et du monde du gaming</h2>
         </div>
       </div>
+              <div class="contenuarticles fullwidth col-lg-offset-2">
+                    <div ng-repeat="article in news.articles | orderBy : '-register_date'">
+                          <div class="articles articlescompetitions col-lg-4">
+                            <a class="lirearticle" type="button" data-toggle="modal" data-target="#myModal" data-id="{{article.id}}">
+                              Lire l'article
+                              </a>
+                             <h4 class="h4article">Le {{article.register_date | date : 'dd MMMM yyyy'}} - Hot news</h4>
+                             <h1 class="h4article">{{article.title}}</h1><br/>
+                              <!--{{article.desc}}...
+                              {{article.username}} - -->
+                          </div>
+                    </div>
+                    <div ng-repeat="article in news.articles | orderBy : '-register_date'">
+                        <div class="articles articlesfestival nobordernopadding col-lg-4">
+                          <a class="lirearticle" type="button" data-toggle="modal" data-target="#myModal" data-id="{{article.id}}">
+                              Lire l'article
+                              </a>
+                             <h4 class="h4article">Le {{article.register_date | date : 'dd MMMM yyyy'}} - Info cruciale</h4>
+                             <h1 class="h4article">{{article.title}}</h1>
+                              <!--...
+                              {{article.username}} -->
+                              <img src="../Img/LS.jpg">
+                              <p>{{article.desc}}</p>
+                              
+                        </div>
+                          <!--<div class="articles articlesfestival col-lg-4">
+                             <h4>Le {{article.register_date | date : 'dd MMMM yyyy'}} - Info cruciale</h4>
+                             <h1>{{article.title}}</h1>
+                              <!--...
+                              {{article.username}} -
+                              <img src="../Img/LS.jpg">
+                              <p>{{article.desc}}</p>
+                              <h5 type="button" data-toggle="modal" data-target="#myModal" data-id="{{article.id}}">
+                              Lire l'article
+                              </h5>
+                          </div>-->
+                    </div>
+              </div>
+              <div class="lerestedesarticles">
+                <p>Le reste des articles &#9654;</p>
+              </div>
+              <div class="lesjoueursledisent">
+                <p>Les joueurs le disent<img src="../Img/flecheangle.svg"></p>
+              </div>
+                <div class="titrefeedback">
+                  MERCI<img src="../Img/coeur.svg">
+                </div>
+                <div class="blocdesfeedback">
+                  <span>
+                    <h5>"CA SENT TRES BON DANS CETTE LAN"</h5>
+                    <h6>Kamel Chebat</h6>
+                  <img src="../Img/finbulle.png">
+                  </span>
+                </div>
+      <div class="instafeed row">
+        <div class="titreinsta col-lg-2">
+          <h1>DON'T FEED</h1>
+          <h2>@gaming_gen_festival</h2>
+        </div>
+        <iframe src="//users.instush.com/h-slider/?cols=5&round=false&circle=false&pin=true&user_id=1580106092&username=fgua_hush&sid=-1&susername=-1&tag=-1&stype=mine&t=999999QvoXPWXfEmq_9mNQVZdzQFtDQwwwKN3wiFVjj3tQSnCGuATofdcKyYz_zvsZ8rPeXNNwkHFQfdA" allowtransparency="true" frameborder="0" scrolling="no"  style="display:block;width:850px;height:190px;border:none;overflow:visible;" ></iframe>
+      </div>
+              
+              
+    </div>
+<div class="footer">
+  <div class="topfooter row">
+    <div class="gamingillustration col-lg-2">
+      <img src="../Img/illugaming.png">
+    </div>
+    <div class="gaminglink col-lg-7">
+      <a  href="#">Inscription</a>
+       <a  href="#">Connexion</a>
+        <a  href="#">Facebook</a>
+         <a  href="#">Twitter</a>
+          <a  href="#">Instagram</a>
     </div>
   </div>
+  <div class="bottomfooter row">
+    <div class="gaminglink2 col-lg-1 col-lg-offset-2">
+      <ul href="#">Accueil</ul>
+       <ul href="#">Gaming gen 6</ul>
+        <ul href="#">Compétitions</ul>
+         <ul href="#">Festival du jeu</ul>
+          <ul href="#">Plan</ul>
+    </div>
+           <div class="gaminglink2 col-lg-1">
+           <ul href="#">Programme</ul>
+            <ul href="#">Live</ul>
+             <ul href="#">Partenaires</ul>
+              <ul href="#">Galerie</ul>
+               <ul href="#">Association</ul>
+           </div>
+           <div class="gaminglink2 col-lg-1">
+                <ul href="#">Admin</ul>
+                 <ul href="#">Infos utiles</ul>
+           </div>
+  </div>
+</div>
   <!--<div class="row">-->
   <!--  <div class="hotfix col-3-12">-->
   <!--    <h6>RECHERCHER</h6>-->

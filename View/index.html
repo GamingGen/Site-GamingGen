@@ -35,6 +35,7 @@
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="Javascript/app.js"></script>
     
+    
     <!-- Controllers ===== START -->
     <!-- Pour simplifier, voir RequireJS -->
     <script type="text/javascript" src="Javascript/Controllers/AppControllers.js"></script>
@@ -42,7 +43,7 @@
     <script type="text/javascript" src="Javascript/Controllers/AdminArticleController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/AdminLiveController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/AdminSnackController.js"></script>
-    <script type="text/javascript" src="Javascript/Controllers/HistoSnackController.js"></script>
+    <!--<script type="text/javascript" src="Javascript/Controllers/HistoSnackController.js"></script>-->
     <script type="text/javascript" src="Javascript/Controllers/HomeController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/LiveController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/MainController.js"></script>
@@ -63,6 +64,29 @@
     <script type="text/javascript" src="Javascript/Lib/angular-youtube-embed.min.js"></script>
     <script type="text/javascript" src= "https://player.twitch.tv/js/embed/v1.js"></script>
     <script type="text/javascript" src="Javascript/Lib/loading-bar.js"></script>
+    <script src="Javascript/Lib/particles.js"></script>
+    <script type="text/javascript">
+      window.onload = function() {
+  Particles.init({
+    connectParticles: true,
+    selector: '#testparticles',
+    color: '#CECECE'
+    
+  });
+};
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+        $(".lirearticle").hover(function(){
+        $(".h4article").addClass("blanc");
+    });
+
+	$(".closelire").click(function(){
+        $(".pushvocation").removeClass("hover");
+    });
+});
+    </script>
     
     
     <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
@@ -192,15 +216,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" ui-sref="home"><img class="logo img-rounded" alt="Logo" src="Img/logo.png"></a>
+              <a class="navbar-brand" ui-sref="home"><img class="logo img-rounded" alt="Logo" src="Img/Kit_Comm_LogoGeneBlanc.png"></a>
             </div>
         
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse-1">
               <ul class="nav navbar-nav">
                 <li ui-sref-active="active" class="dropdown">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Gaming Gen 6<img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"><span class="caret"></span>
+                  <a href="#" style="display:block;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span>Gaming Gen 6</span><img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"><span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
                     <li><a ui-sref="competitions">Les compétitions</a></li>
@@ -257,24 +281,37 @@
                   </ul>
                 </li>
               </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li ng-hide="User.isLoggedIn">
-                  <a href="" class="toCollapse" data-toggle="modal" data-target="#registrationModal">
-                    <i class="fa fa-user-plus" aria-hidden="true"></i> Inscription
+              <!--<li class="dropdown">-->
+              <!--    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
+              <!--      <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
+              <!--    </a>-->
+              <!--    <ul class="dropdown-menu">-->
+              <!--      <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>-->
+              <!--      <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>-->
+              <!--    </ul>-->
+              <!--  </li>-->
+              
+            </div>
+          </div>
+        </nav>
+        <ul class="orangebox">
+                <li class="bouton-inscription" ng-hide="User.isLoggedIn">
+                  <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#registrationModal">
+                    Créer un compte
                   </a>
                 </li>
-                <li ng-hide="User.isLoggedIn">
-                  <a href="" class="toCollapse" data-toggle="modal" data-target="#connectionModal">
-                    <i class="fa fa-sign-in" aria-hidden="true"></i> Connexion
+                <li class="bouton-connexion" ng-hide="User.isLoggedIn">
+                  <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#connectionModal">
+                    Connexion
                   </a>
                 </li>
                 <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
                 <!--ng-if="isConnected && isAdmin" -->
-                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown">
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-cogs" aria-hidden="true"></i> Admin<span class="caret"></span>
+                    <i class="fa fa-cogs" aria-hidden="true"></i> Admin
                   </a>
-                  <ul class="dropdown-menu">
+                  <ul class="loggedmenu dropdown-menu">
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
@@ -296,11 +333,11 @@
                   </ul>
                 </li>
                 <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-                <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown">
+                <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Mon Compte<span class="caret"></span>
+                    Mon Compte
                   </a>
-                  <ul class="dropdown-menu">
+                  <ul class="loggedmenu dropdown-menu">
                     <li><a><img src="../Img/Profil_JY.jpg" alt="..." class="resizeProfil img-circle"> Bienvenu <b>{{User.pseudo}}</b></a></li>
                     <li role="separator" class="divider"></li>
                     <li><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
@@ -310,125 +347,16 @@
                     <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
                   </ul>
                 </li>
-                <li class="dropdown">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>
-                    <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>
-                  </ul>
-                </li>
+                
               </ul>
-            </div>
-          </div>
-          <span class="greenLine"></span>
-        </nav>
     <!--  </div>-->
     <!--</div>-->
     <!--<div class="row">-->
     <!--  <div class="col-md-12">-->
-        <div class="body">
-          <section ng-if="showSlider" class="hidden-xs">
-            <div id="wrapper">
-            	<div id="slider">
-            	
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide1.jpg);">
-            			<div class="slide-block">
-            				<h4>GamingGen 5</h4>
-            				<p>Nos Tomb Rider ;)</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide2.jpg);">
-            			<div class="slide-block">
-            				<h4>L'accueil</h4>
-            				<p>Comme toujours un qui travail et 3 qui regarde.</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide3.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide4.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide5.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide6.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide7.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide8.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide9.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide10.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide11.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide12.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            		<div class="slide" style="background-image: url(../Img/Slider/Slide13.jpg);">
-            			<div class="slide-block">
-            				<h4>La GG6 bientôt</h4>
-            				<p>Commentaire ici...</p>
-            			</div>
-            		</div>
-             
-            	</div>
-            </div>
-          </section>
           
-          <div class="container-fluid">
+          <div class="slider">
+           <a href="#"></a>
+          </div>
             <!--<div class="row">-->
               <!--<div class="pull-right col-md-2">-->
               <!--  <div class="chat hidden-sm hidden-xs">-->
@@ -440,8 +368,7 @@
             <div ng-class="mainView" >
               <div ui-view></div>
             </div>
-          </div>
-        </div>
+        
         
         <!--<div class="grid grid-pad">-->
         <!--  <div class="iconact col-6-12">-->
