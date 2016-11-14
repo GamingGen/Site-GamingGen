@@ -97,8 +97,9 @@ testDirectory()
 	if [ ! -d "$1" ]
 	then
 		# Création du dossier
-		sudo mkdir $1
-
+		mkdir $1
+		chmod 777 $1
+		
 		log "Dosser: '$1' créer"
 	else
 		log "Dossier: '$1' déjà existant..."
