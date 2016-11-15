@@ -1,0 +1,39 @@
+<div ng-controller="articleCtrl as article">
+    <!-- Article -->
+    <div>{{article.currentArticle.title}}</div>
+    <div>{{article.currentArticle.username}}</div><!-- Auteur de l'article -->
+    <div>{{article.currentArticle.register_date | date : 'dd MMMM yyyy'}}</div><!-- Date de l'article -->
+    <ng-bind-html ng-bind-html="renderHtml(article.currentArticle.text)"></ng-bind-html><!-- Contenu de l'article, en HTML -->
+    
+    <!-- Commentaires -->
+    <div>Commentaires</div>
+    <div ng-repeat="comment in article.currentArticle.comments | orderBy : 'register_date'"><!-- Liste des commentaires -->
+        <div>{{comment.username}}</div><!-- Auteur du commentaire -->
+        <div>{{comment.register_date | date : 'dd MMMM yyyy'}}</div><!-- Date du commentaire -->
+        <ng-bind-html ng-bind-html="renderHtml(comment.text)"></ng-bind-html><!-- Contenu du commentaire, en HTML -->
+    </div>
+    <div ng-show="!article.currentArticle.comments.length">Aucun commentaire pour l'instant...</div><!-- Si pas de commentaire, afficher ceci -->
+    <button data-toggle="modal" data-target="#modalComment" data-id="{{article.currentArticle.id}}">Commenter</button><!-- Bouton d'affichage de la pop-up de création de commentaire -->
+    
+    <!-- Modale d'ajout de commentaires -->
+    <div class="modal fade" id="modalComment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div role="document">
+            <div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><!-- Close button -->
+                <div id="myModalLabel">Commenter l'article !</div><!-- Titre de la modale -->
+                <div ng-controller="commentCtrl">
+                    
+                    <form><!-- Formulaire, contient essentiellement l'éditeur TinyMCE -->
+                      <input type="hidden" id="articleId" name="articleId" value="{{article.currentArticle.id}}"/>
+                      <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
+                    </form>
+                
+                    <!-- Bouton de fermeture / submit -->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-click="getContent()" data-dismiss="modal" class="btn btn-primary">Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

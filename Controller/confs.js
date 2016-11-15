@@ -21,6 +21,13 @@ router.get('/typeMenu', function (req, res) {
     });
 });
 
+router.get('/shop', function (req, res) {
+    confSchema.findOne({}, 'shop', {sort: {$natural: -1}}, function (err, docs) {
+      console.log(docs);
+      res.json(docs.shop.type_order);
+    });
+});
+
 
 // var users = {
 // 		password_min_length: 8

@@ -16,6 +16,17 @@
           url         : '/home',
           templateUrl : '../Partial/home.html'
         })
+        .state('article', {
+          url         : '/articles/:id',
+          templateUrl : '../Partial/article.html',
+          controller: function ($scope, $stateParams) {
+             $scope.idArticle = $stateParams.id;
+          }
+        })
+        .state('news', {
+          url         : '/articles',
+          templateUrl : '../Partial/news.html',
+        })
         .state('usersValidate', {
           url         : '/users/validate/:hash',
           templateUrl : '../Partial/home.html',
@@ -26,6 +37,26 @@
         .state('live', {
           url         : '/live',
           templateUrl : '../Partial/live.html'
+        })
+        .state('shop', {
+          url         : '/shop',
+          templateUrl : '../Partial/Shop/shop.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In Snack Section !');
+            ManageViewService.setView(adminLayout);
+          }],
+          onExit      : ['ManageViewService', function(ManageViewService) {
+            console.log('I am Out Snack Section !');
+            ManageViewService.setView(normalLayout);
+          }]
+        })
+        .state('shop.order', {
+          url         : '/order',
+          templateUrl : '../Partial/Shop/orderShop.html'
+        })
+        .state('shop.histo', {
+          url         : '/histo',
+          templateUrl : '../Partial/Shop/histoShop.html'
         })
         .state('snack', {
           url         : '/snack',
@@ -79,6 +110,10 @@
         .state('admin.articles', {
           url         : '/adminArticles',
           templateUrl : '../Partial/Admin/adminArticles.html'
+        })
+        .state('admin.shop', {
+          url         : '/adminShop',
+          templateUrl : '../Partial/Admin/adminShop.html'
         })
         .state('admin.ban', {
           url         : '/Ban',

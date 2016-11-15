@@ -42,13 +42,18 @@
     
     <script type="text/javascript" src="Javascript/Controllers/AdminArticleController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/AdminLiveController.js"></script>
-    <script type="text/javascript" src="Javascript/Controllers/AdminSnackController.js"></script>
-    <!--<script type="text/javascript" src="Javascript/Controllers/HistoSnackController.js"></script>-->
+    <script type="text/javascript" src="Javascript/Controllers/AdminMenuSnackController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/AdminShopController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/HistoShopController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/HistoSnackController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/HomeController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/LiveController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/MainController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/ShopController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/SnackController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/CommentController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/ArticleController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/ArticleListController.js"></script>
     
     <script type="text/javascript" src="Javascript/Controllers/Admin/AdminBanController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/Admin/AdminListBansController.js"></script>
@@ -263,16 +268,14 @@ $(document).ready(function() {
                   <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>-->
                   <!--</ul>-->
                 <!--</li>-->
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
+                  <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
                 <li>
                   <a class="autoCollapse" ui-sref="partenaires">Les Partenaires</a>
                 </li>
                 <li>
                   <a class="autoCollapse" ui-sref="news">News</a>
                 </li>
-                <li>
-                  
-                </li>
-                
                 <li ui-sref-active="active" class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     L'association<span class="caret"></span>
@@ -326,8 +329,9 @@ $(document).ready(function() {
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="snack.staff.commande"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Commande Snack</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> Gestion Snack</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
@@ -353,7 +357,15 @@ $(document).ready(function() {
                     <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
                   </ul>
                 </li>
-                
+                <!--<li class="dropdown">-->
+                  <!--<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
+                    <!--<i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
+                  <!--</a>-->
+                  <!--<ul class="dropdown-menu">-->
+                    <!--<li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>-->
+                    <!--<li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>-->
+                  <!--</ul>-->
+                <!--</li>-->
               </ul>
     <!--  </div>-->
     <!--</div>-->
