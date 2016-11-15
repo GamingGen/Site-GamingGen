@@ -1,0 +1,11 @@
+<div ng-controller="articleListCtrl as news">
+    <!-- Liste des articles -->
+    <div ng-repeat="article in news.lstArticles | orderBy : '-register_date'">
+        <div>{{article.title}}</div><!-- Titre de l'article -->
+        <div>{{article.comments.length}}</div><!-- Nombre de commentaires dans l'article -->
+        <div>{{article.desc}}</div><!-- Description de l'article -->
+        <div>{{article.username}}</div><!-- Auteur de l'article -->
+        <div>{{article.register_date | date : 'dd MMMM yyyy'}}</div><!-- Date de rédaction de l'article -->
+        <button type="button" ui-sref='article({ id: article.id })'>Lire la suite</button>
+    </div>
+</div>
