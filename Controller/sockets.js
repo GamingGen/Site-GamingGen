@@ -18,6 +18,7 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	let io                = socketio.listen(server);
 	let printerClientId   = "";
 	let printerCookId     = "";
+	let printerShopId     = "";
 	let youtube           = {};
 	let twitch            = {};
 	let Live              = {}; // TODO A déplacer
@@ -51,6 +52,13 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			console.log('EmitCook: generate&printPDF');
 		}
 	});
+	
+	ServerEvent.on('shopOrderSaved', function(data, socket) {
+		if (check.nonEmptyString(printerShopId)) {
+			io.to(printerShopId).emit('generate&printShopPDF', data);
+			console.log('ShopCook: generate&printShopPDF');
+		}
+	});
 		
 	ServerEvent.on('ArticleSaved', function(data, socket) {
 		io.sockets.emit('NewArticle', data);
@@ -69,6 +77,13 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		if (check.nonEmptyString(printerClientId) && data != null) {
 			io.to(printerClientId).emit('generate&printPDF', data);
 			console.log('EmitClient: generate&printPDF');
+		}
+	});
+	
+	ServerEvent.on('RePrintShopOrderFind', function(data) {
+		if (check.nonEmptyString(printerShopId) && data != null) {
+			io.to(printerShopId).emit('generate&printShopPDF', data);
+			console.log('EmitClient: generate&printShopPDF');
 		}
 	});
 	
@@ -114,6 +129,14 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			}
 		});
 		
+		socket.on('IamTheShopPrinter', function() {
+			if (check.emptyString(printerShopId)) {
+	  		printerShopId = socket.id;
+				console.log('Printer Shop Found');
+				console.log(socket.id);
+			}
+		});
+		
 		
 		
 		socket.on('saveConf', function(data) {
@@ -128,15 +151,30 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			console.log('Emit: saveMenuSnack');
 		});
 		
+		socket.on('saveShop', function(data) {
+			ServerEvent.emit('saveShop', data);
+			console.log('Emit: saveShop');
+		});
+		
 		
 		socket.on('RePrintPDF', function(data) {
 			ServerEvent.emit('RePrintPDF', data, socket);
+		});
+		
+		socket.on('RePrintShopPDF', function(data) {
+			ServerEvent.emit('RePrintShopPDF', data, socket);
 		});
 		
 		socket.on('generatePDF', function(data) {
 			console.log('Reception order Client');
 			ServerEvent.emit('saveOrder', data, socket);
 			console.log('Emit: saveOrder');
+		});
+		
+		socket.on('generateShopPDF', function(data) {
+			console.log('Reception Shop Order');
+			ServerEvent.emit('saveShopOrder', data, socket);
+			console.log('Emit: saveShopOrder');
 		});
 		
 		socket.on('saveArticle', function(data) {
@@ -213,6 +251,10 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			if (check.nonEmptyString(printerCookId) && socket.id == printerCookId) {
 				printerCookId = "";
 				console.log('We lost the Cook Printer');
+			}
+			if (check.nonEmptyString(printerShopId) && socket.id == printerShopId) {
+				printerShopId = "";
+				console.log('We lost the Shop Printer');
 			}
 		});
 	});

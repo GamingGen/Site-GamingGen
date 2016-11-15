@@ -69,6 +69,8 @@ var WatchList   = require('./Controller/watchLists');
 var Team        = require('./Controller/teams');
 var Snack       = require('./Controller/snacks');
 var MenuSnack   = require('./Controller/menuSnacks');
+var Shop        = require('./Controller/shop');
+var Order       = require('./Controller/order');
 
 // Require des Models
 var userSchema = require('./Model/userSchema');
@@ -157,6 +159,8 @@ MenuSnack.menuSnackEvent(ServerEvent);
 Article.articleEvent(ServerEvent);
 Comment.commentEvent(ServerEvent);
 User.userEvent(ServerEvent);
+Shop.shopEvent(ServerEvent);
+Order.orderEvent(ServerEvent);
 
 // Log Error
 ServerEvent.on('error', (err) => {
@@ -172,6 +176,8 @@ app.use('/comments', Comment.router);
 app.use('/teams', Team.router);
 app.use('/snacks', Snack.router);
 app.use('/menusnacks', MenuSnack.router);
+app.use('/shop', Shop.router);
+app.use('/order', Order.router);
 
 
 function shouldCompress(req, res) {
