@@ -1,0 +1,89 @@
+<div ng-controller="shopCtrl as shop">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="pull-left">
+        <span class="label label-primary">Total: <b>{{shop.total | currency}}</b></span>
+        <br/>
+        <span class="label label-default">Elements: {{shop.elements.length}}</span>
+      </div>
+      <div class="col-xs-10 text-center">
+        <div class="center-block">
+          <form ng-submit="sendOrder()" name="formPseudo" class="form-inline" novalidate>
+            <div class="form-group">
+              <input type="text" class="form-control" id="pseudo" ng-model="pseudo" placeholder="Vendeur" required>
+              <button type="button" ng-click="sendOrder()" ng-disabled="!formPseudo.pseudo.$valid && shop.elements.length === 0" class="btn btn-info">valider</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <!--table-responsive-->
+    <div class="col-md-4 ">
+      <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Goodies <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="element in shop.lists | filter:{type:'Goodies'}"><a href="" ng-click="addRow(element.name, element.unit_price)" class="label-success"><b>{{element.name}}</b></a></li>
+        </ul>
+      </div>
+      
+      <div class="btn-group">
+        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Remises <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="element in shop.lists | filter:{type:'Discount'}"><a href="" ng-click="addDiscount(element.name, element.unit_price)" class="label-warning"><b>- {{element.name}}</b></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="table-responsive">
+        <table data-toggle="table" data-height="80" class="table table-striped table-condensed table-hover fixed-table-header">
+          <thead>
+            <tr>
+              <th>
+                #
+              </th>
+              <th>
+                N°
+              </th>
+              <th>
+                Element
+              </th>
+              <th>
+                Prix
+              </th>
+              <th>
+                +/-
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="element in shop.elements" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
+              <td>
+                <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              </td>
+              <td>
+                {{element.quantity}}
+              </td>
+              <td>
+                {{element.name}}
+              </td>
+              <td>
+                {{element.price | currency}}
+              </td>
+              <td>
+                <button ng-click="addQuantity($index)" class="btn btn-success btn-xs"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                <button ng-click="subQuantity($index)" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
