@@ -51,6 +51,9 @@
     <script type="text/javascript" src="Javascript/Controllers/MainController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/ShopController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/SnackController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/CommentController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/ArticleController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/ArticleListController.js"></script>
     
     <script type="text/javascript" src="Javascript/Controllers/Admin/AdminBanController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/Admin/AdminListBansController.js"></script>
@@ -243,16 +246,14 @@
                   <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>-->
                   <!--</ul>-->
                 <!--</li>-->
-                <!--<li>-->
-                  <!--<a class="autoCollapse" ui-sref="live">Les Partenaires</a>-->
-                <!--</li>-->
-                <!--<li>-->
-                  <!--<a class="autoCollapse" ui-sref="live">News</a>-->
-                <!--</li>-->
                 <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
                   <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
+                <li>
+                  <a class="autoCollapse" ui-sref="live">Les Partenaires</a>
                 </li>
-                
+                <li>
+                  <a class="autoCollapse" ui-sref="news">News</a>
+                </li>
                 <li ui-sref-active="active" class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     L'association<span class="caret"></span>

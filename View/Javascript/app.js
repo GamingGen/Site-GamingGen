@@ -16,6 +16,17 @@
           url         : '/home',
           templateUrl : '../Partial/home.html'
         })
+        .state('article', {
+          url         : '/articles/:id',
+          templateUrl : '../Partial/article.html',
+          controller: function ($scope, $stateParams) {
+             $scope.idArticle = $stateParams.id;
+          }
+        })
+        .state('news', {
+          url         : '/articles',
+          templateUrl : '../Partial/news.html',
+        })
         .state('usersValidate', {
           url         : '/users/validate/:hash',
           templateUrl : '../Partial/home.html',
