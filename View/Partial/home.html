@@ -9,8 +9,11 @@
               </div>
               <div class="modal-body">
               </div>
+              <div class="modal-comments">
+              </div>
               <div class="modal-footer">
-                <button style="border:0px" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="modalCommentButton" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalComment">Commenter</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -54,6 +57,55 @@
            </span>
         </a>
         
+        <!-- Comments Modal -->
+        <div class="modal fade" id="modalComment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Commenter l'article !</h4>
+              </div>
+              <div class="modal-body" ng-controller="commentCtrl">
+                <div class="row">
+                  <div class="col-md-12">
+                    <form>
+                      <input type="hidden" id="articleId" name="articleId"/>
+                      <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
+                    </form>
+                  </div>
+                </div>
+                <br/>
+                <div class="row">
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" ng-click="getContent()" data-dismiss="modal" class="btn btn-primary">Valider</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!--<div class="blocpreviewnews" ng-controller="homeCtrl as news">-->
+        <div ng-repeat="article in news.articles | orderBy : '-register_date'">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                {{article.title}}<span class="badge badge-right">{{article.comments.length}}</span>
+              </h3>
+            </div>
+            <div class="panel-body">
+              {{article.desc}}...
+              <br/>
+              <div class="pull-right">
+                {{article.username}} - {{article.register_date | date : 'MMMM yyyy'}}
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id="{{article.id}}">
+                Lire la suite
+              </button>
+            </div>
           </div>
       </div>
       <div class="toparticles row">

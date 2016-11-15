@@ -55,6 +55,10 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	ServerEvent.on('ArticleSaved', function(data, socket) {
 		io.sockets.emit('NewArticle', data);
 	});
+		
+	ServerEvent.on('CommentSaved', function(data, socket) {
+		io.sockets.emit('NewComment', data);
+	});
 	
 	ServerEvent.on('AllOrdersFound', function(data, socket) {
 		socket.emit('AllOrders', data);
@@ -70,6 +74,11 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	
 	ServerEvent.on('ClientPrinterPrintedDone', function(data) {
 		io.sockets.emit('ClientPrinterPrintedDone', data);
+	});
+		
+	// Banissement et déconnexion auto
+	ServerEvent.on('BanUser', function(data) {
+		io.sockets.emit('BanUser', data);
 	});
 	
 	/***********************************************************************************
@@ -134,6 +143,11 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			console.log('Reception article Client');
 			ServerEvent.emit('saveArticle', data, socket);
 			console.log('Emit: saveArticle');
+		});
+		
+		socket.on('saveComment', function(data) {
+			ServerEvent.emit('saveComment', data, socket);
+			console.log('Emit: saveComment');
 		});
 		
 		socket.on('getAllOrders', function() {

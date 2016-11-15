@@ -1,32 +1,90 @@
 'use strict';
 
-var express   = require('express');
-var router    = express.Router();
-var passport  = require('passport');
+var express     = require('express');
+var router      = express.Router();
+var crypto      = require('crypto');
+var passport    = require('passport');
+var mailer      = require('nodemailer');
+// var transporter = mailer.createTransport({
+//     host: 'localhost',
+//     port: 25
+// });
+
+
+var nodemailer    = require('nodemailer');
+
+const from      = 'CasberJS Bot ✔ <casperjs.darkterra@gmail.com>';
+let to        = 'darkterra01@gmail.com';
+const subject   = '[Test] CasperJS';
+let text        = 'Not Working';
+let textOk    = 'Working';
+let html        = `
+<b>
+  Test CasperJS
+</b>
+<br/><br/>
+Result: <b>Not Working</b>`;
+const testSucces  = `
+<b>
+  Test CasperJS !
+</b>
+<br/><br/>
+Result: <b>✔</b>`;
+
+
+
+// create reusable transporter object using SMTP transport 
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'casperjs.darkterra@gmail.com',
+        pass: '4kr5s2256'
+    }
+});
+
+function SendMail(req, res, from, to, subject, text, html) {
+  console.log('Sending Mail...'.info);
+    
+  // setup e-mail data with unicode symbols 
+  var mailOptions = {
+      from: from, // sender address 
+      to: to, // list of receivers 
+      subject: subject, // Subject line 
+      text: text, // plaintext body 
+      html: html, // html body
+      attachments: []
+  };
+  
+  // for(let IMG of tabIMG) {
+  //   attach = {};
+  //   attach.filename = IMG;
+  //   attach.path = IMG;
+  //   mailOptions.attachments.push(attach);
+  // }
+  
+    console.log(new Date());
+    
+  // send mail with defined transport object 
+  transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+          return console.log(error);
+        res.sendStatus(500);
+      }
+      else {
+        console.log('Message sent: ');
+        res.sendStatus(200);
+      }
+  });
+}
+
+
+var cryptoSecret = 'GamingGenCryptoCat';
 
 var userSchema = require('../Model/userSchema');
 
 var exports = module.exports = {};
 
-router.post('/login', 
-function(req, res, next) {
-  passport.authenticate("local", function(err, user, info) {
-    console.log(info);
-    if (!user) {
-      return res.sendStatus(401) ;
-    }
-    if (err) {
-      return next(err);
-    }
-    req.logIn(user, function(err) {
-      if (err) {
-        return next(err);
-      }
-      return res.end(JSON.stringify(user));
-      // return res.sendStatus(200);
-    });
-  })(req, res, next);
-});
+router.post('/login', login);
 
 // passport.authenticate('local'), (req, res) => {
 //   if (req.user) {
@@ -73,16 +131,23 @@ router.get('/', (req, res) => {
 // });
 
 router.post('/insert', function (req, res) {
+  let hash = crypto.createHmac('sha256', cryptoSecret)
+    .update(req.body.pseudo + req.body.email)
+    .digest('hex');
+    
   var newUser = new userSchema({
     pseudo    : req.body.pseudo,
     password  : req.body.password,
     email     : req.body.email,
     general   : {
-                  first_name    : req.body.general.first_name,
-                  last_name     : req.body.general.last_name,
-                  birthday      : req.body.general.birthday,
-                  zip           : req.body.general.zip
-                }
+      first_name    : req.body.general.first_name,
+      last_name     : req.body.general.last_name,
+      birthday      : req.body.general.birthday,
+      zip           : req.body.general.zip
+    },
+    access    : {
+      validationKey : hash
+    }
   });
   
   newUser.save(function(err) {
@@ -93,10 +158,137 @@ router.post('/insert', function (req, res) {
     }
     else
     {
+      let validationLink = req.protocol + '://'
+        + req.headers.host
+        + '/#/users/validate/'
+        + hash;
+      
+      var mail = {
+        from: '"Gaming Gen" <noreply@gaming-gen.com>',
+        to: newUser.email,
+        subject: 'Inscription à la Gaming Gen',
+        html: '<b>✔</b> Check : ' + validationLink
+      };
+      
+      SendMail(req, res, mail.from, mail.to, mail.subject, textOk, mail.html);
+      
+      // transporter.sendMail(mail, function(error, info){
+      //   if(error){
+      //     console.log(error);
+      //     res.sendStatus(500);
+      //   } else {
+      //     res.sendStatus(200);
+      //   }
+      // });
+    }
+  });
+});
+
+/**
+ * Récupération de la liste des utilisateurs non-bannis
+ */
+router.get('/listNoBan', function (req, res) {
+  userSchema.find({'access.ban' : false}, function (err, rows) {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+/**
+ * Récupération de la liste des utilisateurs bannis
+ */
+router.get('/listBan', function (req, res) {
+  userSchema.find({'access.ban' : true}, function (err, rows) {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+/**
+ * Bannissement d'un utilisateur
+ */
+router.post('/ban', function(req, res) {
+   userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : true},function (err, rows) {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+    } else {
+      let serverEvent  = require('./ServerEvent');
+      serverEvent.emit('BanUser', req.body.user);
       res.sendStatus(200);
     }
   });
 });
+
+/**
+ * Dé-bannissement d'un utilisateur
+ */
+router.post('/unban', function(req, res) {
+  userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : false}, function (err, rows) {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
+
+/**
+ * Validation d'un compte utilisateur
+ */
+router.post('/validate', function(req, res) {
+  console.log("Validation d'un user...");
+  userSchema.findOneAndUpdate({'access.validationKey': req.body.hash}, {'access.validationKey': ''}, function (err, rowUpdated) {
+    if (err) {
+      console.log("Validate first error : " + err);
+      res.sendStatus(500);
+    } else {
+      if (rowUpdated !== null) {
+        req.body = {
+          "email": rowUpdated.email,
+          "password": rowUpdated.password
+        };
+        res.sendStatus(200);
+        // TODO quand le bypass de connexion sera implémenté
+        /*login(req, res, function(err) {
+          console.log("Validate second error : " + err);
+          res.sendStatus(500);
+        }, true);*/
+      } else {
+        console.log("Validation not complete");
+        res.sendStatus(500);
+      }
+    }
+  });
+});
+
+function login(req, res, next) {// Ajouter une option de bypass pour si le mot de passe est déjà crypté (validation de compte)
+  passport.authenticate("local", function(err, user, info) {
+    console.log(info);
+    if (!user) {
+      return res.sendStatus(401);
+    }
+    if (err) {
+      return next(err);
+    }
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      return res.end(JSON.stringify(user));
+      // return res.sendStatus(200);
+    });
+  })(req, res, next);
+}
 
 // ------------------------------ Events ------------------------------
 var userEvent = function(ServerEvent) {

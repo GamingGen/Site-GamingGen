@@ -509,6 +509,7 @@ hr {
   /*display: inline-block;*/
   /*position: fixed;*/
 }
+
 .container{
   width:100%!important;
 }
@@ -782,4 +783,26 @@ hr {
   }
 }
 @media screen and (max-width: 600px) {
+}
+
+/* Message d'erreur sur la page d'accueil */
+.popUpMessage {
+	position: absolute;
+	right: 0;
+	margin: 5px;
+	display: none;
+	z-index: 1000;
+}
+
+.badge-right {
+	float:right;
+}
+
+blockquote {
+  font-size: 13px;
+}
+
+.comments-title {
+  color: #88B205;
+  font-weight: bold;
 }

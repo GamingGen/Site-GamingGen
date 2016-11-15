@@ -39,6 +39,15 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
     $scope.isPseudoExist = data;
   });
   
+  // Déconnexion si utilisateur banni
+  socket.on('BanUser', function(user) {
+    if ($scope.User !== undefined && $scope.User.pseudo === user) {
+      UserService.logout().success(function() {
+        $state.go('home');
+      });
+    }
+  });
+  
   $scope.$watch('email', isMailExist);
   $scope.$watch('pseudo', isPseudoExist);
   
@@ -87,15 +96,27 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
     user.general.zip = $scope.zip;
     
     console.log(JSON.stringify(user));
-    $http.post('/users/insert', JSON.stringify(user)).success(function() {
-      
-      $scope.firstName = '';
-      $scope.lastName  = '';
-      $scope.pseudo    = '';
-      $scope.password  = '';
-      $scope.zip       = '';
-      $scope.birthday  = '';
-      $scope.email     = '';
+    $http.post('/users/insert', JSON.stringify(user))
+      .success(function(){
+        $scope.firstName = '';
+        $scope.lastName  = '';
+        $scope.pseudo    = '';
+        $scope.password  = '';
+        $scope.zip       = '';
+        $scope.birthday  = '';
+        $scope.email     = '';
+        $scope.connectionEmail = user.email;
+        $scope.connectionPassword = user.password;
+        $scope.submitLogin();
+      })
+      .error(function() {
+        $scope.firstName = '';
+        $scope.lastName  = '';
+        $scope.pseudo    = '';
+        $scope.password  = '';
+        $scope.zip       = '';
+        $scope.birthday  = '';
+        $scope.email     = '';
     });
     
   };

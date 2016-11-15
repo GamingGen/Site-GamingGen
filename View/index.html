@@ -48,6 +48,11 @@
     <script type="text/javascript" src="Javascript/Controllers/LiveController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/MainController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/SnackController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/CommentController.js"></script>
+    
+    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminBanController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminListBansController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminListUsersController.js"></script>
     <!-- Controllers ===== END -->
     
     <script type="text/javascript" src="Javascript/Factories/SocketIO.js"></script>
@@ -56,6 +61,7 @@
     <script type="text/javascript" src="Javascript/Services/AuthService.js"></script>
     <script type="text/javascript" src="Javascript/Services/ContainerService.js"></script>
     <script type="text/javascript" src="Javascript/Locales/angular-locale_fr-fr.js"></script>
+    <script type="text/javascript" src="Javascript/Services/UserService.js"></script>
     
     <script type="text/javascript" src="Javascript/tinyMCE/bower_components/tinymce-dist/tinymce.js"></script>
     <script type="text/javascript" src="Javascript/tinyMCE/bower_components/angular-ui-tinymce/src/tinymce.js"></script>
@@ -353,6 +359,110 @@ $(document).ready(function() {
     <!--</div>-->
     <!--<div class="row">-->
     <!--  <div class="col-md-12">-->
+        <!--<div class="body">-->
+          
+          <!-- Messages d'erreur -->
+        <!--  <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>-->
+        <!--  <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>-->
+          
+        <!--  <section ng-if="showSlider" class="hidden-xs">-->
+        <!--    <div id="wrapper">-->
+        <!--    	<div id="slider">-->
+            	
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide1.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>GamingGen 5</h4>-->
+        <!--    				<p>Nos Tomb Rider ;)</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide2.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>L'accueil</h4>-->
+        <!--    				<p>Comme toujours un qui travail et 3 qui regarde.</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide3.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide4.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide5.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide6.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide7.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide8.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide9.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide10.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide11.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide12.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide13.jpg);">-->
+        <!--    			<div class="slide-block">-->
+        <!--    				<h4>La GG6 bientôt</h4>-->
+        <!--    				<p>Commentaire ici...</p>-->
+        <!--    			</div>-->
+        <!--    		</div>-->
+             
+        <!--    	</div>-->
+        <!--    </div>-->
+        <!--  </section>-->
           
           <div class="slider">
            <a href="#"></a>
@@ -366,6 +476,7 @@ $(document).ready(function() {
             <!--</div>-->
             
             <div ng-class="mainView" >
+              
               <div ui-view></div>
             </div>
         
