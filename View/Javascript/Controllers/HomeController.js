@@ -1,8 +1,7 @@
 'use strict';
 
 var AppControllers = angular.module('AppControllers');
-
-AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', function($http, $scope, socket, $filter){
+AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', '$location', '$anchorScroll', function($http, $scope, socket, $filter, $location, $anchorScroll){
   // ----- Init -----
   var news      = this;
   news.articles = [];
@@ -38,7 +37,10 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
   
   
   // ----- Public Méthode -----
-  
+  $scope.scrollTo = function(id) {
+      $location.hash(id);
+      $anchorScroll();
+   };
   
   // ----- Private Méthode -----
   
