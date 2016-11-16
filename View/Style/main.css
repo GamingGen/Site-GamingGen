@@ -174,9 +174,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 #particles-js {
   position: absolute;
-  display: block;
-  height:20vw;
-  width: 50%;
+  display : block;
+  height  :20vw;
+  width   : 50%;
 }
 .btn{
   outline: none;
@@ -486,7 +486,7 @@ hr {
   width:25vw;
   height:20vw;
 }
-.boxright{
+.boxright {
   width:50vw;
   height:20vw;
   background:#232323;
