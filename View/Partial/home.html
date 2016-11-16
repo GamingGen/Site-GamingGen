@@ -1,27 +1,9 @@
 <!--<div class="container well">-->
   <div class="" ng-controller="homeCtrl as news">
-    <div class="articlesmodalhome modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"></h4>
-              </div>
-              <div class="modal-body">
-              </div>
-              <div class="modal-comments">
-              </div>
-              <div class="modal-footer">
-                <button id="modalCommentButton" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalComment">Commenter</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
 <!--Présentations des deux univers, dernière apparition-->
     <div class="triprez">
       <div class="scrolldown">
-        <a href="#Articles"><img src="../Img/flechedown.png"></a>
+        <a href="" ng-click="scrollTo('Articles')"><img src="../Img/flechedown.png"></a>
       </div>
       <div class="box boxleft">
         <div class="boxorange"></div>
@@ -43,8 +25,8 @@
           </div>
         </a>
       </div>
-      <div id="particles" class="box boxright">
-        <canvas id="testparticles"></canvas>
+      <div class="box boxright">
+        <div id="particles-js"></div>
          <a href="#">
           <div class="infosprochaine"></div>
           <span class="smalltxt">
@@ -56,57 +38,8 @@
            <span class="infosprochaineapparition smalltxt"> Le 28 septembre</span><span class="infosprochaineapparition smalltxt">au parc chanot</span><span class="infosprochaineapparition smalltxt"> à Marseille</span>
            </span>
         </a>
-        
-        <!-- Comments Modal -->
-        <div class="modal fade" id="modalComment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Commenter l'article !</h4>
-              </div>
-              <div class="modal-body" ng-controller="commentCtrl">
-                <div class="row">
-                  <div class="col-md-12">
-                    <form>
-                      <input type="hidden" id="articleId" name="articleId"/>
-                      <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
-                    </form>
-                  </div>
-                </div>
-                <br/>
-                <div class="row">
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="getContent()" data-dismiss="modal" class="btn btn-primary">Valider</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--<div class="blocpreviewnews" ng-controller="homeCtrl as news">-->
-        <div ng-repeat="article in news.articles | orderBy : '-register_date'">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                {{article.title}}<span class="badge badge-right">{{article.comments.length}}</span>
-              </h3>
-            </div>
-            <div class="panel-body">
-              {{article.desc}}...
-              <br/>
-              <div class="pull-right">
-                {{article.username}} - {{article.register_date | date : 'MMMM yyyy'}}
-              </div>
-            </div>
-            <div class="panel-footer">
-              <button type="button" class="btn btn-info btn-xs" ui-sref='article({ id: article.id })'>
-                Lire la suite
-              </button>
-            </div>
-          </div>
       </div>
+    </div>
       <div class="toparticles row">
         <div id="Articles" class="titresectionarticles col-lg-8 col-lg-offset-2" >
           <h1 class="col-lg-2">Quoi de neuf, gamers&nbsp;?</h1>
@@ -116,9 +49,9 @@
               <div class="contenuarticles fullwidth col-lg-offset-2">
                     <div ng-repeat="article in news.articles | orderBy : '-register_date'">
                           <div class="articles articlescompetitions col-lg-4">
-                            <a class="lirearticle" type="button" data-toggle="modal" data-target="#myModal" data-id="{{article.id}}">
-                              Lire l'article
-                              </a>
+                            <a type="button" class="lirearticle" ui-sref='article({ id: article.id })'>
+                Lire la suite
+              </a>
                              <h4 class="h4article">Le {{article.register_date | date : 'dd MMMM yyyy'}} - Hot news</h4>
                              <h1 class="h4article">{{article.title}}</h1><br/>
                               <!--{{article.desc}}...
@@ -127,9 +60,9 @@
                     </div>
                     <div ng-repeat="article in news.articles | orderBy : '-register_date'">
                         <div class="articles articlesfestival nobordernopadding col-lg-4">
-                          <a class="lirearticle" type="button" data-toggle="modal" data-target="#myModal" data-id="{{article.id}}">
-                              Lire l'article
-                              </a>
+                          <a type="button" class="lirearticle" ui-sref='article({ id: article.id })'>
+                Lire la suite
+              </a>
                              <h4 class="h4article">Le {{article.register_date | date : 'dd MMMM yyyy'}} - Info cruciale</h4>
                              <h1 class="h4article">{{article.title}}</h1>
                               <!--...

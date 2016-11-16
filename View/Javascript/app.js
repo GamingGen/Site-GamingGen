@@ -14,7 +14,12 @@
       $stateProvider
         .state('home', {
           url         : '/home',
-          templateUrl : '../Partial/home.html'
+          templateUrl : '../Partial/home.html',
+          onEnter     : function() {
+            particlesJS.load('particles-js', 'Javascript/Lib/particles.json', function() {
+              console.log('callback - particles.js config loaded');
+            });
+          }
         })
         .state('article', {
           url         : '/articles/:id',
@@ -170,4 +175,6 @@
       // $locationProvider.html5Mode(true);
     }
   ]);
+  
+  
 })();
