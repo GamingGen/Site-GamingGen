@@ -2,8 +2,9 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('commentCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
+AppControllers.controller('commentCtrl', ['$scope', '$http', 'socket', 'UserService', function($scope, $http, socket, UserService) {
   // ----- Init -----
+  $scope.User = UserService.currentUser;
   tinymce.init({
     selector: 'textarea',
     height: 500,
@@ -24,7 +25,7 @@ AppControllers.controller('commentCtrl', ['$scope', '$http', 'socket', function(
     var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
     var comment = {
           articleId : Number($('#articleId').val()),
-          username  : 'DarkTerra',
+          username  : $scope.User.isLoggedIn ? $scope.User.pseudo : 'Un visiteur du futur',
           text      : text
         };
     
