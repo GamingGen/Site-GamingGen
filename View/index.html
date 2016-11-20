@@ -105,7 +105,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="registrationModalLabel">Inscription</h4>
+                <h4 class="modal-title" id="registrationModalLabel">Créer un compte</h4>
               </div>
               <div class="modal-body">
                 <form ng-submit="formRegistration.$valid && submitRegister()" name="formRegistration" novalidate>
@@ -239,8 +239,11 @@
                     <!--<li role="separator" class="divider"></li>-->
                     <li><a ui-sref="programme">Le Programme</a></li>
                     <!--<li role="separator" class="divider"></li>-->
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
+                      <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
+                    </li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>
-                    <li role="separator" class="divider"></li>
+                    <!--<li role="separator" class="divider"></li>-->
                     <li><a ui-sref="live">Live <img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a></li>
                   </ul>
                 </li>
@@ -260,8 +263,6 @@
                   <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>-->
                   <!--</ul>-->
                 <!--</li>-->
-                <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
-                  <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
                 <li>
                   <a class="autoCollapse" ui-sref="partenaires">Les Partenaires</a>
                 </li>
@@ -282,35 +283,12 @@
                   </ul>
                 </li>
               </ul>
-              <!--<li class="dropdown">-->
-              <!--    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
-              <!--      <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
-              <!--    </a>-->
-              <!--    <ul class="dropdown-menu">-->
-              <!--      <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>-->
-              <!--      <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>-->
-              <!--    </ul>-->
-              <!--  </li>-->
-              
-            </div>
-          </div>
-        </nav>
-        <ul class="orangebox">
-                <li class="bouton-inscription" ng-hide="User.isLoggedIn">
-                  <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#registrationModal">
-                    Créer un compte
-                  </a>
-                </li>
-                <li class="bouton-connexion" ng-hide="User.isLoggedIn">
-                  <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#connectionModal">
-                    Connexion
-                  </a>
-                </li>
+              <ul class="nav navbar-nav navbar-right">  
                 <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
                 <!--ng-if="isConnected && isAdmin" -->
-                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-cogs" aria-hidden="true"></i> Admin
+                    <i class="fa fa-cogs" aria-hidden="true"></i> Admin<span class="caret"></span>
                   </a>
                   <ul class="loggedmenu dropdown-menu">
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
@@ -335,9 +313,9 @@
                   </ul>
                 </li>
                 <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-                <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
+                <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown">
                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Mon Compte
+                    Mon Compte<span class="caret"></span>
                   </a>
                   <ul class="loggedmenu dropdown-menu">
                     <li><a><img src="../Img/Profil_JY.jpg" alt="..." class="resizeProfil img-circle"> Bienvenu <b>{{User.pseudo}}</b></a></li>
@@ -349,15 +327,42 @@
                     <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
                   </ul>
                 </li>
-                <!--<li class="dropdown">-->
-                  <!--<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
-                    <!--<i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
-                  <!--</a>-->
-                  <!--<ul class="dropdown-menu">-->
-                    <!--<li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>-->
-                    <!--<li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>-->
-                  <!--</ul>-->
-                <!--</li>-->
+                <li class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>
+                    <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>
+                  </ul>
+                </li>
+              </ul>
+              
+              <!--<li class="dropdown">-->
+              <!--    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
+              <!--      <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
+              <!--    </a>-->
+              <!--    <ul class="dropdown-menu">-->
+              <!--      <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>-->
+              <!--      <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>-->
+              <!--    </ul>-->
+              <!--  </li>-->
+              
+            </div>
+          </div>
+        </nav>
+        <ul class="orangebox">
+                <li class="bouton-inscription" ng-hide="User.isLoggedIn">
+                  <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#registrationModal">
+                    Créer un compte
+                  </a>
+                </li>
+                <li class="bouton-connexion" ng-hide="User.isLoggedIn">
+                  <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#connectionModal">
+                    Connexion
+                  </a>
+                </li>
+                
               </ul>
     <!--  </div>-->
     <!--</div>-->
