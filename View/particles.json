@@ -48,8 +48,8 @@
     "line_linked": {
       "enable": true,
       "distance": 115,
-      "color": "#ffffff",
-      "opacity": 0.4,
+      "color": "#80FF80",
+      "opacity": 0.5,
       "width": 1
     },
     "move": {

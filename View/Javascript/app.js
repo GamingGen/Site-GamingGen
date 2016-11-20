@@ -16,7 +16,7 @@
           url         : '/home',
           templateUrl : '../Partial/home.html',
           onEnter     : function() {
-            particlesJS.load('particles-js', 'Javascript/Lib/particles.json', function() {
+            particlesJS.load('particles-js', 'particles.json', function() {
               console.log('callback - particles.js config loaded');
             });
           }
