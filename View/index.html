@@ -89,6 +89,14 @@
       $(".pushvocation").removeClass("hover");
     });
   });
+  $(document).ready(function() {
+				$('a').on('click', function() {
+					var page = $(this).attr('href');
+					var speed = 550;
+					$('html, body').animate( { scrollTop: $(page).offset().top }, speed );
+					return false;
+				});
+			});
 </script>
     
     
@@ -226,21 +234,18 @@
             <div class="collapse navbar-collapse" id="navbar-collapse-1">
               <ul class="nav navbar-nav">
                 <li ui-sref-active="active" class="dropdown">
-                  <a href="#" style="display:block;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <a href="" style="display:block;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <span>Gaming Gen 6</span><img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"><span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
                     <li><a ui-sref="competitions">Les compétitions</a></li>
-                    <li role="separator" class="divider"></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="festival">Festival du jeu</a></li>
                     <li><a ui-sref="forum">Forum des métiers du digital</a></li>
-                    <li role="separator" class="divider"></li>
                     <li><a ui-sref="plan">Le Plan</a></li>
                     <!--<li role="separator" class="divider"></li>-->
                     <li><a ui-sref="programme">Le Programme</a></li>
                     <!--<li role="separator" class="divider"></li>-->
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>
-                    <li role="separator" class="divider"></li>
                     <li><a ui-sref="live">Live <img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a></li>
                   </ul>
                 </li>
@@ -280,6 +285,14 @@
                     <li><a ui-sref="info.mention">Mentions légales</a></li>
                     <li><a ui-sref="info.contact">Contact</a></li>
                   </ul>
+                </li>
+                <li class="socialBloc demiSocial">
+                  <a href="" class="socialLink heart"><img src="../Img/heart.svg"></a>
+                  <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img src="../Img/instagram.svg"></a>
+                </li>
+                <li class="socialBloc">
+                  <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img src="../Img/twitter.svg"></a>
+                  <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img src="../Img/facebook.svg"></a>
                 </li>
               </ul>
               <!--<li class="dropdown">-->
@@ -511,5 +524,39 @@
         <!--</footer>-->
     <!--  </div>-->
     <!--</div>-->
+      <div class="footer">
+        <div class="topfooter row">
+          <div class="gamingillustration col-lg-2">
+            <a href="#">GAMING-GEN</a>
+          </div>
+          <div class="gaminglink col-lg-7">
+            <a  href="#">Inscription</a>
+             <a  href="#">Connexion</a>
+              <a  href="#">Facebook</a>
+               <a  href="#">Twitter</a>
+                <a  href="#">Instagram</a>
+          </div>
+        </div>
+        <div class="bottomfooter row">
+          <div class="gaminglink2 col-lg-1 col-lg-offset-2">
+            <ul href="#">Accueil</ul>
+             <ul href="#">Gaming gen 6</ul>
+              <ul href="#">Compétitions</ul>
+               <ul href="#">Festival du jeu</ul>
+                <ul href="#">Plan</ul>
+          </div>
+                 <div class="gaminglink2 col-lg-1">
+                 <ul href="#">Programme</ul>
+                  <ul href="#">Live</ul>
+                   <ul href="#">Partenaires</ul>
+                    <ul href="#">Galerie</ul>
+                     <ul href="#">Association</ul>
+                 </div>
+                 <div class="gaminglink2 col-lg-1">
+                      <ul href="#">Admin</ul>
+                       <ul href="#">Infos utiles</ul>
+                 </div>
+        </div>
+      </div>
   </body>
 </html>
