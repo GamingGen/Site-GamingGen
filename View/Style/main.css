@@ -971,8 +971,15 @@ hr {
   -ms-transition: all 0.3s ease-out;         
   transition: all 0.3s ease-out;
 }
+.box{
+  min-height:290px;
+}
 /*RESPONSIVE*/
 @media screen and (max-width: 820px) {
+  #particles-js{
+    height: 300px;
+    width: 100%;
+  }
   .container{
     margin-top:0px;
   }
@@ -981,7 +988,7 @@ hr {
     height:300px;
   }
   .boxorange, .boxvert{
-    width:50%;
+    width:50vw;
   }
   .boxmid:hover .boxvert, .boxleft:hover .boxorange{
   height:300px;
