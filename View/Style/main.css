@@ -974,6 +974,9 @@ hr {
 .box{
   min-height:290px;
 }
+.displayBlockDropdown{
+  display:block;
+}
 /*RESPONSIVE*/
 @media screen and (max-width: 820px) {
   #particles-js{
