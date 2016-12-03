@@ -10,6 +10,11 @@ var ArticleSchema = new Schema({
     title         : { type: String, required: true },
     desc          : { type: String, required: true },
     text          : { type: String, required: true },
+    type          : { 
+                      hot_news      : Boolean,
+                      critical_info : Boolean
+                    },
+    picture       : String,
     register_date : { type: Date, required: true },
     comments      : { type: [Comment.Schema] }
 });

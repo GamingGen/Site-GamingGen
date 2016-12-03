@@ -18,8 +18,19 @@ router.get('/', function (req, res) {
   });
 });
 
-router.get('/:id', function (req, res) {
+router.get('/id/:id', function (req, res) {
   articleSchema.findOne({id: req.params.id}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.json(docs);
+    }
+  });
+});
+
+router.get('/home', function (req, res) {
+  articleSchema.find({ $or: [{ 'type.hot_news': true }, { 'type.critical_info': true }]}, null, {sort: { register_date: -1 }, limit: 4 }, function (err, docs) {
     if (err) {
       console.log(err);
     }
