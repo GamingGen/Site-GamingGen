@@ -47,20 +47,18 @@
         </div>
       </div>
       <div class="contenuarticles fullwidth col-lg-offset-2">
-        <div ng-repeat="article in news.articles | orderBy : '-register_date' | limitTo : 4">
-          <div class="articles col-lg-4" ng-class"{'articlescompetitions' : article.type.hot_news, 'articlesfestival' : article.type.critical_info, 'nobordernopadding' : article.type.critical_info}">
-            <a type="button" class="lirearticle" ui-sref='article({ id: article.id })'>
-              Lire la suite
-            </a>
-            <h4 class="h4article">Le {{article.register_date | date : 'dd MMMM yyyy'}} - 
-              <div ng-show="article.type.hot_news">Hot news</div>
-              <div ng-show="article.type.critical_info">Info cruciale</div>
-            </h4>
-            <h1 class="h4article">{{article.title}}</h1><br/>
-            <img ng-if="article.type.critical_info" src="{{article.picture}}">
-            {{article.desc}}...
-            <!--{{article.username}} -->
-          </div>
+        <div ng-repeat="article in news.articles | limitTo : 4" class="articles col-sm-6 col-md-6 col-lg-4" ng-class="{ 'articlescompetitions' : article.type.hot_news, 'articlesfestival' : article.type.critical_info, 'nobordernopadding' : article.type.critical_info }">
+          <a type="button" class="lirearticle" ui-sref='article({ id: article.id })'>
+            Lire la suite
+          </a>
+          <h4 class="h4article">Le {{article.register_date | date : 'dd MMMM yyyy'}} - 
+            <div ng-show="article.type.hot_news">Hot news</div>
+            <div ng-show="article.type.critical_info">Info cruciale</div>
+          </h4>
+          <h1 class="h4article">{{article.title}}</h1><br/>
+          <img ng-if="article.type.critical_info" src="{{article.picture}}">
+          {{article.desc}}...
+          {{article.username}} 
         </div>
         <!--<div ng-repeat="article in news.articles | orderBy : '-register_date'">-->
         <!--  <div class="articles col-lg-4 articlesfestival nobordernopadding">-->

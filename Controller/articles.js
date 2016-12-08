@@ -29,13 +29,23 @@ router.get('/id/:id', function (req, res) {
   });
 });
 
+// Demande spécifique par la DA pour avoir des articles de deux types ordonancé de la manière suivante a,b,b,a
 router.get('/home', function (req, res) {
-  articleSchema.find({ $or: [{ 'type.hot_news': true }, { 'type.critical_info': true }]}, null, {sort: { register_date: -1 }, limit: 4 }, function (err, docs) {
+  articleSchema.find({ 'type.hot_news': true }, null, {sort: { register_date: -1 }, limit: 2 }, function (err, docsHotNews) {
     if (err) {
       console.log(err);
     }
     else {
-      res.json(docs);
+      articleSchema.find({ 'type.critical_info': true }, null, {sort: { register_date: -1 }, limit: 2 }, function (err, docsCriticalInfo) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          var lastItem  = docsHotNews.splice(1, 1);
+          var fistItems = docsHotNews.concat(docsCriticalInfo);
+          res.json(fistItems.concat(lastItem));
+        }
+      });
     }
   });
 });
