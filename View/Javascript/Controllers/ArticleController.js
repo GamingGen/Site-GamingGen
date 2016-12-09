@@ -13,7 +13,7 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', f
   articlesCtrl.currentArticle = undefined;
   
   if ($scope.idArticle !== undefined) {
-    $http.get('/articles/' + $scope.idArticle).success(function(art) {
+    $http.get('/articles/id/' + $scope.idArticle).success(function(art) {
       if (art !== null)
         articlesCtrl.currentArticle = art;
       else

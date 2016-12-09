@@ -23,6 +23,7 @@
     
     <!--Ajout des .JS-->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!--<script type="text/javascript" src="Javascript/Lib/particles.js"></script>-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-alpha.5/angular-ui-router.min.js"></script>
@@ -41,6 +42,10 @@
     <!-- Pour simplifier, voir RequireJS -->
     <script type="text/javascript" src="Javascript/Controllers/AppControllers.js"></script>
     
+    <script type="text/javascript" src="Javascript/Controllers/AdminArticleController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/AdminLiveController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/AdminMenuSnackController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/AdminShopController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/HistoShopController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/HistoSnackController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/HomeController.js"></script>
@@ -52,11 +57,6 @@
     <script type="text/javascript" src="Javascript/Controllers/ArticleController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/ArticleListController.js"></script>
     
-    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminArticleController.js"></script>
-    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminLiveController.js"></script>
-    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminMenuSnackController.js"></script>
-    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminShopController.js"></script>
-    <script type="text/javascript" src="Javascript/Controllers/Admin/AdminSnackController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/Admin/AdminBanController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/Admin/AdminListBansController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/Admin/AdminListUsersController.js"></script>
@@ -89,6 +89,14 @@
       $(".pushvocation").removeClass("hover");
     });
   });
+  $(document).ready(function() {
+				$('a').on('click', function() {
+					var page = $(this).attr('href');
+					var speed = 550;
+					$('html, body').animate( { scrollTop: $(page).offset().top }, speed );
+					return false;
+				});
+			});
 </script>
     
     
@@ -105,7 +113,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="registrationModalLabel">Créer un compte</h4>
+                <h4 class="modal-title" id="registrationModalLabel">Inscription</h4>
               </div>
               <div class="modal-body">
                 <form ng-submit="formRegistration.$valid && submitRegister()" name="formRegistration" novalidate>
@@ -226,24 +234,18 @@
             <div class="collapse navbar-collapse" id="navbar-collapse-1">
               <ul class="nav navbar-nav">
                 <li ui-sref-active="active" class="dropdown">
-                  <a href="#" style="display:block;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <a href="" class="displayBlockDropdown dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <span>Gaming Gen 6</span><img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"><span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
                     <li><a ui-sref="competitions">Les compétitions</a></li>
-                    <li role="separator" class="divider"></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="festival">Festival du jeu</a></li>
                     <li><a ui-sref="forum">Forum des métiers du digital</a></li>
-                    <li role="separator" class="divider"></li>
                     <li><a ui-sref="plan">Le Plan</a></li>
                     <!--<li role="separator" class="divider"></li>-->
                     <li><a ui-sref="programme">Le Programme</a></li>
                     <!--<li role="separator" class="divider"></li>-->
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
-                      <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
-                    </li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>
-                    <!--<li role="separator" class="divider"></li>-->
                     <li><a ui-sref="live">Live <img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a></li>
                   </ul>
                 </li>
@@ -263,6 +265,8 @@
                   <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>-->
                   <!--</ul>-->
                 <!--</li>-->
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
+                  <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
                 <li>
                   <a class="autoCollapse" ui-sref="partenaires">Les Partenaires</a>
                 </li>
@@ -282,62 +286,15 @@
                     <li><a ui-sref="info.contact">Contact</a></li>
                   </ul>
                 </li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">  
-                <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-                <!--ng-if="isConnected && isAdmin" -->
-                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-cogs" aria-hidden="true"></i> Admin<span class="caret"></span>
-                  </a>
-                  <ul class="loggedmenu dropdown-menu">
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50" role="separator" class="divider"></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
-                  </ul>
+                <li class="socialBloc demiSocial">
+                  <a href="" class="socialLink heart"><img src="../Img/heart.svg"></a>
+                  <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img src="../Img/instagram.svg"></a>
                 </li>
-                <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-                <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Mon Compte<span class="caret"></span>
-                  </a>
-                  <ul class="loggedmenu dropdown-menu">
-                    <li><a><img src="../Img/Profil_JY.jpg" alt="..." class="resizeProfil img-circle"> Bienvenu <b>{{User.pseudo}}</b></a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                    <li><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                    <li><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>
-                    <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>
-                  </ul>
+                <li class="socialBloc">
+                  <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img src="../Img/twitter.svg"></a>
+                  <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img src="../Img/facebook.svg"></a>
                 </li>
               </ul>
-              
               <!--<li class="dropdown">-->
               <!--    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
               <!--      <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
@@ -362,7 +319,58 @@
                     Connexion
                   </a>
                 </li>
-                
+                <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
+                <!--ng-if="isConnected && isAdmin" -->
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cogs" aria-hidden="true"></i> Admin
+                  </a>
+                  <ul class="loggedmenu dropdown-menu">
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50" role="separator" class="divider"></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+                  </ul>
+                </li>
+                <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
+                <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Mon Compte
+                  </a>
+                  <ul class="loggedmenu dropdown-menu">
+                    <li><a><img src="../Img/Profil_JY.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue <b>{{User.pseudo}}</b></a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                    <li><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                    <li><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
+                  </ul>
+                </li>
+                <!--<li class="dropdown">-->
+                  <!--<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
+                    <!--<i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
+                  <!--</a>-->
+                  <!--<ul class="dropdown-menu">-->
+                    <!--<li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>-->
+                    <!--<li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>-->
+                  <!--</ul>-->
+                <!--</li>-->
               </ul>
     <!--  </div>-->
     <!--</div>-->
@@ -516,5 +524,39 @@
         <!--</footer>-->
     <!--  </div>-->
     <!--</div>-->
+      <div class="footer">
+        <div class="topfooter row">
+          <div class="gamingillustration col-lg-2">
+            <a href="#">GAMING-GEN</a>
+          </div>
+          <div class="gaminglink col-lg-7">
+            <a  href="#">Inscription</a>
+             <a  href="#">Connexion</a>
+              <a  href="#">Facebook</a>
+               <a  href="#">Twitter</a>
+                <a  href="#">Instagram</a>
+          </div>
+        </div>
+        <div class="bottomfooter row">
+          <div class="gaminglink2 col-lg-1 col-lg-offset-2">
+            <ul href="#">Accueil</ul>
+             <ul href="#">Gaming gen 6</ul>
+              <ul href="#">Compétitions</ul>
+               <ul href="#">Festival du jeu</ul>
+                <ul href="#">Plan</ul>
+          </div>
+                 <div class="gaminglink2 col-lg-1">
+                 <ul href="#">Programme</ul>
+                  <ul href="#">Live</ul>
+                   <ul href="#">Partenaires</ul>
+                    <ul href="#">Galerie</ul>
+                     <ul href="#">Association</ul>
+                 </div>
+                 <div class="gaminglink2 col-lg-1">
+                      <ul href="#">Admin</ul>
+                       <ul href="#">Infos utiles</ul>
+                 </div>
+        </div>
+      </div>
   </body>
 </html>
