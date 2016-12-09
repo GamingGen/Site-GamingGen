@@ -46,70 +46,45 @@
           <h2 class="col-sm-12 col-md-6 col-lg-4">Toutes les news<br/> de la gaming gen<br/> et du monde du gaming</h2>
         </div>
       </div>
-                  <div class="contenuarticles fullwidth col-lg-offset-2">
-                    <div ng-repeat="article in news.articles | orderBy : '-register_date'">
-                      <div class="articles articlescompetitions col-sm-6 col-md-6 col-lg-4">
-                        <a type="button" class="lirearticle" ui-sref='article({ id: article.id })'>
-                Lire la suite
-                        </a>
-                             <h4 class="h4article">Le {{article.register_date | date : 'dd MMMM yyyy'}} - Hot news</h4>
-                             <h1 class="h4article">{{article.title}}</h1><br/>
-                              <!--{{article.desc}}...
-                              {{article.username}} - -->
-                      </div>
-                    </div>
-                    <div ng-repeat="article in news.articles | orderBy : '-register_date'">
-                        <div class="articles articlesfestival nobordernopadding col-sm-6 col-md-6 col-lg-4">
-                          <a type="button" class="lirearticle" ui-sref='article({ id: article.id })'>
-                Lire la suite
-                          </a>
-                              <h4 class="h4article">Le {{article.register_date | date : 'dd MMMM yyyy'}} - Info cruciale</h4>
-                             <h1 class="h4article">{{article.title}}</h1>
-                              <!--...
-                              {{article.username}} -->
-                              <img src="../Img/LS.jpg">
-                              <p>{{article.desc}}</p>
-                              
-                        </div>
-                          <!--<div class="articles articlesfestival col-lg-4">
-                             <h4>Le {{article.register_date | date : 'dd MMMM yyyy'}} - Info cruciale</h4>
-                             <h1>{{article.title}}</h1>
-                              <!--...
-                              {{article.username}} -
-                              <img src="../Img/LS.jpg">
-                              <p>{{article.desc}}</p>
-                              <h5 type="button" data-toggle="modal" data-target="#myModal" data-id="{{article.id}}">
-                              Lire l'article
-                              </h5>
-                          </div>-->
-                    </div>
-              </div>
-              <div class="lerestedesarticles">
-                <p>Le reste des articles &#9654;</p>
-              </div>
-              <div class="lesjoueursledisent">
-                <p>Les joueurs le disent<img src="../Img/flecheangle.svg"></p>
-              </div>
-                <div class="titrefeedback">
-                  MERCI<img src="../Img/coeur.svg">
-                </div>
-                <div class="blocdesfeedback row">
-                  <span class="col-sm-12 col-md-6 col-lg-4">
-                    <h5>"CA SENT TRES BON DANS CETTE LAN"</h5>
-                    <h6>Kamel Chebat</h6>
-                  <img src="../Img/finbulle.png">
-                  </span>
-                </div>
+      <div class="contenuarticles fullwidth col-lg-offset-2">
+        <div ng-repeat="article in news.articles | limitTo : 4" class="articles col-sm-6 col-md-6 col-lg-4" ng-class="{ 'articlescompetitions' : article.type.hot_news, 'articlesfestival' : article.type.critical_info, 'nobordernopadding' : article.type.critical_info }">
+          <a type="button" class="lirearticle" ui-sref='article({ id: article.id })'>
+            Lire la suite
+          </a>
+          <h4 class="h4article">Le {{article.register_date | date : 'dd MMMM yyyy'}} - 
+            <div ng-show="article.type.hot_news">Hot news</div>
+            <div ng-show="article.type.critical_info">Info cruciale</div>
+          </h4>
+          <h1 class="h4article">{{article.title}}</h1><br/>
+          <img ng-if="article.type.critical_info" src="{{article.picture}}">
+          {{article.desc}}...
+          {{article.username}} 
+        </div>
+      </div>
+      <div class="lerestedesarticles">
+        <p>Le reste des articles &#9654;</p>
+      </div>
+      <div class="lesjoueursledisent">
+        <p>Les joueurs le disent<img src="../Img/flecheangle.svg"></p>
+      </div>
+      <div class="titrefeedback">
+        MERCI<img src="../Img/coeur.svg">
+      </div>
+      <div class="blocdesfeedback">
+        <span>
+          <h5>"CA SENT TRES BON DANS CETTE LAN"</h5>
+          <h6>Kamel Chebat</h6>
+          <img src="../Img/finbulle.png">
+        </span>
+      </div>
       <div class="instafeed row">
         <div class="titreinsta col-lg-2">
           <h1>DON'T FEED</h1>
           <h2>@gaming_gen_festival</h2>
         </div>
-<script src="https://snapwidget.com/js/snapwidget.js"></script>
-<iframe src="https://snapwidget.com/embed/code/213372" class="snapwidget-widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%;"></iframe>      </div>
-                  </div>
-              
-              
+        <script src="https://snapwidget.com/js/snapwidget.js"></script>
+        <iframe src="https://snapwidget.com/embed/code/213372" class="snapwidget-widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%;"></iframe>      </div>
+      </div>
     </div>
 
   <!--<div class="row">-->
