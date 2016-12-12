@@ -9,12 +9,9 @@ AppControllers.controller('liveCtrl', ['$http', '$scope', 'socket', '$filter', '
   var player;
   // ----- GET / SET Data -----
   $scope.playerVars = {
-    controls: 0,
+    controls: 1,
     autoplay: 1
   };
-  
-  // player = new Twitch.Player("TwitchPlayer", options);
-  // player.setVolume(1.0);
   
   socket.emit('getLiveSource');
   
@@ -36,18 +33,26 @@ AppControllers.controller('liveCtrl', ['$http', '$scope', 'socket', '$filter', '
     ChangeChannelTwitch(data.name);
   });
   
+  socket.on('toogleLive', function(live) {
+    ChangeChannelTwitch(options.channel);
+  });
+  
   
   // ----- Public Méthode -----
   
   
   // ----- Private Méthode -----
   function ChangeChannelTwitch(channel) {
-    // player.setChannel(channel);
-    
-    // if (player.isPaused()) {
-    //   player.play();
-    //   console.log('Player play ?');
-    // }
+    options.channel = channel;
+    if ($("#TwitchPlayer").length) {
+      player = new Twitch.Player("TwitchPlayer", options);
+      player.setChannel(channel);
+      
+      if (player.isPaused()) {
+        player.play();
+        console.log('Player play ?');
+      }
+    }
   }
   
   

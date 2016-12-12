@@ -26,9 +26,11 @@
                   <label for="idYoutube">Id Vidéo / Live : </label>
                 <!--</div>-->
                 <!--<div class="col-xs-6">-->
-                  <input type="text" class="form-control" id="idYoutube" ng-model="idYoutube" placeholder="idYoutube" required>
+                  <input type="text" class="form-control" id="idYoutube" ng-model="idYoutube" placeholder="idYoutube">
                 <!--</div>-->
-                <!--<button type="button" ng-click="formIdYoutube.$valid && setIdYoutube()" ng-disabled="!formIdYoutube.$valid" class="btn btn-info">valider</button>-->
+                <button type="button" ng-click="formIdYoutube.$valid && setIdYoutube()" ng-disabled="!formIdYoutube.$valid" class="btn btn-info">
+                  <span id="btnRefreshYoutube" class="glyphicon glyphicon-refresh"/>
+                </button>
               </div>
             </form>
           </div>
@@ -52,8 +54,10 @@
         <form ng-submit="setChannelTwitch()" name="formChannelTwitch" class="form-inline" novalidate>
           <div class="form-group">
             <label for="channel">Chaine Twitch : </label>
-            <input type="text" class="form-control" id="channel" ng-model="channel" placeholder="channel" required>
-            <!--<button type="button" ng-click="formChannelTwitch.$valid && setChannelTwitch()" ng-disabled="!formChannelTwitch.$valid" class="btn btn-info">valider</button>-->
+            <input type="text" class="form-control" id="channel" ng-model="channel" placeholder="channel">
+            <button type="button" ng-click="formChannelTwitch.$valid && setChannelTwitch()" ng-disabled="!formChannelTwitch.$valid" class="btn btn-info">
+              <span id="btnRefreshTwitch" class="glyphicon glyphicon-refresh"/>
+            </button>
           </div>
         </form>
         

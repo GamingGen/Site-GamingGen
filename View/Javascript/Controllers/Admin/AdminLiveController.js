@@ -16,13 +16,12 @@ AppControllers.controller('adminLiveCtrl', ['$scope', '$http', 'socket', '$sce',
     autoplay: 1
   };
   
-  playerAdmin = new Twitch.Player("adminTwitchPlayer", options);
-  
   socket.emit('getLiveSource');
   
   socket.on('ChangeLiveSource', function(data) {
     $scope.AdminYoutubeLive = data.id;
     $scope.idYoutube        = data.id;
+    $("#btnRefreshYoutube").removeClass("fa-spin");
   });
   
   socket.emit('getChannelTwitch');
@@ -32,6 +31,7 @@ AppControllers.controller('adminLiveCtrl', ['$scope', '$http', 'socket', '$sce',
     $scope.AdminChatChannel = $sce.trustAsResourceUrl(data.chat);
     $scope.AdminChannel     = $sce.trustAsResourceUrl(data.url);
     ChangeChannelTwitch(data.name);
+    $("#btnRefreshTwitch").removeClass("fa-spin");
   });
   
   socket.on('toogleLive', function(live) {
@@ -63,6 +63,7 @@ AppControllers.controller('adminLiveCtrl', ['$scope', '$http', 'socket', '$sce',
   };
   
   $scope.setIdYoutube = function() {
+    $("#btnRefreshYoutube").addClass("fa-spin");
     // idLive = "L4x7NOl2_To";
     youtube.id = $scope.idYoutube;
     socket.emit('ChangeLiveSource', youtube);
@@ -73,6 +74,7 @@ AppControllers.controller('adminLiveCtrl', ['$scope', '$http', 'socket', '$sce',
   };
   
   $scope.setChannelTwitch = function() {
+    $("#btnRefreshTwitch").addClass("fa-spin");
     twitch.name = $scope.channel;
     twitch.url  = "https://player.twitch.tv/?channel=" + $scope.channel;
     twitch.chat = "https://www.twitch.tv/" + $scope.channel + "/chat?popout=";
@@ -85,6 +87,7 @@ AppControllers.controller('adminLiveCtrl', ['$scope', '$http', 'socket', '$sce',
   
   // ----- Private Méthode -----
   function ChangeChannelTwitch(channel) {
+    playerAdmin = new Twitch.Player("adminTwitchPlayer", options);
     playerAdmin.setChannel(channel);
     // playerAdmin.setVolume(1.0);
     playerAdmin.setMuted(false);
