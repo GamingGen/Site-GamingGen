@@ -18,13 +18,34 @@ router.get('/', function (req, res) {
   });
 });
 
-router.get('/:id', function (req, res) {
+router.get('/id/:id', function (req, res) {
   articleSchema.findOne({id: req.params.id}, function (err, docs) {
     if (err) {
       console.log(err);
     }
     else {
       res.json(docs);
+    }
+  });
+});
+
+// Demande spécifique par la DA pour avoir des articles de deux types ordonancé de la manière suivante a,b,b,a
+router.get('/home', function (req, res) {
+  articleSchema.find({ 'type.hot_news': true }, null, {sort: { register_date: -1 }, limit: 2 }, function (err, docsHotNews) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      articleSchema.find({ 'type.critical_info': true }, null, {sort: { register_date: -1 }, limit: 2 }, function (err, docsCriticalInfo) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          var lastItem  = docsHotNews.splice(1, 1);
+          var fistItems = docsHotNews.concat(docsCriticalInfo);
+          res.json(fistItems.concat(lastItem));
+        }
+      });
     }
   });
 });
