@@ -20,6 +20,8 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
   $scope.isPseudoExist = false;
   ManageViewService.setView('container');
   
+  $scope.audio = new Audio("Sound/beginLive.wav");
+  
   // Pour récupérer les infos en cas de coupure réseau
   socket.on('connect', function() {
     socket.emit('getLive');
@@ -28,6 +30,9 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
   
   socket.on('toogleLive', function(live) {
     $scope.live = live;
+    if (live.Youtube || live.Twitch) {
+      $scope.audio.play();
+    }
   });
   
   socket.on('isMailExist', function(data) {
