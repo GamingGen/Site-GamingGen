@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="contenuarticles fullwidth col-lg-offset-2">
-        <div ng-repeat="article in news.articles | limitTo : 4" class="articles col-sm-6 col-md-6 col-lg-4" ng-class="{ 'articlescompetitions' : article.type.hot_news, 'articlesfestival' : article.type.critical_info, 'nobordernopadding' : article.type.critical_info }">
+        <div ng-repeat="article in news.articles | limitTo : 4" class="articles col-sm-6 col-md-6 col-lg-4" ng-class="{ 'articlescompetitions' : article.type.hot_news, 'articlesfestival' : article.type.critical_info, 'nobordernopadding' : $index === 1 || $index === 2 }">
           <a type="button" class="lirearticle" ui-sref='article({ id: article.id })'>
             Lire la suite
           </a>
@@ -56,8 +56,8 @@
             <div ng-show="article.type.critical_info">Info cruciale</div>
           </h4>
           <h1 class="h4article">{{article.title}}</h1><br/>
-          <img ng-if="article.type.critical_info" src="{{article.picture}}">
-          {{article.desc}}...
+          <img ng-if="$index === 1 || $index === 2" src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
+          {{article.desc}}...{{$index}}
           {{article.username}} 
         </div>
       </div>

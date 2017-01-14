@@ -29,7 +29,7 @@ router.get('/id/:id', function (req, res) {
   });
 });
 
-// Demande spécifique par la DA pour avoir des articles de deux types ordonancé de la manière suivante a,b,b,a
+// Demande spécifique par la DA pour avoir des articles de deux types ordonancé de la manière suivante a,a,b,b
 router.get('/home', function (req, res) {
   articleSchema.find({ 'type.hot_news': true }, null, {sort: { register_date: -1 }, limit: 2 }, function (err, docsHotNews) {
     if (err) {
@@ -41,9 +41,12 @@ router.get('/home', function (req, res) {
           console.log(err);
         }
         else {
-          var lastItem  = docsHotNews.splice(1, 1);
-          var fistItems = docsHotNews.concat(docsCriticalInfo);
-          res.json(fistItems.concat(lastItem));
+          // var lastItem  = docsHotNews.splice(1, 1);
+          // var fistItems = docsHotNews.concat(docsCriticalInfo);
+          // res.json(fistItems.concat(lastItem));
+          
+          var allDocs = docsHotNews.concat(docsCriticalInfo);
+          res.json(allDocs);
         }
       });
     }
