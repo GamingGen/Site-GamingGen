@@ -18,7 +18,7 @@ router.get('/', function (req, res) {
   });
 });
 
-router.get('/id/:id', function (req, res) {
+router.get('/:id', function (req, res) {
   articleSchema.findOne({id: req.params.id}, function (err, docs) {
     if (err) {
       console.log(err);
