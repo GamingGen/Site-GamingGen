@@ -29,26 +29,14 @@ router.get('/id/:id', function (req, res) {
   });
 });
 
-// Demande spécifique par la DA pour avoir des articles de deux types ordonancé de la manière suivante a,a,b,b
+// On récupère uniquement les 4 dernier articles
 router.get('/home', function (req, res) {
-  articleSchema.find({ 'type.hot_news': true }, null, {sort: { register_date: -1 }, limit: 2 }, function (err, docsHotNews) {
+  articleSchema.find({}, null, {sort: { register_date: -1 }, limit: 4 }, function (err, docs) {
     if (err) {
       console.log(err);
     }
     else {
-      articleSchema.find({ 'type.critical_info': true }, null, {sort: { register_date: -1 }, limit: 2 }, function (err, docsCriticalInfo) {
-        if (err) {
-          console.log(err);
-        }
-        else {
-          // var lastItem  = docsHotNews.splice(1, 1);
-          // var fistItems = docsHotNews.concat(docsCriticalInfo);
-          // res.json(fistItems.concat(lastItem));
-          
-          var allDocs = docsHotNews.concat(docsCriticalInfo);
-          res.json(allDocs);
-        }
-      });
+      res.json(docs);
     }
   });
 });

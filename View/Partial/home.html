@@ -56,9 +56,9 @@
             <div ng-show="article.type.critical_info">Info cruciale</div>
           </h4>
           <h1 class="h4article">{{article.title}}</h1><br/>
-          <img ng-if="$index === 1 || $index === 2" src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
+          <img ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
           {{article.desc}}...{{$index}}
-          {{article.username}} 
+          {{article.username}}
         </div>
       </div>
       <div class="lerestedesarticles">
