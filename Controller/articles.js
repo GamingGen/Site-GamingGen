@@ -29,6 +29,18 @@ router.get('/:id', function (req, res) {
   });
 });
 
+// On récupère uniquement les 4 dernier articles
+router.get('/home', function (req, res) {
+  articleSchema.find({}, null, {sort: { register_date: -1 }, limit: 4 }, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.json(docs);
+    }
+  });
+});
+
 // router.post('/insert', function(req, res) {
 //   var newArticle = new articleSchema({
 //     username      : req.query.username,

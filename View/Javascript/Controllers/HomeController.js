@@ -5,6 +5,7 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', '
   // ----- Init -----
   var news      = this;
   news.articles = [];
+  news.defaultPicture = "Img/Articles/default-thumbnail.jpg";
   
   
   // ----- GET / SET Data -----
