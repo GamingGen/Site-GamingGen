@@ -78,29 +78,26 @@
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript" src="https://player.twitch.tv/js/embed/v1.js"></script>
 
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".lirearticle").hover(function(){
-    $(".h4article").addClass("blanc");
-  });
-  
-	$(".closelire").click(function(){
-      $(".pushvocation").removeClass("hover");
-    });
-  });
-  $(document).ready(function() {
-				$('a').on('click', function() {
-					var page = $(this).attr('href');
-					var speed = 550;
-					$('html, body').animate( { scrollTop: $(page).offset().top }, speed );
-					return false;
-				});
-			});
-</script>
-    
-    
-    <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $(".lirearticle").hover(function(){
+        $(".h4article").addClass("blanc");
+      });
+      
+    	$(".closelire").click(function(){
+          $(".pushvocation").removeClass("hover");
+        });
+      });
+      $(document).ready(function() {
+    				$('a').on('click', function() {
+    					var page = $(this).attr('href');
+    					var speed = 550;
+    					$('html, body').animate( { scrollTop: $(page).offset().top }, speed );
+    					return false;
+    				});
+    			});
+    </script>
+  <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
   </head>
   
   <body ng-controller="mainCtrl">
@@ -108,110 +105,115 @@
       <!--<div class="col-md-12">-->
         
         <!-- Inscription Modal -->
-        <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
+        <div class="modal fade container" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
           <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="registrationModalLabel">Inscription</h4>
-              </div>
-              <div class="modal-body">
-                <form ng-submit="formRegistration.$valid && submitRegister()" name="formRegistration" novalidate>
-                  <div class="row">
-                    <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.firstName.$invalid && !formRegistration.firstName.$pristine }">
-                      <div class="form-group">
-                        <label for="firstName">Nom : </label>
-                        <input type="text" ng-model="firstName" class="form-control" id="firstName" name="firstName" placeholder="Nom" required/>
+            <div class="modal-content inscriptionModal">
+              <div class="blocInscriptionModal row">
+                <div class="modal-header col-md-6">
+                  <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                  <span class="backgroundInscription"></span>
+                </div>
+                <div class="modal-body col-md-6">
+                  <form ng-submit="formRegistration.$valid && submitRegister()" name="formRegistration" novalidate>
+                    <div class="row">
+                      <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.firstName.$invalid && !formRegistration.firstName.$pristine }">
+                        <div class="form-group">
+                          <label for="firstName">Nom : </label>
+                          <input type="text" ng-model="firstName" class="form-control" id="firstName" name="firstName" placeholder="Nom" required/>
+                        </div>
+                      </div>
+                      <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.lastName.$invalid && !formRegistration.lastName.$pristine }">
+                        <div class="form-group">
+                          <label for="lastName">Prenom : </label>
+                          <input type="text" ng-model="lastName" class="form-control" id="lastName" name="lastName" placeholder="Prenom" required/>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.lastName.$invalid && !formRegistration.lastName.$pristine }">
-                      <div class="form-group">
-                        <label for="lastName">Prenom : </label>
-                        <input type="text" ng-model="lastName" class="form-control" id="lastName" name="lastName" placeholder="Prenom" required/>
+                    <div class="row">
+                      <div class="col-md-6" ng-class="{ 'has-error' : (formRegistration.pseudo.$invalid && !formRegistration.pseudo.$pristine) || isPseudoExist }">
+                        <div class="form-group has-feedback">
+                          <label for="pseudo">Pseudo : </label>
+                          <input type="text" ng-model="pseudo" ng-model-options="{ debounce: 1000 }" class="form-control" id="pseudo" name="pseudo" placeholder="Pseudo" required/>
+                          <span ng-show="isPseudoExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                          <span ng-show="isPseudoExist" id="emailStatus" class="sr-only">(warning)</span>
+                        </div>
+                      </div>
+                      <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.password.$invalid && !formRegistration.password.$pristine }">
+                        <div class="form-group">
+                          <label for="password">Mot de Passe : </label>
+                          <input type="password" ng-model="password" class="form-control" id="password" name="password" placeholder="Mot de Passe" required/>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6" ng-class="{ 'has-error' : (formRegistration.pseudo.$invalid && !formRegistration.pseudo.$pristine) || isPseudoExist }">
-                      <div class="form-group has-feedback">
-                        <label for="pseudo">Pseudo : </label>
-                        <input type="text" ng-model="pseudo" ng-model-options="{ debounce: 1000 }" class="form-control" id="pseudo" name="pseudo" placeholder="Pseudo" required/>
-                        <span ng-show="isPseudoExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
-                        <span ng-show="isPseudoExist" id="emailStatus" class="sr-only">(warning)</span>
+                    <div class="row">
+                      <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.zip.$invalid && !formRegistration.zip.$pristine }">
+                        <div class="form-group">
+                          <label for="email">Code Postale : </label>
+                          <input type="number" min="0100" max="99999" ng-model="zip" class="form-control" id="zip" name="zip" placeholder="Code Postale" required/>
+                        </div>
+                      </div>
+                      <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.birthday.$invalid && !formRegistration.birthday.$pristine }">
+                        <div class="form-group">
+                          <label for="email">Date de Naissance : </label>
+                          <input type="date" ng-model="birthday" class="form-control" id="birthday" name="birthday" placeholder="Date de Naissance" required/>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.password.$invalid && !formRegistration.password.$pristine }">
-                      <div class="form-group">
-                        <label for="password">Mot de Passe : </label>
-                        <input type="password" ng-model="password" class="form-control" id="password" name="password" placeholder="Mot de Passe" required/>
+                    <div class="row">
+                      <div class="col-md-12" ng-class="{ 'has-error' : (formRegistration.email.$invalid && !formRegistration.email.$pristine) || isMailExist }">
+                        <div class="form-group has-feedback">
+                          <label for="email">Email : </label>
+                          <input type="email" ng-model="email" ng-model-options="{ debounce: 1000 }" class="form-control" id="email" name="email" placeholder="Email" required/>
+                          <span ng-show="isMailExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                          <span ng-show="isMailExist" id="emailStatus" class="sr-only">(warning)</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.zip.$invalid && !formRegistration.zip.$pristine }">
-                      <div class="form-group">
-                        <label for="email">Code Postale : </label>
-                        <input type="number" min="0100" max="99999" ng-model="zip" class="form-control" id="zip" name="zip" placeholder="Code Postale" required/>
-                      </div>
+                    <div class="bottomFooter row">
+                      <button type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" data-dismiss="modal">Envoyer</button>
+                      <button type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">Annuler</button>
                     </div>
-                    <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.birthday.$invalid && !formRegistration.birthday.$pristine }">
-                      <div class="form-group">
-                        <label for="email">Date de Naissance : </label>
-                        <input type="date" ng-model="birthday" class="form-control" id="birthday" name="birthday" placeholder="Date de Naissance" required/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12" ng-class="{ 'has-error' : (formRegistration.email.$invalid && !formRegistration.email.$pristine) || isMailExist }">
-                      <div class="form-group has-feedback">
-                        <label for="email">Email : </label>
-                        <input type="email" ng-model="email" ng-model-options="{ debounce: 1000 }" class="form-control" id="email" name="email" placeholder="Email" required/>
-                        <span ng-show="isMailExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
-                        <span ng-show="isMailExist" id="emailStatus" class="sr-only">(warning)</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
+                    <div class="row">
                       <div ng-show="isPseudoExist" class="alert alert-danger" role="alert">Ce pseudo existe déjà</div>
-                      <div ng-show="isMailExist" class="alert alert-danger" role="alert">Cette adresse mail existe déjà</div>
+                        <div ng-show="isMailExist" class="alert alert-danger" role="alert">Cette adresse mail existe déjà</div>
                     </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btn btn-primary" ng-disabled="formRegistration.$invalid" data-dismiss="modal">Submit</button>
-                <button type="button" id="closeRegister" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
         
         <!-- Connexion Modal -->
-        <div class="modal fade" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="connectionModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
+        <div class="modal fade container" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="connectionModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content inscriptionModal">
+              <div class="blocInscriptionModal row">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="connectionModalLabel">Connexion</h4>
-              </div>
-              <div class="modal-body">
-                <form ng-submit="submitLogin()" name="formConnection" novalidate>
-                  <div class="row">
-                    <div class="col-md-6 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
-                      <label for="connectionEmail">Email : </label>
-                      <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
+                  
+                <div class="modal-header col-md-6">
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                    <span class="backgroundInscription"></span>
+                </div>
+                <div class="modal-body col-md-6">
+                  <form ng-submit="submitLogin()" name="formConnection" novalidate>
+                    <div class="row">
+                      <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
+                        <label for="connectionEmail">Email : </label>
+                        <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
+                      </div>
+                      <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
+                        <label for="connectionPassword">Mot de Passe : </label>
+                        <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
+                      </div>
                     </div>
-                    <div class="col-md-6 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
-                      <label for="connectionPassword">Mot de Passe : </label>
-                      <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
-                    </div>
+                  </form>
+                  <div class="bottomFooter row">
+                    <button type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid" data-dismiss="modal">Envoyer</button>
+                    <button type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</button>
                   </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" ng-click="submitLogin()" class="btn btn-primary" ng-disabled="formConnection.$invalid" data-dismiss="modal">Submit</button>
-                <button type="button" id="closeConnection" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                
               </div>
             </div>
           </div>
@@ -286,14 +288,20 @@
                     <li><a ui-sref="info.contact">Contact</a></li>
                   </ul>
                 </li>
-                <li class="socialBloc demiSocial">
-                  <a href="" class="socialLink heart"><img src="../Img/heart.svg"></a>
-                  <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img src="../Img/instagram.svg"></a>
-                </li>
-                <li class="socialBloc">
-                  <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img src="../Img/twitter.svg"></a>
-                  <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img src="../Img/facebook.svg"></a>
-                </li>
+                <div class="socialHeader">
+                  <li class="socialBloc demiSocial">
+                    <a href="" class="socialLink compte">S'inscrire</a>
+                    <a href="" class="socialLink compte">Connexion</a>
+                  </li>
+                  <li class="socialBloc demiSocial">
+                    <a href="" class="socialLink heart"><img src="../Img/heart.svg"></a>
+                    <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img src="../Img/instagram.svg"></a>
+                  </li>
+                  <li class="socialBloc">
+                    <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img src="../Img/twitter.svg"></a>
+                    <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img src="../Img/facebook.svg"></a>
+                  </li>
+                </div>
               </ul>
               <!--<li class="dropdown">-->
               <!--    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
@@ -311,18 +319,18 @@
         <ul class="orangebox">
                 <li class="bouton-inscription" ng-hide="User.isLoggedIn">
                   <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#registrationModal">
-                    Créer un compte
+                    <span>Créer un compte</span> <div class="hover"></div>
                   </a>
                 </li>
                 <li class="bouton-connexion" ng-hide="User.isLoggedIn">
                   <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#connectionModal">
-                    Connexion
+                    <span>Connexion</span>  <div class="hover"></div>
                   </a>
                 </li>
                 <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
                 <!--ng-if="isConnected && isAdmin" -->
                 <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <div class="admin-container"><a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cogs" aria-hidden="true"></i> Admin
                   </a>
                   <ul class="loggedmenu dropdown-menu">
@@ -345,22 +353,25 @@
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 50" role="separator" class="divider"></li>
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
-                  </ul>
+                  </ul></div>
                 </li>
                 <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
                 <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <a class="bienvenue-user-pseudo"><img src="../Img/Profil_JY.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
+                  <div class="mon-compte-container">
+                    <a href="" class="dropdown-toggle mon-compte" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     Mon Compte
                   </a>
                   <ul class="loggedmenu dropdown-menu">
-                    <li><a><img src="../Img/Profil_JY.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue <b>{{User.pseudo}}</b></a></li>
-                    <li role="separator" class="divider"></li>
+                    <li></li>
+                    <!--<li role="separator" class="divider"></li>-->
                     <li><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
                     <li><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
                     <li><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-                    <li role="separator" class="divider"></li>
+                    <!--<li role="separator" class="divider"></li>-->
                     <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
                   </ul>
+                  </div>
                 </li>
                 <!--<li class="dropdown">-->
                   <!--<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
@@ -492,8 +503,7 @@
               <!--</div>-->
             <!--</div>-->
             
-            <div ng-class="mainView" >
-              
+            <div ng-class="mainView">
               <div ui-view></div>
             </div>
         <!--</div>-->
@@ -524,38 +534,50 @@
         <!--</footer>-->
     <!--  </div>-->
     <!--</div>-->
-      <div class="footer">
-        <div class="topfooter row">
-          <div class="gamingillustration col-lg-2">
-            <a href="#">GAMING-GEN</a>
+      <div class="footer container fullwidth">
+        <div class="superFooter row">
+          <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
+            <h2>TU VEUX EN SAVOIR PLUS ?</h2>
+            <p>On fait des réunions sympas.</p>
           </div>
-          <div class="gaminglink col-lg-7">
-            <a  href="#">Inscription</a>
-             <a  href="#">Connexion</a>
-              <a  href="#">Facebook</a>
-               <a  href="#">Twitter</a>
-                <a  href="#">Instagram</a>
+          <div class="reassurance First col-xs-12 col-sm-6 col-md-3">
+            <img src='../Img/benevoleAFAIRE.svg'/>
+            <h2>DEVENIR BÉNÉVOLE</h2>
+            <p>On fait des réunions sympas.</p>
+          </div>
+          <div class="reassurance Second col-xs-12 col-sm-6 col-md-3">
+            <img src='../Img/exposantAFAIRE.svg'/>
+            <h2>DEVENIR EXPOSANT</h2>
+            <p>On fait des réunions sympas.</p>
+          </div>
+          <div class="reassurance Third col-xs-12 col-sm-6 col-md-3">
+            <h2>TU VEUX EN SAVOIR PLUS ?</h2>
+            <p>On fait des réunions sympas.</p>
           </div>
         </div>
-        <div class="bottomfooter row">
-          <div class="gaminglink2 col-lg-1 col-lg-offset-2">
-            <ul href="#">Accueil</ul>
-             <ul href="#">Gaming gen 6</ul>
-              <ul href="#">Compétitions</ul>
-               <ul href="#">Festival du jeu</ul>
-                <ul href="#">Plan</ul>
+        <div class="absolufooter row">
+          <div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
+            <a ui-sref="home" href="#/home"><img alt="Logo" src="Img/Kit_Comm_LogoGeneBlanc.png"></a>
           </div>
-                 <div class="gaminglink2 col-lg-1">
-                 <ul href="#">Programme</ul>
-                  <ul href="#">Live</ul>
-                   <ul href="#">Partenaires</ul>
-                    <ul href="#">Galerie</ul>
-                     <ul href="#">Association</ul>
-                 </div>
-                 <div class="gaminglink2 col-lg-1">
-                      <ul href="#">Admin</ul>
-                       <ul href="#">Infos utiles</ul>
-                 </div>
+          <div class="footerLinks col-xs-12 col-sm-8">
+                      <a  href="#">Inscription</a>
+                      <a  href="#">Connexion</a>
+                      <a  href="#">Facebook</a>
+                      <a  href="#">Twitter</a>
+                      <a  href="#">Instagram</a>
+                      <a  href="#">Accueil</a>
+                      <a  href="#">Gaming gen 6</a>
+                      <a  href="#">Compétitions</a>
+                      <a  href="#">Festival du jeu</a>
+                      <a  href="#">Plan</a>
+                      <a  href="#">Programme</a>
+                      <a  href="#">Live</a>
+                      <a  href="#">Partenaires</a>
+                      <a  href="#">Galerie</a>
+                      <a  href="#">Association</a>
+                      <a  href="#">Admin</a>
+                      <a  href="#">Infos utiles</a>
+          </div>
         </div>
       </div>
   </body>

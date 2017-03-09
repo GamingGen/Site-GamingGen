@@ -1,11 +1,47 @@
-<div ng-controller="articleListCtrl as news">
-    <!-- Liste des articles -->
-    <div ng-repeat="article in news.lstArticles | orderBy : '-register_date'">
-        <div>{{article.title}}</div><!-- Titre de l'article -->
-        <div>{{article.comments.length}}</div><!-- Nombre de commentaires dans l'article -->
-        <div>{{article.desc}}</div><!-- Description de l'article -->
-        <div>{{article.username}}</div><!-- Auteur de l'article -->
-        <div>{{article.register_date | date : 'dd MMMM yyyy'}}</div><!-- Date de rédaction de l'article -->
-        <button type="button" ui-sref='article({ id: article.id })'>Lire la suite</button>
+<div class="container-classic">
+    <div class="row">
+        <div class="titreArticleContent col-lg-4 col-lg-offset-3">
+          <h1>
+            News
+          </h1>
+          <p class="texteArticleContent">
+              Oh oui
+          <p><!-- Date de l'article -->
+        </div>
+      </div>
+    <div ng-controller="articleListCtrl as news" class="row contentListNews">
+        <!-- Liste des articles -->
+        <div ng-repeat="article in news.lstArticles | orderBy : '-register_date'" class="listNewsPage col-md-10 col-md-offset-1">
+            <h1 class="articleTitleList">{{article.title}}</h1><!-- Titre de l'article -->
+            
+            <!--<div class="articleTitleList comment">{{article.comments.length}}</div><!-- Nombre de commentaires dans l'article -->
+            <!--<div>{{article.desc}}</div><!-- Description de l'article -->
+            <!--<div>{{article.username}}</div><!-- Auteur de l'article -->
+            <div class="categoryListNews">Hot news</div>
+            <div>{{article.register_date | date : 'dd MMMM yyyy'}}</div><!-- Date de rédaction de l'article -->
+            <a class="toggleNews" ui-sref='article({ id: article.id })'>
+                <svg class="arrowGo"
+                version="1.1" 
+                id="Calque_1" 
+                xmlns="http://www.w3.org/2000/svg" 
+                xmlns:xlink="http://www.w3.org/1999/xlink" 
+                x="0px" 
+                y="0px" 
+                width="23px" 
+                height="44px" 
+                viewBox="0 0 23 44"
+                enable-background="new 0 0 23 44" 
+                xml:space="preserve">
+                <rect x="11" y="26" width="7" height="7"/>
+                <rect x="16" y="21" width="7" height="7"/>
+                <rect x="6" y="31" width="7" height="7"/>
+                <rect y="36" width="8" height="8"/>
+                <rect width="8" height="8"/>
+                <rect x="6" y="6" width="7" height="7"/>
+                <rect x="11" y="11" width="7" height="7"/>
+                <rect x="16" y="16" width="7" height="7"/>
+                </svg>
+            </a>
+        </div>
     </div>
 </div>
