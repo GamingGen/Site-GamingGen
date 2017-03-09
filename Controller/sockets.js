@@ -11,8 +11,8 @@
 
 'use strict';
 
-let socketio			= require('socket.io');
-let check					= require('check-types');
+const socketio   = require('socket.io');
+const check      = require('check-types');
 
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
 	let io                = socketio.listen(server);

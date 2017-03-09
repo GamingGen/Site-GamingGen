@@ -22,7 +22,7 @@
           }
         })
         .state('article', {
-          url         : '/articles/id/:id',
+          url         : '/articles/:id',
           templateUrl : '../Partial/article.html',
           controller: function ($scope, $stateParams) {
              $scope.idArticle = $stateParams.id;
