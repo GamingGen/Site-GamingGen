@@ -1,15 +1,20 @@
-/*
+/**
  * Version Alpha 1.1.0
  * Date de Création 30/04/2016
- * Date de modification 23/10/2016
- *
+ * Date de modification 08/03/2017
+ * 
  * ~2 769 835 de lignes de code
- *
+ * 
  * server.js
- * Point d'entrée de l'application 'Gaming-Gen' qui permet de gérer l'évènement
+ * Point d'entrée de l'application 'Gaming-Gen'.
+ * L'application Gaming-Gen permet de gérer entièrement notre évènement.
  * 
  * Conçu par l'équipe de Gaming-Gen :
- *  - Jérémy Young      <darkterra01@gmail.com>
+ *  - Jérémy Young            <darkterra01@gmail.com>
+ *  - Loïc Tardivel-Lacombe   <>
+ *  - Laura Auboin Maurizio   <>
+ *  - Frédéric Guazzini       <>
+ *  -
  */
 
 'use strict';
@@ -20,7 +25,6 @@ const app           = express();
 const compression   = require('compression');
 const http          = require('http').Server(app);
 const path          = require('path');
-// let favicon      = require('serve-favicon');
 const cookieParser  = require('cookie-parser');
 const bodyParser    = require('body-parser');
 const colors        = require('colors');
@@ -33,7 +37,7 @@ const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore    = require('connect-mongo')(session);
 
-var logger          = require('./Controller/logger');
+const logger        = require('./Controller/logger');
 
 
 // PMX For PM2
@@ -46,6 +50,7 @@ var pmx = require('pmx').init({
   ports         : true  // Shows which ports your app is listening on (default: false)
 });
 
+
 // mongoose
 mongoose.connect('mongodb://localhost/gaminggen', (error) => {
     if (error) {
@@ -56,24 +61,28 @@ mongoose.connect('mongodb://localhost/gaminggen', (error) => {
     }
 });
 
+
 // Server Events
 let ServerEvent  = require('./Controller/ServerEvent');
 
+
 // Require Controllers
-var User        = require('./Controller/users');
-var Conf        = require('./Controller/confs');
-var Article     = require('./Controller/articles');
-var Comment     = require('./Controller/comments');
-var Partenaire  = require('./Controller/partenaires');
-var WatchList   = require('./Controller/watchLists');
-var Team        = require('./Controller/teams');
-var Snack       = require('./Controller/snacks');
-var MenuSnack   = require('./Controller/menuSnacks');
-var Shop        = require('./Controller/shop');
-var Order       = require('./Controller/order');
+let User        = require('./Controller/users');
+let Conf        = require('./Controller/confs');
+let Article     = require('./Controller/articles');
+let Comment     = require('./Controller/comments');
+let Partenaire  = require('./Controller/partenaires');
+let WatchList   = require('./Controller/watchLists');
+let Team        = require('./Controller/teams');
+let Snack       = require('./Controller/snacks');
+let MenuSnack   = require('./Controller/menuSnacks');
+let Shop        = require('./Controller/shop');
+let Order       = require('./Controller/order');
+
 
 // Require des Models
-var userSchema = require('./Model/userSchema');
+let userSchema = require('./Model/userSchema');
+
 
 // Conf color
 colors.setTheme({
@@ -89,21 +98,23 @@ colors.setTheme({
   error   : 'red'
 });
 
+
 // Conf port
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
+
 
 // Conf session
-var EXPRESS_SID_VALUE = 'Secret Keyboard DarkTerra Cat';
-var sessionMiddleware = session({
-    secret              : EXPRESS_SID_VALUE,
-    resave              : false,
-    saveUninitialized   : true,
-    store               : new MongoStore({ mongooseConnection: mongoose.connection })
+const EXPRESS_SID_VALUE = 'Secret Keyboard DarkTerra Cat';
+const sessionMiddleware = session({
+  secret              : EXPRESS_SID_VALUE,
+  resave              : false,
+  saveUninitialized   : true,
+  store               : new MongoStore({ mongooseConnection: mongoose.connection })
 });
+
 
 // Conf app
 app.use(compression({filter: shouldCompress}));
-// app.use(favicon(__dirname + '/View/Images/favicon.ico'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -113,18 +124,13 @@ app.use(passport.session());
 app.use(pmx.expressErrorHandler());
 app.use(require('morgan')("combined", { "stream": logger.stream }));
 
-// // Conf passport
-// passport.use(new LocalStrategy(userSchema.authenticate()));
-// passport.serializeUser(userSchema.serializeUser());
-// passport.deserializeUser(userSchema.deserializeUser());
-
 
 // Conf passport
-var authStrategy = new LocalStrategy({
+let authStrategy = new LocalStrategy({
 	usernameField: 'email',
 	passwordField: 'password'
-}, function(email, password, done) {
-	userSchema.authenticate(email, password, function(error, user){
+}, (email, password, done) => {
+	userSchema.authenticate(email, password, (error, user) => {
 		// You can write any kind of message you'd like.
 		// The message will be displayed on the next page the user visits.
 		// We're currently not displaying any success message for logging in.
@@ -132,12 +138,12 @@ var authStrategy = new LocalStrategy({
 	});
 });
 
-var authSerializer = function(user, done) {
+let authSerializer = (user, done) => {
 	done(null, user.id);
 };
 
-var authDeserializer = function(id, done) {
-	userSchema.findById(id, function(error, user) {
+let authDeserializer = (id, done) => {
+	userSchema.findById(id, (error, user) => {
 		done(error, user);
 	});
 };
@@ -147,10 +153,9 @@ passport.serializeUser(authSerializer);
 passport.deserializeUser(authDeserializer);
 
 
-
-
 // Socket io
 require('./Controller/sockets').listen(http, sessionMiddleware, ServerEvent, colors);
+
 
 // Call Events Management
 Snack.snackEvent(ServerEvent);
@@ -162,10 +167,12 @@ User.userEvent(ServerEvent);
 Shop.shopEvent(ServerEvent);
 Order.orderEvent(ServerEvent);
 
+
 // Log Error
 ServerEvent.on('error', (err) => {
   console.log(err);
 });
+
 
 // Routing
 app.use(express.static(path.join(__dirname, 'View')));
@@ -199,9 +206,9 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     // var refVersion = parseInt(JSON.parse(data).engines.node.replace(/[^0-9]/g, ''), 10);
     // var nodeVersion = parseInt(process.version.replace(/[^0-9]/g, ''), 10);
     
-    var operator = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
-    var refVersion = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
-    var nodeVersion = process.version.replace(/[^0-9.]/g, '').split('.');
+    let operator = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
+    let refVersion = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
+    let nodeVersion = process.version.replace(/[^0-9.]/g, '').split('.');
     
     console.log(operator);
     console.log(refVersion);
