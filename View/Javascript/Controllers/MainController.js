@@ -2,7 +2,7 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$location', '$state', '$scope', 'socket', '$window', '$http', function(UserService, ManageViewService, $location, $state, $scope, socket, $window, $http) {
+AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$scope', 'socket', '$window', '$http', function(UserService, $location, $state, $scope, socket, $window, $http) {
   // ----- Init -----
   var user        = {};
   var pages       = {};
@@ -18,7 +18,6 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
   $scope.User = UserService.currentUser;
   $scope.isMailExist = false;
   $scope.isPseudoExist = false;
-  ManageViewService.setView('container');
   
   // Pour récupérer les infos en cas de coupure réseau
   socket.on('connect', function() {
