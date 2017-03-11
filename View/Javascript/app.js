@@ -1,12 +1,9 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'ContainerService', 'AppControllers', 'Socket', 'Slider', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate',
+  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'AppControllers', 'Socket', 'Slider', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate',
   'UserS', // Services
   ]);
-  
-  const adminLayout = 'container-fluid admin';
-  const normalLayout = 'container';
   
   app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -45,15 +42,7 @@
         })
         .state('shop', {
           url         : '/shop',
-          templateUrl : '../Partial/Shop/shop.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In Snack Section !');
-            ManageViewService.setView(adminLayout);
-          }],
-          onExit      : ['ManageViewService', function(ManageViewService) {
-            console.log('I am Out Snack Section !');
-            ManageViewService.setView(normalLayout);
-          }]
+          templateUrl : '../Partial/Shop/shop.html'
         })
         .state('shop.order', {
           url         : '/order',
@@ -69,15 +58,7 @@
         })
         .state('snack.staff', {
           url         : '/staff',
-          templateUrl : '../Partial/Snack/staff.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In Snack Section !');
-            ManageViewService.setView(adminLayout);
-          }],
-          onExit      : ['ManageViewService', function(ManageViewService) {
-            console.log('I am Out Snack Section !');
-            ManageViewService.setView(normalLayout);
-          }]
+          templateUrl : '../Partial/Snack/staff.html'
         })
         .state('snack.staff.commande', {
           url         : '/commande',
@@ -89,15 +70,7 @@
         })
         .state('admin', {
           url         : '/admin',
-          templateUrl : '../Partial/Admin/admin.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In Admin Section !');
-            ManageViewService.setView(adminLayout);
-          }],
-          onExit      : ['ManageViewService', function(ManageViewService) {
-            console.log('I am Out Admin Section !');
-            ManageViewService.setView(normalLayout);
-          }]
+          templateUrl : '../Partial/Admin/admin.html'
           // authorized  : true
         })
         .state('admin.stream', {
