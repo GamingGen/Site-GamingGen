@@ -7,8 +7,8 @@
     {
       "name"              : "SI-GamingGen",
       "script"            : "server.js",
+      "instances"          : 0,
       "exec_mode"         : "cluster",
-      "instance"          : 0,
       "max_memory_restart": "512M",
       "port"              : 3000,
       "watch"             : false,
