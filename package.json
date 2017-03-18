@@ -57,7 +57,7 @@
     "url": "https://github.com/GamingGen/Site-GamingGen.git"
   },
   "engines": {
-    "node": ">=6.7.0"
+    "node": ">=5.5.5"
   },
   "os": [
     "!win32"

@@ -1311,8 +1311,53 @@ hr {
     left: 0;
 }
 /*RESPONSIVE*/
+/*@media screen and (max-width: 1400px) {
+  
+  .socialBloc{
+    
+  }
+  .socialHeader{
+    top: 40px;
+  }
+  .demiSocial .compte:last-child, .instagram {
+    border-top: 0px;
+  }
+  .socialLink {
+  }
+}*/
+@media screen and (max-width: 1400px){
+  .demiSocial {
+    right: 200px;
+    display: flex!important;
+  }
+  .socialBloc img {
+    width: 20%;
+  }
+  .socialLink{
+    
+    width: 70px;
+    height: 100%;
+  }
+  .socialBloc {
+    display: flex;
+    margin-top:0px;
+    flex-direction: column;
+    height: 100%!important;
+  }
+  .demiSocial .compte:last-child, .instagram, .facebook {
+    border-top:1px solid #6b6b6b!important;
+  }
+  .facebook img {
+    width: 12%!important;
+  }
+  .socialHeader {
+    top: 0px!important; 
+  }
+}
 
 @media screen and (max-width: 1260px) {
+}
+@media screen and (max-width: 1120px) {
 }
 /*TABLETTE*/
 @media screen and (max-width: 1028px) {
