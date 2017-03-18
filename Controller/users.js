@@ -52,6 +52,8 @@ var transporter = nodemailer.createTransport({
     }
 });
 
+console.log(`auth : ${transporter.auth}`);
+
 function SendMail(req, res, mails, html, hash) {
   console.log('Sending Mail...'.info);
   
@@ -82,8 +84,8 @@ function SendMail(req, res, mails, html, hash) {
   // send mail with defined transport object 
   transporter.sendMail(mailOptions, function(error, info) {
     console.log('info: ', info);
-      if(error){
-          return console.log(error);
+      if(error) {
+        console.log(error);
         res.sendStatus(500);
       }
       else {
