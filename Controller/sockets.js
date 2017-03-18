@@ -12,9 +12,9 @@
 'use strict';
 
 const socketio     = require('socket.io');
-const mongoAdapter = require('socket.io-mongodb');
+const redisAdapter = require('socket.io-redis');
 const check        = require('check-types');
-const adapter      = mongoAdapter('mongodb://localhost:27017/socket-io');
+const adapter      = redisAdapter({ host: 'localhost', port: 6379 });
 
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
 	let io                = socketio.listen(server);
@@ -25,15 +25,15 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	let twitch            = {};
 	let Live              = {}; // TODO A déplacer
     
+	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
+	io.adapter(adapter);
+	adapter.pubClient.on('error', function(){ console.error });
+	adapter.subClient.on('error', function(){ console.error });
+	
 	// Configuration de Socket.IO pour pouvoir avoir accès au sessions
 	io.use(function(socket, next) {
 		sessionMiddleware(socket.request, socket.request.res, next);
 	});
-	
-	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
-	io.adapter(adapter);
-	adapter.pubsubClient.on('error', console.error);
-	adapter.channel.on('error', console.error);
 	
 	ServerEvent.on('isMailExistResult', function(data, socket) {
 		socket.emit('isMailExist', data);
