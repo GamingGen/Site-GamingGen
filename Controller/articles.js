@@ -1,12 +1,16 @@
 'use strict';
 
-var express	= require('express');
-var router	= express.Router();
+// Récupération des schémas
+const articleSchema = require('../Model/articleSchema');
 
-var articleSchema = require('../Model/articleSchema');
+// Récupération des modules
+const express	= require('express');
+const router	= express.Router();
 
-var exports = module.exports = {};
-
+// -------------------------------------------------------------------------- //
+//                                Routes                                      //
+// -------------------------------------------------------------------------- //
+// Récupère la liste complète des articles
 router.get('/', function (req, res) {
   articleSchema.find({}, function (err, docs) {
     if (err) {
@@ -18,6 +22,7 @@ router.get('/', function (req, res) {
   });
 });
 
+// Récupère un article suivant l'ID
 router.get('/:id', function (req, res) {
   articleSchema.findOne({id: req.params.id}, function (err, docs) {
     if (err) {
@@ -29,7 +34,7 @@ router.get('/:id', function (req, res) {
   });
 });
 
-// On récupère uniquement les 4 dernier articles
+// Récupère uniquement les 4 dernier articles (Spécifique pour la Home)
 router.get('/home', function (req, res) {
   articleSchema.find({}, null, {sort: { register_date: -1 }, limit: 4 }, function (err, docs) {
     if (err) {
@@ -41,24 +46,13 @@ router.get('/home', function (req, res) {
   });
 });
 
-// router.post('/insert', function(req, res) {
-//   var newArticle = new articleSchema({
-//     username      : req.query.username,
-//     title         : req.query.title,
-//     text          : req.query.text
-//   });
-  
-//   newArticle.save(function(err) {
-//     if (err) {
-//       //throw err;
-//       console.log(req.query.name + ' Existe Déjà !');
-//     }
-//   });
-// });
 
-var articleEvent = function(ServerEvent) {
+// -------------------------------------------------------------------------- //
+//                                Events                                      //
+// -------------------------------------------------------------------------- //
+let articleEvent = function(ServerEvent) {
   
-  var id = 0;
+  let id = 0;
   
   articleSchema.findOne({}, null, {sort: {id: -1}}, function(err, result) {
     if (err) {
@@ -74,9 +68,9 @@ var articleEvent = function(ServerEvent) {
   
   // TODO déplacer la gestion de id dans le schéma
   ServerEvent.on('saveArticle', function(data, socket) {
-    data.id = ++id;
+    // data.id = ++id;
     var newArticle = new articleSchema({
-      id            : data.id,
+      // id            : data.id,
       username      : data.username,
       title         : data.title,
       desc          : data.desc,
@@ -103,6 +97,6 @@ var articleEvent = function(ServerEvent) {
   });
 };
 
-
+// Export
 exports.articleEvent = articleEvent;
 exports.router = router;

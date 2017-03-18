@@ -19,9 +19,16 @@ find -name '*.tgz' >> $Workspace/tmp/excludeFiles
 find -name '*.idea' >> $Workspace/tmp/excludeFiles
 find -name '*.ns' >> $Workspace/tmp/excludeFiles
 find -name '*.0' >> $Workspace/tmp/excludeFiles
+find -name '*.pdf' >> $Workspace/tmp/excludeFiles
+find -name '*.psd' >> $Workspace/tmp/excludeFiles
 find -name '*.png' >> $Workspace/tmp/excludeFiles
+find -name '*.PNG' >> $Workspace/tmp/excludeFiles
 find -name '*.gif' >> $Workspace/tmp/excludeFiles
+find -name '*.GIF' >> $Workspace/tmp/excludeFiles
 find -name '*.jpg' >> $Workspace/tmp/excludeFiles
+find -name '*.JPG' >> $Workspace/tmp/excludeFiles
+find -name '*.jpeg' >> $Workspace/tmp/excludeFiles
+find -name '*.JPEG' >> $Workspace/tmp/excludeFiles
 find -name '*.conf' >> $Workspace/tmp/excludeFiles
 find -name '*.sh' >> $Workspace/tmp/excludeFiles
 

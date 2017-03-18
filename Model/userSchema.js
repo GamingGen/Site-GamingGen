@@ -6,7 +6,7 @@ var bcrypt                = require('bcrypt');
 
 const saltRounds          = 10;
 
-var UserSchema = new Schema({
+var UserSchema = mongoose.Schema({
     pseudo    : { type: String, required: true, unique: true, index: true, trim: true },
     password  : { type: String, required: true },
     email     : { type: String, required: true, unique: true, match: /.{2,}\@.{2,10}\..{2,3}/ },
@@ -16,7 +16,7 @@ var UserSchema = new Schema({
                   birthday      : { type: Date, required: true },
                   zip           : { type: Number, required: true },
                   update_at     : { type: Date, default: Date.now },
-                  register_date : Date
+                  register_date : { type: Date, default: Date.now }
                 },
     team      : {
                   name          : { type: String, ref: 'Team' },
@@ -26,7 +26,7 @@ var UserSchema = new Schema({
                 },
     access    : {
                   token         : String,
-                  level         : { type: Number, required: true, default: 1 },
+                  level         : { type: Number, required: true, default: 0 },
                   groups        : { type: Array, required: true, default: ['member'] }, // TODO Save a referential Array in DB
                   ban           : { type: Boolean, required: true, default: false },
                   validationKey : String

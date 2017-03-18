@@ -728,7 +728,7 @@ hr {
   height:25vw;
 }*/
 .boxleft{
-  background:url('../Img/fest.jpg')center center;
+  background:url('../Img/General/fest.jpg')center center;
   background-size: cover;
   -webkit-background-size: cover;
   width:25%;
@@ -938,7 +938,7 @@ hr {
 .titresectionarticles h2 {
     padding-top: 6px;
     font-size: 1.4em;
-    background: url(../Img/genevert.png)center bottom no-repeat;
+    background: url(../Img/General/genevert.png)center bottom no-repeat;
     background-size: 130px;
     line-height: 126%;
 }

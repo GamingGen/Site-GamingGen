@@ -224,7 +224,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" ui-sref="home"><img class="logo img-rounded" alt="Logo" src="Img/Kit_Comm_LogoGeneBlanc.png"></a>
+              <a class="navbar-brand" ui-sref="home"><img class="logo img-rounded" alt="Logo" ng-src="Img/General/Kit_Comm_LogoGeneBlanc.png"></a>
             </div>
         
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -232,7 +232,7 @@
               <ul class="nav navbar-nav">
                 <li ui-sref-active="active" class="dropdown">
                   <a href="" class="displayBlockDropdown dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <span>Gaming Gen 6</span><img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"><span class="caret"></span>
+                    <span>Gaming Gen 6</span><img ng-src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"><span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
                     <li><a ui-sref="competitions">Les compétitions</a></li>
@@ -243,7 +243,7 @@
                     <li><a ui-sref="programme">Le Programme</a></li>
                     <!--<li role="separator" class="divider"></li>-->
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>
-                    <li><a ui-sref="live">Live <img src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a></li>
+                    <li><a ui-sref="live">Live <img ng-src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a></li>
                   </ul>
                 </li>
                 <!--<li ui-sref-active="active" class="dropdown">-->
@@ -284,17 +284,34 @@
                   </ul>
                 </li>
                 <div class="socialHeader">
-                  <li class="socialBloc demiSocial">
-                    <a href="" class="socialLink compte">S'inscrire</a>
-                    <a href="" class="socialLink compte">Connexion</a>
+                  <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
+                    <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
+                    <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
+                  </li>
+                  <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown">
+                    <div class="socialBloc demiSocial">
+                      <a href="" class="dropdown-toggle mon-compte" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Mon Compte
+                      </a>
+                      <ul class="loggedmenu dropdown-menu">
+                        <li></li>
+                        <!--<li role="separator" class="divider"></li>-->
+                        
+                        <li><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                        <li><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                        <li><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                        <!--<li role="separator" class="divider"></li>-->
+                        <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
+                      </ul>
+                    </div>
                   </li>
                   <li class="socialBloc demiSocial">
-                    <a href="" class="socialLink heart"><img src="../Img/heart.svg"></a>
-                    <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img src="../Img/instagram.svg"></a>
+                    <a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>
+                    <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="../Img/General/instagram.svg"></a>
                   </li>
                   <li class="socialBloc">
-                    <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img src="../Img/twitter.svg"></a>
-                    <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img src="../Img/facebook.svg"></a>
+                    <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="../Img/General/twitter.svg"></a>
+                    <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img ng-src="../Img/General/facebook.svg"></a>
                   </li>
                 </div>
               </ul>
@@ -352,22 +369,21 @@
                 </li>
                 <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
                 <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
-                  <a class="bienvenue-user-pseudo"><img src="../Img/Profil_JY.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
+                  <a class="bienvenue-user-pseudo"><img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
                   <div class="mon-compte-container">
                     <a href="" class="dropdown-toggle mon-compte" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Mon Compte
-                  </a>
-                  <ul class="loggedmenu dropdown-menu">
-
-                    <li></li>
-                    <!--<li role="separator" class="divider"></li>-->
-
-                    <li><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                    <li><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                    <li><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-                    <!--<li role="separator" class="divider"></li>-->
-                    <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
-                  </ul>
+                      Mon Compte
+                    </a>
+                    <ul class="loggedmenu dropdown-menu">
+                      <li></li>
+                      <!--<li role="separator" class="divider"></li>-->
+                      
+                      <li><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                      <li><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                      <li><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                      <!--<li role="separator" class="divider"></li>-->
+                      <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
+                    </ul>
                   </div>
                 </li>
                 <!--<li class="dropdown">-->
@@ -507,11 +523,11 @@
         
         <!--<div class="grid grid-pad">-->
         <!--  <div class="iconact col-6-12">-->
-        <!--    <span><a href="membres.html">Membres</a><img src="img/membres.gif"></span>-->
-        <!--    <span><a href="inscrits.html">Teams</a><img class="lazy" src="img/team.gif"></span>-->
-        <!--    <span><a href="galerie.html">Galeries</a><img src="img/galerie.gif"></span>-->
-        <!--    <span><a href="contact.html">Contact</a><img src="img/contact.gif"></span>-->
-        <!--    <span><a href="media.html">Media</a><img src="img/media.gif"></span>-->
+        <!--    <span><a href="membres.html">Membres</a><img ng-src="img/membres.gif"></span>-->
+        <!--    <span><a href="inscrits.html">Teams</a><img class="lazy" ng-src="img/team.gif"></span>-->
+        <!--    <span><a href="galerie.html">Galeries</a><img ng-src="img/galerie.gif"></span>-->
+        <!--    <span><a href="contact.html">Contact</a><img ng-src="img/contact.gif"></span>-->
+        <!--    <span><a href="media.html">Media</a><img ng-src="img/media.gif"></span>-->
         <!--  </div><!--iconact-->
         <!--  <div class="socialico push-right">-->
         <!--    <span class="fbsoc col-3-12"><a href="https://fr-fr.facebook.com/gaming.gen.lan" target="_blank"></a></span>-->
@@ -541,7 +557,7 @@
           </a>
           <a ui-sref="#">
             <div class="reassurance First col-xs-12 col-sm-6 col-md-3">
-              <img src='../Img/benevoleAFAIRE.svg'/>
+              <img src='../Img/General/benevoleAFAIRE.svg'/>
               <h2>DEVENIR BÉNÉVOLE</h2>
               <p>On fait des réunions sympas.</p>
             </div>
@@ -562,11 +578,11 @@
         </div>
         <div class="absolufooter row">
           <div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
-            <a ui-sref="home"><img alt="Logo" src="Img/Kit_Comm_LogoGeneBlanc.png"></a>
+            <a ui-sref="home"><img alt="Logo" ng-src="Img/General/Kit_Comm_LogoGeneBlanc.png"></a>
           </div>
           <div class="footerLinks col-xs-12 col-sm-8">
-            <a ui-sref="#">Inscription</a>
-            <a ui-sref="#">Connexion</a>
+            <a href="" data-toggle="modal" data-target="#registrationModal">Inscription</a>
+            <a href="" data-toggle="modal" data-target="#connectionModal">Connexion</a>
             <a ui-sref="#">Facebook</a>
             <a ui-sref="#">Twitter</a>
             <a ui-sref="#">Instagram</a>

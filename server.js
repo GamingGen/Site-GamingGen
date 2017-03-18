@@ -1,9 +1,9 @@
 /**
  * Version Alpha 1.1.0
  * Date de Création 30/04/2016
- * Date de modification 08/03/2017
+ * Date de modification 18/03/2017
  * 
- * ~2 769 835 de lignes de code
+ * ~5 830 542 de lignes de code
  * 
  * server.js
  * Point d'entrée de l'application 'Gaming-Gen'.
@@ -28,8 +28,6 @@ const path          = require('path');
 const cookieParser  = require('cookie-parser');
 const bodyParser    = require('body-parser');
 const colors        = require('colors');
-// let resumable    = require('./resumable-node.js')('tmp/');
-// let shelljs      = require('shelljs');
 const fs            = require('fs');
 const session       = require('express-session');
 const mongoose      = require('mongoose');
@@ -37,11 +35,12 @@ const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore    = require('connect-mongo')(session);
 
-const logger        = require('./Controller/logger');
 
+// let resumable    = require('./resumable-node.js')('tmp/');
+// let shelljs      = require('shelljs');
 
 // PMX For PM2
-var pmx = require('pmx').init({
+const pmx = require('pmx').init({
   http          : true, // HTTP routes logging (default: true)
   ignore_routes : [/socket\.io/, /notFound/], // Ignore http routes with this pattern (Default: [])
   errors        : true, // Exceptions loggin (default: true)
@@ -67,21 +66,22 @@ let ServerEvent  = require('./Controller/ServerEvent');
 
 
 // Require Controllers
-let User        = require('./Controller/users');
-let Conf        = require('./Controller/confs');
-let Article     = require('./Controller/articles');
-let Comment     = require('./Controller/comments');
-let Partenaire  = require('./Controller/partenaires');
-let WatchList   = require('./Controller/watchLists');
-let Team        = require('./Controller/teams');
-let Snack       = require('./Controller/snacks');
-let MenuSnack   = require('./Controller/menuSnacks');
-let Shop        = require('./Controller/shop');
-let Order       = require('./Controller/order');
+const logger      = require('./Controller/logger');
+const User        = require('./Controller/users');
+const Conf        = require('./Controller/confs');
+const Article     = require('./Controller/articles');
+const Comment     = require('./Controller/comments');
+const Partenaire  = require('./Controller/partenaires');
+const WatchList   = require('./Controller/watchLists');
+const Team        = require('./Controller/teams');
+const Snack       = require('./Controller/snacks');
+const MenuSnack   = require('./Controller/menuSnacks');
+const Shop        = require('./Controller/shop');
+const Order       = require('./Controller/order');
 
 
 // Require des Models
-let userSchema = require('./Model/userSchema');
+const userSchema = require('./Model/userSchema');
 
 
 // Conf color
@@ -203,8 +203,8 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     if (err) throw err;
     
     
-    // var refVersion = parseInt(JSON.parse(data).engines.node.replace(/[^0-9]/g, ''), 10);
-    // var nodeVersion = parseInt(process.version.replace(/[^0-9]/g, ''), 10);
+    // const refVersion = parseInt(JSON.parse(data).engines.node.replace(/[^0-9]/g, ''), 10);
+    // const nodeVersion = parseInt(process.version.replace(/[^0-9]/g, ''), 10);
     
     let operator = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
     let refVersion = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');

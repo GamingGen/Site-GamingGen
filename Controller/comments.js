@@ -1,16 +1,17 @@
 'use strict';
 
-var express	= require('express');
-var router	= express.Router();
+const commentSchema = require('../Model/commentSchema');
+const articleSchema = require('../Model/articleSchema');
 
-var commentSchema = require('../Model/commentSchema');
-var articleSchema = require('../Model/articleSchema');
+const express	= require('express');
+const router	= express.Router();
 
-var exports = module.exports = {};
-
-var commentEvent = function(ServerEvent) {
+// -------------------------------------------------------------------------- //
+//                                Events                                      //
+// -------------------------------------------------------------------------- //
+let commentEvent = function(ServerEvent) {
   
-  var id = 0;
+  let id = 0;
   
   commentSchema.findOne({}, null, {sort: {id: -1}}, function(err, result) {
     if (err) {
@@ -49,6 +50,6 @@ var commentEvent = function(ServerEvent) {
   });
 };
 
-
+// Export
 exports.commentEvent = commentEvent;
 exports.router = router;
