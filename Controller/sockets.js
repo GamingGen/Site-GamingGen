@@ -14,7 +14,7 @@
 const socketio     = require('socket.io');
 const mongoAdapter = require('socket.io-adapter-mongo');
 const check        = require('check-types');
-const adapter      = mongoAdapter('mongodb://localhost:27017/mubsub');
+const adapter      = mongoAdapter({ host: 'localhost', port: 27017, db: 'mubsub' });
 
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
 	let io                = socketio.listen(server);
