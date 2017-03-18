@@ -1,6 +1,6 @@
 /*
- * Version Alpha 1.0.0
- * Date de modification 24/06/2016
+ * Version Alpha 1.1.0
+ * Date de modification 18/03/2017
  *
  * Socket.js
  *  Gère toute les communications dynamique
@@ -12,12 +12,12 @@
 'use strict';
 
 const socketio     = require('socket.io');
-const mongoAdapter = require('socket.io-adapter-mongo');
+const mongoAdapter = require('socket.io-mongodb');
 const check        = require('check-types');
-const adapter      = mongoAdapter({ host: 'localhost', port: 27017, db: 'mubsub' });
+let adapter        = mongoAdapter('mongodb://localhost:27017/socket-io');
 
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
-	let io                = socketio.listen(server);
+	let io                = socketio(server);
 	let printerClientId   = "";
 	let printerCookId     = "";
 	let printerShopId     = "";
@@ -27,8 +27,8 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
     
 	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
 	io.adapter(adapter);
-	// adapter.pubsubClient.on('error', console.error);
-	// adapter.channel.on('error', console.error);
+	adapter.pubsubClient.on('error', console.error);
+	adapter.channel.on('error', console.error);
 	
 	// Configuration de Socket.IO pour pouvoir avoir accès au sessions
 	io.use(function(socket, next) {

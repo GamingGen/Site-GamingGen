@@ -1,8 +1,8 @@
 'use strict';
 
-var mongoose              = require('mongoose');
-var Schema                = mongoose.Schema;
-var Comment               = require('./commentSchema');
+var mongoose = require('mongoose');
+var Schema   = mongoose.Schema;
+var Comment  = require('./commentSchema');
 
 var ArticleSchema = new Schema({
     id            : { type: Number, required: true, unique: true, index: true, trim: true },

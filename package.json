@@ -32,7 +32,7 @@
     "rcon": "^1.0.2",
     "serve-favicon": "^2.4.1",
     "socket.io": "^1.7.3",
-    "socket.io-adapter-mongo": "^0.1.6",
+    "socket.io-mongodb": "^1.1.1",
     "winston": "^2.3.0"
   },
   "devDependencies": {
