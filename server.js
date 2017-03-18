@@ -34,6 +34,7 @@ const mongoose      = require('mongoose');
 const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore    = require('connect-mongo')(session);
+const sticky        = require('sticky-session');
 
 
 // let resumable    = require('./resumable-node.js')('tmp/');
