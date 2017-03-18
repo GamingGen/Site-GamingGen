@@ -52,7 +52,9 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-console.log(`auth : ${transporter.auth}`);
+console.log(`transporter : ${transporter}`);
+console.log(`process.env.NODEMAILER_USER : ${process.env.NODEMAILER_USER}`);
+console.log(`process.env.NODEMAILER_PASS : ${process.env.NODEMAILER_PASS}`);
 
 function SendMail(req, res, mails, html, hash) {
   console.log('Sending Mail...'.info);
