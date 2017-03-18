@@ -57,7 +57,7 @@ function SendMail(req, res, mails, html, hash) {
 console.log(`transporter : ${transporter}`);
 console.log(`process.env.NODEMAILER_USER : ${process.env.NODEMAILER_USER}`);
 console.log(`process.env.NODEMAILER_PASS : ${process.env.NODEMAILER_PASS}`);
-console.log(`process.env.NODE_ENV : ${process.env.NODE_ENV}`);
+console.log(`process.env.NODE_ENV : ${process.env}`);
   console.log('Sending Mail...'.info);
   
   // Gestion mail Inscription
