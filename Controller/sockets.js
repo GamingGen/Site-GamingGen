@@ -12,9 +12,9 @@
 'use strict';
 
 const socketio     = require('socket.io');
-const redisAdapter = require('socket.io-redis');
+const mongoAdapter = require('socket.io-adapter-mongo');
 const check        = require('check-types');
-const adapter      = redisAdapter({ host: 'localhost', port: 6379 });
+const adapter      = mongoAdapter('mongodb://localhost:27017/mubsub');
 
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
 	let io                = socketio.listen(server);
@@ -27,8 +27,8 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
     
 	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
 	io.adapter(adapter);
-	adapter.pubClient.on('error', function(){ console.error });
-	adapter.subClient.on('error', function(){ console.error });
+	// adapter.pubsubClient.on('error', console.error);
+	// adapter.channel.on('error', console.error);
 	
 	// Configuration de Socket.IO pour pouvoir avoir accès au sessions
 	io.use(function(socket, next) {
