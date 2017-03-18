@@ -11,8 +11,11 @@
 
 'use strict';
 
-const socketio   = require('socket.io');
-const check      = require('check-types');
+const socketio     = require('socket.io');
+const mongoAdapter = require('socket.io-mongodb');
+const check        = require('check-types');
+
+
 
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
 	let io                = socketio.listen(server);
@@ -27,6 +30,9 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	io.use(function(socket, next) {
 		sessionMiddleware(socket.request, socket.request.res, next);
 	});
+	
+	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
+	io.adapter(mongoAdapter('mongodb://localhost:27017/socket-io'));
 	
 	ServerEvent.on('isMailExistResult', function(data, socket) {
 		socket.emit('isMailExist', data);
