@@ -111,7 +111,7 @@
         
 
         <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ 'firstThumbNews' : $index === 0, 'col-xs-8' : $index === 0, 'otherThumbNews' : $index > 0, 'col-xs-4' : $index > 0, 'row' : $index === 0 || $index === 2 }">
-          <a type="button" class="lirearticle" ui-sref='article({ id: article.id })'>
+          <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
             <h1>{{article.title}} - 
               <div ng-show="article.type.hot_news">Hot news</div>
               <div ng-show="article.type.critical_info">Info cruciale</div>
