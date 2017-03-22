@@ -21,24 +21,24 @@ const saltRounds  = 10;
 // Schéma UserSchema
 /**
  * @class UserSchema
- * @param {string} pseudo - required: true, unique: true, index: true, trim: true
- * @param {string} password - required: true
- * @param {string} email - required: true, unique: true, match: /.{2,}\@.{2,10}\..{2,3}/
- * @param {string} general.first_name - required: true
- * @param {string} general.last_name - required: true
+ * @param {String} pseudo - required: true, unique: true, index: true, trim: true
+ * @param {String} password - required: true
+ * @param {String} email - required: true, unique: true, match: /.{2,}\@.{2,10}\..{2,3}/
+ * @param {String} general.first_name - required: true
+ * @param {String} general.last_name - required: true
  * @param {Date} general.birthday - required: true
  * @param {Number} general.zip - required: true
  * @param {Date} general.update_at - default: Date.now
  * @param {Date} general.register_date - default: Date.now
- * @param {string} team.name - ref: 'Team'
+ * @param {String} team.name - ref: 'Team'
  * @param {Boolean} team.coach - 
  * @param {Number} team.payment - 
  * @param {Number} team.presale_snack - 
- * @param {string} access.token - 
+ * @param {String} access.token - 
  * @param {Number} access.level - required: true, default: 0
  * @param {Array} access.groups - required: true, default: ['member']
  * @param {Boolean} access.ban - required: true, default: false
- * @param {string} access.validationKey - 
+ * @param {String} access.validationKey - 
  */
 let UserSchema = Schema({
     pseudo    : { type: String, required: true, unique: true, index: true, trim: true },

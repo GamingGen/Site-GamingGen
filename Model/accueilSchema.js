@@ -14,9 +14,9 @@ const Schema                = mongoose.Schema;
 // Schéma AccueilSchema
 /**
  * @class AccueilSchema
- * @param {string} username - required: true
- * @param {string} title - required: true
- * @param {string} text - required: true
+ * @param {String} username - required: true
+ * @param {String} title - required: true
+ * @param {String} text - required: true
  * @param {Date} register_date - required: true, default: Date.now
  */
 let AccueilSchema = new Schema({
@@ -58,7 +58,7 @@ AccueilSchema.pre('save', function(next) {
 /**
  * @function prefindOneAndUpdate
  * @param {function} next - Permet d'appeler le prochain middleware
- * @description Pour l'instant aucune vérification avant l'enregistrement
+ * @description Pour l'instant aucune vérification avant la MAJ
  */
 AccueilSchema.pre('findOneAndUpdate', function(next) {
   next();

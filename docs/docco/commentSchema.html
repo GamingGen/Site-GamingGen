@@ -73,8 +73,8 @@
             <div class="content"><div class='highlight'><pre><span class="hljs-comment">/**
  * @class CommentSchema
  * @param {Number} id - required: true, unique: true, index: true, trim: true
- * @param {string} username - required: true
- * @param {string} text - required: true
+ * @param {String} username - required: true
+ * @param {String} text - required: true
  * @param {Date} register_date - required: true, default: Date.now
  * @param {Number} articleId - Id de l'article associé
  */</span>
@@ -135,7 +135,7 @@ CommentSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-fun
 <span class="hljs-comment">/**
  * @function prefindOneAndUpdate
  * @param {function} next - Permet d'appeler le prochain middleware
- * @description Pour l'instant aucune vérification avant l'enregistrement
+ * @description Pour l'instant aucune vérification avant la MAJ
  */</span>
 CommentSchema.pre(<span class="hljs-string">'findOneAndUpdate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   next();

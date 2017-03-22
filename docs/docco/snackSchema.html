@@ -31,10 +31,46 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-meta">'use strict'</span>;
+ <span class="hljs-comment">/**
+ * Schéma snack
+ * @module SnackSchema
+ */</span>
 
+<span class="hljs-comment">/**
+ * @requires Schema
+ */</span>
 <span class="hljs-keyword">var</span> mongoose      = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
-<span class="hljs-keyword">var</span> Schema        = mongoose.Schema;
+<span class="hljs-keyword">var</span> Schema        = mongoose.Schema;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Schéma SnackSchema</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/**
+ * @class SnackSchema
+ * @param {Number} year - required: true, unique: true, index: true, trim: true
+ * @param {Number} number - required: true
+ * @param {Number} elements.quantity - required: true
+ * @param {String} elements.name - required: true
+ * @param {Number} elements.price - required: true
+ * @param {Number} elements.unit_price - required: true
+ * @param {String} name - required: true
+ * @param {Number} total - required: true
+ * @param {Boolean} paid - required: true
+ * @param {Boolean} free - required: true
+ * @param {Number} printed_client - required: true
+ * @param {Number} printed_cook - required: true
+ * @param {Date} register_date - required: true, default: Date.now
+ */</span>
 <span class="hljs-keyword">var</span> SnackSchema = <span class="hljs-keyword">new</span> Schema({
     <span class="hljs-attr">year</span>            : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span> },
     <span class="hljs-attr">number</span>          : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span> },
@@ -53,23 +89,37 @@
     <span class="hljs-attr">register_date</span>   : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> }
 });
 
+<span class="hljs-comment">/**
+ * @function postInit
+ * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
+ */</span>
+SnackSchema.post(<span class="hljs-string">'init'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'SnackSchema : '</span>, doc._id);
+});
+
+<span class="hljs-comment">/**
+ * @function CheckOrder
+ * @description Permet de vérifier la commande (Nom des items, leur prix et le total).&lt;br /&gt;
+ * Si jamais il y a une différence, la valeur utiliser sera celle calculé ou récupéré par la BDD.
+ * @todo Chexk le nom et le prix de chaque item
+ * @static
+ */</span>
 SnackSchema.methods.CheckOrder = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
             
         </li>
         
         
-        <li id="section-2">
+        <li id="section-3">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+                <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <p>TODO check price and name of each item</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>  
-  
   <span class="hljs-keyword">var</span> compareTotal = <span class="hljs-number">0</span>;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> item <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>.elements) {
     compareTotal += item.unit_price * item.quantity;
@@ -84,6 +134,11 @@ SnackSchema.methods.CheckOrder = <span class="hljs-function"><span class="hljs-k
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
 };
 
+<span class="hljs-comment">/**
+ * @function preValidate
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description MAJ de la propriété year et de la date d'enregistrement
+ */</span>
 SnackSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.year) {
     <span class="hljs-keyword">this</span>.year = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getFullYear();
@@ -92,11 +147,11 @@ SnackSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs-f
         </li>
         
         
-        <li id="section-3">
+        <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>if (!this.number) {
   this.number = 0;
@@ -114,19 +169,32 @@ else {
   next();
 });
 
+<span class="hljs-comment">/**
+ * @function preSave
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Pour l'instant aucune vérification avant l'enregistrement
+ */</span>
 SnackSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   <span class="hljs-keyword">this</span>.register_date = <span class="hljs-built_in">Date</span>.now();
   next();
 });
 
+<span class="hljs-comment">/**
+ * @function prefindOneAndUpdate
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Pour l'instant aucune vérification avant la MAJ
+ */</span>
 SnackSchema.pre(<span class="hljs-string">'findOneAndUpdate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   next();
 });
 
+<span class="hljs-comment">/**
+ * @function postSave
+ * @description Affiche en console que l'enregistrement est un succès
+ */</span>
 SnackSchema.post(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Snack saved successfully!'</span>);
 });
-
 
 
 <span class="hljs-built_in">module</span>.exports = mongoose.model(<span class="hljs-string">'Snack'</span>, SnackSchema);</pre></div></div>

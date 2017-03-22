@@ -31,15 +31,53 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-meta">'use strict'</span>;
+ <span class="hljs-comment">/**
+ * Schéma listeGrise
+ * @module WatchListSchema
+ */</span>
 
+<span class="hljs-comment">/**
+ * @requires Schema
+ */</span>
 <span class="hljs-keyword">var</span> mongoose              = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
-<span class="hljs-keyword">var</span> Schema                = mongoose.Schema;
+<span class="hljs-keyword">var</span> Schema                = mongoose.Schema;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Schéma WatchListSchema</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/**
+ * @class WatchListSchema
+ * @param {String} username - required: true
+ * @param {Date} register_date - required: true, default: Date.now
+ */</span>
 <span class="hljs-keyword">var</span> WatchListSchema = <span class="hljs-keyword">new</span> Schema({
     <span class="hljs-attr">username</span>      : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
-    <span class="hljs-attr">register_date</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> }
+    <span class="hljs-attr">register_date</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-built_in">Date</span>.now }
 });
 
+<span class="hljs-comment">/**
+ * @function postInit
+ * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
+ */</span>
+WatchListSchema.post(<span class="hljs-string">'init'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'WatchListSchema : '</span>, doc._id);
+});
+
+<span class="hljs-comment">/**
+ * @function preValidate
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description MAJ de la date d'enregistrement
+ */</span>
 WatchListSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.register_date) {
     <span class="hljs-keyword">this</span>.register_date = <span class="hljs-built_in">Date</span>.now();
@@ -47,15 +85,29 @@ WatchListSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hl
   next();
 });
 
+<span class="hljs-comment">/**
+ * @function preSave
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Pour l'instant aucune vérification avant l'enregistrement
+ */</span>
 WatchListSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   next();
 });
 
+<span class="hljs-comment">/**
+ * @function prefindOneAndUpdate
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Pour l'instant aucune vérification avant la MAJ
+ */</span>
 WatchListSchema.pre(<span class="hljs-string">'findOneAndUpdate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   next();
 });
 
-WatchListSchema.post(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+<span class="hljs-comment">/**
+ * @function postSave
+ * @description Affiche en console que l'enregistrement est un succès
+ */</span>
+WatchListSchema.post(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'WatchList saved successfully!'</span>);
 });
 

@@ -18,9 +18,9 @@ let id = 0;
 /**
  * @class ArticleSchema
  * @param {Number} id - required: true, unique: true, index: true, trim: true
- * @param {string} username - required: true
- * @param {string} desc - required: true
- * @param {string} text - required: true
+ * @param {String} username - required: true
+ * @param {String} desc - required: true
+ * @param {String} text - required: true
  * @param {Date} register_date - required: true, default: Date.now
  * @param {Array} comments - Liste des commentaires
  */
@@ -71,7 +71,7 @@ ArticleSchema.pre('save', function(next) {
 /**
  * @function prefindOneAndUpdate
  * @param {function} next - Permet d'appeler le prochain middleware
- * @description Pour l'instant aucune vérification avant l'enregistrement
+ * @description Pour l'instant aucune vérification avant la MAJ
  */
 ArticleSchema.pre('findOneAndUpdate', function(next) {
   next();

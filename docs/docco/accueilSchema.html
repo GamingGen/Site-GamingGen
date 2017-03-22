@@ -57,9 +57,9 @@
             
             <div class="content"><div class='highlight'><pre><span class="hljs-comment">/**
  * @class AccueilSchema
- * @param {string} username - required: true
- * @param {string} title - required: true
- * @param {string} text - required: true
+ * @param {String} username - required: true
+ * @param {String} title - required: true
+ * @param {String} text - required: true
  * @param {Date} register_date - required: true, default: Date.now
  */</span>
 <span class="hljs-keyword">let</span> AccueilSchema = <span class="hljs-keyword">new</span> Schema({
@@ -101,7 +101,7 @@ AccueilSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-fun
 <span class="hljs-comment">/**
  * @function prefindOneAndUpdate
  * @param {function} next - Permet d'appeler le prochain middleware
- * @description Pour l'instant aucune vérification avant l'enregistrement
+ * @description Pour l'instant aucune vérification avant la MAJ
  */</span>
 AccueilSchema.pre(<span class="hljs-string">'findOneAndUpdate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   next();

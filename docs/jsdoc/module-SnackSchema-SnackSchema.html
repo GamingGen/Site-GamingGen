@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Classes</title>
+	<title>Documentation Class: SnackSchema</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,13 +72,15 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Classes</h1>
+	<h1 class="page-title">Class: SnackSchema</h1>
 <section>
 
 <header>
     
         <h2>
+            <span class="ancestors"><a href="module-SnackSchema.html">SnackSchema</a>~</span>
         
+        SnackSchema
         </h2>
         
     
@@ -89,8 +91,362 @@
     <div class="container-overview">
     
         
+<hr>
+<dt>
+    <h4 class="name" id="SnackSchema"><span class="type-signature"></span>new SnackSchema(year, number, name, total, paid, free, printed_client, printed_cook, register_date)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
 
         
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>year</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true, unique: true, index: true, trim: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>number</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>elements.quantity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>elements.name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>elements.price</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>elements.unit_price</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>total</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>paid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>free</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>printed_client</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>printed_cook</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>register_date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">required: true, default: Date.now</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
 <dl class="details">
     
 
@@ -130,7 +486,21 @@
 </dl>
 
 
-        
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
     
     </div>
 
@@ -138,46 +508,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="module-AccueilSchema-AccueilSchema.html">AccueilSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-ArticleSchema-ArticleSchema.html">ArticleSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-CommentSchema-CommentSchema.html">CommentSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-ConfSchema-ConfSchema.html">ConfSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-menuSnackSchema-menuSnackSchema.html">menuSnackSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-OrderSchema-OrderSchema.html">OrderSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-PartenairesSchema-PartenairesSchema.html">PartenairesSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-ShopSchema-ShopSchema.html">ShopSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-SnackSchema-SnackSchema.html">SnackSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-TeamSchema-TeamSchema.html">TeamSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-userSchema-UserSchema.html">UserSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-WatchListSchema-WatchListSchema.html">WatchListSchema</a></dt>
-            <dd></dd>
-        </dl>
     
 
     

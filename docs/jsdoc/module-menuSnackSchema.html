@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Classes</title>
+	<title>Documentation Module: menuSnackSchema</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,15 +72,10 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Classes</h1>
+	<h1 class="page-title">Module: menuSnackSchema</h1>
 <section>
 
 <header>
-    
-        <h2>
-        
-        </h2>
-        
     
 </header>
 
@@ -88,6 +83,8 @@
 <article>
     <div class="container-overview">
     
+        
+            <div class="description">Schéma menu Snack</div>
         
 
         
@@ -142,40 +139,7 @@
         <h3 class="subsection-title">Classes</h3>
 
         <dl>
-            <dt><a href="module-AccueilSchema-AccueilSchema.html">AccueilSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-ArticleSchema-ArticleSchema.html">ArticleSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-CommentSchema-CommentSchema.html">CommentSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-ConfSchema-ConfSchema.html">ConfSchema</a></dt>
-            <dd></dd>
-        
             <dt><a href="module-menuSnackSchema-menuSnackSchema.html">menuSnackSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-OrderSchema-OrderSchema.html">OrderSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-PartenairesSchema-PartenairesSchema.html">PartenairesSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-ShopSchema-ShopSchema.html">ShopSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-SnackSchema-SnackSchema.html">SnackSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-TeamSchema-TeamSchema.html">TeamSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-userSchema-UserSchema.html">UserSchema</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-WatchListSchema-WatchListSchema.html">WatchListSchema</a></dt>
             <dd></dd>
         </dl>
     
@@ -185,7 +149,611 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
 
+        <dl>
+            
+<hr>
+<dt class="name" id="~mongoose">
+    <h4 id="~mongoose"><span class="type-signature">&lt;inner> </span>mongoose<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="~postInit"><span class="type-signature">&lt;inner> </span>postInit()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="~postSave"><span class="type-signature">&lt;inner> </span>postSave()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Affiche en console que l'enregistrement est un succès
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="~prefindOneAndUpdate"><span class="type-signature">&lt;inner> </span>prefindOneAndUpdate(next)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Pour l'instant aucune vérification avant la MAJ
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Permet d'appeler le prochain middleware</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="~preSave"><span class="type-signature">&lt;inner> </span>preSave(next)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Pour l'instant aucune vérification avant l'enregistrement
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Permet d'appeler le prochain middleware</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="~preValidate"><span class="type-signature">&lt;inner> </span>preValidate(next)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set de la propriété year
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Permet d'appeler le prochain middleware</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
     
 
     
