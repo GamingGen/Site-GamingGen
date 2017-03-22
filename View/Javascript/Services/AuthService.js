@@ -161,13 +161,13 @@ angular.module("AuthServices", [])
   
   this.validate = function(hash) {
       var self = this;
-      return $http.post("/users/validate", {hash})
+      return $http.post("/users/validate", hash)
         // TODO quand le bypass de connexion sera implémenté
         /*
-        .success(function(user){
+        .success(function(user) {
           self.login(user);
         })*/
-        .success(function(){
+        .success(function() {
           $("#msgInfo").html("Compte validé !");
           $("#msgInfo").show().delay(3000).fadeOut();
         })

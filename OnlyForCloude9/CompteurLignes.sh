@@ -31,6 +31,11 @@ find -name '*.jpeg' >> $Workspace/tmp/excludeFiles
 find -name '*.JPEG' >> $Workspace/tmp/excludeFiles
 find -name '*.conf' >> $Workspace/tmp/excludeFiles
 find -name '*.sh' >> $Workspace/tmp/excludeFiles
+find -name '*.pem' >> $Workspace/tmp/excludeFiles
+find -name '*.md' >> $Workspace/tmp/excludeFiles
+find -name '.*' >> $Workspace/tmp/excludeFiles
+find -name 'certbot-auto' >> $Workspace/tmp/excludeFiles
+find -name 'LICENSE' >> $Workspace/tmp/excludeFiles
 
 TOTAL=$(IFS='
 '; { for i in $(find . -type f); do if ! echo "$i" | fgrep -q -f $Workspace/tmp/excludeFiles; then cat "$i"; echo '

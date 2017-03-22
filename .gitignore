@@ -26,13 +26,15 @@ npm-debug.log
 # DataBase
 data
 
+# Certificat
+*.pem
+*.csr
+certbot-auto
+
 # Only for Dev
 mongod
 mongodRepair
 mongodShutDown
 adminMongo
 dump
-
-# Only for LeadDev
-*.pem
-*.csr
+View/dist

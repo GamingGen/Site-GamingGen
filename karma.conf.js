@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Thu Sep 29 2016 21:38:18 GMT+0000 (UTC)
 
+const base = '/home/ubuntu/workspace/node_modules/';
+
 module.exports = function(config) {
   config.set({
 
@@ -15,9 +17,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '/home/ubuntu/workspace/node_modules/angular/angular.min.js',
-      '/home/ubuntu/workspace/node_modules/angular-ui-router/release/angular-ui-router.min.js',
-      '/home/ubuntu/workspace/node_modules/angular-mocks/angular-mocks.js',
+      base + 'angular/angular.min.js',
+      base + 'angular-ui-router/release/angular-ui-router.min.js',
+      base + 'angular-mocks/angular-mocks.js',
       '*.js',
       'Controllers/AppControllers.js', // Obligatoire ?
       '**/*.js',

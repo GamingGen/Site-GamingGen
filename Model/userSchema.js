@@ -1,12 +1,46 @@
 'use strict';
+ /**
+ * Schéma utilisateur
+ * @module userSchema
+ */
 
-var mongoose              = require('mongoose');
-var Schema                = mongoose.Schema;
-var bcrypt                = require('bcrypt');
+/**
+ * @requires Général
+ */
+const bcrypt    = require('bcrypt');
 
-const saltRounds          = 10;
+/**
+ * @requires Schema
+ */
+const mongoose  = require('mongoose');
+const Schema    = mongoose.Schema;
 
-var UserSchema = mongoose.Schema({
+// Variables
+const saltRounds  = 10;
+
+// Schéma UserSchema
+/**
+ * @class UserSchema
+ * @param {string} pseudo - required: true, unique: true, index: true, trim: true
+ * @param {string} password - required: true
+ * @param {string} email - required: true, unique: true, match: /.{2,}\@.{2,10}\..{2,3}/
+ * @param {string} general.first_name - required: true
+ * @param {string} general.last_name - required: true
+ * @param {Date} general.birthday - required: true
+ * @param {Number} general.zip - required: true
+ * @param {Date} general.update_at - default: Date.now
+ * @param {Date} general.register_date - default: Date.now
+ * @param {string} team.name - ref: 'Team'
+ * @param {Boolean} team.coach - 
+ * @param {Number} team.payment - 
+ * @param {Number} team.presale_snack - 
+ * @param {string} access.token - 
+ * @param {Number} access.level - required: true, default: 0
+ * @param {Array} access.groups - required: true, default: ['member']
+ * @param {Boolean} access.ban - required: true, default: false
+ * @param {string} access.validationKey - 
+ */
+let UserSchema = Schema({
     pseudo    : { type: String, required: true, unique: true, index: true, trim: true },
     password  : { type: String, required: true },
     email     : { type: String, required: true, unique: true, match: /.{2,}\@.{2,10}\..{2,3}/ },
@@ -33,6 +67,20 @@ var UserSchema = mongoose.Schema({
                 }
 });
 
+/**
+ * @function postInit
+ * @description Ici seul un console.log affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
+ */
+UserSchema.post('init', function(doc) {
+  console.log('UserSchema : ', doc._id);
+});
+
+/**
+ * @function preValidate
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @return {null | expextion} retourne une exception en cas de MDP trop cours
+ * @description Verifie la longueur du MDP ne soit pas trop court (inférieur à 8 caractères)
+ */
 UserSchema.pre('validate', function(next) {
   if (this.password.length < 8) {
     console.log('This Password: is too short');
@@ -43,9 +91,14 @@ UserSchema.pre('validate', function(next) {
   }
 });
 
+/**
+ * @function preSave
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Chiffre le MDP et enregistre nouvel utilisateur
+ */
 UserSchema.pre('save', function(next) {
   var dateNow = Date.now();
-  //this.general.update_at = dateNow;
+  this.general.update_at = dateNow;
   if (this.isNew) {
     console.log(this);
     this.general.register_date = dateNow;
@@ -54,24 +107,35 @@ UserSchema.pre('save', function(next) {
   next();
 });
 
+/**
+ * @function prefindOneAndUpdate
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Tente de mêttre à jour un utilisateur
+ * @todo terminer l'implémentation
+ */
 UserSchema.pre('findOneAndUpdate', function(next) {
-  // User.findOne({'username': this.username}, function(err, user) {
-  //   if (!bcrypt.compareSync(this.password, user.password))
-  //   {
-  //     this.update({}, {$set: {password: bcrypt.hashSync(this.password, saltRounds) } });
-  //   }
-  // });
   console.log(this.password);
   this.update({}, {$set: { update_at:  Date.now } });
   next();
 });
 
+/**
+ * @function postSave
+ * @description Affiche en console que l'enregistrement est un succès
+ */
 UserSchema.post('save', function() {
   console.log('User saved successfully!');
 });
 
 
-
+/**
+ * @function authenticate
+ * @param {string} email - Email de l'utilisateur
+ * @param {string} password - MDP de l'utilisateur
+ * @param {function} callback - 
+ * @description Tente de retrouver un utilisateur avec son email et le MDP reçu
+ * @static
+ */
 UserSchema.statics.authenticate = function(email, password, callback) {
   console.log(email);
   console.log(password);

@@ -13,6 +13,7 @@
     <link rel="icon" href="img/favicon.ico"/>
     <link rel="icon" type="image/png" href="img/favicon.png"/>
     
+    <!-- build:css css/min.css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -20,8 +21,9 @@
     <link rel="stylesheet" href="Style/jasny-bootstrap.min.css">
     <link rel="stylesheet" href="Style/main.css">
     <link rel="stylesheet" href="Style/loading-bar.css" media="all">
+    <!-- endbuild -->
     
-    <!--Ajout des .JS-->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.js"></script>
@@ -30,17 +32,14 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+    <!-- build:js js/main.min.js -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/locale/bootstrap-table-fr-FR.js"></script>
     <script type="text/javascript" src="Javascript/Lib/jasny-bootstrap.min.js"></script>
     <script type="text/javascript" src="Javascript/Lib/jquery.carouFredSel-6.2.0-packed.js"></script>
-    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    
     <script type="text/javascript" src="Javascript/app.js"></script>
     
-    
-    <!-- Controllers ===== START -->
-    <!-- Pour simplifier, voir RequireJS -->
     <script type="text/javascript" src="Javascript/Controllers/AppControllers.js"></script>
-    
     <script type="text/javascript" src="Javascript/Controllers/HistoShopController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/HistoSnackController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/HomeController.js"></script>
@@ -60,7 +59,6 @@
     <script type="text/javascript" src="Javascript/Controllers/Admin/AdminBanController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/Admin/AdminListBansController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/Admin/AdminListUsersController.js"></script>
-    <!-- Controllers ===== END -->
     
     <script type="text/javascript" src="Javascript/Factories/SocketIO.js"></script>
     <!--<script type="text/javascript" src="Javascript/Factories/HttpBuffer.js"></script>-->
@@ -77,22 +75,19 @@
     <script type="text/javascript" src="Javascript/Lib/loading-bar.js"></script>
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript" src="https://player.twitch.tv/js/embed/v1.js"></script>
+    <!-- endbuild -->
 
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".lirearticle").hover(function(){
-    $(".h4article").addClass("blanc");
-  });
-  
-	$(".closelire").click(function(){
-      $(".pushvocation").removeClass("hover");
-    });
-  });
-</script>
-    
-    
-    <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $(".lirearticle").hover(function(){
+        $(".h4article").addClass("blanc");
+      });
+      
+    	$(".closelire").click(function(){
+          $(".pushvocation").removeClass("hover");
+        });
+      });
+    </script>
   </head>
   
   <body ng-controller="mainCtrl">

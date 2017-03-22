@@ -88,7 +88,7 @@ function SendMail(req, res, mails, html, hash) {
         res.sendStatus(500);
       }
       else {
-        console.log('Message sent: ');
+        console.log(`Message sent: ${info}`);
         res.sendStatus(200);
       }
   });

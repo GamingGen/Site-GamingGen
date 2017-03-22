@@ -1,20 +1,21 @@
 /**
- * Version Alpha 1.1.0
- * Date de Création 30/04/2016
- * Date de modification 18/03/2017
+ * @file server.js
+ * @desc Point d'entrée de l'application 'Gaming-Gen'. <br />
+ * L'application Gaming-Gen permet de gérer entièrement notre évènement. <br />
+ * blablabla
+ * <br />
+ * <b>~5 306 442</b> de lignes de code <br />
+ * <br />
+ * Date de Création 30/04/2016 <br />
+ * Date de modification 18/03/2017 <br />
  * 
- * ~5 830 542 de lignes de code
+ * @version Alpha 1.1.0
  * 
- * server.js
- * Point d'entrée de l'application 'Gaming-Gen'.
- * L'application Gaming-Gen permet de gérer entièrement notre évènement.
+ * @author Jérémy Young            <darkterra01@gmail.com>
+ * @author Loïc Tardivel-Lacombe   <>
+ * @author Laura Auboin Maurizio   <>
+ * @author Frédéric Guazzini       <>
  * 
- * Conçu par l'équipe de Gaming-Gen :
- *  - Jérémy Young            <darkterra01@gmail.com>
- *  - Loïc Tardivel-Lacombe   <>
- *  - Laura Auboin Maurizio   <>
- *  - Frédéric Guazzini       <>
- *  -
  */
 
 'use strict';
