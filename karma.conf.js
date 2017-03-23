@@ -21,7 +21,7 @@ module.exports = function(config) {
       base + 'angular-ui-router/release/angular-ui-router.min.js',
       base + 'angular-mocks/angular-mocks.js',
       '*.js',
-      'Controllers/AppControllers.js', // Obligatoire ?
+      'Controllers/*.js', // Obligatoire ?
       '**/*.js',
       'http://localhost:8080/socket.io/socket.io.js'
       // 'Tests/*Spec.js', // A supprimer
@@ -32,7 +32,7 @@ module.exports = function(config) {
     exclude: [
       'Lib/*.js',
       'tinyMCE/*.js',
-      'tinyMCE/**/*.js',
+      'tinyMCE/**/*.js'
     ],
 
 
@@ -43,7 +43,7 @@ module.exports = function(config) {
       'Controllers/*.js': ['babel'], // Obligatoire ?
       'Factories/*.js': ['babel'], // Obligatoire ?
       'Services/*.js': ['babel'], // Obligatoire ?
-      '**/*.js': ['babel'],
+      '**/*.js': ['babel']
     },
     
     

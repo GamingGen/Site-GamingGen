@@ -100,7 +100,6 @@ UserSchema.pre('save', function(next) {
   var dateNow = Date.now();
   this.general.update_at = dateNow;
   if (this.isNew) {
-    console.log(this);
     this.general.register_date = dateNow;
     this.password = bcrypt.hashSync(this.password, saltRounds);
   }
@@ -141,6 +140,9 @@ UserSchema.statics.authenticate = function(email, password, callback) {
   console.log(password);
 	this.findOne({ email: email }, function(error, user) {
 		if (user && bcrypt.compareSync(password, user.password)) {
+		  // Remove Password before send to the client
+		  user.password = '';
+		  console.log('user after delete: ', user);
 			callback(null, user);
 		} else if (user || !error) {
 			// Email or password was invalid (no MongoDB error)
