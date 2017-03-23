@@ -49,9 +49,9 @@ var SnackSchema = new Schema({
  * @function postInit
  * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
  */
-SnackSchema.post('init', function(doc) {
-  console.log('SnackSchema : ', doc._id);
-});
+// SnackSchema.post('init', function(doc) {
+//   console.log('SnackSchema : ', doc._id);
+// });
 
 /**
  * @function CheckOrder

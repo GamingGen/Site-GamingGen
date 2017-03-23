@@ -25,9 +25,9 @@ var WatchListSchema = new Schema({
  * @function postInit
  * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
  */
-WatchListSchema.post('init', function(doc) {
-  console.log('WatchListSchema : ', doc._id);
-});
+// WatchListSchema.post('init', function(doc) {
+//   console.log('WatchListSchema : ', doc._id);
+// });
 
 /**
  * @function preValidate

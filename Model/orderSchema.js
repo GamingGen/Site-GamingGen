@@ -47,9 +47,9 @@ var OrderSchema = new Schema({
  * @function postInit
  * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
  */
-OrderSchema.post('init', function(doc) {
-  console.log('OrderSchema : ', doc._id);
-});
+// OrderSchema.post('init', function(doc) {
+//   console.log('OrderSchema : ', doc._id);
+// });
 
 /**
  * @function CheckOrder

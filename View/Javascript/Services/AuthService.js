@@ -158,7 +158,7 @@ angular.module("AuthServices", [])
   
   this.validate = function(hash) {
       var self = this;
-      return $http.post("/users/validate", hash)
+      return $http.post("/users/validate", {hash: hash})
         // TODO quand le bypass de connexion sera implémenté
         /*
         .success(function(user) {

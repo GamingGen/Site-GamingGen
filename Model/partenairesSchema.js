@@ -33,9 +33,9 @@ var PartenaireSchema = new Schema({
  * @function postInit
  * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
  */
-PartenaireSchema.post('init', function(doc) {
-  console.log('PartenaireSchema : ', doc._id);
-});
+// PartenaireSchema.post('init', function(doc) {
+//   console.log('PartenaireSchema : ', doc._id);
+// });
 
 /**
  * @function preValidate

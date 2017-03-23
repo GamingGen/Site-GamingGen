@@ -34,10 +34,10 @@ var CommentSchema = new Schema({
  * @function postInit
  * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
  */
-CommentSchema.post('init', function(doc) {
-  console.log('CommentSchema : ', doc._id);
-  id = doc.id;
-});
+// CommentSchema.post('init', function(doc) {
+//   console.log('CommentSchema : ', doc._id);
+//   id = doc.id;
+// });
 
 /**
  * @function preValidate

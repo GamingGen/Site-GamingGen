@@ -71,9 +71,9 @@ let UserSchema = Schema({
  * @function postInit
  * @description Ici seul un console.log affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
  */
-UserSchema.post('init', function(doc) {
-  console.log('UserSchema : ', doc._id);
-});
+// UserSchema.post('init', function(doc) {
+//   console.log('UserSchema : ', doc._id);
+// });
 
 /**
  * @function preValidate
