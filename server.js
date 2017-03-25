@@ -203,22 +203,13 @@ function shouldCompress(req, res) {
 fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     if (err) throw err;
     
+    let refVersion = parseInt(JSON.parse(data).engines.node.replace(/[^0-9]/g, ''), 10);
+    let nodeVersion = parseInt(process.version.replace(/[^0-9]/g, ''), 10);
     
-    // const refVersion = parseInt(JSON.parse(data).engines.node.replace(/[^0-9]/g, ''), 10);
-    // const nodeVersion = parseInt(process.version.replace(/[^0-9]/g, ''), 10);
-    
-    let operator = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
-    let refVersion = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
-    let nodeVersion = process.version.replace(/[^0-9.]/g, '').split('.');
-    
-    console.log(operator);
     console.log(refVersion);
     console.log(nodeVersion);
     
-    
-    
-    
-    if (parseInt(nodeVersion[0], 10) > parseInt(refVersion[0], 10)) {
+    if (nodeVersion >= refVersion) {
       console.log('Version du server OK...'.verbose);
       console.log('La version du serveur Node.JS : '.data + process.version.warn);
       console.log('Le serveur Node.JS fonctionne sur la plateforme : '.data + process.platform.warn);
@@ -228,6 +219,24 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
       console.log('Version demandé : '.data + refVersion + ', votre version : '.data + nodeVersion);
       process.exit(1);
     }
+    
+    // let operator = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
+    // let refVersion = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
+    // let nodeVersion = process.version.replace(/[^0-9.]/g, '').split('.');
+    
+    // console.log(operator);
+    
+    
+    // if (parseInt(nodeVersion[0], 10) > parseInt(refVersion[0], 10)) {
+    //   console.log('Version du server OK...'.verbose);
+    //   console.log('La version du serveur Node.JS : '.data + process.version.warn);
+    //   console.log('Le serveur Node.JS fonctionne sur la plateforme : '.data + process.platform.warn);
+    // }
+    // else {
+    //   console.log('La version du serveur Node.JS doit être plus récente : '.warn);
+    //   console.log('Version demandé : '.data + refVersion + ', votre version : '.data + nodeVersion);
+    //   process.exit(1);
+    // }
     
     // Création du serveur
     http.listen(port, () => {

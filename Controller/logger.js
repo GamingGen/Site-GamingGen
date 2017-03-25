@@ -6,7 +6,9 @@ winston.emitErrs = true;
 
 const fs = require('fs');
 
-const logPath = path.join(__dirname, 'Logs', 'all-logs.log');
+const logPath = path.join(__dirname, '..', 'Logs', 'all-logs.log');
+
+console.log(`logPath: ${logPath}`);
 
 fs.access(logPath, fs.R_OK | fs.W_OK, (err) => {
   console.log(err ? 'no access!' : 'can read/write');
