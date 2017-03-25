@@ -93,13 +93,26 @@
 <span class="hljs-comment">/**
  * @function postInit
  * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
- */</span>
-ArticleSchema.post(<span class="hljs-string">'init'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ArticleSchema : '</span>, doc._id);
+ */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>ArticleSchema.post(‘init’, function(doc) {
+  console.log(‘ArticleSchema : ‘, doc._id);
   id = doc.id;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'id: '</span>, id);
-});
+  console.log(‘id: ‘, id);
+});</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
 <span class="hljs-comment">/**
  * @function preValidate
  * @param {function} next - Permet d'appeler le prochain middleware
@@ -110,11 +123,11 @@ ArticleSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs
         </li>
         
         
-        <li id="section-4">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <p>Set de l’id</p>
 

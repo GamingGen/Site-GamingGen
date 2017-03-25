@@ -425,7 +425,7 @@ router.post(<span class="hljs-string">'/unban'</span>, <span class="hljs-functio
  */</span>
 router.post(<span class="hljs-string">'/validate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Validation d'un user..."</span>);
-  userSchema.findOneAndUpdate({<span class="hljs-string">'access.validationKey'</span>: req.body.hash}, {<span class="hljs-string">'access.validationKey'</span>: <span class="hljs-string">''</span>}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, rowUpdated</span>) </span>{
+  userSchema.findOneAndUpdate({<span class="hljs-string">'access.validationKey'</span>: req.body.hash}, {<span class="hljs-string">'access.validationKey'</span>: <span class="hljs-string">''</span>, <span class="hljs-string">'access.level'</span>: <span class="hljs-number">1</span>}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, rowUpdated</span>) </span>{
     <span class="hljs-keyword">if</span> (err) {
       <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Validate first error : "</span> + err);
       res.sendStatus(<span class="hljs-number">500</span>);
@@ -462,7 +462,7 @@ router.post(<span class="hljs-string">'/validate'</span>, <span class="hljs-func
   });
 });
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">login</span>(<span class="hljs-params">req, res, next</span>) </span>{<span class="hljs-comment">// Ajouter une option de bypass pour si le mot de passe est déjà crypté (validation de compte)</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">login</span>(<span class="hljs-params">req, res, next</span>) </span>{ <span class="hljs-comment">// Ajouter une option de bypass pour si le mot de passe est déjà crypté (validation de compte)</span>
   passport.authenticate(<span class="hljs-string">"local"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, user, info</span>) </span>{
     <span class="hljs-built_in">console</span>.log(info);
     <span class="hljs-keyword">if</span> (!user) {
