@@ -13,7 +13,7 @@ var nodemailer    = require('nodemailer');
 
 // Confs
 const cryptoSecret   = 'GamingGenCryptoCat';
-const from           = '"Gaming Gen" <noreply@gaming-gen.fr>';
+const from           = `"Gaming Gen" <${process.env.NODEMAILER_MAIL}>`;
 const subject        = 'Inscription à la Gaming Gen';
 let text             = '';
 let registrationHtml = `
