@@ -35,6 +35,8 @@ const mongoose      = require('mongoose');
 const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore    = require('connect-mongo')(session);
+const os            = require('os');
+const moment        = require('moment');
 
 
 // let resumable    = require('./resumable-node.js')('tmp/');
@@ -209,6 +211,9 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     console.log(refVersion);
     console.log(nodeVersion);
     
+    // Cette methode ne foncitonne pas si la version demandé minimum est 7.10.5 et que nous avons la version 8.0.1
+    // Car les numéro de versions sont simplement sans les '.' du coup cela donne 7105 et 801.
+    // 801 est inférieur à 7105, alors que notre version est en réalité plus récente. TODO Trouver une autre solution...
     if (nodeVersion >= refVersion) {
       console.log('Version du server OK...'.verbose);
       console.log('La version du serveur Node.JS : '.data + process.version.warn);
@@ -240,8 +245,8 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     
     // Création du serveur
     http.listen(port, () => {
-      console.log('\nSI-GamingGen listening at 127.0.0.1:'.verbose + port.verbose);
-      // console.log('La plateforme fonctionne depuis : '.data + tools.convertTimeToHuman(os.uptime()).warn);
+      console.log(`\nSI-GamingGen listening at 127.0.0.1:${port}`.verbose);
+      console.log('La plateforme fonctionne depuis : '.data + colors.warn(moment.duration((os.uptime().toFixed(0))*1000).humanize()));
     });
   });
 

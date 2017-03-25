@@ -35,9 +35,10 @@ data
 certbot-auto
 
 # Only for Dev
-mongod
-mongodRepair
-mongodShutDown
+mongod*
+mongodRepair*
+mongodShutDown*
+*.bat
 adminMongo
-dump
+dump*
 View/dist
