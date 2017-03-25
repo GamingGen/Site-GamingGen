@@ -78,11 +78,24 @@
 <span class="hljs-comment">/**
  * @function postInit
  * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */</span>
-MenuSnackSchema.post(<span class="hljs-string">'init'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'MenuSnackSchema : '</span>, doc._id);
-});
+ */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>MenuSnackSchema.post(‘init’, function(doc) {
+  console.log(‘MenuSnackSchema : ‘, doc._id);
+});</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
 <span class="hljs-comment">/**
  * @function preValidate
  * @param {function} next - Permet d'appeler le prochain middleware

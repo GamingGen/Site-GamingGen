@@ -126,11 +126,24 @@
 <span class="hljs-comment">/**
  * @function postInit
  * @description Ici seul un console.log affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */</span>
-UserSchema.post(<span class="hljs-string">'init'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'UserSchema : '</span>, doc._id);
-});
+ */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>UserSchema.post(‘init’, function(doc) {
+  console.log(‘UserSchema : ‘, doc._id);
+});</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
 <span class="hljs-comment">/**
  * @function preValidate
  * @param {function} next - Permet d'appeler le prochain middleware
@@ -156,7 +169,6 @@ UserSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-functi
   <span class="hljs-keyword">var</span> dateNow = <span class="hljs-built_in">Date</span>.now();
   <span class="hljs-keyword">this</span>.general.update_at = dateNow;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isNew) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);
     <span class="hljs-keyword">this</span>.general.register_date = dateNow;
     <span class="hljs-keyword">this</span>.password = bcrypt.hashSync(<span class="hljs-keyword">this</span>.password, saltRounds);
   }
@@ -196,18 +208,34 @@ UserSchema.statics.authenticate = <span class="hljs-function"><span class="hljs-
   <span class="hljs-built_in">console</span>.log(email);
   <span class="hljs-built_in">console</span>.log(password);
 	<span class="hljs-keyword">this</span>.findOne({ <span class="hljs-attr">email</span>: email }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, user</span>) </span>{
-		<span class="hljs-keyword">if</span> (user &amp;&amp; bcrypt.compareSync(password, user.password)) {
+		<span class="hljs-keyword">if</span> (user &amp;&amp; bcrypt.compareSync(password, user.password)) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Remove Password before send to the client</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		  user.password = <span class="hljs-string">''</span>;
+		  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'user after delete: '</span>, user);
 			callback(<span class="hljs-literal">null</span>, user);
 		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (user || !error) {</pre></div></div>
             
         </li>
         
         
-        <li id="section-4">
+        <li id="section-6">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               <p>Email or password was invalid (no MongoDB error)</p>
 
@@ -220,11 +248,11 @@ UserSchema.statics.authenticate = <span class="hljs-function"><span class="hljs-
         </li>
         
         
-        <li id="section-5">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p>Something bad happened with MongoDB. You shouldn’t run into this often.</p>
 
