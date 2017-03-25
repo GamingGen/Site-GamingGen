@@ -1,11 +1,12 @@
 'use strict';
 
+const path = require('path');
 const winston = require('winston');
 winston.emitErrs = true;
 
 const fs = require('fs');
 
-const logPath = './Logs/all-logs.log';
+const logPath = path.join(__dirname, 'Logs', 'all-logs.log');
 
 fs.access(logPath, fs.R_OK | fs.W_OK, (err) => {
   console.log(err ? 'no access!' : 'can read/write');

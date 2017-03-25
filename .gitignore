@@ -19,6 +19,9 @@ coverage
 # Configuration Cloud9 Files
 .c9
 
+# Configuration Visual Code Files
+.vscode
+
 # Dependency directory
 node_modules
 npm-debug.log

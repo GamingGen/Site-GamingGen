@@ -1,7 +1,8 @@
 {
   "name": "site-gaminggen",
   "version": "1.1.0-alpha",
-  "main": "server/server.js",
+  "private": true,
+  "main": "server.js",
   "homepage": "https://github.com/GamingGen/Site-GamingGen",
   "description": "site-gaminggen",
   "license": "AGPL-3.0",
@@ -70,9 +71,9 @@
     "url": "https://github.com/GamingGen/Site-GamingGen.git"
   },
   "engines": {
-    "node": ">=6.7.0"
+    "node": ">=7.7.0"
   },
   "os": [
-    "!win32"
+    "win32", "linux"
   ]
 }
