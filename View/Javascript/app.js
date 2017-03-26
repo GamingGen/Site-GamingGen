@@ -118,7 +118,10 @@
             
             if (response.status !== 200) {
               console.log('Stop Chargement Animation');
-              cfpLoadingBar.complete();
+              
+              $timeout(function () {
+                cfpLoadingBar.complete();
+              }, 500);
             }
             
             if (response.status === 401) {
