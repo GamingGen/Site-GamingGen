@@ -12,7 +12,7 @@ const logPath = path.join(__dirname, '..', dirname, 'all-logs.log');
 console.log(`logPath: ${logPath}`);
 
 fs.access(path.dirname(logPath), fs.R_OK | fs.W_OK, (err) => {
-  console.error(err ? 'no access!' : 'can read/write');
+  console.log(err ? 'no access!' : 'can read/write');
   if (err) {
     fs.mkdir(dirname, (err) => {
       if (err) {

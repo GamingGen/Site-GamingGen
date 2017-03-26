@@ -88,7 +88,7 @@ angular.module("AuthServices", [])
         localStorage.removeItem(key);
     };
 })
-.service("UserService", function($http, $location, SessionService, HttpBufferService) {
+.service("UserService", ['$http', '$location', 'SessionService', 'HttpBufferService', function($http, $location, SessionService, HttpBufferService) {
   var level = 0;
   // SessionService.destroyItem('session.access');
   if (SessionService.getValue("session.access") !== null) {
@@ -180,8 +180,8 @@ angular.module("AuthServices", [])
   // this.setLoginState = function(state) {
   //     this.loginShowing = state;
   // };
-})
-.factory("HttpBufferService", function($injector) {
+}])
+.factory("HttpBufferService", [ '$injector', function($injector) {
 
     var $http;
     var buffer = {};
@@ -204,4 +204,4 @@ angular.module("AuthServices", [])
             $http(buffer.config).then(successCallback, errorCallback);
         }
     };
-});
+}]);
