@@ -22,7 +22,7 @@ Installation Prod (Ubuntu Server 16.04 LTS):
     
     2. Installer Node.JS(6.xx.x) & NPM (3.x)
         - sudo apt-get install curl
-        - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+        - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
         - sudo apt-get install -y nodejs
         - sudo npm install -g npm
         * [INFO]: https://github.com/nodesource/distributions
