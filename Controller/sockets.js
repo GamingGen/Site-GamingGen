@@ -27,8 +27,8 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
     
 	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
 	io.adapter(adapter);
-	// adapter.pubsubClient.on('error', console.error);
-	// adapter.channel.on('error', console.error);
+	adapter.pubsubClient.on('error', console.error);
+	adapter.channel.on('error', console.error);
 	
 	// Configuration de Socket.IO pour pouvoir avoir accès au sessions
 	io.use(function(socket, next) {

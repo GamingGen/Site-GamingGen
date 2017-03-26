@@ -277,8 +277,8 @@ function login(req, res, next) {// Ajouter une option de bypass pour si le mot d
       if (err) {
         return next(err);
       }
+      res.sendStatus(200);
       return res.end(JSON.stringify(user));
-      // return res.sendStatus(200);
     });
   })(req, res, next);
 }

@@ -108,7 +108,7 @@
       $urlRouterProvider.otherwise('/home');
       
       
-      $httpProvider.interceptors.push('$q', '$location', '$state', 'HttpBufferService', '$timeout', 'cfpLoadingBar', [function($q, $location, $state, HttpBufferService, $timeout, cfpLoadingBar) {
+      $httpProvider.interceptors.push(['$q', '$location', '$state', 'HttpBufferService', '$timeout', 'cfpLoadingBar', function($q, $location, $state, HttpBufferService, $timeout, cfpLoadingBar) {
         return {
           "responseError": function(response) {
             var deferred = $q.defer();
