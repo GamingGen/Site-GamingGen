@@ -84,7 +84,7 @@ function SendMail(req, res, mails, html, hash) {
   transporter.sendMail(mailOptions, function(error, info) {
     console.log('info: ', info);
       if(error) {
-        console.log(error);
+        console.error(error);
         res.sendStatus(500);
       }
       else {
@@ -124,7 +124,7 @@ router.post('/logout', (req, res) => {
 router.get('/', (req, res) => {
     userSchema.findOne({pseudo: 'DarkTerra'}).populate('name').exec(function (err, docs) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else {
         res.json(docs);
@@ -166,7 +166,7 @@ router.post('/insert', function (req, res) {
   
   newUser.save(function(err) {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.sendStatus(500);
     }
     else
@@ -183,7 +183,7 @@ router.post('/insert', function (req, res) {
 router.get('/listNoBan', function (req, res) {
   userSchema.find({'access.ban' : false}, function (err, rows) {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.sendStatus(500);
     } else {
       res.json(rows);
@@ -197,7 +197,7 @@ router.get('/listNoBan', function (req, res) {
 router.get('/listBan', function (req, res) {
   userSchema.find({'access.ban' : true}, function (err, rows) {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.sendStatus(500);
     } else {
       res.json(rows);
@@ -211,7 +211,7 @@ router.get('/listBan', function (req, res) {
 router.post('/ban', function(req, res) {
    userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : true},function (err, rows) {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.sendStatus(500);
     } else {
       let serverEvent  = require('./ServerEvent');
@@ -227,7 +227,7 @@ router.post('/ban', function(req, res) {
 router.post('/unban', function(req, res) {
   userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : false}, function (err, rows) {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.sendStatus(500);
     } else {
       res.sendStatus(200);
@@ -289,7 +289,7 @@ var userEvent = function(ServerEvent) {
     email = email.toLowerCase();
     userSchema.findOne({email: email}, function (err, doc) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else if (doc != null && doc.email === email) {
         ServerEvent.emit('isMailExistResult', true, socket);
@@ -303,7 +303,7 @@ var userEvent = function(ServerEvent) {
   ServerEvent.on('isPseudoExist', function(pseudo, socket) {
     userSchema.findOne({pseudo: pseudo}, function (err, doc) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else if (doc != null && doc.pseudo === pseudo) {
         ServerEvent.emit('isPseudoExistResult', true, socket);

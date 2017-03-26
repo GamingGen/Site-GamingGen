@@ -22,7 +22,7 @@ router.post('/insert', function(req, res) {
   
   newTeam.save(function(err) {
     if (err) {
-      console.log(err);
+      console.error(err);
     }
   });
 });
@@ -34,7 +34,7 @@ var teamEvent = function(ServerEvent) {
   // ServerEvent.on('isMailExist', function(email, socket) {
   //   teamSchema.findOne({email: email}, function (err, doc) {
   //     if (err) {
-  //       console.log(err);
+  //       console.error(err);
   //     }
   //     else if (doc != null && doc.email === email) {
   //       ServerEvent.emit('isMailExistResult', true, socket);

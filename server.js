@@ -54,9 +54,9 @@ const pmx = require('pmx').init({
 
 
 // mongoose
-mongoose.connect('mongodb://localhost/gaminggen', (error) => {
-    if (error) {
-        console.log(error);
+mongoose.connect('mongodb://localhost/gaminggen', (err) => {
+    if (err) {
+        console.error(err);
         
         // TODO à changer (gestion tentatire reconnexions)
         process.exit(1);

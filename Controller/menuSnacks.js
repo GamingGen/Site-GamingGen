@@ -10,7 +10,7 @@ var exports = module.exports = {};
 router.get('/', function (req, res) {
   menuSnackSchema.find({}, null, {sort: {$natural: -1}}, function(err, results) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else {
         res.json(results);
@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
 router.get('/getLastMenu', function (req, res) {
   menuSnackSchema.findOne({}, null, {sort: {$natural: -1}}, function(err, results) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else {
         res.json(results);
@@ -32,7 +32,7 @@ router.get('/getLastMenu', function (req, res) {
 router.get('/getMenu/:year', function (req, res) {
   menuSnackSchema.findOne({year: req.params.year}, null, null, function(err, results) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else {
         res.json(results);
@@ -43,7 +43,7 @@ router.get('/getMenu/:year', function (req, res) {
 router.get('/getYears', function (req, res) {
   menuSnackSchema.findOne({}, null, {sort: {$natural: -1}}, function(err, results) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else {
         res.json(results.year);
@@ -62,7 +62,7 @@ var menuSnackEvent = function(ServerEvent) {
     newMenuSnack.save(function(err) {
       if (err) {
         //throw err;
-        console.log(err);
+        console.error(err);
       }
       else {
         ServerEvent.emit('MenuSnackSaved', data, socket);

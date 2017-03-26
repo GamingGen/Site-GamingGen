@@ -12,9 +12,9 @@
 'use strict';
 
 const socketio     = require('socket.io');
-// const mongoAdapter = require('socket.io-redis');
+const mongoAdapter = require('socket.io-mongodb');
 const check        = require('check-types');
-// const adapter      = mongoAdapter({ host: 'localhost', port: 6379 });
+const adapter      = mongoAdapter('mongodb://localhost:27017/socket-io');
 
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
 	let io                = socketio(server);
@@ -26,7 +26,7 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	let Live              = {}; // TODO A déplacer
     
 	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
-	// io.adapter(adapter);
+	io.adapter(adapter);
 	// adapter.pubsubClient.on('error', console.error);
 	// adapter.channel.on('error', console.error);
 	

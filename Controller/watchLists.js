@@ -22,7 +22,7 @@ router.post('/insert', function(req, res) {
   newWatchList.save(function(err) {
     if (err) {
       //throw err;
-      console.log(req.query.username + ' Existe Déjà !');
+      console.error(req.query.username + ' Existe Déjà !');
     }
   });
 });
@@ -32,7 +32,7 @@ router.post('/update', function(req, res) {
     'name': req.query.name
   },
   function(err, user) {
-    console.log((user));
+    console.error(user);
   });
 });
 
