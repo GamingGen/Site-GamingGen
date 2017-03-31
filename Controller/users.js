@@ -97,7 +97,7 @@ function SendMail(req, res, mails, html, hash) {
 
 
 
-router.post('/login', login);
+// router.post('/login', login);
 
 // passport.authenticate('local'), (req, res) => {
 //   if (req.user) {

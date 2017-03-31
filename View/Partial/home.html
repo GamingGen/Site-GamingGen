@@ -84,15 +84,17 @@
         </div>-->
         
 
-        <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ 'firstThumbNews' : $index === 0, 'col-xs-8' : $index === 0, 'otherThumbNews' : $index > 0, 'col-xs-4' : $index > 0, 'row' : $index === 0 || $index === 2 }">
-          <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
-            <h1>{{article.title}} - 
-              <div ng-show="article.type.hot_news">Hot news</div>
-              <div ng-show="article.type.critical_info">Info cruciale</div>
-            </h1>
-            {{article.desc}}...
-            <img class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
-          </a>
+        <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ 'row' : $index === 0 || $index === 2 }">
+          <div ng-class="{ 'firstThumbNews' : $index === 0, 'col-xs-8' : $index === 0, 'otherThumbNews' : $index > 0, 'col-xs-4' : $index > 0 }">
+            <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
+              <h1>{{article.title}} - 
+                <div ng-show="article.type.hot_news">Hot news</div>
+                <div ng-show="article.type.critical_info">Info cruciale</div>
+              </h1>
+              {{article.desc}}...
+              <img class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
+            </a>
+          </div>
         </div>
       <div class="otherThumbNews col-xs-4">
         <h1>Le reste des articles</h1>
