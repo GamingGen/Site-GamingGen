@@ -23,7 +23,7 @@ let commentEvent = function(ServerEvent) {
       result.save(function(err) {
         if (err) {
           //throw err;
-          console.log(err);
+          console.error(err);
         }
         else {
           delete data.text;

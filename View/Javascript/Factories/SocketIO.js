@@ -2,7 +2,7 @@
 
 var Socket = angular.module('Socket', []);
 
-Socket.factory('socket', function ($rootScope) {
+Socket.factory('socket', ['$rootScope', function ($rootScope) {
   console.log('socket.io create');
   
   var socket = io.connect();
@@ -26,4 +26,4 @@ Socket.factory('socket', function ($rootScope) {
       });
     }
   };
-});
+}]);

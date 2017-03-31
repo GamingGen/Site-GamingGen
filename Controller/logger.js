@@ -16,7 +16,7 @@ fs.access(path.dirname(logPath), fs.R_OK | fs.W_OK, (err) => {
   if (err) {
     fs.mkdir(dirname, (err) => {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else {
         console.log('Log Folder Created');

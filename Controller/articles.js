@@ -14,7 +14,7 @@ const router	= express.Router();
 router.get('/', function (req, res) {
   articleSchema.find({}, function (err, docs) {
     if (err) {
-      console.log(err);
+      console.error(err);
     }
     else {
       res.json(docs);
@@ -26,7 +26,7 @@ router.get('/', function (req, res) {
 router.get('/:id', function (req, res) {
   articleSchema.findOne({id: req.params.id}, function (err, docs) {
     if (err) {
-      console.log(err);
+      console.error(err);
     }
     else {
       res.json(docs);
@@ -38,7 +38,7 @@ router.get('/:id', function (req, res) {
 router.get('/home', function (req, res) {
   articleSchema.find({}, null, {sort: { register_date: -1 }, limit: 4 }, function (err, docs) {
     if (err) {
-      console.log(err);
+      console.error(err);
     }
     else {
       res.json(docs);
@@ -62,14 +62,14 @@ let articleEvent = function(ServerEvent) {
       
     // data = newArticle.CheckOrder(function(err) {
     //   if(err) {
-    //     console.log(err);
+    //     console.error(err);
     //   }
     // });
     
     newArticle.save(function(err) {
       if (err) {
         //throw err;
-        console.log(err);
+        console.error(err);
       }
       else {
         delete data.text;

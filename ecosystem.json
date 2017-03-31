@@ -7,7 +7,7 @@
     {
       "name"              : "SI-GamingGen",
       "script"            : "server.js",
-      "instances"          : 1,
+      "instances"         : 1,
       "exec_mode"         : "cluster",
       "max_memory_restart": "512M",
       "port"              : 3000,
@@ -35,10 +35,11 @@
       "repo"              : "https://github.com/GamingGen/Site-GamingGen.git",
       "path"              : "/home/nodeuser/www/pre-production",
       "pre-deploy-local"  : "echo 'This is a local executed command test Prod'",
-      "post-deploy"       : "npm install; gulp prod; rm -fr View/Javascript View/Style docs OnlyForCloude9 OnlyForVisualCode karma.conf.js .eslintrc .editorconfig; mv View/dist/* View/; rm -fr View/dist; pm2 startOrReload ecosystem.json;",
+      "post-deploy"       : "npm install; gulp prod; rm -fr View/Javascript View/Style View/css View/js docs OnlyForCloude9 OnlyForVisualCode karma.conf.js .eslintrc .editorconfig; mv View/dist/* View/; rm -fr View/dist; pm2 startOrReload ecosystem.json;",
       "env" : {
         "NODE_ENV"                      : "production",
         "NODE_TLS_REJECT_UNAUTHORIZED"  : "0",
+        "NODEMAILER_MAIL"               : process.env.NODEMAILER_MAIL,
         "NODEMAILER_USER"               : process.env.NODEMAILER_USER,
         "NODEMAILER_PASS"               : process.env.NODEMAILER_PASS
       }

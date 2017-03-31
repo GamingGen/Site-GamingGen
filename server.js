@@ -37,6 +37,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const MongoStore    = require('connect-mongo')(session);
 const os            = require('os');
 const moment        = require('moment');
+const sticky        = require('sticky-session');
 
 
 // let resumable    = require('./resumable-node.js')('tmp/');
@@ -54,9 +55,9 @@ const pmx = require('pmx').init({
 
 
 // mongoose
-mongoose.connect('mongodb://localhost/gaminggen', (error) => {
-    if (error) {
-        console.log(error);
+mongoose.connect('mongodb://localhost/gaminggen', (err) => {
+    if (err) {
+        console.error(err);
         
         // TODO à changer (gestion tentatire reconnexions)
         process.exit(1);
@@ -199,50 +200,57 @@ function shouldCompress(req, res) {
   return compression.filter(req, res);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
+// Gestion message de démarrage
+function startMessage (err, nodeVersion, refVersion) {
+  if (err) {
+    console.log(`La version du serveur Node.JS doit être plus récente : `.warn);
+    console.log(`Version demandé : ${refVersion}, votre version : ${nodeVersion}`.data);
+  }
+  else {
+    console.log(`Version du server OK...`.verbose);
+    console.log(`La version du serveur Node.JS : `.data + process.version.warn);
+    console.log(`Le serveur Node.JS fonctionne sur la plateforme : `.data + process.platform.warn);
+  }
+}
 
 // Check Version of Node before Launch.
 fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     if (err) throw err;
     
-    let refVersion = parseInt(JSON.parse(data).engines.node.replace(/[^0-9]/g, ''), 10);
-    let nodeVersion = parseInt(process.version.replace(/[^0-9]/g, ''), 10);
+    const operator          = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
+    const refVersion        = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
+    const nodeVersion       = process.version.replace(/[^0-9.]/g, '').split('.');
+    const refVersionMajeur  = parseInt(refVersion[0], 10);
+    const refVersionMineur  = parseInt(refVersion[1], 10);
+    const refVersionFix     = parseInt(refVersion[2], 10);
+    const nodeVersionMajeur = parseInt(nodeVersion[0], 10);
+    const nodeVersionMineur = parseInt(nodeVersion[1], 10);
+    const nodeVersionFix    = parseInt(nodeVersion[2], 10);
     
+    console.log(operator);
     console.log(refVersion);
     console.log(nodeVersion);
     
-    // Cette methode ne foncitonne pas si la version demandé minimum est 7.10.5 et que nous avons la version 8.0.1
-    // Car les numéro de versions sont simplement sans les '.' du coup cela donne 7105 et 801.
-    // 801 est inférieur à 7105, alors que notre version est en réalité plus récente. TODO Trouver une autre solution...
-    if (nodeVersion >= refVersion) {
-      console.log('Version du server OK...'.verbose);
-      console.log('La version du serveur Node.JS : '.data + process.version.warn);
-      console.log('Le serveur Node.JS fonctionne sur la plateforme : '.data + process.platform.warn);
+    if (operator === '>=') {
+      if (nodeVersionMajeur > refVersionMajeur) {
+        startMessage(undefined, nodeVersion, refVersion);
+      }
+      else if (nodeVersionMajeur == refVersionMajeur && nodeVersionMineur > refVersionMineur) {
+        startMessage(undefined, nodeVersion, refVersion);
+      }
+      else if (nodeVersionMajeur == refVersionMajeur && nodeVersionMineur == refVersionMineur && nodeVersionFix >= refVersionFix) {
+        startMessage(undefined, nodeVersion, refVersion);
+      }
+      else {
+        startMessage('not OK', nodeVersion, refVersion);
+        process.exit(1);
+      }
     }
     else {
-      console.log('La version du serveur Node.JS doit être plus récente : '.warn);
-      console.log('Version demandé : '.data + refVersion + ', votre version : '.data + nodeVersion);
+      console.log(`L'operateur (package.json => engine) doit être égal à : '>='`.warn);
       process.exit(1);
     }
-    
-    // let operator = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
-    // let refVersion = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
-    // let nodeVersion = process.version.replace(/[^0-9.]/g, '').split('.');
-    
-    // console.log(operator);
-    
-    
-    // if (parseInt(nodeVersion[0], 10) > parseInt(refVersion[0], 10)) {
-    //   console.log('Version du server OK...'.verbose);
-    //   console.log('La version du serveur Node.JS : '.data + process.version.warn);
-    //   console.log('Le serveur Node.JS fonctionne sur la plateforme : '.data + process.platform.warn);
-    // }
-    // else {
-    //   console.log('La version du serveur Node.JS doit être plus récente : '.warn);
-    //   console.log('Version demandé : '.data + refVersion + ', votre version : '.data + nodeVersion);
-    //   process.exit(1);
-    // }
-    
+
     // Création du serveur
     http.listen(port, () => {
       console.log(`\nSI-GamingGen listening at 127.0.0.1:${port}`.verbose);

@@ -2,7 +2,7 @@
 
 var Slider = angular.module('Slider', []);
 
-Slider.service('slider', function ($rootScope, $window, $timeout) {
+Slider.service('slider', ['$rootScope', '$window', '$timeout', function ($rootScope, $window, $timeout) {
   console.log('Service for Slider Created');
   
   this.hide = function(desactiveSlide) {
@@ -106,4 +106,4 @@ Slider.service('slider', function ($rootScope, $window, $timeout) {
       });
     });
   };
-});
+}]);
