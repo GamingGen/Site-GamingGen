@@ -1,0 +1,21 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "exclude": [ "node_modules", "Lib", "Locales", "Logs", "data", "/home/ubuntu/workspace/adminMongo/locales/de.js", ".git", ".c9", "client", "doc", "dump", "OnlyForCloude9" ],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": [],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles": true
+        }
+    },
+    "opts": {
+        "destination":  "docs/jsdoc"
+    }
+}

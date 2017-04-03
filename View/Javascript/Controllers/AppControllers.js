@@ -6,10 +6,10 @@
 var AppControllers = angular.module('AppControllers', []);
 
 
-AppControllers.directive('modal', function () {
-  return {
-    template: '../Partial/modal.html',
-    restrict: 'E'//,
+// AppControllers.directive('modal', function () {
+//   return {
+//     template: '../Partial/modal.html',
+//     restrict: 'E'//,
     // transclude: true,
     // replace:true,
     // scope:true,
@@ -35,5 +35,5 @@ AppControllers.directive('modal', function () {
     //     });
     //   });
     // }
-  };
-});
+//   };
+// });

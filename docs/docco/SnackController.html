@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>SnackController.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>SnackController.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> AppControllers = angular.module(<span class="hljs-string">'AppControllers'</span>);
+
+AppControllers.controller(<span class="hljs-string">'snackCtrl'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'socket'</span>, <span class="hljs-string">'$http'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, socket, $http</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>—– Init —–</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> order      = <span class="hljs-keyword">this</span>;
+  order.elements = [];
+  order.paid     = <span class="hljs-literal">false</span>;
+  order.total    = <span class="hljs-number">0</span>;
+  order.lists    = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>—– GET / SET Data —–</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $http.get(<span class="hljs-string">'/menusnacks/getLastMenu'</span>).success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    order.lists = data.elements;
+  });
+  
+  $scope.idSelectedElement = <span class="hljs-literal">undefined</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>—– Public Méthode —–</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.setSelected = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">idSelectedElement</span>) </span>{
+    <span class="hljs-keyword">if</span> (idSelectedElement != <span class="hljs-literal">undefined</span>){
+      $scope.idSelectedElement = idSelectedElement;
+    }
+  };
+  
+  $scope.addElement = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, unit_price</span>) </span>{
+    <span class="hljs-keyword">if</span> (name != <span class="hljs-literal">undefined</span> &amp;&amp; unit_price != <span class="hljs-literal">undefined</span> &amp;&amp; $scope.idSelectedElement != <span class="hljs-literal">undefined</span>) {
+      order.elements[$scope.idSelectedElement].name += <span class="hljs-string">' + '</span> + name;
+      order.elements[$scope.idSelectedElement].unit_price += unit_price;
+      calculatePrice(order.elements[$scope.idSelectedElement].quantity, $scope.idSelectedElement);
+   
+      calculateTotal();
+    }
+  };
+  
+  $scope.addQuantity = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index</span>) </span>{
+    <span class="hljs-keyword">if</span> (index != <span class="hljs-literal">undefined</span> &amp;&amp; index &gt;= <span class="hljs-number">0</span>) {
+      calculatePrice(++order.elements[index].quantity, index);
+      
+      calculateTotal();
+    }
+  };
+  
+  $scope.subQuantity = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index</span>) </span>{
+    <span class="hljs-keyword">if</span> (index != <span class="hljs-literal">undefined</span> &amp;&amp; index &gt;= <span class="hljs-number">0</span> &amp;&amp; order.elements[index].quantity &gt; <span class="hljs-number">1</span>) {
+      calculatePrice(--order.elements[index].quantity, index);
+    
+      calculateTotal();
+    }
+  };
+  
+  $scope.addRow = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, unit_price</span>) </span>{
+    <span class="hljs-keyword">if</span> (name != <span class="hljs-literal">undefined</span> &amp;&amp; unit_price != <span class="hljs-literal">undefined</span>) {
+      order.elements.push({<span class="hljs-attr">quantity</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: name, <span class="hljs-attr">price</span>: unit_price, <span class="hljs-attr">unit_price</span>: unit_price});
+    
+      calculateTotal();
+    }
+  };
+  
+  $scope.removeRow = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index</span>) </span>{
+    <span class="hljs-keyword">if</span> (index != <span class="hljs-literal">undefined</span> &amp;&amp; index &gt;= <span class="hljs-number">0</span>) {
+      order.elements.splice(index, <span class="hljs-number">1</span>);
+      
+      calculateTotal();
+      
+      $scope.idSelectedElement = <span class="hljs-literal">undefined</span>;
+    }
+  };
+  
+  $scope.sendOrder = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (order.elements.length &gt; <span class="hljs-number">0</span> &amp;&amp; $scope.pseudo.length &gt; <span class="hljs-number">0</span>) {
+      order.name = $scope.pseudo;
+      order.paid = <span class="hljs-literal">true</span>;
+      order.total;
+      socket.emit(<span class="hljs-string">'generatePDF'</span>, order);
+      
+      
+      $scope.pseudo  = <span class="hljs-string">''</span>;
+      order.name     = $scope.pseudo;
+      order.elements = [];
+      order.paid     = <span class="hljs-literal">false</span>;
+      order.total    = <span class="hljs-number">0</span>;
+    }
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>—– Private Méthode —–</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calculatePrice</span>(<span class="hljs-params">quantity, index</span>) </span>{
+    <span class="hljs-keyword">if</span> (quantity &gt; <span class="hljs-number">0</span>) {
+      order.elements[index].price = quantity * order.elements[index].unit_price;
+    }
+  }
+  
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calculateTotal</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> total = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; order.elements.length; i++) {
+      total += (order.elements[i].unit_price * order.elements[i].quantity);
+    }
+    order.total = total.toFixed(<span class="hljs-number">2</span>);
+  };
+}]);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

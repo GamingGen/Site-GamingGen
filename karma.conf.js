@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Thu Sep 29 2016 21:38:18 GMT+0000 (UTC)
 
+const base = '/home/ubuntu/workspace/node_modules/';
+
 module.exports = function(config) {
   config.set({
 
@@ -15,11 +17,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '/home/ubuntu/workspace/node_modules/angular/angular.min.js',
-      '/home/ubuntu/workspace/node_modules/angular-ui-router/release/angular-ui-router.min.js',
-      '/home/ubuntu/workspace/node_modules/angular-mocks/angular-mocks.js',
+      base + 'angular/angular.min.js',
+      base + 'angular-ui-router/release/angular-ui-router.min.js',
+      base + 'angular-mocks/angular-mocks.js',
       '*.js',
-      'Controllers/AppControllers.js', // Obligatoire ?
+      'Controllers/*.js', // Obligatoire ?
       '**/*.js',
       'http://localhost:8080/socket.io/socket.io.js'
       // 'Tests/*Spec.js', // A supprimer
@@ -30,7 +32,7 @@ module.exports = function(config) {
     exclude: [
       'Lib/*.js',
       'tinyMCE/*.js',
-      'tinyMCE/**/*.js',
+      'tinyMCE/**/*.js'
     ],
 
 
@@ -41,7 +43,7 @@ module.exports = function(config) {
       'Controllers/*.js': ['babel'], // Obligatoire ?
       'Factories/*.js': ['babel'], // Obligatoire ?
       'Services/*.js': ['babel'], // Obligatoire ?
-      '**/*.js': ['babel'],
+      '**/*.js': ['babel']
     },
     
     

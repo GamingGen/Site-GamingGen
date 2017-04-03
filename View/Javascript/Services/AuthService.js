@@ -88,9 +88,9 @@ angular.module("AuthServices", [])
         localStorage.removeItem(key);
     };
 })
-.service("UserService", function($http, $location, SessionService, HttpBufferService) {
+.service("UserService", ['$http', '$location', 'SessionService', 'HttpBufferService', function($http, $location, SessionService, HttpBufferService) {
   var level = 0;
-  
+  // SessionService.destroyItem('session.access');
   if (SessionService.getValue("session.access") !== null) {
     level = JSON.parse(SessionService.getValue("session.access")).level;
   }
@@ -125,10 +125,9 @@ angular.module("AuthServices", [])
           "email": user.email,
           "password": user.password
       }).then(function success(response) {
+        console.log('response: ', response);
         
-        console.log('response:');
-        console.log(response);
-        
+        user.password = '';
         self.currentUser.email = response.data.email;
         self.currentUser.isLoggedIn = true;
         SessionService.setValue("session.email", response.data.email);
@@ -140,9 +139,7 @@ angular.module("AuthServices", [])
         // or
         // HttpBufferService.retryLastRequest();
       }, function error(err) {
-        console.log('err');
-        console.log(err);
-        
+        console.log('err: ', err);
       });
       
   };
@@ -161,13 +158,13 @@ angular.module("AuthServices", [])
   
   this.validate = function(hash) {
       var self = this;
-      return $http.post("/users/validate", {hash})
+      return $http.post("/users/validate", {hash: hash})
         // TODO quand le bypass de connexion sera implémenté
         /*
-        .success(function(user){
+        .success(function(user) {
           self.login(user);
         })*/
-        .success(function(){
+        .success(function() {
           $("#msgInfo").html("Compte validé !");
           $("#msgInfo").show().delay(3000).fadeOut();
         })
@@ -183,8 +180,8 @@ angular.module("AuthServices", [])
   // this.setLoginState = function(state) {
   //     this.loginShowing = state;
   // };
-})
-.factory("HttpBufferService", function($injector) {
+}])
+.factory("HttpBufferService", [ '$injector', function($injector) {
 
     var $http;
     var buffer = {};
@@ -207,4 +204,4 @@ angular.module("AuthServices", [])
             $http(buffer.config).then(successCallback, errorCallback);
         }
     };
-});
+}]);

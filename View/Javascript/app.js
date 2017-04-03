@@ -1,9 +1,7 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'AppControllers', 'Socket', 'Slider', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate',
-  'UserS', // Services
-  ]);
+  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'AppControllers', 'Socket', 'Slider', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'UserS']);
   
   app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -110,7 +108,7 @@
       $urlRouterProvider.otherwise('/home');
       
       
-      $httpProvider.interceptors.push(function($q, $location, $state, HttpBufferService, $timeout, cfpLoadingBar) {
+      $httpProvider.interceptors.push(['$q', '$location', '$state', 'HttpBufferService', '$timeout', 'cfpLoadingBar', function($q, $location, $state, HttpBufferService, $timeout, cfpLoadingBar) {
         return {
           "responseError": function(response) {
             var deferred = $q.defer();
@@ -120,7 +118,10 @@
             
             if (response.status !== 200) {
               console.log('Stop Chargement Animation');
-              cfpLoadingBar.complete();
+              
+              $timeout(function () {
+                cfpLoadingBar.complete();
+              }, 500);
             }
             
             if (response.status === 401) {
@@ -142,12 +143,10 @@
             return deferred.promise;
           }
         };
-      });
+      }]);
       
       // TODO Trouver comment intercepter le CTRL + R || F5
       // $locationProvider.html5Mode(true);
     }
   ]);
-  
-  
 })();

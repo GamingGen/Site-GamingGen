@@ -1,20 +1,21 @@
 /**
- * Version Alpha 1.1.0
- * Date de Création 30/04/2016
- * Date de modification 08/03/2017
+ * @file server.js
+ * @desc Point d'entrée de l'application 'Gaming-Gen'. <br />
+ * L'application Gaming-Gen permet de gérer entièrement notre évènement. <br />
+ * blablabla <br />
+ * <br />
+ * <b>~5 306 442</b> de lignes de code <br />
+ * <br />
+ * Date de Création 30/04/2016 <br />
+ * Date de modification 18/03/2017 <br />
  * 
- * ~2 769 835 de lignes de code
+ * @version Alpha 1.1.0
  * 
- * server.js
- * Point d'entrée de l'application 'Gaming-Gen'.
- * L'application Gaming-Gen permet de gérer entièrement notre évènement.
+ * @author Jérémy Young            <darkterra01@gmail.com>
+ * @author Loïc Tardivel-Lacombe   <>
+ * @author Laura Auboin Maurizio   <>
+ * @author Frédéric Guazzini       <>
  * 
- * Conçu par l'équipe de Gaming-Gen :
- *  - Jérémy Young            <darkterra01@gmail.com>
- *  - Loïc Tardivel-Lacombe   <>
- *  - Laura Auboin Maurizio   <>
- *  - Frédéric Guazzini       <>
- *  -
  */
 
 'use strict';
@@ -28,20 +29,22 @@ const path          = require('path');
 const cookieParser  = require('cookie-parser');
 const bodyParser    = require('body-parser');
 const colors        = require('colors');
-// let resumable    = require('./resumable-node.js')('tmp/');
-// let shelljs      = require('shelljs');
 const fs            = require('fs');
 const session       = require('express-session');
 const mongoose      = require('mongoose');
 const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore    = require('connect-mongo')(session);
+const os            = require('os');
+const moment        = require('moment');
+const sticky        = require('sticky-session');
 
-const logger        = require('./Controller/logger');
 
+// let resumable    = require('./resumable-node.js')('tmp/');
+// let shelljs      = require('shelljs');
 
 // PMX For PM2
-var pmx = require('pmx').init({
+const pmx = require('pmx').init({
   http          : true, // HTTP routes logging (default: true)
   ignore_routes : [/socket\.io/, /notFound/], // Ignore http routes with this pattern (Default: [])
   errors        : true, // Exceptions loggin (default: true)
@@ -52,9 +55,9 @@ var pmx = require('pmx').init({
 
 
 // mongoose
-mongoose.connect('mongodb://localhost/gaminggen', (error) => {
-    if (error) {
-        console.log(error);
+mongoose.connect('mongodb://localhost/gaminggen', (err) => {
+    if (err) {
+        console.error(err);
         
         // TODO à changer (gestion tentatire reconnexions)
         process.exit(1);
@@ -67,21 +70,22 @@ let ServerEvent  = require('./Controller/ServerEvent');
 
 
 // Require Controllers
-let User        = require('./Controller/users');
-let Conf        = require('./Controller/confs');
-let Article     = require('./Controller/articles');
-let Comment     = require('./Controller/comments');
-let Partenaire  = require('./Controller/partenaires');
-let WatchList   = require('./Controller/watchLists');
-let Team        = require('./Controller/teams');
-let Snack       = require('./Controller/snacks');
-let MenuSnack   = require('./Controller/menuSnacks');
-let Shop        = require('./Controller/shop');
-let Order       = require('./Controller/order');
+const logger      = require('./Controller/logger');
+const User        = require('./Controller/users');
+const Conf        = require('./Controller/confs');
+const Article     = require('./Controller/articles');
+const Comment     = require('./Controller/comments');
+const Partenaire  = require('./Controller/partenaires');
+const WatchList   = require('./Controller/watchLists');
+const Team        = require('./Controller/teams');
+const Snack       = require('./Controller/snacks');
+const MenuSnack   = require('./Controller/menuSnacks');
+const Shop        = require('./Controller/shop');
+const Order       = require('./Controller/order');
 
 
 // Require des Models
-let userSchema = require('./Model/userSchema');
+const userSchema = require('./Model/userSchema');
 
 
 // Conf color
@@ -196,42 +200,61 @@ function shouldCompress(req, res) {
   return compression.filter(req, res);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
+// Gestion message de démarrage
+function startMessage (err, nodeVersion, refVersion) {
+  if (err) {
+    console.log(`La version du serveur Node.JS doit être plus récente : `.warn);
+    console.log(`Version demandé : ${refVersion}, votre version : ${nodeVersion}`.data);
+  }
+  else {
+    console.log(`Version du server OK...`.verbose);
+    console.log(`La version du serveur Node.JS : `.data + process.version.warn);
+    console.log(`Le serveur Node.JS fonctionne sur la plateforme : `.data + process.platform.warn);
+  }
+}
 
 // Check Version of Node before Launch.
 fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     if (err) throw err;
     
-    
-    // var refVersion = parseInt(JSON.parse(data).engines.node.replace(/[^0-9]/g, ''), 10);
-    // var nodeVersion = parseInt(process.version.replace(/[^0-9]/g, ''), 10);
-    
-    let operator = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
-    let refVersion = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
-    let nodeVersion = process.version.replace(/[^0-9.]/g, '').split('.');
+    const operator          = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
+    const refVersion        = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
+    const nodeVersion       = process.version.replace(/[^0-9.]/g, '').split('.');
+    const refVersionMajeur  = parseInt(refVersion[0], 10);
+    const refVersionMineur  = parseInt(refVersion[1], 10);
+    const refVersionFix     = parseInt(refVersion[2], 10);
+    const nodeVersionMajeur = parseInt(nodeVersion[0], 10);
+    const nodeVersionMineur = parseInt(nodeVersion[1], 10);
+    const nodeVersionFix    = parseInt(nodeVersion[2], 10);
     
     console.log(operator);
     console.log(refVersion);
     console.log(nodeVersion);
     
-    
-    
-    
-    if (parseInt(nodeVersion[0], 10) > parseInt(refVersion[0], 10)) {
-      console.log('Version du server OK...'.verbose);
-      console.log('La version du serveur Node.JS : '.data + process.version.warn);
-      console.log('Le serveur Node.JS fonctionne sur la plateforme : '.data + process.platform.warn);
+    if (operator === '>=') {
+      if (nodeVersionMajeur > refVersionMajeur) {
+        startMessage(undefined, nodeVersion, refVersion);
+      }
+      else if (nodeVersionMajeur == refVersionMajeur && nodeVersionMineur > refVersionMineur) {
+        startMessage(undefined, nodeVersion, refVersion);
+      }
+      else if (nodeVersionMajeur == refVersionMajeur && nodeVersionMineur == refVersionMineur && nodeVersionFix >= refVersionFix) {
+        startMessage(undefined, nodeVersion, refVersion);
+      }
+      else {
+        startMessage('not OK', nodeVersion, refVersion);
+        process.exit(1);
+      }
     }
     else {
-      console.log('La version du serveur Node.JS doit être plus récente : '.warn);
-      console.log('Version demandé : '.data + refVersion + ', votre version : '.data + nodeVersion);
+      console.log(`L'operateur (package.json => engine) doit être égal à : '>='`.warn);
       process.exit(1);
     }
-    
+
     // Création du serveur
     http.listen(port, () => {
-      console.log('\nSI-GamingGen listening at 127.0.0.1:'.verbose + port.verbose);
-      // console.log('La plateforme fonctionne depuis : '.data + tools.convertTimeToHuman(os.uptime()).warn);
+      console.log(`\nSI-GamingGen listening at 127.0.0.1:${port}`.verbose);
+      console.log('La plateforme fonctionne depuis : '.data + colors.warn(moment.duration((os.uptime().toFixed(0))*1000).humanize()));
     });
   });
 

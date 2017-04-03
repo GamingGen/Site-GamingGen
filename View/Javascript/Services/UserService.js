@@ -10,6 +10,6 @@ ListRoles.service('usersService', [function () {
         self.banList.push(user);
     else
         self.userList.push(user);
-  }
+  };
   
 }]);
