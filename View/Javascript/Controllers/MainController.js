@@ -2,7 +2,7 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$scope', 'socket', '$window', '$http', function(UserService, $location, $state, $scope, socket, $window, $http) {
+AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$scope', '$transitions', 'socket', '$window', '$http', function(UserService, $location, $state, $scope, $transitions, socket, $window, $http) {
   // ----- Init -----
   var user        = {};
   var pages       = {};
@@ -190,7 +190,11 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   
   // ----- jQuery -----
-  
+
+  $transitions.onSuccess({}, function () { 
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+  });
+
   // Collapse Menu responsive
   $('.dropdown-menu a, .navbar-brand, .autoCollapse, .toCollapse').on('click', function() {
     $('.navbar-collapse').collapse('hide');

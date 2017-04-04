@@ -370,7 +370,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   position: absolute;
   display : block;
   height  :290px;
-  width   : 50%;
+  width   : 100%;
 }
 .btn{
   outline: none;

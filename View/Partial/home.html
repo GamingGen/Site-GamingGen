@@ -1,155 +1,95 @@
-<!--<div class="container well">-->
-  <div class="" ng-controller="homeCtrl as news">
-<!--Présentations des deux univers, dernière apparition-->
-    <div class="triprez">
-      <div class="box boxleft">
-        <div class="boxorange"></div>
-        <a href="">
-          <div class="textBoxOrange">
-            <span class="orangetxt smalltxt">Découvrez</span>
-            <span class="orangetxt">LE</span> FESTIVAL<br/>
-            <span class="orangetxt">DU</span> JEU
-          </div>
-        </a>
-      </div>
-      <div class="box boxmid">
-        <div class="boxvert"></div>
+<div class="" ng-controller="homeCtrl as news">
+  <div class="triprez">
+    <div class="box boxleft">
+      <div class="boxorange"></div>
+      <a href="">
+        <div class="textBoxOrange">
+          <span class="orangetxt smalltxt">Découvrez</span>
+          <span class="orangetxt">LE</span> FESTIVAL<br/>
+          <span class="orangetxt">DU</span> JEU
+        </div>
+      </a>
+    </div>
+    <div class="box boxmid">
+      <div class="boxvert"></div>
+      <a href="#">
+        <div class="textBoxVert">
+          <span class="verttxt smalltxt">Entrez</span>
+          <span class="verttxt">DANS LA</span><br/> 
+          COMPÉTITION
+        </div>
+      </a>
+    </div>
+    <div class="box boxright">
         <a href="#">
-          <div class="textBoxVert">
-            <span class="verttxt smalltxt">Entrez</span>
-            <span class="verttxt">DANS LA</span><br/> 
-            COMPÉTITION
-          </div>
-        </a>
-      </div>
-      <div class="box boxright">
-         <a href="#">
-          <div class="infosprochaine"></div>
-          <span class="smalltxt">
-              Notre prochaine apparition :<br/>
+        <div class="infosprochaine"></div>
+        <span class="smalltxt">
+            Notre prochaine apparition :<br/>
+        </span>
+          <span class="orangetxt">
+            HERO<br/>FESTIVAL<br/>
+          </span> 
+          <span class="infosprochaineapparition smalltxt"> Le 28 septembre</span><span class="infosprochaineapparition smalltxt">au parc chanot</span><span class="infosprochaineapparition smalltxt"> à Marseille</span>
           </span>
-           <span class="orangetxt">
-             HERO<br/>FESTIVAL<br/>
-           </span> 
-           <span class="infosprochaineapparition smalltxt"> Le 28 septembre</span><span class="infosprochaineapparition smalltxt">au parc chanot</span><span class="infosprochaineapparition smalltxt"> à Marseille</span>
-           </span>
-          <div id="particles-js"></div>
+        <div id="particles-js"></div>
+      </a>
+    </div>
+    <div class="scrolldown">
+      <a href="" ng-click="scrollTo('Articles')"><img ng-src="../Img/General/flechedown.png"></a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="toparticles row">
+      <div id="Articles" class="titresectionarticles col-sm-12 col-md-12 col-lg-8 col-lg-offset-2" >
+        <h1 class="col-sm-12 col-md-6 col-lg-2">Quoi de neuf, gamers&nbsp;?</h1>
+        <h2 class="col-sm-12 col-md-6 col-lg-4">Toutes les news<br/> de la gaming gen<br/> et du monde du gaming</h2>
+      </div>
+    </div>
+    <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ 'row' : $index === 0 || $index === 2 }">
+      <div ng-class="{ 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
+        <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
+          <span class="wrapperPreviewNews">
+            <h1>{{article.title}}</h1>
+            <h2 class="previewTextThumbNews">
+              <span class="categoryListNews" ng-show="article.type.hot_news">Hot news</span>
+              <span class="categoryListNews" ng-show="article.type.critical_info">Info cruciale</span>
+              <span class="ng-binding">{{article.register_date | date : 'MMMM yyyy'}}</span>
+            </h2>
+          </span>
+          {{article.desc}}...
+          <img class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
         </a>
       </div>
-      <div class="scrolldown">
-        <a href="" ng-click="scrollTo('Articles')"><img ng-src="../Img/General/flechedown.png"></a>
-      </div>
     </div>
-    <div class="container">
-      <div class="toparticles row">
-        <div id="Articles" class="titresectionarticles col-sm-12 col-md-12 col-lg-8 col-lg-offset-2" >
-          <h1 class="col-sm-12 col-md-6 col-lg-2">Quoi de neuf, gamers&nbsp;?</h1>
-          <h2 class="col-sm-12 col-md-6 col-lg-4">Toutes les news<br/> de la gaming gen<br/> et du monde du gaming</h2>
-        </div>
-      </div>
-        <div class="row">
-          <div class="firstThumbNews col-xs-12 col-lg-8">
-            <span class="wrapperPreviewNews">
-              <h1>Coucou le test</h1>
-              <h2 class="previewTextThumbNews">
-                <span class="categoryListNews">Hot news</span>
-                <span class="ng-binding">18 octobre 2016</span>
-              </h2>
-            </span>
-              <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
-                <a class="popNews" href="#"></a>
-              </span>
-          </div>
-          <div class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
-            <h1>col-4</h1>
-            <span style="background:url('https://www.rockpapershotgun.com/images/15/oct/csgo1.jpg') no-repeat center center;" class="imgThumbNews">
-              <a href="#"></a>
-            </span>
-          </div>
-           <div class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
-             <h1>col-4</h1>
-             <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
-              <a href="#"></a>
-              </span>
-            </div>
-            <div class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
-              <h1>col-4</h1>
-              <span style="background:url('https://www.rockpapershotgun.com/images/15/oct/csgo1.jpg') no-repeat center center;" class="imgThumbNews">
-                <a href="#"></a>
-              </span>
-            </div>
-            <div class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
-              <h1>col-4</h1>
-              <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
-                <a href="#"></a>
-              </span>
-            </div>
-            </div>
-        
-      </div>
-      <!--<div class="contenuarticles fullwidth col-lg-offset-2">
-        <div ng-repeat="article in news.articles | limitTo : 4" class="articles col-sm-6 col-md-6 col-lg-4" ng-class="{ 'articlescompetitions' : article.type.hot_news, 'articlesfestival' : article.type.critical_info, 'nobordernopadding' : article.type.critical_info }">
-
-      <div class="contenuarticles fullwidth col-lg-offset-2">
-        <div ng-repeat="article in news.articles | limitTo : 4" class="articles col-sm-6 col-md-6 col-lg-4" ng-class="{ 'articlescompetitions' : article.type.hot_news, 'articlesfestival' : article.type.critical_info, 'nobordernopadding' : $index === 1 || $index === 2 }">
-
-
-        <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ 'row' : $index === 0 || $index === 2 }">
-          <div ng-class="{ 'firstThumbNews' : $index === 0, 'col-xs-8' : $index === 0, 'otherThumbNews' : $index > 0, 'col-xs-4' : $index > 0 }">
-            <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
-              <h1>{{article.title}} - 
-                <div ng-show="article.type.hot_news">Hot news</div>
-                <div ng-show="article.type.critical_info">Info cruciale</div>
-              </h1>
-              {{article.desc}}...
-              <img class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
-            </a>
-          </div>
-        </div>
-      <div class="otherThumbNews col-xs-4">
+    <div class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
+      <span class="wrapperPreviewNews">
         <h1>Le reste des articles</h1>
-        <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
-          <a ui-sref="news"></a>
-        </span>
-      </div>
-      </div>
-      
-      <div class="lesjoueursledisent">
-        <p>Les joueurs le disent<img ng-src="../Img/General/flecheangle.svg"></p>
-      </div>
-      <div class="titrefeedback">
-        MERCI<img ng-src="../Img/General/coeur.svg">
-      </div>
-      <div class="blocdesfeedback">
-        <span>
-          <h5>"CA SENT TRES BON DANS CETTE LAN"</h5>
-          <h6>Kamel Chebat</h6>
-          <img ng-src="../Img/finbulle.png">
-        </span>
-      </div>
-      <div class="instafeed row">
-        <div class="first-case">
-          <h1>DON'T FEED</h1>
-          <h2>@gaming_gen_festival</h2>
-        </div>
-        <script src="https://snapwidget.com/js/snapwidget.js"></script>
-        <iframe src="https://snapwidget.com/embed/359548" class="snapwidget-widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%;"></iframe>      
-        </div>
-      </div>
+      </span>
+      <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
+        <a ui-sref="news"></a>
+      </span>
     </div>
-
-  <!--<div class="row">-->
-  <!--  <div class="hotfix col-3-12">-->
-  <!--    <h6>RECHERCHER</h6>-->
-  <!--    <div class="rechloupe">-->
-  <!--      <input form="Recherche">-->
-  <!--      <button class="loupe" value="submit"><img ng-src="img/loupe.jpg"></button>-->
-  <!--    </div>-->
-  <!--    <div class="lastarticle">-->
-  <!--      <div class="stats"> <span class="csgoimg col-1-4"></span> <h3>COUNTER-STRIKE:GO</h3> <h4>30 Teams / 32 Slots</h4>-->
-  <!--        <progress id="avancement" value="85" max="100"></progress><br/>-->
-  <!--    <div class="surleforum">-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--</div>-->
-<!--</div>-->
+  </div>
+  <div class="lesjoueursledisent">
+    <p>Les joueurs le disent<img ng-src="../Img/General/flecheangle.svg"></p>
+  </div>
+  <div class="titrefeedback">
+    MERCI<img ng-src="../Img/General/coeur.svg">
+  </div>
+  <div class="blocdesfeedback">
+    <span>
+      <h5>"CA SENT TRES BON DANS CETTE LAN"</h5>
+      <h6>Kamel Chebat</h6>
+      <img ng-src="../Img/finbulle.png">
+    </span>
+  </div>
+  <div class="instafeed row">
+    <div class="first-case">
+      <h1>DON'T FEED</h1>
+      <h2>@gaming_gen_festival</h2>
+    </div>
+    <script src="https://snapwidget.com/js/snapwidget.js"></script>
+    <iframe src="https://snapwidget.com/embed/359548" class="snapwidget-widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%;"></iframe>      
+    </div>
+  </div>
+</div>

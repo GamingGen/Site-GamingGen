@@ -28,7 +28,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-alpha.5/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-animate.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
@@ -224,12 +224,12 @@
                     <a href="" class="socialLink compte smallBtnHeaderInscription">Connexion</a>
                   </li>
                   <li class="socialBloc demiSocial">
-                    <a href="" class="socialLink heart"><img src="../Img/heart.svg"></a>
-                    <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img src="../Img/instagram.svg"></a>
+                    <a href="" class="socialLink heart"><img src="../Img/General/heart.svg"></a>
+                    <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img src="../Img/General/instagram.svg"></a>
                   </li>
                   <li class="socialBloc">
-                    <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img src="../Img/twitter.svg"></a>
-                    <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img src="../Img/facebook.svg"></a>
+                    <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img src="../Img/General/twitter.svg"></a>
+                    <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img src="../Img/General/facebook.svg"></a>
                   </li>
                 </div>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
@@ -496,59 +496,51 @@
         <!--  </section>-->
           
           <div class="slider">
-           <a href="#"></a>
+           <a ui-sref="#"></a>
           </div>
             <div ng-class="mainView">
-              <div ui-view></div>
+              <div ui-view autoscroll="false"></div>
             </div>
         </div>
       </div>
     </div>
     <div class="footer fullwidth">
       <div class="superFooter row">
-        <a ui-sref="#">
-          <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
-            <a href="">
-              <h2>TU VEUX EN SAVOIR PLUS ?</h2>
-              <p>On fait des réunions sympas.</p>
-            </a>
-          </div>
-        </a>
-        <a ui-sref="#">
-          <div class="reassurance First col-xs-12 col-sm-6 col-md-3">
-            <a href="">
-            <img src='../Img/General/benevoleAFAIRE.svg'/>
-              <h2>DEVENIR BÉNÉVOLE</h2>
-              <p>On fait des réunions sympas.</p>
-            </a>
-          </div>
-        </a>
-        <a ui-sref="#">
-          <div class="reassurance Second col-xs-12 col-sm-6 col-md-3">
-            <a href="">
-              <img src='../Img/exposantAFAIRE.svg'/>
-              <h2>DEVENIR EXPOSANT</h2>
-              <p>On fait des réunions sympas.</p>
-            </a>
-          </div>
-        </a>
-        <a ui-sref="#">
-          <div class="reassurance Third col-xs-12 col-sm-6 col-md-3">
-            <a href="">
-              <h2>TU VEUX EN SAVOIR PLUS ?</h2>
-              <p>On fait des réunions sympas.</p>
-            </a>
-          </div>
-        </a>
+        <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
+          <a ui-sref="#">
+            <h2>TU VEUX EN SAVOIR PLUS ?</h2>
+            <p>On fait des réunions sympas.</p>
+          </a>
+        </div>
+        <div class="reassurance First col-xs-12 col-sm-6 col-md-3">
+          <a ui-sref="#">
+          <img src='../Img/General/benevoleAFAIRE.svg'/>
+            <h2>DEVENIR BÉNÉVOLE</h2>
+            <p>On fait des réunions sympas.</p>
+          </a>
+        </div>
+        <div class="reassurance Second col-xs-12 col-sm-6 col-md-3">
+          <a ui-sref="#">
+            <img src='../Img/exposantAFAIRE.svg'/>
+            <h2>DEVENIR EXPOSANT</h2>
+            <p>On fait des réunions sympas.</p>
+          </a>
+        </div>
+        <div class="reassurance Third col-xs-12 col-sm-6 col-md-3">
+          <a ui-sref="#">
+            <h2>TU VEUX EN SAVOIR PLUS ?</h2>
+            <p>On fait des réunions sympas.</p>
+          </a>
+        </div>
       </div>
       <div class="absolufooter row">
         <div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
           <a ui-sref="home"><img alt="Logo" ng-src="Img/General/Kit_Comm_LogoGeneBlanc.png"></a>
         </div>
         <div class="absolufooter row">
-          <div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
-            <a ui-sref="home" href="#/home"><img alt="Logo" src="Img/logowh.svg"></a>
-          </div>
+          <!--<div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
+            <a ui-sref="home"><img alt="Logo" src="Img/logowh.svg"></a>
+          </div>-->
           <div class="footerLinks col-xs-12 col-sm-8">
             <a href="" data-toggle="modal" data-target="#registrationModal">Inscription</a>
             <a href="" data-toggle="modal" data-target="#connectionModal">Connexion</a>
