@@ -85,11 +85,11 @@ function SendMail(req, res, mails, html, hash) {
     console.log('info: ', info);
       if(error) {
         console.error(error);
-        res.sendStatus(500);
+        res.status(500).json({message : `Problème lors de l'envoie du mail`});
       }
       else {
         console.log(`Message sent: ${info}`);
-        res.sendStatus(200);
+        res.status(200).json({message : 'Mail envoyé !'});
       }
   });
 }
@@ -102,20 +102,20 @@ router.post('/login', login);
 // passport.authenticate('local'), (req, res) => {
 //   if (req.user) {
 //     console.log('User: ' + req.user.pseudo + ' Connecté');
-//     res.sendStatus(200);
+//     res.status(200);
 //   }
 //   else {
-//     res.sendStatus(401);
+//     res.status(401);
 //   }
 // });
 
 // router.post('/login', (req, res) => {
 //   console.log('Bad Auth');
-//   res.sendStatus(401);
+//   res.status(401);
 // });
 
 router.post('/logout', (req, res) => {
-  console.log(req.user);
+  console.log('req.user: ', req.user);
   req.logout();
   res.sendStatus(200);
 });
@@ -167,7 +167,10 @@ router.post('/insert', function (req, res) {
   newUser.save(function(err) {
     if (err) {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500);
+      if (err.message === 'There was a duplicate key error') {
+        res.json({message : 'Utilisateur déjà existant'});
+      }
     }
     else
     {
@@ -184,7 +187,7 @@ router.get('/listNoBan', function (req, res) {
   userSchema.find({'access.ban' : false}, function (err, rows) {
     if (err) {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500);
     } else {
       res.json(rows);
     }
@@ -198,7 +201,7 @@ router.get('/listBan', function (req, res) {
   userSchema.find({'access.ban' : true}, function (err, rows) {
     if (err) {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500);
     } else {
       res.json(rows);
     }
@@ -212,11 +215,11 @@ router.post('/ban', function(req, res) {
    userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : true},function (err, rows) {
     if (err) {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500);
     } else {
       let serverEvent  = require('./ServerEvent');
       serverEvent.emit('BanUser', req.body.user);
-      res.sendStatus(200);
+      res.status(200);
     }
   });
 });
@@ -228,9 +231,9 @@ router.post('/unban', function(req, res) {
   userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : false}, function (err, rows) {
     if (err) {
       console.error(err);
-      res.sendStatus(500);
+      res.status(500);
     } else {
-      res.sendStatus(200);
+      res.status(200);
     }
   });
 });
@@ -243,22 +246,22 @@ router.post('/validate', function(req, res) {
   userSchema.findOneAndUpdate({'access.validationKey': req.body.hash}, {'access.validationKey': '', 'access.level': 1}, function (err, rowUpdated) {
     if (err) {
       console.log("Validate first error : " + err);
-      res.sendStatus(500);
+      res.status(500);
     } else {
       if (rowUpdated !== null) {
         req.body = {
           "email": rowUpdated.email,
           "password": rowUpdated.password
         };
-        res.sendStatus(200);
+        res.status(200);
         // TODO quand le bypass de connexion sera implémenté
         /*login(req, res, function(err) {
           console.log("Validate second error : " + err);
-          res.sendStatus(500);
+          res.status(500);
         }, true);*/
       } else {
         console.log("Validation not complete");
-        res.sendStatus(500);
+        res.status(500);
       }
     }
   });
@@ -266,9 +269,9 @@ router.post('/validate', function(req, res) {
 
 function login(req, res, next) {// Ajouter une option de bypass pour si le mot de passe est déjà crypté (validation de compte)
   passport.authenticate("local", function(err, user, info) {
-    console.log(info);
     if (!user) {
-      return res.sendStatus(401);
+      return res.status(401);
+      // res.end();
     }
     if (err) {
       return next(err);
@@ -277,8 +280,7 @@ function login(req, res, next) {// Ajouter une option de bypass pour si le mot d
       if (err) {
         return next(err);
       }
-      res.sendStatus(200);
-      return res.end(JSON.stringify(user));
+      return res.json(user);
     });
   })(req, res, next);
 }
@@ -318,3 +320,4 @@ var userEvent = function(ServerEvent) {
 
 exports.userEvent = userEvent;
 exports.router = router;
+exports.userSchema = userSchema;

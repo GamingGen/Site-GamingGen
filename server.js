@@ -84,10 +84,6 @@ const Shop        = require('./Controller/shop');
 const Order       = require('./Controller/order');
 
 
-// Require des Models
-const userSchema = require('./Model/userSchema');
-
-
 // Conf color
 colors.setTheme({
   silly   : 'rainbow',
@@ -134,7 +130,7 @@ let authStrategy = new LocalStrategy({
 	usernameField: 'email',
 	passwordField: 'password'
 }, (email, password, done) => {
-	userSchema.authenticate(email, password, (error, user) => {
+	User.userSchema.authenticate(email, password, (error, user) => {
 		// You can write any kind of message you'd like.
 		// The message will be displayed on the next page the user visits.
 		// We're currently not displaying any success message for logging in.
@@ -143,11 +139,11 @@ let authStrategy = new LocalStrategy({
 });
 
 let authSerializer = (user, done) => {
-	done(null, user.id);
+	done(null, user._id);
 };
 
 let authDeserializer = (id, done) => {
-	userSchema.findById(id, (error, user) => {
+	User.userSchema.findById(id, (error, user) => {
 		done(error, user);
 	});
 };
@@ -190,7 +186,7 @@ app.use('/menusnacks', MenuSnack.router);
 app.use('/shop', Shop.router);
 app.use('/order', Order.router);
 
-
+// Functions
 function shouldCompress(req, res) {
   if (req.headers['x-no-compression']) {
     // don't compress responses with this request header 
@@ -198,6 +194,15 @@ function shouldCompress(req, res) {
   }
   // fallback to standard filter function 
   return compression.filter(req, res);
+}
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    // req.user is available for use here
+    return next(); }
+
+  // denied
+  res.status(401);
 }
 
 // Gestion message de démarrage

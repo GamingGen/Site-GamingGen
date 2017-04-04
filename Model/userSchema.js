@@ -71,9 +71,9 @@ let UserSchema = Schema({
  * @function postInit
  * @description Ici seul un console.log affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
  */
-// UserSchema.post('init', function(doc) {
-//   console.log('UserSchema : ', doc._id);
-// });
+UserSchema.post('init', function(doc) {
+  console.log('UserSchema : ', doc._id);
+});
 
 /**
  * @function preValidate
@@ -122,8 +122,14 @@ UserSchema.pre('findOneAndUpdate', function(next) {
  * @function postSave
  * @description Affiche en console que l'enregistrement est un succès
  */
-UserSchema.post('save', function() {
-  console.log('User saved successfully!');
+UserSchema.post('save', function(error, doc, next) {
+  // Gestion en cas d'une clé dupliquée
+  if (error.name === 'MongoError' && error.code === 11000) {
+    next(new Error('There was a duplicate key error'));
+  } else {
+    console.log('User saved successfully!');
+    next(error);
+  }
 });
 
 
@@ -141,7 +147,9 @@ UserSchema.statics.authenticate = function(email, password, callback) {
 	this.findOne({ email: email }, function(error, user) {
 		if (user && bcrypt.compareSync(password, user.password)) {
 		  // Remove Password before send to the client
-		  user.password = '';
+      user = user.toObject();
+      delete user.password;
+      
 		  console.log('user after delete: ', user);
 			callback(null, user);
 		} else if (user || !error) {

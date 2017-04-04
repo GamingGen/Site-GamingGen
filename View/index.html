@@ -28,7 +28,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-alpha.5/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-animate.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
@@ -94,77 +94,80 @@
   </head>
   
   <body ng-controller="mainCtrl">
-    <!--<div class="row">-->
-      <!--<div class="col-md-12">-->
-        
         <!-- Inscription Modal -->
         <div class="modal fade container" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content inscriptionModal">
               <div class="blocInscriptionModal row">
                 <div class="modal-header col-md-6">
-                  <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
                   <span class="backgroundInscription"></span>
                 </div>
                 <div class="modal-body col-md-6">
                   <form ng-submit="formRegistration.$valid && submitRegister()" name="formRegistration" novalidate>
                     <div class="row">
-                      <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.firstName.$invalid && !formRegistration.firstName.$pristine }">
+                      <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.firstName.$invalid && !formRegistration.firstName.$pristine }">
                         <div class="form-group">
-                          <label for="firstName">Nom : </label>
-                          <input type="text" ng-model="firstName" class="form-control" id="firstName" name="firstName" placeholder="Nom" required/>
+                          
+                          <input type="text" ng-model="firstName" class="form-control" id="firstName" name="firstName" placeholder="Nom*" required/>
+                          <label for="firstName">Nom*</label>
                         </div>
                       </div>
-                      <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.lastName.$invalid && !formRegistration.lastName.$pristine }">
+                      <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.lastName.$invalid && !formRegistration.lastName.$pristine }">
                         <div class="form-group">
-                          <label for="lastName">Prenom : </label>
-                          <input type="text" ng-model="lastName" class="form-control" id="lastName" name="lastName" placeholder="Prenom" required/>
+                          
+                          <input type="text" ng-model="lastName" class="form-control" id="lastName" name="lastName" placeholder="Prenom*" required/>
+                          <label for="lastName">Prenom*</label>
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6" ng-class="{ 'has-error' : (formRegistration.pseudo.$invalid && !formRegistration.pseudo.$pristine) || isPseudoExist }">
+                      <div class="col-xs-6" ng-class="{ 'has-error' : (formRegistration.pseudo.$invalid && !formRegistration.pseudo.$pristine) || isPseudoExist }">
                         <div class="form-group has-feedback">
-                          <label for="pseudo">Pseudo : </label>
-                          <input type="text" ng-model="pseudo" ng-model-options="{ debounce: 1000 }" class="form-control" id="pseudo" name="pseudo" placeholder="Pseudo" required/>
+                          
+                          <input type="text" ng-model="pseudo" ng-model-options="{ debounce: 1000 }" class="form-control" id="pseudo" name="pseudo" placeholder="Pseudo*" required/>
+                           <label for="pseudo">Pseudo* </label>
                           <span ng-show="isPseudoExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
                           <span ng-show="isPseudoExist" id="emailStatus" class="sr-only">(warning)</span>
                         </div>
                       </div>
-                      <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.password.$invalid && !formRegistration.password.$pristine }">
+                      <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.password.$invalid && !formRegistration.password.$pristine }">
                         <div class="form-group">
-                          <label for="password">Mot de Passe : </label>
-                          <input type="password" ng-model="password" class="form-control" id="password" name="password" placeholder="Mot de Passe" required/>
+                          
+                          <input type="password" ng-model="password" class="form-control" id="password" name="password" placeholder="Mot de Passe*" required/>
+                          <label for="password">Mot de Passe*</label>
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.zip.$invalid && !formRegistration.zip.$pristine }">
+                      <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.zip.$invalid && !formRegistration.zip.$pristine }">
                         <div class="form-group">
-                          <label for="email">Code Postale : </label>
-                          <input type="number" min="0100" max="99999" ng-model="zip" class="form-control" id="zip" name="zip" placeholder="Code Postale" required/>
+                          
+                          <input type="number" min="0100" max="99999" ng-model="zip" class="form-control" id="zip" name="zip" placeholder="Code Postale*" required/>
+                          <label for="email">Code Postale*</label>
                         </div>
                       </div>
-                      <div class="col-md-6" ng-class="{ 'has-error' : formRegistration.birthday.$invalid && !formRegistration.birthday.$pristine }">
+                      <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.birthday.$invalid && !formRegistration.birthday.$pristine }">
                         <div class="form-group">
-                          <label for="email">Date de Naissance : </label>
-                          <input type="date" ng-model="birthday" class="form-control" id="birthday" name="birthday" placeholder="Date de Naissance" required/>
+                          
+                          <input type="date" ng-model="birthday" class="form-control" id="birthday" name="birthday" placeholder="Date de Naissance*" required/>
+                          <label for="email">Date de Naissance*</label>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12" ng-class="{ 'has-error' : (formRegistration.email.$invalid && !formRegistration.email.$pristine) || isMailExist }">
                         <div class="form-group has-feedback">
-                          <label for="email">Email : </label>
-                          <input type="email" ng-model="email" ng-model-options="{ debounce: 1000 }" class="form-control" id="email" name="email" placeholder="Email" required/>
+                          
+                          <input type="email" ng-model="email" ng-model-options="{ debounce: 1000 }" class="form-control" id="email" name="email" placeholder="Email*" required/>
+                          <label for="email">Email*</label>
                           <span ng-show="isMailExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
                           <span ng-show="isMailExist" id="emailStatus" class="sr-only">(warning)</span>
                         </div>
                       </div>
                     </div>
                     <div class="bottomFooter row">
-                      <button type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" data-dismiss="modal">Envoyer</button>
-                      <button type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">Annuler</button>
+                      <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" data-dismiss="modal">ENVOYER</a>
+                      <a type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">ANNULER</a>
                     </div>
                     <div class="row">
                       <div ng-show="isPseudoExist" class="alert alert-danger" role="alert">Ce pseudo existe déjà</div>
@@ -181,29 +184,28 @@
         <div class="modal fade container" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="connectionModalLabel">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content inscriptionModal">
-              <div class="blocInscriptionModal row">
+              <div class="blocInscriptionModal smallModalConnexion row">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   
                 <div class="modal-header col-md-6">
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
                     <span class="backgroundInscription"></span>
                 </div>
                 <div class="modal-body col-md-6">
                   <form ng-submit="submitLogin()" name="formConnection" novalidate>
                     <div class="row">
                       <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
-                        <label for="connectionEmail">Email : </label>
+                        <label for="connectionEmail">Email* : </label>
                         <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
                       </div>
                       <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
-                        <label for="connectionPassword">Mot de Passe : </label>
+                        <label for="connectionPassword">Mot de Passe* : </label>
                         <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
                       </div>
                     </div>
                   </form>
                   <div class="bottomFooter row">
-                    <button type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid" data-dismiss="modal">Envoyer</button>
-                    <button type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</button>
+                    <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid" data-dismiss="modal">CONNEXION</a>
+                    <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">ANNULER</a>
                   </div>
                 </div>
                 
@@ -216,13 +218,27 @@
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
+              <div class="socialHeader">
+                  <li class="socialBloc demiSocial">
+                    <a href="" class="socialLink compte smallBtnHeaderInscription">S'inscrire</a>
+                    <a href="" class="socialLink compte smallBtnHeaderInscription">Connexion</a>
+                  </li>
+                  <li class="socialBloc demiSocial">
+                    <a href="" class="socialLink heart"><img src="../Img/General/heart.svg"></a>
+                    <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img src="../Img/General/instagram.svg"></a>
+                  </li>
+                  <li class="socialBloc">
+                    <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img src="../Img/General/twitter.svg"></a>
+                    <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img src="../Img/General/facebook.svg"></a>
+                  </li>
+                </div>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" ui-sref="home"><img class="logo img-rounded" alt="Logo" ng-src="Img/General/Kit_Comm_LogoGeneBlanc.png"></a>
+              <a class="navbar-brand" ui-sref="home"><img class="logo img-rounded" alt="Logo" src="Img/logowh.svg"></a>
             </div>
         
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -243,22 +259,6 @@
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>
                   </ul>
                 </li>
-                <!--<li ui-sref-active="active" class="dropdown">-->
-                <!--  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
-                <!--    Les Partenaires<span class="caret"></span>-->
-                <!--  </a>-->
-                  <!--<ul class="dropdown-menu">-->
-                    <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-                  <!--  <li><a ui-sref="snack.carte">La Carte</a></li>-->
-                  <!--  <li><a ui-sref="snack.info">Infos Snack</a></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>-->
-                  <!--</ul>-->
-                <!--</li>-->
                 <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
                   <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
                 <li>
@@ -275,7 +275,6 @@
                     L'association<span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
-                    <!--snack.carte  A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
                     <li><a ui-sref="staff">L'équipe Gaming Gen</a></li>
                     <li><a ui-sref="events">Nos précédents événements</a></li>
                     <li><a ui-sref="media">Médias</a></li>
@@ -294,9 +293,6 @@
                         Mon Compte
                       </a>
                       <ul class="loggedmenu dropdown-menu">
-                        <li></li>
-                        <!--<li role="separator" class="divider"></li>-->
-                        
                         <li ng-show="User.accessLvl > 0"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
                         <li ng-show="User.accessLvl > 0"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
                         <li ng-show="User.accessLvl > 0"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
@@ -314,17 +310,16 @@
                     <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img ng-src="../Img/General/facebook.svg"></a>
                   </li>
                 </div>
+                <li ng-if="User.multilang" class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>
+                    <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>
+                  </ul>
+                </li>
               </ul>
-              <!--<li class="dropdown">-->
-              <!--    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
-              <!--      <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
-              <!--    </a>-->
-              <!--    <ul class="dropdown-menu">-->
-              <!--      <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>-->
-              <!--      <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>-->
-              <!--    </ul>-->
-              <!--  </li>-->
-              
             </div>
           </div>
         </nav>
@@ -342,30 +337,39 @@
           <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
           <!--ng-if="isConnected && isAdmin" -->
           <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
-            <div class="admin-container"><a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <div class="admin-container">
+              <a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-cogs" aria-hidden="true"></i> Admin
-            </a>
-            <ul class="loggedmenu dropdown-menu">
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 50" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
-            </ul></div>
+              </a>
+              <ul class="loggedmenu dropdown-menu">
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
+                      
+                      <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
+                      <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
+
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+              </ul>
+            </div>
           </li>
           <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
           <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
@@ -383,23 +387,12 @@
               </ul>
             </div>
           </li>
-          <!--<li class="dropdown">-->
-            <!--<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
-              <!--<i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
-            <!--</a>-->
-            <!--<ul class="dropdown-menu">-->
-              <!--<li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>-->
-              <!--<li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>-->
-            <!--</ul>-->
-          <!--</li>-->
         </ul>
-    <!--  </div>-->
-    <!--</div>-->
     <div class="row">
       <div class="col-md-12">
         <div class="body">
           
-           <!--Messages d'erreur -->
+          <!--Messages d'erreur -->
           <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
           <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>
           
@@ -503,64 +496,69 @@
         <!--  </section>-->
           
           <div class="slider">
-           <a href="#"></a>
+           <a ui-sref="#"></a>
           </div>
             <div ng-class="mainView">
-              <div ui-view></div>
+              <div ui-view autoscroll="false"></div>
             </div>
         </div>
       </div>
     </div>
     <div class="footer fullwidth">
       <div class="superFooter row">
-        <a ui-sref="#">
-          <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
+        <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
+          <a ui-sref="#">
             <h2>TU VEUX EN SAVOIR PLUS ?</h2>
             <p>On fait des réunions sympas.</p>
-          </div>
-        </a>
-        <a ui-sref="#">
-          <div class="reassurance First col-xs-12 col-sm-6 col-md-3">
-            <img src='../Img/General/benevoleAFAIRE.svg'/>
+          </a>
+        </div>
+        <div class="reassurance First col-xs-12 col-sm-6 col-md-3">
+          <a ui-sref="#">
+          <img src='../Img/General/benevoleAFAIRE.svg'/>
             <h2>DEVENIR BÉNÉVOLE</h2>
             <p>On fait des réunions sympas.</p>
-          </div>
-        </a>
-        <a ui-sref="#">
-          <div class="reassurance Second col-xs-12 col-sm-6 col-md-3">
+          </a>
+        </div>
+        <div class="reassurance Second col-xs-12 col-sm-6 col-md-3">
+          <a ui-sref="#">
             <img src='../Img/exposantAFAIRE.svg'/>
             <h2>DEVENIR EXPOSANT</h2>
             <p>On fait des réunions sympas.</p>
-          </div>
-        </a>
-        <a ui-sref="#">
-          <div class="reassurance Third col-xs-12 col-sm-6 col-md-3">
+          </a>
+        </div>
+        <div class="reassurance Third col-xs-12 col-sm-6 col-md-3">
+          <a ui-sref="#">
             <h2>TU VEUX EN SAVOIR PLUS ?</h2>
             <p>On fait des réunions sympas.</p>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
       <div class="absolufooter row">
         <div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
           <a ui-sref="home"><img alt="Logo" ng-src="Img/General/Kit_Comm_LogoGeneBlanc.png"></a>
         </div>
-        <div class="footerLinks col-xs-12 col-sm-8">
-          <a href="" data-toggle="modal" data-target="#registrationModal">Inscription</a>
-          <a href="" data-toggle="modal" data-target="#connectionModal">Connexion</a>
-          <a ui-sref="#">Facebook</a>
-          <a ui-sref="#">Twitter</a>
-          <a ui-sref="#">Instagram</a>
-          <a ui-sref="home">Accueil</a>
-          <a ui-sref="#">Gaming gen 6</a>
-          <a ui-sref="#">Compétitions</a>
-          <a ui-sref="#">Festival du jeu</a>
-          <a ui-sref="#">Plan</a>
-          <a ui-sref="#">Programme</a>
-          <a ui-sref="live">Live</a>
-          <a ui-sref="#">Partenaires</a>
-          <a ui-sref="#">Galerie</a>
-          <a ui-sref="#">Association</a>
-          <a ui-sref="#">Infos utiles</a>
+        <div class="absolufooter row">
+          <!--<div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
+            <a ui-sref="home"><img alt="Logo" src="Img/logowh.svg"></a>
+          </div>-->
+          <div class="footerLinks col-xs-12 col-sm-8">
+            <a href="" data-toggle="modal" data-target="#registrationModal">Inscription</a>
+            <a href="" data-toggle="modal" data-target="#connectionModal">Connexion</a>
+            <a ui-sref="#">Facebook</a>
+            <a ui-sref="#">Twitter</a>
+            <a ui-sref="#">Instagram</a>
+            <a ui-sref="home">Accueil</a>
+            <a ui-sref="#">Gaming gen 6</a>
+            <a ui-sref="#">Compétitions</a>
+            <a ui-sref="#">Festival du jeu</a>
+            <a ui-sref="#">Plan</a>
+            <a ui-sref="#">Programme</a>
+            <a ui-sref="live">Live</a>
+            <a ui-sref="#">Partenaires</a>
+            <a ui-sref="#">Galerie</a>
+            <a ui-sref="#">Association</a>
+            <a ui-sref="#">Infos utiles</a>
+          </div>
         </div>
       </div>
     </div>
