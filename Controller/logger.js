@@ -9,8 +9,6 @@ const fs = require('fs');
 const dirname = 'Logs';
 const logPath = path.join(__dirname, '..', dirname, 'all-logs.log');
 
-console.log(`logPath: ${logPath}`);
-
 fs.access(path.dirname(logPath), fs.R_OK | fs.W_OK, (err) => {
   console.log(err ? 'no access!' : 'can read/write');
   if (err) {

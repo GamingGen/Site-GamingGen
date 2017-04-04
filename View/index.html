@@ -94,16 +94,12 @@
   </head>
   
   <body ng-controller="mainCtrl">
-    <!--<div class="row">-->
-      <!--<div class="col-md-12">-->
-        
         <!-- Inscription Modal -->
         <div class="modal fade container" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content inscriptionModal">
               <div class="blocInscriptionModal row">
                 <div class="modal-header col-md-6">
-                  <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
                   <span class="backgroundInscription"></span>
                 </div>
                 <div class="modal-body col-md-6">
@@ -185,7 +181,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   
                 <div class="modal-header col-md-6">
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
                     <span class="backgroundInscription"></span>
                 </div>
                 <div class="modal-body col-md-6">
@@ -243,22 +238,6 @@
                     <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>
                   </ul>
                 </li>
-                <!--<li ui-sref-active="active" class="dropdown">-->
-                <!--  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
-                <!--    Les Partenaires<span class="caret"></span>-->
-                <!--  </a>-->
-                  <!--<ul class="dropdown-menu">-->
-                    <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-                  <!--  <li><a ui-sref="snack.carte">La Carte</a></li>-->
-                  <!--  <li><a ui-sref="snack.info">Infos Snack</a></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10" role="separator" class="divider"></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>-->
-                  <!--  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>-->
-                  <!--</ul>-->
-                <!--</li>-->
                 <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
                   <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
                 <li>
@@ -275,7 +254,6 @@
                     L'association<span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
-                    <!--snack.carte  A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
                     <li><a ui-sref="staff">L'équipe Gaming Gen</a></li>
                     <li><a ui-sref="events">Nos précédents événements</a></li>
                     <li><a ui-sref="media">Médias</a></li>
@@ -294,9 +272,6 @@
                         Mon Compte
                       </a>
                       <ul class="loggedmenu dropdown-menu">
-                        <li></li>
-                        <!--<li role="separator" class="divider"></li>-->
-                        
                         <li ng-show="User.accessLvl > 0"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
                         <li ng-show="User.accessLvl > 0"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
                         <li ng-show="User.accessLvl > 0"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
@@ -314,17 +289,16 @@
                     <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img ng-src="../Img/General/facebook.svg"></a>
                   </li>
                 </div>
+                <li ng-if="User.multilang" class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>
+                    <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>
+                  </ul>
+                </li>
               </ul>
-              <!--<li class="dropdown">-->
-              <!--    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
-              <!--      <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
-              <!--    </a>-->
-              <!--    <ul class="dropdown-menu">-->
-              <!--      <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>-->
-              <!--      <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>-->
-              <!--    </ul>-->
-              <!--  </li>-->
-              
             </div>
           </div>
         </nav>
@@ -342,30 +316,39 @@
           <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
           <!--ng-if="isConnected && isAdmin" -->
           <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
-            <div class="admin-container"><a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <div class="admin-container">
+              <a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-cogs" aria-hidden="true"></i> Admin
-            </a>
-            <ul class="loggedmenu dropdown-menu">
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 50" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
-            </ul></div>
+              </a>
+              <ul class="loggedmenu dropdown-menu">
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
+                      
+                      <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
+                      <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
+
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50" role="separator" class="divider"></li>
+                <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+              </ul>
+            </div>
           </li>
           <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
           <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
@@ -383,23 +366,12 @@
               </ul>
             </div>
           </li>
-          <!--<li class="dropdown">-->
-            <!--<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
-              <!--<i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>-->
-            <!--</a>-->
-            <!--<ul class="dropdown-menu">-->
-              <!--<li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>-->
-              <!--<li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>-->
-            <!--</ul>-->
-          <!--</li>-->
         </ul>
-    <!--  </div>-->
-    <!--</div>-->
     <div class="row">
       <div class="col-md-12">
         <div class="body">
           
-           <!--Messages d'erreur -->
+          <!--Messages d'erreur -->
           <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
           <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>
           

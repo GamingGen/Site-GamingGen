@@ -96,7 +96,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     
     console.log(JSON.stringify(user));
     $http.post('/users/insert', JSON.stringify(user))
-      .success(function(){
+      .success(function(data){
         $scope.firstName = '';
         $scope.lastName  = '';
         $scope.pseudo    = '';
@@ -107,8 +107,12 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
         $scope.connectionEmail = user.email;
         $scope.connectionPassword = user.password;
         $scope.submitLogin();
+
+        console.log('data: ', data);
+        $("#msgInfo").html(data.message);
+        $("#msgInfo").show().delay(3000).fadeOut();
       })
-      .error(function() {
+      .error(function(err) {
         $scope.firstName = '';
         $scope.lastName  = '';
         $scope.pseudo    = '';
@@ -116,10 +120,13 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
         $scope.zip       = '';
         $scope.birthday  = '';
         $scope.email     = '';
+
+        console.log('err: ', err);
+        $("#msgError").html(err.message);
+        $("#msgError").show().delay(3000).fadeOut();
     });
     
   };
-  
   
   // Submit Logout
   $scope.Logout = function() {
