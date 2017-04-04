@@ -31,7 +31,8 @@ let ArticleSchema = new Schema({
     desc          : { type: String, required: true },
     text          : { type: String, required: true },
     register_date : { type: Date, required: true, default: Date.now },
-    comments      : { type: [Comment.Schema] }
+    comments      : { type: [Comment.Schema] },
+    picture       : String
 });
 
 /**
