@@ -36,6 +36,7 @@
     "socket.io": "^1.7.3",
     "socket.io-mongodb": "^1.1.1",
     "sticky-session": "^1.1.2",
+    "v8-profiler": "^5.7.0",
     "winston": "^2.3.0"
   },
   "devDependencies": {
