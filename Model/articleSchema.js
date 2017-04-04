@@ -32,7 +32,11 @@ let ArticleSchema = new Schema({
     text          : { type: String, required: true },
     register_date : { type: Date, required: true, default: Date.now },
     comments      : { type: [Comment.Schema] },
-    picture       : String
+    type          : {
+                      hot_news      : { type : Boolean, default : true },
+                      critical_info : { type : Boolean, default : false }
+                  },
+    picture       : String,
 });
 
 /**
