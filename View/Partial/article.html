@@ -2,7 +2,7 @@
     <!-- Article -->
     <div class="fullwidth">
       <div class="row">
-        <div class="titreArticleContent col-lg-4 col-lg-offset-3">
+        <div class="titreArticleContent col-xs-8 col-lg-4 col-lg-offset-3 col-xs-offset-2">
           <h1>
             {{article.currentArticle.title}}
           </h1>
@@ -29,7 +29,7 @@
                 <path d="M80.948,50.154c0-1.401-1.136-2.537-2.537-2.537s-2.537,1.136-2.537,2.537c0,14.267-11.608,25.874-25.875,25.874  
                 S24.125,64.421,24.125,50.154c0-1.401-1.136-2.537-2.537-2.537c-1.401,0-2.537,1.136-2.537,2.537  
                 c0,16.21,12.53,29.539,28.412,30.835v8.937h-8.556c-1.401,0-2.537,1.136-2.537,2.537c0,1.401,1.136,2.537,2.537,2.537h22.186  
-                c1.401,0,2.537-1.136,2.537-2.537c0-1.401-1.136-2.537-2.537-2.537h-8.556v-8.937C68.419,79.694,80.948,66.364,80.948,50.154z"/>
+                c1.401,0,2.537-1.136,2.537-2.537c0-1.401-1.13fa6-2.537-2.537-2.537h-8.556v-8.937C68.419,79.694,80.948,66.364,80.948,50.154z"/>
                 <path d="M50,72.985c12.589,0,22.831-10.242,22.831-22.831V27.831C72.831,15.242,62.589,5,50,5S27.169,15.242,27.169,27.831v22.323 
                 C27.169,62.743,37.411,72.985,50,72.985z M32.243,27.831c0-9.791,7.966-17.757,17.757-17.757c8.931,0,16.323,6.635,17.556,15.23 
                 c-0.031-0.001-0.061-0.009-0.093-0.009H56.638c-1.401,0-2.537,1.136-2.537,2.537c0,1.401,1.136,2.537,2.537,2.537h10.825 
@@ -52,14 +52,14 @@
           
         </div>
       <div class="row">
-        <div class="triggerComment col-lg-5 col-lg-offset-1">
+        <div class="triggerComment col-lg-5 col-lg-offset-2">
           
             <button data-toggle="modal" data-target="#modalComment" data-id="{{article.currentArticle.id}}">Commenter</button><!-- Bouton d'affichage de la pop-up de création de commentaire -->
           </div>
       </div>
       <div class="row">
         <!-- Modale d'ajout de commentaires -->
-            <div role="document" class="col-lg-5 col-lg-offset-1">
+            <div role="document" class="col-lg-5 col-lg-offset-2">
               <div>
                 <div id="myModalLabel">Commenter l'article !</div><!-- Titre de la modale -->
                 <div ng-controller="commentCtrl">
@@ -79,10 +79,10 @@
         <div class="row">
           <div ng-repeat="comment in article.currentArticle.comments | orderBy : 'register_date'"><!-- Liste des commentaires -->
               
-              <h6 class="userComment col-lg-8 col-lg-offset-1">
+              <h6 class="userComment col-lg-8 col-lg-offset-2">
                 {{comment.username}}, le {{comment.register_date | date : 'dd MMMM yyyy'}}
               </h6><!-- Auteur du commentaire -->
-              <div class="userCommentContent col-lg-5 col-lg-offset-1">
+              <div class="userCommentContent col-lg-5 col-lg-offset-2">
                 <ng-bind-html ng-bind-html="renderHtml(comment.text)"></ng-bind-html><!-- Contenu du commentaire, en HTML -->
               </div>
           </div>
