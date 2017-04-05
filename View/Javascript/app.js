@@ -19,9 +19,9 @@
         .state('article', {
           url         : '/articles/:id',
           templateUrl : '../Partial/article.html',
-          controller: function ($scope, $stateParams) {
+          controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
              $scope.idArticle = $stateParams.id;
-          }
+          }]
         })
         .state('news', {
           url         : '/articles',
