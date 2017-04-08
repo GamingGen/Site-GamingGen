@@ -1448,6 +1448,9 @@ height:25vw;
   top:0;
   left:0;
 }
+.firstThumbNews a img, .otherThumbNews a img {
+  object-fit: cover;
+}
 .wrapperPreviewNews{
   display:block;
   position:relative;
