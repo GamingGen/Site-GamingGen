@@ -103,9 +103,11 @@ router.post('/login', login);
 //   if (req.user) {
 //     console.log('User: ' + req.user.pseudo + ' Connecté');
 //     res.status(200);
+//     res.end();
 //   }
 //   else {
 //     res.status(401);
+//     res.end();
 //   }
 // });
 
@@ -188,6 +190,7 @@ router.get('/listNoBan', function (req, res) {
     if (err) {
       console.error(err);
       res.status(500);
+      res.end();
     } else {
       res.json(rows);
     }
@@ -202,6 +205,7 @@ router.get('/listBan', function (req, res) {
     if (err) {
       console.error(err);
       res.status(500);
+      res.end();
     } else {
       res.json(rows);
     }
@@ -216,10 +220,12 @@ router.post('/ban', function(req, res) {
     if (err) {
       console.error(err);
       res.status(500);
+      res.end();
     } else {
       let serverEvent  = require('./ServerEvent');
       serverEvent.emit('BanUser', req.body.user);
       res.status(200);
+      res.end();
     }
   });
 });
@@ -232,8 +238,10 @@ router.post('/unban', function(req, res) {
     if (err) {
       console.error(err);
       res.status(500);
+      res.end();
     } else {
       res.status(200);
+      res.end();
     }
   });
 });
@@ -261,6 +269,7 @@ router.post('/validate', function(req, res) {
         /*login(req, res, function(err) {
           console.log("Validate second error : " + err);
           res.status(500);
+          res.end();
         }, true);*/
       } else {
         console.log("Validation not complete");
