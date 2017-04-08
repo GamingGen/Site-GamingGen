@@ -248,6 +248,7 @@ router.post('/validate', function(req, res) {
     if (err) {
       console.log("Validate first error : " + err);
       res.status(500);
+      res.end();
     } else {
       if (rowUpdated !== null) {
         req.body = {
@@ -255,6 +256,7 @@ router.post('/validate', function(req, res) {
           "password": rowUpdated.password
         };
         res.status(200);
+        res.end();
         // TODO quand le bypass de connexion sera implémenté
         /*login(req, res, function(err) {
           console.log("Validate second error : " + err);
