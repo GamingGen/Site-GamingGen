@@ -145,8 +145,6 @@ UserSchema.statics.authenticate = function(email, password, callback) {
   console.log(email);
   console.log(password);
 	this.findOne({ email: email }, function(error, user) {
-    console.log('CallbackFindOne: ', error, user);
-    console.log('bcrypt.compareSync(password, user.password): ', bcrypt.compareSync(password, user.password));
 		if (user && bcrypt.compareSync(password, user.password)) {
 		  // Remove Password before send to the client
       user = user.toObject();
