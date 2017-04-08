@@ -43,11 +43,11 @@ let ArticleSchema = new Schema({
  * @function postInit
  * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
  */
-// ArticleSchema.post('init', function(doc) {
-//   console.log('ArticleSchema : ', doc._id);
-//   id = doc.id;
-//   console.log('id: ', id);
-// });
+ArticleSchema.post('init', function(doc) {
+  console.log('ArticleSchema : ', doc._id);
+  id = doc.id;
+  console.log('id: ', id);
+});
 
 /**
  * @function preValidate
