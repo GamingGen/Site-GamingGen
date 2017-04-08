@@ -5,11 +5,11 @@ let userSchema = require('../Model/userSchema');
 
 
 // Récupération des modules
-var express       = require('express');
-var router        = express.Router();
-var crypto        = require('crypto');
-var passport      = require('passport');
-var nodemailer    = require('nodemailer');
+const express       = require('express');
+const router        = express.Router();
+const crypto        = require('crypto');
+const passport      = require('passport');
+const nodemailer    = require('nodemailer');
 
 // Confs
 const cryptoSecret   = 'GamingGenCryptoCat';
@@ -44,10 +44,10 @@ Ce message a été envoyé automatiquement. Merci de ne pas répondre.
 
 
 // create reusable transporter object using SMTP transport 
-var transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: process.env.NODEMAILER_USER,
+        user: process.env.NODEMAILER_MAIL,
         pass: process.env.NODEMAILER_PASS
     }
 });
