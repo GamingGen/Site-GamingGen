@@ -262,6 +262,7 @@ router.post('/validate', function(req, res) {
       } else {
         console.log("Validation not complete");
         res.status(500);
+        res.end();
       }
     }
   });
