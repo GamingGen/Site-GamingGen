@@ -56,7 +56,7 @@ ArticleSchema.post('init', function(doc) {
  */
 ArticleSchema.pre('validate', function(next) {
   // Set de l'id
-  this.id = id++;
+  // this.id = id++;
   
   if (!this.register_date) {
     this.register_date = Date.now();
