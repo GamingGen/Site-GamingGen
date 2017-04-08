@@ -12,7 +12,7 @@
     </div>
     <div class="box boxmid">
       <div class="boxvert"></div>
-      <a href="#">
+      <a ui-sref="">
         <div class="textBoxVert">
           <span class="verttxt smalltxt">Entrez</span>
           <span class="verttxt">DANS LA</span><br/> 
@@ -21,7 +21,7 @@
       </a>
     </div>
     <div class="box boxright">
-        <a href="#">
+        <a ui-sref="">
         <div class="infosprochaine"></div>
         <span class="smalltxt">
             Notre prochaine apparition :<br/>
@@ -45,7 +45,7 @@
         <h2 class="col-sm-12 col-md-6 col-lg-4">Toutes les news<br/> de la gaming gen<br/> et du monde du gaming</h2>
       </div>
     </div>
-    <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ 'row' : $index === 0 || $index === 2 }">
+    <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ 'row' : $index === 1 || $index === 4 }">
       <div ng-class="{ 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
         <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
           <span class="wrapperPreviewNews">
