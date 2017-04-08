@@ -166,8 +166,8 @@
                       </div>
                     </div>
                     <div class="bottomFooter row">
-                      <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" data-dismiss="modal">ENVOYER</a>
-                      <a type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">ANNULER</a>
+                      <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" data-dismiss="modal">Envoyer</a>
+                      <a type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
                     </div>
                     <div class="row">
                       <div ng-show="isPseudoExist" class="alert alert-danger" role="alert">Ce pseudo existe déjà</div>
@@ -204,11 +204,10 @@
                     </div>
                   </form>
                   <div class="bottomFooter row">
-                    <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid" data-dismiss="modal">CONNEXION</a>
-                    <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">ANNULER</a>
+                    <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid" data-dismiss="modal">Connexion</a>
+                    <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
                   </div>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -219,9 +218,9 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
               <div class="socialHeader">
-                  <li class="socialBloc demiSocial">
-                    <a href="" class="socialLink compte smallBtnHeaderInscription">S'inscrire</a>
-                    <a href="" class="socialLink compte smallBtnHeaderInscription">Connexion</a>
+                  <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
+                    <a href="" class="socialLink compte smallBtnHeaderInscription" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
+                    <a href="" class="socialLink compte smallBtnHeaderInscription" data-toggle="modal" data-target="#connectionModal">Connexion</a>
                   </li>
                   <li class="socialBloc demiSocial">
                     <a href="" class="socialLink heart"><img src="../Img/General/heart.svg"></a>
@@ -287,12 +286,12 @@
                     <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
                     <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
                   </li>
-                  <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown">
+                  <li ng-show="User.isLoggedIn" ui-sref-active="active" class="socialBloc demiSocial dropdown">
                     <div class="socialBloc demiSocial">
-                      <a href="" class="dropdown-toggle mon-compte" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Mon Compte
                       </a>
-                      <ul class="loggedmenu dropdown-menu">
+                      <ul class="socialLink compte dropdown-menu">
                         <li ng-show="User.accessLvl > 0"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
                         <li ng-show="User.accessLvl > 0"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
                         <li ng-show="User.accessLvl > 0"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
