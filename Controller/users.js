@@ -243,6 +243,7 @@ router.post('/unban', function(req, res) {
  */
 router.post('/validate', function(req, res) {
   console.log("Validation d'un user...");
+  console.log("req.body: ", req.body);
   userSchema.findOneAndUpdate({'access.validationKey': req.body.hash}, {'access.validationKey': '', 'access.level': 1}, function (err, rowUpdated) {
     if (err) {
       console.log("Validate first error : " + err);
