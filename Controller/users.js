@@ -13,7 +13,7 @@ const nodemailer    = require('nodemailer');
 
 // Confs
 const cryptoSecret   = 'GamingGenCryptoCat';
-const from           = `Gaming Gen <${process.env.NODEMAILER_MAIL}>`;
+const from           = `"Gaming Gen" <${process.env.NODEMAILER_MAIL}>`;
 const subject        = 'Inscription à la Gaming Gen';
 let text             = '';
 let registrationHtml = `
@@ -51,7 +51,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.NODEMAILER_PASS
     }
 });
-
+console.log('process.env.NODEMAILER_MAIL: ', process.env.NODEMAILER_MAIL, 'process.env.NODEMAILER_PASS: ', process.env.NODEMAILER_PASS);
 
 function SendMail(req, res, mails, html, hash) {
   console.log('Sending Mail...'.info);
