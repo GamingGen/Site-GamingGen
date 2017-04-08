@@ -1,6 +1,6 @@
 /*
- * Version Alpha 1.0.0
- * Date de modification 24/06/2016
+ * Version Alpha 1.1.0
+ * Date de modification 18/03/2017
  *
  * Socket.js
  *  Gère toute les communications dynamique
@@ -14,11 +14,10 @@
 const socketio     = require('socket.io');
 const mongoAdapter = require('socket.io-mongodb');
 const check        = require('check-types');
-
-
+const adapter      = mongoAdapter('mongodb://localhost:27017/socket-io');
 
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
-	let io                = socketio.listen(server);
+	let io                = socketio(server);
 	let printerClientId   = "";
 	let printerCookId     = "";
 	let printerShopId     = "";
@@ -26,13 +25,15 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	let twitch            = {};
 	let Live              = {}; // TODO A déplacer
     
+	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
+	io.adapter(adapter);
+	adapter.pubsubClient.on('error', console.error);
+	adapter.channel.on('error', console.error);
+	
 	// Configuration de Socket.IO pour pouvoir avoir accès au sessions
 	io.use(function(socket, next) {
 		sessionMiddleware(socket.request, socket.request.res, next);
 	});
-	
-	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
-	io.adapter(mongoAdapter('mongodb://localhost:27017/socket-io'));
 	
 	ServerEvent.on('isMailExistResult', function(data, socket) {
 		socket.emit('isMailExist', data);

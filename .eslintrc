@@ -9,6 +9,7 @@
   },
   "globals": {
     "angular"       : false,
+    "expect"       : false,
     "Snap"          : false,
     "$"             : false,
     "tinymce"       : false,

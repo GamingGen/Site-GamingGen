@@ -2,7 +2,7 @@
 
 var ContainerService = angular.module('ContainerService', []);
 
-ContainerService.service('ManageViewService', function($rootScope, slider) {
+ContainerService.service('ManageViewService', ['$rootScope', 'slider', function($rootScope, slider) {
     this.setView = function(view) {
         $rootScope.mainView = view;
         if (view.indexOf('admin') !== -1) {
@@ -16,4 +16,4 @@ ContainerService.service('ManageViewService', function($rootScope, slider) {
     this.getView = function() {
         return $rootScope.mainView;
     };
-})
+}])

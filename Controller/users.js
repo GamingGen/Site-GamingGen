@@ -1,60 +1,78 @@
 'use strict';
 
-var express     = require('express');
-var router      = express.Router();
-var crypto      = require('crypto');
-var passport    = require('passport');
-var mailer      = require('nodemailer');
-// var transporter = mailer.createTransport({
-//     host: 'localhost',
-//     port: 25
-// });
+// Récupération des schémas
+let userSchema = require('../Model/userSchema');
 
 
+// Récupération des modules
+var express       = require('express');
+var router        = express.Router();
+var crypto        = require('crypto');
+var passport      = require('passport');
 var nodemailer    = require('nodemailer');
 
-const from      = 'CasberJS Bot ✔ <casperjs.darkterra@gmail.com>';
-let to        = 'darkterra01@gmail.com';
-const subject   = '[Test] CasperJS';
-let text        = 'Not Working';
-let textOk    = 'Working';
-let html        = `
-<b>
-  Test CasperJS
-</b>
+// Confs
+const cryptoSecret   = 'GamingGenCryptoCat';
+const from           = `"Gaming Gen" <${process.env.NODEMAILER_MAIL}>`;
+const subject        = 'Inscription à la Gaming Gen';
+let text             = '';
+let registrationHtml = `
+[logo GG]
+<br/>
+Hello,
 <br/><br/>
-Result: <b>Not Working</b>`;
-const testSucces  = `
-<b>
-  Test CasperJS !
-</b>
+Tu reçois cet e-mail car tu as créé un compte sur le site www.gaming-gen.fr.
 <br/><br/>
-Result: <b>✔</b>`;
-
+Afin de confirmer ton adresse e-mail et de valider ton enregistrement, clique sur le bouton ci-dessous :
+<br/>
+[bouton]
+<br/>
+S'il ne fonctionne pas, copie ce lien et colle le dans la barre d'adresse de ton navigateur : [lien]
+<br/><br/>
+Une fois ton compte validé, tu pourras personnaliser ton profil, t'inscrire aux tournois, enregistrer ton équipe, réserver ta place, venir à la GG6, gagner tous tes matchs, devenir une star internationale et bien plus encore... 
+<br/><br/>
+A très vite !
+<br/><br/>
+Gaming Gen,
+<br/>
+Le Jeu est dans nos gènes.
+<br/><br/>
+--
+Ce message a été envoyé automatiquement. Merci de ne pas répondre.
+<br/>
+[Footer] www.gaming-gen.fr [picto Facebook] [picto Twitter] [picto Instagram]`;
 
 
 // create reusable transporter object using SMTP transport 
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'casperjs.darkterra@gmail.com',
-        pass: '4kr5s2256'
+        user: process.env.NODEMAILER_USER,
+        pass: process.env.NODEMAILER_PASS
     }
 });
 
-function SendMail(req, res, from, to, subject, text, html) {
+
+function SendMail(req, res, mails, html, hash) {
   console.log('Sending Mail...'.info);
-    
+  
+  // Gestion mail Inscription
+  if (hash) {
+    const validationLink = `${req.protocol}://${req.headers.host}/#/users/validate/${hash}`;
+    html = registrationHtml.replace('[lien]', validationLink);
+  }
+  
   // setup e-mail data with unicode symbols 
   var mailOptions = {
       from: from, // sender address 
-      to: to, // list of receivers 
+      to: mails, // list of receivers 
       subject: subject, // Subject line 
       text: text, // plaintext body 
       html: html, // html body
       attachments: []
   };
   
+  // Pour attacher des pièces
   // for(let IMG of tabIMG) {
   //   attach = {};
   //   attach.filename = IMG;
@@ -62,55 +80,51 @@ function SendMail(req, res, from, to, subject, text, html) {
   //   mailOptions.attachments.push(attach);
   // }
   
-    console.log(new Date());
-    
   // send mail with defined transport object 
-  transporter.sendMail(mailOptions, function(error, info){
-      if(error){
-          return console.log(error);
-        res.sendStatus(500);
+  transporter.sendMail(mailOptions, function(error, info) {
+    console.log('info: ', info);
+      if(error) {
+        console.error(error);
+        res.status(500).json({message : `Problème lors de l'envoie du mail`});
       }
       else {
-        console.log('Message sent: ');
-        res.sendStatus(200);
+        console.log(`Message sent: ${info}`);
+        res.status(200).json({message : 'Mail envoyé !'});
       }
   });
 }
 
 
-var cryptoSecret = 'GamingGenCryptoCat';
 
-var userSchema = require('../Model/userSchema');
-
-var exports = module.exports = {};
 
 router.post('/login', login);
 
 // passport.authenticate('local'), (req, res) => {
 //   if (req.user) {
 //     console.log('User: ' + req.user.pseudo + ' Connecté');
-//     res.sendStatus(200);
+//     res.status(200);
 //   }
 //   else {
-//     res.sendStatus(401);
+//     res.status(401);
 //   }
 // });
 
 // router.post('/login', (req, res) => {
 //   console.log('Bad Auth');
-//   res.sendStatus(401);
+//   res.status(401);
 // });
 
 router.post('/logout', (req, res) => {
-  console.log(req.user);
+  console.log('req.user: ', req.user);
   req.logout();
   res.sendStatus(200);
 });
 
+// En cour de tests
 router.get('/', (req, res) => {
     userSchema.findOne({pseudo: 'DarkTerra'}).populate('name').exec(function (err, docs) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else {
         res.json(docs);
@@ -132,10 +146,10 @@ router.get('/', (req, res) => {
 
 router.post('/insert', function (req, res) {
   let hash = crypto.createHmac('sha256', cryptoSecret)
-    .update(req.body.pseudo + req.body.email)
+    .update(req.body.pseudo + req.body.email + Date.now())
     .digest('hex');
-    
-  var newUser = new userSchema({
+  
+  let newUser = new userSchema({
     pseudo    : req.body.pseudo,
     password  : req.body.password,
     email     : req.body.email,
@@ -152,34 +166,16 @@ router.post('/insert', function (req, res) {
   
   newUser.save(function(err) {
     if (err) {
-      //throw err;
-      console.log(err);
-      res.sendStatus(500);
+      console.error(err);
+      res.status(500);
+      if (err.message === 'There was a duplicate key error') {
+        res.json({message : 'Utilisateur déjà existant'});
+      }
     }
     else
     {
-      let validationLink = req.protocol + '://'
-        + req.headers.host
-        + '/#/users/validate/'
-        + hash;
-      
-      var mail = {
-        from: '"Gaming Gen" <noreply@gaming-gen.com>',
-        to: newUser.email,
-        subject: 'Inscription à la Gaming Gen',
-        html: '<b>✔</b> Check : ' + validationLink
-      };
-      
-      SendMail(req, res, mail.from, mail.to, mail.subject, textOk, mail.html);
-      
-      // transporter.sendMail(mail, function(error, info){
-      //   if(error){
-      //     console.log(error);
-      //     res.sendStatus(500);
-      //   } else {
-      //     res.sendStatus(200);
-      //   }
-      // });
+      // Envoit du mail
+      SendMail(req, res, [newUser.email], text, hash);
     }
   });
 });
@@ -190,8 +186,8 @@ router.post('/insert', function (req, res) {
 router.get('/listNoBan', function (req, res) {
   userSchema.find({'access.ban' : false}, function (err, rows) {
     if (err) {
-      console.log(err);
-      res.sendStatus(500);
+      console.error(err);
+      res.status(500);
     } else {
       res.json(rows);
     }
@@ -204,8 +200,8 @@ router.get('/listNoBan', function (req, res) {
 router.get('/listBan', function (req, res) {
   userSchema.find({'access.ban' : true}, function (err, rows) {
     if (err) {
-      console.log(err);
-      res.sendStatus(500);
+      console.error(err);
+      res.status(500);
     } else {
       res.json(rows);
     }
@@ -218,12 +214,12 @@ router.get('/listBan', function (req, res) {
 router.post('/ban', function(req, res) {
    userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : true},function (err, rows) {
     if (err) {
-      console.log(err);
-      res.sendStatus(500);
+      console.error(err);
+      res.status(500);
     } else {
       let serverEvent  = require('./ServerEvent');
       serverEvent.emit('BanUser', req.body.user);
-      res.sendStatus(200);
+      res.status(200);
     }
   });
 });
@@ -234,10 +230,10 @@ router.post('/ban', function(req, res) {
 router.post('/unban', function(req, res) {
   userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : false}, function (err, rows) {
     if (err) {
-      console.log(err);
-      res.sendStatus(500);
+      console.error(err);
+      res.status(500);
     } else {
-      res.sendStatus(200);
+      res.status(200);
     }
   });
 });
@@ -247,25 +243,25 @@ router.post('/unban', function(req, res) {
  */
 router.post('/validate', function(req, res) {
   console.log("Validation d'un user...");
-  userSchema.findOneAndUpdate({'access.validationKey': req.body.hash}, {'access.validationKey': ''}, function (err, rowUpdated) {
+  userSchema.findOneAndUpdate({'access.validationKey': req.body.hash}, {'access.validationKey': '', 'access.level': 1}, function (err, rowUpdated) {
     if (err) {
       console.log("Validate first error : " + err);
-      res.sendStatus(500);
+      res.status(500);
     } else {
       if (rowUpdated !== null) {
         req.body = {
           "email": rowUpdated.email,
           "password": rowUpdated.password
         };
-        res.sendStatus(200);
+        res.status(200);
         // TODO quand le bypass de connexion sera implémenté
         /*login(req, res, function(err) {
           console.log("Validate second error : " + err);
-          res.sendStatus(500);
+          res.status(500);
         }, true);*/
       } else {
         console.log("Validation not complete");
-        res.sendStatus(500);
+        res.status(500);
       }
     }
   });
@@ -273,9 +269,9 @@ router.post('/validate', function(req, res) {
 
 function login(req, res, next) {// Ajouter une option de bypass pour si le mot de passe est déjà crypté (validation de compte)
   passport.authenticate("local", function(err, user, info) {
-    console.log(info);
     if (!user) {
-      return res.sendStatus(401);
+      return res.status(401);
+      // res.end();
     }
     if (err) {
       return next(err);
@@ -284,8 +280,7 @@ function login(req, res, next) {// Ajouter une option de bypass pour si le mot d
       if (err) {
         return next(err);
       }
-      return res.end(JSON.stringify(user));
-      // return res.sendStatus(200);
+      return res.json(user);
     });
   })(req, res, next);
 }
@@ -296,7 +291,7 @@ var userEvent = function(ServerEvent) {
     email = email.toLowerCase();
     userSchema.findOne({email: email}, function (err, doc) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else if (doc != null && doc.email === email) {
         ServerEvent.emit('isMailExistResult', true, socket);
@@ -310,7 +305,7 @@ var userEvent = function(ServerEvent) {
   ServerEvent.on('isPseudoExist', function(pseudo, socket) {
     userSchema.findOne({pseudo: pseudo}, function (err, doc) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else if (doc != null && doc.pseudo === pseudo) {
         ServerEvent.emit('isPseudoExistResult', true, socket);
@@ -325,3 +320,4 @@ var userEvent = function(ServerEvent) {
 
 exports.userEvent = userEvent;
 exports.router = router;
+exports.userSchema = userSchema;
