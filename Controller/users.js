@@ -42,12 +42,12 @@ Ce message a été envoyé automatiquement. Merci de ne pas répondre.
 <br/>
 [Footer] www.gaming-gen.fr [picto Facebook] [picto Twitter] [picto Instagram]`;
 
-console.log('from: ', from, 'process.env.NODEMAILER_MAIL: ', process.env.NODEMAILER_MAIL);
+
 // create reusable transporter object using SMTP transport 
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: process.env.NODEMAILER_USER,
+        user: process.env.NODEMAILER_MAIL,
         pass: process.env.NODEMAILER_PASS
     }
 });
