@@ -43,11 +43,11 @@ let ArticleSchema = new Schema({
  * @function postInit
  * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
  */
-// ArticleSchema.post('init', function(doc) {
-//   console.log('ArticleSchema : ', doc._id);
-//   id = doc.id;
-//   console.log('id: ', id);
-// });
+ArticleSchema.post('init', function(doc) {
+  console.log('ArticleSchema : ', doc._id);
+  id = doc.id;
+  console.log('id: ', id);
+});
 
 /**
  * @function preValidate
@@ -56,7 +56,7 @@ let ArticleSchema = new Schema({
  */
 ArticleSchema.pre('validate', function(next) {
   // Set de l'id
-  this.id = id++;
+  // this.id = id++;
   
   if (!this.register_date) {
     this.register_date = Date.now();

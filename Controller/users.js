@@ -5,11 +5,11 @@ let userSchema = require('../Model/userSchema');
 
 
 // Récupération des modules
-var express       = require('express');
-var router        = express.Router();
-var crypto        = require('crypto');
-var passport      = require('passport');
-var nodemailer    = require('nodemailer');
+const express       = require('express');
+const router        = express.Router();
+const crypto        = require('crypto');
+const passport      = require('passport');
+const nodemailer    = require('nodemailer');
 
 // Confs
 const cryptoSecret   = 'GamingGenCryptoCat';
@@ -44,14 +44,13 @@ Ce message a été envoyé automatiquement. Merci de ne pas répondre.
 
 
 // create reusable transporter object using SMTP transport 
-var transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: process.env.NODEMAILER_USER,
+        user: process.env.NODEMAILER_MAIL,
         pass: process.env.NODEMAILER_PASS
     }
 });
-
 
 function SendMail(req, res, mails, html, hash) {
   console.log('Sending Mail...'.info);
@@ -103,9 +102,11 @@ router.post('/login', login);
 //   if (req.user) {
 //     console.log('User: ' + req.user.pseudo + ' Connecté');
 //     res.status(200);
+//     res.end();
 //   }
 //   else {
 //     res.status(401);
+//     res.end();
 //   }
 // });
 
@@ -188,6 +189,7 @@ router.get('/listNoBan', function (req, res) {
     if (err) {
       console.error(err);
       res.status(500);
+      res.end();
     } else {
       res.json(rows);
     }
@@ -202,6 +204,7 @@ router.get('/listBan', function (req, res) {
     if (err) {
       console.error(err);
       res.status(500);
+      res.end();
     } else {
       res.json(rows);
     }
@@ -216,10 +219,12 @@ router.post('/ban', function(req, res) {
     if (err) {
       console.error(err);
       res.status(500);
+      res.end();
     } else {
       let serverEvent  = require('./ServerEvent');
       serverEvent.emit('BanUser', req.body.user);
       res.status(200);
+      res.end();
     }
   });
 });
@@ -232,8 +237,10 @@ router.post('/unban', function(req, res) {
     if (err) {
       console.error(err);
       res.status(500);
+      res.end();
     } else {
       res.status(200);
+      res.end();
     }
   });
 });
@@ -243,10 +250,12 @@ router.post('/unban', function(req, res) {
  */
 router.post('/validate', function(req, res) {
   console.log("Validation d'un user...");
+  console.log("req.body: ", req.body);
   userSchema.findOneAndUpdate({'access.validationKey': req.body.hash}, {'access.validationKey': '', 'access.level': 1}, function (err, rowUpdated) {
     if (err) {
       console.log("Validate first error : " + err);
       res.status(500);
+      res.end();
     } else {
       if (rowUpdated !== null) {
         req.body = {
@@ -254,14 +263,17 @@ router.post('/validate', function(req, res) {
           "password": rowUpdated.password
         };
         res.status(200);
+        res.end();
         // TODO quand le bypass de connexion sera implémenté
         /*login(req, res, function(err) {
           console.log("Validate second error : " + err);
           res.status(500);
+          res.end();
         }, true);*/
       } else {
         console.log("Validation not complete");
         res.status(500);
+        res.end();
       }
     }
   });

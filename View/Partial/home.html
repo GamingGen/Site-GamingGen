@@ -2,7 +2,7 @@
   <div class="triprez">
     <div class="box boxleft">
       <div class="boxorange"></div>
-      <a href="">
+      <a ui-sref="#">
         <div class="textBoxOrange">
           <span class="orangetxt smalltxt">Découvrez</span>
           <span class="orangetxt">LE</span> FESTIVAL<br/>
@@ -12,7 +12,7 @@
     </div>
     <div class="box boxmid">
       <div class="boxvert"></div>
-      <a ui-sref="">
+      <a ui-sref="#">
         <div class="textBoxVert">
           <span class="verttxt smalltxt">Entrez</span>
           <span class="verttxt">DANS LA</span><br/> 
@@ -21,7 +21,7 @@
       </a>
     </div>
     <div class="box boxright">
-        <a ui-sref="">
+        <a ui-sref="#">
         <div class="infosprochaine"></div>
         <span class="smalltxt">
             Notre prochaine apparition :<br/>
@@ -61,93 +61,13 @@
         </a>
       </div>
     </div>
-    <div class="container">
-      <div class="toparticles row">
-        <div id="Articles" class="titresectionarticles col-sm-12 col-md-12 col-lg-8 col-lg-offset-2" >
-          <h1 class="col-sm-12 col-md-6 col-lg-2">Quoi de neuf, gamers&nbsp;?</h1>
-          <h2 class="col-sm-12 col-md-6 col-lg-4">Toutes les news<br/> de la gaming gen<br/> et du monde du gaming</h2>
-        </div>
-      </div>
-        <div class="row">
-
-
-        <!--<div class="row">
->>>>>>> 7de601feb083ae37c95d5809068b44ce657c8ed7
-          <div class="firstThumbNews col-xs-8">
-            <h1>Coucou le test</h1>
-            <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
-              <a href="#"></a>
-            </span>
-          </div>
-          <div class="otherThumbNews col-xs-4">
-            <h1>col-4</h1>
-            <span style="background:url('https://www.rockpapershotgun.com/images/15/oct/csgo1.jpg') no-repeat center center;" class="imgThumbNews">
-              <a href="#"></a>
-            </span>
-          </div>
-        </div>
-        <div class="row">
-<<<<<<< HEAD
-           <div class="otherThumbNews col-xs-4">
-             <h1>col-4</h1>
-             <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
-              <a href="#"></a>
-              </span>
-            </div>
-            <div class="otherThumbNews col-xs-4">
-              <h1>col-4</h1>
-              <span style="background:url('https://www.rockpapershotgun.com/images/15/oct/csgo1.jpg') no-repeat center center;" class="imgThumbNews">
-                <a href="#"></a>
-              </span>
-            </div>
-            <div class="otherThumbNews col-xs-4">
-              <h1>col-4</h1>
-              <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
-                <a href="#"></a>
-              </span>
-            </div>
-        </div>
-      <!--<div class="contenuarticles fullwidth col-lg-offset-2">
-        <div ng-repeat="article in news.articles | limitTo : 4" class="articles col-sm-6 col-md-6 col-lg-4" ng-class="{ 'articlescompetitions' : article.type.hot_news, 'articlesfestival' : article.type.critical_info, 'nobordernopadding' : article.type.critical_info }">
-=======
-         <div class="otherThumbNews col-xs-4">
-           <h1>col-4</h1>
-           <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
-            <a href="#"></a>
-            </span>
-          </div>
-          <div class="otherThumbNews col-xs-4">
-            <h1>col-4</h1>
-            <span style="background:url('https://www.rockpapershotgun.com/images/15/oct/csgo1.jpg') no-repeat center center;" class="imgThumbNews">
-              <a href="#"></a>
-            </span>
-          </div>
-          <div class="otherThumbNews col-xs-4">
-            <h1>col-4</h1>
-            <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
-              <a href="#"></a>
-            </span>
-          </div>
-        </div>-->
-        
-
-        <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ 'firstThumbNews' : $index === 0, 'col-xs-8' : $index === 0, 'otherThumbNews' : $index > 0, 'col-xs-4' : $index > 0, 'row' : $index === 0 || $index === 2 }">
-          <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
-            <h1>{{article.title}} - 
-              <div ng-show="article.type.hot_news">Hot news</div>
-              <div ng-show="article.type.critical_info">Info cruciale</div>
-            </h1>
-            {{article.desc}}...
-            <img class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
-          </a>
-        </div>
-      </div>
-      <div class="otherThumbNews col-xs-4">
-        <h1>Le reste des articles</h1>
-      </span>
-      <span style="background:url('https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg') no-repeat center center;" class="imgThumbNews">
-        <a ui-sref="news"></a>
-      </span>
+    <div class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
+      <a ui-sref="news">
+        <span class="wrapperPreviewNews">
+          <h1>Le reste des articles</h1>
+        </span>
+        <img class="imgThumbNews" ng-src="{{news.moreArticles || news.defaultPicture}}" alt="Le reste des articles">
+      </a>
     </div>
   </div>
   <div class="lesjoueursledisent">

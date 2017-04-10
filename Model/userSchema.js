@@ -113,7 +113,7 @@ UserSchema.pre('save', function(next) {
  * @todo terminer l'implémentation
  */
 UserSchema.pre('findOneAndUpdate', function(next) {
-  console.log(this.password);
+  console.log('pass: ', this.password);
   this.update({}, {$set: { update_at:  Date.now } });
   next();
 });

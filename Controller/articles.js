@@ -8,6 +8,23 @@ const express	= require('express');
 const router	= express.Router();
 
 // -------------------------------------------------------------------------- //
+//                                 Init                                       //
+// -------------------------------------------------------------------------- //
+let id = 0;
+
+articleSchema.findOne({}, null, {sort: {id: -1}}, function(err, result) {
+  if (err) {
+    console.log(err);
+  }
+  else {
+    if (result !== undefined && result !== null && result.id !== NaN) {
+      id = result.id;
+    }
+  }
+});
+
+
+// -------------------------------------------------------------------------- //
 //                                Routes                                      //
 // -------------------------------------------------------------------------- //
 // Récupère la liste complète des articles
@@ -53,6 +70,7 @@ router.get('/home', function (req, res) {
 let articleEvent = function(ServerEvent) {
   ServerEvent.on('saveArticle', function(data, socket) {
     var newArticle = new articleSchema({
+      id            : ++id,
       username      : data.username,
       title         : data.title,
       desc          : data.desc,
