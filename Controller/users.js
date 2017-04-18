@@ -19,7 +19,7 @@ const from           = `"Gaming Gen" <${process.env.NODEMAILER_MAIL}>`;
 const subject        = 'Inscription à la Gaming Gen';
 const GamingGen      = 'www.gaming-gen.fr';
 const URLGamingGen   = `<a href="${GamingGen}">${GamingGen}</a>`;
-const Facebook       = 'https://www.facebook.com/gaming.gen.lan';
+const Facebook       = 'https://www.facebook.com/gaming.gen.festival';
 const FacebookIMG    = `[host]/Img/General/facebook.svg`;
 const URLFacebook    = `<a href="${Facebook}"><img src="${FacebookIMG}" alt="${Facebook}"></a>`;
 const Twitter        = 'https://twitter.com/gaminggenlan';
