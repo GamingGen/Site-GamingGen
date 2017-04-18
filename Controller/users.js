@@ -95,11 +95,11 @@ function SendMail(req, res, mails, html, hash) {
     html = registrationHtml.replace('[lien]', validationLink)
                             .replace('[boutonValidation]', ButonURL)
                             .replace('[lienBouton]', validationURL)
-                            .replace('[host]', `${req.protocol}://${req.headers.host}/`)
                             .replace('[GamingGen]', URLGamingGen)
                             .replace('[Facebook]', URLFacebook)
                             .replace('[Twitter]', URLTwitter)
-                            .replace('[Instagram]', URLInstagram);
+                            .replace('[Instagram]', URLInstagram)
+                            .replace('[host]', `${req.protocol}://${req.headers.host}`);
   }
   
   // setup e-mail data with unicode symbols 
