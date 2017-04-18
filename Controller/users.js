@@ -10,11 +10,35 @@ const router        = express.Router();
 const crypto        = require('crypto');
 const passport      = require('passport');
 const nodemailer    = require('nodemailer');
+const path          = require('path');
+const fs            = require('fs');
 
 // Confs
 const cryptoSecret   = 'GamingGenCryptoCat';
 const from           = `"Gaming Gen" <${process.env.NODEMAILER_MAIL}>`;
 const subject        = 'Inscription à la Gaming Gen';
+const GamingGen      = 'www.gaming-gen.fr';
+const URLGamingGen   = `<a href="${GamingGen}">${GamingGen}</a>`;
+const Facebook       = 'https://www.facebook.com/gaming.gen.lan';
+const URLFacebook   = `<a href="${Facebook}">${Facebook}</a>`;
+const Twitter        = 'https://twitter.com/gaminggenlan';
+const URLTwitter   = `<a href="${Twitter}">${Twitter}</a>`;
+const Instagram      = 'https://www.instagram.com/gaming_gen_festival';
+const URLInstagram   = `<a href="${Instagram}">${Instagram}</a>`;
+const ButonURL       = `<a href="[lienBouton]"
+                                style="background-color:#64DC13;
+                                padding:14px 28px 14px 28px;
+                                border-radius:3px;
+                                line-height:18px!important;
+                                letter-spacing:0.125em;
+                                text-transform:uppercase;
+                                font-size:13px;
+                                font-family:'Open Sans',Arial,sans-serif;
+                                font-weight:400;
+                                color:#ffffff;
+                                text-decoration:none;
+                                display:inline-block;
+                                line-height:18px!important" target="_blank" >I'm not a bot, bro</a>`;
 let text             = '';
 let registrationHtml = `
 [logo GG]
@@ -43,6 +67,11 @@ Ce message a été envoyé automatiquement. Merci de ne pas répondre.
 [Footer] www.gaming-gen.fr [picto Facebook] [picto Twitter] [picto Instagram]`;
 
 
+// TODO /!\ A tester ! /!\
+registrationHtml = fs.readFileSync(path.join(__dirname, '..', 'Template', 'templateMail.html'), 'utf8');
+
+
+
 // create reusable transporter object using SMTP transport 
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -57,8 +86,15 @@ function SendMail(req, res, mails, html, hash) {
   
   // Gestion mail Inscription
   if (hash) {
-    const validationLink = `${req.protocol}://${req.headers.host}/#/users/validate/${hash}`;
-    html = registrationHtml.replace('[lien]', validationLink);
+    const validationURL = `${req.protocol}://${req.headers.host}/#/users/validate/${hash}`;
+    const validationLink = `<a href="${validationURL}">${validationURL}</a>`;
+    html = registrationHtml.replace('[lien]', validationLink)
+                            .replace('[boutonValidation]', ButonURL)
+                            .replace('[lienBouton]', validationURL)
+                            .replace('[GamingGen]', URLGamingGen)
+                            .replace('[Facebook]', URLFacebook)
+                            .replace('[Twitter]', URLTwitter)
+                            .replace('[Instagram]', URLInstagram);
   }
   
   // setup e-mail data with unicode symbols 
