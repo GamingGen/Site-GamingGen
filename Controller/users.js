@@ -21,13 +21,13 @@ const GamingGen      = 'www.gaming-gen.fr';
 const URLGamingGen   = `<a href="${GamingGen}">${GamingGen}</a>`;
 const Facebook       = 'https://www.facebook.com/gaming.gen.lan';
 const FacebookIMG    = `[host]/Img/General/facebook.svg`;
-const URLFacebook    = `<a href="${Facebook}"><img src="${FacebookIMG}"></a>`;
+const URLFacebook    = `<a href="${Facebook}"><img src="${FacebookIMG}" alt="${Facebook}"></a>`;
 const Twitter        = 'https://twitter.com/gaminggenlan';
 const TwitterIMG     = `[host]/Img/General/twitter.svg`;
-const URLTwitter     = `<a href="${Twitter}"><img src="${TwitterIMG}"></a>`;
+const URLTwitter     = `<a href="${Twitter}"><img src="${TwitterIMG}" alt="${Twitter}"></a>`;
 const Instagram      = 'https://www.instagram.com/gaming_gen_festival';
 const InstagramIMG   = `[host]/Img/General/instagram.svg`;
-const URLInstagram   = `<a href="${Instagram}"><img src="${InstagramIMG}"></a>`;
+const URLInstagram   = `<a href="${Instagram}"><img src="${InstagramIMG}" alt="${Instagram}"></a>`;
 
 const ButonURL       = `<a href="[lienBouton]"
                                 style="background-color:#64DC13;
