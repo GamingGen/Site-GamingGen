@@ -20,13 +20,13 @@ const subject        = 'Inscription à la Gaming Gen';
 const GamingGen      = 'www.gaming-gen.fr';
 const URLGamingGen   = `<a href="${GamingGen}">${GamingGen}</a>`;
 const Facebook       = 'https://www.facebook.com/gaming.gen.lan';
-const FacebookIMG    = `${GamingGen}/Img/General/facebook.svg`;
+const FacebookIMG    = `[host]/Img/General/facebook.svg`;
 const URLFacebook    = `<a href="${Facebook}"><img src="${FacebookIMG}"></a>`;
 const Twitter        = 'https://twitter.com/gaminggenlan';
-const TwitterIMG     = `${GamingGen}/Img/General/twitter.svg`;
+const TwitterIMG     = `[host]/Img/General/twitter.svg`;
 const URLTwitter     = `<a href="${Twitter}"><img src="${TwitterIMG}"></a>`;
 const Instagram      = 'https://www.instagram.com/gaming_gen_festival';
-const InstagramIMG   = `${GamingGen}/Img/General/instagram.svg`;
+const InstagramIMG   = `[host]/Img/General/instagram.svg`;
 const URLInstagram   = `<a href="${Instagram}"><img src="${InstagramIMG}"></a>`;
 
 const ButonURL       = `<a href="[lienBouton]"
@@ -95,6 +95,7 @@ function SendMail(req, res, mails, html, hash) {
     html = registrationHtml.replace('[lien]', validationLink)
                             .replace('[boutonValidation]', ButonURL)
                             .replace('[lienBouton]', validationURL)
+                            .replace('[host]', `${req.protocol}://${req.headers.host}/`)
                             .replace('[GamingGen]', URLGamingGen)
                             .replace('[Facebook]', URLFacebook)
                             .replace('[Twitter]', URLTwitter)
