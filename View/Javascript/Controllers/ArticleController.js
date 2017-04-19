@@ -41,6 +41,7 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
       socket.emit('saveComment', comment);
       
       $scope.commentData = "";
+      articlesCtrl.showCommentZone = false;
     }
     else {
       errorOnGetArticle();
