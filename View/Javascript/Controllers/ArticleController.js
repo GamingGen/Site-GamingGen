@@ -31,11 +31,9 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
   
   // ----- Public Méthode -----
   $scope.submitComment = function() {
-    console.log('$scope : ', $scope);
     if ($scope.commentData && $scope.commentData.length > 0) {
       var comment = {
             articleId : Number($('#articleId').val()),
-            // articleId : id,
             username  : user.isLoggedIn ? user.pseudo : 'Un visiteur du futur',
             text      : $scope.commentData
           };
