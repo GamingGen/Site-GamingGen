@@ -52,41 +52,21 @@
       </div>
       <div class="row">
         <div class="triggerComment col-lg-5 col-lg-offset-2">
-          <button data-toggle="modal" data-target="#commentModal" data-id="{{article.currentArticle.id}}">Commenter</button><!-- Bouton d'affichage de la pop-up de création de commentaire -->
+          <button ng-click="toggleCommentZone()">Commenter</button><!-- Bouton d'affichage de la pop-up de création de commentaire -->
         </div>
       </div>
       <div class="row">
-        <!-- Modale d'ajout de commentaires -->
         <div role="document" class="col-lg-5 col-lg-offset-2">
-          <div ng-controller="commentCtrl">
-            <div class="modal fade container" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content commentModal">
-                  <div class="bloccommentModal smallModalConnexion row">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <div class="modal-header col-md-6">
-                        <span class="backgroundInscription"></span>
-                    </div>
-                    <div class="modal-body col-md-6">
-                      <form ng-submit="submitComment()" name="formComment" novalidate>
-                        <div class="row">
-                          <div class="col-md-12 form-group">
-                            <input type="hidden" id="articleId" name="articleId" value="{{article.currentArticle.id}}"/>
-                            <label for="comment">Commentaire : </label>
-                            <input type="textarea" ng-model="comment" class="form-control" id="comment" placeholder="Commentaire" required/>
-                          </div>
-                        </div>
-                      </form>
-                      <div class="bottomFooter row">
-                        <a type="submit" ng-click="submitComment()" class="btnForm ValidInscription" ng-disabled="formComment.$invalid" data-dismiss="modal">Envoyer</a>
-                        <a type="button" id="closeComment" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <form ng-show="article.showCommentZone" ng-submit="submitComment()" name="formComment" novalidate>
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <input type="hidden" id="articleId" name="articleId" value="{{article.currentArticle.id}}"/>
+                <label for="comment">Commentaire : </label>
+                <input type="textarea" ng-model="commentData" class="form-control" id="comment" placeholder="Commentaire" required/>
+                <input type="submit" value="Envoyer">
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
       <div class="row">

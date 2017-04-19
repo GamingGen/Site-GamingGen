@@ -2,8 +2,10 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
+AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'UserService', function($scope, $http, socket, UserService) {
   // ----- Init -----
+  var user = UserService.currentUser;
+  
   tinymce.init({
     selector: 'textarea',
     height: 500,
@@ -27,28 +29,30 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', func
   
   
   // ----- GET / SET Data -----
-  $scope.tinymceModel = 'https://nodeblog.files.wordpress.com/2011/07/nodejs.png';
+  $scope.tinymceModel = `Il suffit d'écrire l'article ici ^^`;
   
   
   // ----- Public Méthode -----
   $scope.getContent = function() {
-    // console.log('Editor Title:', $scope.title);
-    // console.log('Editor Desc:', $scope.desc);
-    // console.log('Editor Content:', tinymce.activeEditor.getContent());
-    var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
-    // TODO Récupérer l'username une fois la partie gestion des connexions fonctionnel
-    var article = {
-          username  : 'DarkTerra',
-          title     : $scope.title,
-          desc      : $scope.desc,
-          text      : text
-        };
-    
-    socket.emit('saveArticle', article);
-    
-    $scope.title = '';
-    $scope.desc = '';
-    tinymce.activeEditor.setContent('<p></p>');
+    if (user && user.isLoggedIn) {
+      var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
+      // TODO Récupérer l'username une fois la partie gestion des connexions fonctionnel
+      var article = {
+            username  : user.pseudo,
+            title     : $scope.title,
+            desc      : $scope.desc,
+            text      : text
+          };
+      
+      socket.emit('saveArticle', article);
+      
+      $scope.title = '';
+      $scope.desc = '';
+      tinymce.activeEditor.setContent('<p></p>');
+    }
+    else {
+      // TODO Deco + redirection home
+    }
   };
   
   
