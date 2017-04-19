@@ -29,7 +29,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   
   // ----- GET / SET Data -----
-  $scope.tinymceModel = `Il suffit d'écrire l'article ici ^^`;
+  $scope.tinymceModel = "Il suffit d'écrire l'article ici ^^";
   
   
   // ----- Public Méthode -----
