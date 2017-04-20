@@ -35,7 +35,7 @@
       </a>
     </div>
     <div class="scrolldown">
-      <a href="" ng-click="scrollTo('Articles')"><img ng-src="../Img/General/flechedown.png"></a>
+      <a href="" ng-click="scrollTo('Articles')"><img ng-src="../Img/arrowdown.svg"></a>
     </div>
   </div>
   <div class="container">
@@ -45,23 +45,24 @@
         <h2 class="col-sm-12 col-md-6 col-lg-4">Toutes les news<br/> de la gaming gen<br/> et du monde du gaming</h2>
       </div>
     </div>
-    <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ 'row' : $index === 1 || $index === 4 }">
-      <div ng-class="{ 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
-        <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
-          <span class="wrapperPreviewNews">
-            <h1>{{article.title}}</h1>
-            <h2 class="previewTextThumbNews">
-              <span class="categoryListNews" ng-show="article.type.hot_news">Hot news</span>
-              <span class="categoryListNews" ng-show="article.type.critical_info">Info cruciale</span>
-              <span class="ng-binding">{{article.register_date | date : 'MMMM yyyy'}}</span>
-            </h2>
-          </span>
-          {{article.desc}}...
-          <img class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
-        </a>
+    <div class="row">
+      <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ '' : $index === 1 || $index === 4 }">
+        <div ng-class="{ 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
+          <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
+            <span class="wrapperPreviewNews">
+              <h1>{{article.title}}</h1>
+              <h2 class="previewTextThumbNews">
+                <span class="categoryListNews" ng-show="article.type.hot_news">Hot news</span>
+                <span class="categoryListNews" ng-show="article.type.critical_info">Info cruciale</span>
+                <span class="ng-binding">{{article.register_date | date : 'MMMM yyyy'}}</span>
+              </h2>
+            </span>
+            {{article.desc}}...
+            <img class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
+      <div class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
       <a ui-sref="news">
         <span class="wrapperPreviewNews">
           <h1>Le reste des articles</h1>
@@ -69,6 +70,8 @@
         <img class="imgThumbNews" ng-src="{{news.moreArticles || news.defaultPicture}}" alt="Le reste des articles">
       </a>
     </div>
+    </div>
+    
   </div>
   <div class="lesjoueursledisent">
     <p>Les joueurs le disent<img ng-src="../Img/General/flecheangle.svg"></p>
@@ -77,11 +80,24 @@
     MERCI<img ng-src="../Img/General/coeur.svg">
   </div>
   <div class="blocdesfeedback">
-    <span>
-      <h5>"CA SENT TRES BON DANS CETTE LAN"</h5>
-      <h6>Kamel Chebat</h6>
-      <img ng-src="../Img/finbulle.png">
-    </span>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+      </ol>
+      <div class="carousel-inner">
+        <span class="item active">
+          <h5>"La nécessité de répondre à votre inquiétude journalière, que vous soyez jeunes ou âgés"</h5>
+          <h6>Kamel Chebat</h6>
+          <img ng-src="../Img/finbulle.png">
+        </span>
+        <span class="item">
+          <h5>"Le peu de voitures qui circulaient encore étaient ultra sécurisées"</h5>
+          <h6>Frédéric Guazzini</h6>
+          <img ng-src="../Img/finbulle.png">
+        </span>
+      </div>
+    </div>
   </div>
   <div class="instafeed row">
     <div class="first-case">

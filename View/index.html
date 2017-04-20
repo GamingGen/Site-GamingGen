@@ -227,18 +227,33 @@
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-              <div class="socialHeader">
+              <div class="socialHeader hidden-xs">
                   <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
-                    <a href="" class="socialLink compte smallBtnHeaderInscription" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
-                    <a href="" class="socialLink compte smallBtnHeaderInscription" data-toggle="modal" data-target="#connectionModal">Connexion</a>
+                    <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
+                    <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
+                  </li>
+                  <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
+                  <li ng-show="" ui-sref-active="active" class="socialBloc demiSocial dropdown">
+                    <div class="socialBloc demiSocial">
+                      <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Mon Compte
+                      </a>
+                      <ul class="socialLink compte dropdown-menu">
+                        <li ng-show="User.accessLvl > 0"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                        <li ng-show="User.accessLvl > 0"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                        <li ng-show="User.accessLvl > 0"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
+                      </ul>
+                    </div>
                   </li>
                   <li class="socialBloc demiSocial">
-                    <a href="" class="socialLink heart"><img src="../Img/General/heart.svg"></a>
-                    <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img src="../Img/General/instagram.svg"></a>
+                    <a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>
+                    <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="../Img/General/instagram.svg"></a>
                   </li>
                   <li class="socialBloc">
-                    <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img src="../Img/General/twitter.svg"></a>
-                    <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img src="../Img/General/facebook.svg"></a>
+                    <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="../Img/General/twitter.svg"></a>
+                    <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img ng-src="../Img/General/facebook.svg"></a>
                   </li>
                 </div>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
@@ -291,7 +306,7 @@
                     <li><a ui-sref="info.contact">Contact</a></li>
                   </ul>
                 </li>
-                <div class="socialHeader">
+                <div class="socialHeader socialHeaderXS hidden-sm hidden-md hidden-lg">
                   <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
                     <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
                     <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
@@ -521,27 +536,28 @@
         <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
           <a ui-sref="#">
             <h2>TU VEUX EN SAVOIR PLUS ?</h2>
-            <p>On fait des réunions sympas.</p>
+            <p></p>
           </a>
         </div>
         <div class="reassurance First col-xs-12 col-sm-6 col-md-3">
           <a ui-sref="#">
-          <img src='../Img/General/benevoleAFAIRE.svg'/>
+          <img src='../Img/General/benevole.svg'/>
             <h2>DEVENIR BÉNÉVOLE</h2>
             <p>On fait des réunions sympas.</p>
           </a>
         </div>
         <div class="reassurance Second col-xs-12 col-sm-6 col-md-3">
           <a ui-sref="#">
-            <img src='../Img/exposantAFAIRE.svg'/>
+            <img src='../Img/exposant.svg'/>
             <h2>DEVENIR EXPOSANT</h2>
-            <p>On fait des réunions sympas.</p>
+            <p>Grande renommée pour toi !</p>
           </a>
         </div>
         <div class="reassurance Third col-xs-12 col-sm-6 col-md-3">
           <a ui-sref="#">
-            <h2>TU VEUX EN SAVOIR PLUS ?</h2>
-            <p>On fait des réunions sympas.</p>
+            <img src='../Img/tournoireassurance.svg' width="168"/>
+            <h2>PARTICIPER AUX TOURNOIS</h2>
+            <p>Devenir le pro de tes rêves.</p>
           </a>
         </div>
       </div>

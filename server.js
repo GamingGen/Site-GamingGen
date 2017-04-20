@@ -1,4 +1,4 @@
-/**
+ /**
  * @file server.js
  * @desc Point d'entrée de l'application 'Gaming-Gen'. <br />
  * L'application Gaming-Gen permet de gérer entièrement notre évènement. <br />
