@@ -65,7 +65,7 @@ body {
 /*}*/
 
 
-p {
+p, h3, label {
   color: #000;
   font-family: 'Droid Sans', sans-serif;
   /*white-space: nowrap;*/
@@ -95,6 +95,7 @@ h4.modal-title {
 }
 .fade.in{
   display: flex!important;
+    width: 100%;
 }
 .modal-content {
   background:#232323;
@@ -964,6 +965,57 @@ height:25vw;
   width:15px;
   margin-right: 25px;
 }
+.triggerComment{
+  display:flex;
+  justify-content:center;
+  height:48px;
+}
+.triggerComment a{
+  background:white;
+  border-radius:25px;
+}
+.triggerComment a{
+  cursor:pointer;
+  position:absolute;
+  margin-bottom:15px;
+  height:48px;
+  width:140px;
+  color:rgba(0,0,0,0.8);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.triggerComment, .commentTextArea{
+  padding-left:0px;
+  padding-right:0px;
+}
+.commentTextArea{
+  margin-bottom: 80px;
+}
+.commentTextArea label{
+  font-weight: 100;
+}
+.commentTextArea input{
+  border-bottom: 0px;
+}
+.commentTextArea input[type=submit]{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:32px;
+  background:white;
+  position:absolute;
+  right:15px;
+  margin-top:5px;
+  width:96px;
+  border-radius:25px;
+  border:0;
+}
+.noComment{
+  display:flex;
+  justify-content:center;
+  margin-bottom:18px;
+}
 .micComment{
   width:100%;
   fill:rgba(0,0,0,0.2);
@@ -1159,8 +1211,38 @@ height:25vw;
 .carousel-inner{
   width:500px;
 }
-.carousel-inner item{
-  width:100%;
+.carousel-inner .item{
+  
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  opacity:0;
+}
+.carousel-inner .item.prev{
+   -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  opacity:0.1;
+}
+.carousel-inner .item.next{
+   -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  opacity:0.1;
+}
+.carousel-inner .item.active{
+   -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  opacity:1;
 }
 .blocdesfeedback{
   float:left;
