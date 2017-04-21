@@ -57,7 +57,6 @@
     <script type="text/javascript" src="Javascript/Controllers/MainController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/ShopController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/SnackController.js"></script>
-    <script type="text/javascript" src="Javascript/Controllers/CommentController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/ArticleController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/ArticleListController.js"></script>
     
@@ -181,7 +180,7 @@
                     </div>
                     <div class="row">
                       <div ng-show="isPseudoExist" class="alert alert-danger" role="alert">Ce pseudo existe déjà</div>
-                        <div ng-show="isMailExist" class="alert alert-danger" role="alert">Cette adresse mail existe déjà</div>
+                      <div ng-show="isMailExist" class="alert alert-danger" role="alert">Cette adresse mail existe déjà</div>
                     </div>
                   </form>
                 </div>
@@ -254,6 +253,7 @@
                   <li class="socialBloc">
                     <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="../Img/General/twitter.svg"></a>
                     <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img ng-src="../Img/General/facebook.svg"></a>
+
                   </li>
                 </div>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
@@ -270,7 +270,7 @@
               <ul class="nav navbar-nav">
                 <li ui-sref-active="active" class="dropdown">
                   <a href="" class="displayBlockDropdown dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <span>Gaming Gen 6</span><img ng-src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"><span class="caret"></span>
+                    <span>Gaming Gen 6</span><span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
                     <li><a ui-sref="competitions">Les compétitions</a></li>
@@ -328,11 +328,11 @@
                   </li>
                   <li class="socialBloc demiSocial">
                     <a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>
-                    <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="../Img/General/instagram.svg"></a>
+                    <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="Img/General/instagram.svg"></a>
                   </li>
                   <li class="socialBloc">
-                    <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="../Img/General/twitter.svg"></a>
-                    <a href="https://www.facebook.com/gaming.gen.lan/" target="_blank" class="socialLink facebook"><img ng-src="../Img/General/facebook.svg"></a>
+                    <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="Img/General/twitter.svg"></a>
+                    <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" class="socialLink facebook"><img ng-src="Img/General/facebook.svg"></a>
                   </li>
                 </div>
                 <li ng-if="User.multilang" class="dropdown">
@@ -572,9 +572,9 @@
           <div class="footerLinks col-xs-12 col-sm-8">
             <a href="" data-toggle="modal" data-target="#registrationModal">Inscription</a>
             <a href="" data-toggle="modal" data-target="#connectionModal">Connexion</a>
-            <a ui-sref="#">Facebook</a>
-            <a ui-sref="#">Twitter</a>
-            <a ui-sref="#">Instagram</a>
+            <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" >Facebook</a>
+            <a href="https://twitter.com/gaminggenlan" target="_blank" >Twitter</a>
+            <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" >Instagram</a>
             <a ui-sref="home">Accueil</a>
             <a ui-sref="#">Gaming gen 6</a>
             <a ui-sref="#">Compétitions</a>
@@ -590,5 +590,17 @@
         </div>
       </div>
     </div>
+    
+    <!-- Hotjar Tracking Code for http://darkterra.fr -->
+    <script>
+      (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:390971,hjsv:5};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
   </body>
 </html>

@@ -39,17 +39,6 @@ router.get('/', function (req, res) {
   });
 });
 
-// Récupère un article suivant l'ID
-router.get('/:id', function (req, res) {
-  articleSchema.findOne({id: req.params.id}, function (err, docs) {
-    if (err) {
-      console.error(err);
-    }
-    else {
-      res.json(docs);
-    }
-  });
-});
 
 // Récupère uniquement les 4 dernier articles (Spécifique pour la Home)
 router.get('/home', function (req, res) {
@@ -63,6 +52,17 @@ router.get('/home', function (req, res) {
   });
 });
 
+// Récupère un article suivant l'ID
+router.get('/:id', function (req, res) {
+  articleSchema.findOne({id: req.params.id}, function (err, docs) {
+    if (err) {
+      console.error(err);
+    }
+    else {
+      res.json(docs);
+    }
+  });
+});
 
 // -------------------------------------------------------------------------- //
 //                                Events                                      //
