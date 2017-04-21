@@ -121,7 +121,7 @@
               
               $timeout(function () {
                 cfpLoadingBar.complete();
-              }, 500);
+              }, 800);
             }
             
             if (response.status === 401) {
