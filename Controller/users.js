@@ -327,6 +327,8 @@ function login(req, res, next) {// Ajouter une option de bypass pour si le mot d
       // res.end();
     }
     if (err) {
+      console.log(err);
+      return res.status(500);
       return next(err);
     }
     req.logIn(user, function(err) {
