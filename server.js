@@ -134,6 +134,7 @@ let authStrategy = new LocalStrategy({
 		// You can write any kind of message you'd like.
 		// The message will be displayed on the next page the user visits.
 		// We're currently not displaying any success message for logging in.
+		console.log('server.js - error: ', error);
 		done(error, user, error ? { message: error.message } : null);
 	});
 });
