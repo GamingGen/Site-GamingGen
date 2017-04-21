@@ -72,6 +72,8 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
       UserService.MajCurrentUser();
       $scope.User = UserService.currentUser;
       console.log($scope.User);
+        
+      $('#connectionModal').modal('toggle');
       
       $scope.connectionEmail = '';
       $scope.connectionPassword = '';
@@ -109,7 +111,9 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
         $scope.connectionEmail = user.email;
         $scope.connectionPassword = user.password;
         $scope.submitLogin();
-
+        
+        $('#registrationModal').modal('toggle');
+        
         console.log('data: ', data);
         $("#msgInfo").html(data.message);
         $("#msgInfo").show().delay(3000).fadeOut();
@@ -200,7 +204,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   }
   
   $transitions.onSuccess({}, function () { 
-    document.body.scrollTop = document.documentElement.scrollTop = 0
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
   });
 
   // Collapse Menu responsive

@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css">-->
     
     <!-- build:css css/min.css -->
     <link rel="stylesheet" href="Style/jasny-bootstrap.min.css">
@@ -75,31 +74,9 @@
     <script type="text/javascript" src="Javascript/Services/ContainerService.js"></script>
     <script type="text/javascript" src="Javascript/Services/UserService.js"></script>
     <script type="text/javascript" src="Javascript/Locales/angular-locale_fr-fr.js"></script>
-
+    
     <script type="text/javascript" src="Javascript/app.js"></script>
     <!-- endbuild -->
-
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $(".lirearticle").hover(function(){
-        $(".h4article").addClass("blanc");
-      });
-      
-    	$(".closelire").click(function(){
-          $(".pushvocation").removeClass("hover");
-        });
-      });
-      $(document).ready(function() {
-    				$('a').on('click', function() {
-    					var page = $(this).attr('href');
-    					var speed = 550;
-    					$('html, body').animate( { scrollTop: $(page).offset().top }, speed );
-    					return false;
-    				});
-    			});
-    </script>
-  <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
-
   </head>
   
   <body ng-controller="mainCtrl">
@@ -175,7 +152,7 @@
                   </div>
                 </div>
                 <div class="bottomFooter row">
-                  <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" data-dismiss="modal">Envoyer</a>
+                  <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" >Envoyer</a>
                   <a type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
                 </div>
                 <div class="row">
@@ -213,7 +190,7 @@
                 </div>
               </form>
               <div class="bottomFooter row">
-                <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid" data-dismiss="modal">Connexion</a>
+                <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid">Connexion</a>
                 <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
               </div>
             </div>

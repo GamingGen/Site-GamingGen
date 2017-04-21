@@ -123,7 +123,7 @@
               
               $timeout(function () {
                 cfpLoadingBar.complete();
-              }, 800);
+              }, 500);
             }
             
             if (response.status === 401) {
@@ -149,7 +149,7 @@
       
       function errorOnGetArticle(err) {
         $("#msgError").html(err);
-        $("#msgError").show().delay(3000).fadeOut();
+        $("#msgError").show().css('display', 'flex').delay(3000).fadeOut();
       }
       
       // TODO Trouver comment intercepter le CTRL + R || F5

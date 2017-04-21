@@ -1868,15 +1868,45 @@ border-top: 0px;
 }
 
 /* Message d'erreur sur la page d'accueil */
+.alert-valid {
+    color: white;
+    background-color: #52B514;
+    font-size: 1.5em;
+    font-family: TitlingGothicFBCondRegular;
+    text-transform: uppercase;
+}
+.alert-info{
+color: rgba(0,0,0,0.8);
+background-color: #F4F4F4;
+    font-size: 1.5em;
+    font-family: TitlingGothicFBCondRegular;
+    text-transform: uppercase;
+}
+.alert-danger {
+    color: white;
+    background-color: #dc2b00;
+    font-size: 1.5em;
+    font-family: TitlingGothicFBCondRegular;
+    text-transform: uppercase;
+    border-color: #232323;
+}
+
 .popUpMessage {
-  position: absolute;
-  left: 0;
-  top:0;
-  padding: 5px;
-  display: none;
-  background:white;
-  width:100%;
-  z-index: 9999;
+padding: 20px 50px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    position: absolute;
+    -moz-box-shadow: 0px 10px 20px 0px #000000;
+    -webkit-box-shadow: 0px 10px 20px 0px #000000;
+    -o-box-shadow: 0px 10px 20px 0px #000000;
+    box-shadow: 0px 10px 20px 0px #000000;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, Direction=180, Strength=20);
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    display: none;
+    width: 100%;
+    z-index: 9999;
 }
 
 .badge-right {

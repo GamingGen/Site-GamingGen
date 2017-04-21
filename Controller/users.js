@@ -75,7 +75,6 @@ Ce message a été envoyé automatiquement. Merci de ne pas répondre.
 registrationHtml = fs.readFileSync(path.join(__dirname, '..', 'Template', 'templateMail.html'), 'utf8');
 
 
-
 // create reusable transporter object using SMTP transport 
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -212,6 +211,9 @@ router.post('/insert', function (req, res) {
       res.status(500);
       if (err.message === 'There was a duplicate key error') {
         res.json({message : 'Utilisateur déjà existant'});
+      }
+      else {
+        res.json({message : err});
       }
     }
     else

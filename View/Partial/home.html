@@ -46,11 +46,11 @@
       </div>
     </div>
     <div class="row">
-      <div ng-repeat="article in news.articles | limitTo : 4" ng-class="{ '' : $index === 1 || $index === 4 }">
-        <div ng-class="{ 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
+      <div ng-repeat="article in news.articles | limitTo : 4">
+        <div ng-mouseenter="hover=true" ng-mouseleav="hover=false" ng-class="{ 'blanc' : hover, 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
           <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
             <span class="wrapperPreviewNews">
-              <h1>{{article.title}}</h1>
+              <h1>{{article.title }}</h1>
               <h2 class="previewTextThumbNews">
                 <span class="categoryListNews" ng-show="article.type.hot_news">Hot news</span>
                 <span class="categoryListNews" ng-show="article.type.critical_info">Info cruciale</span>
