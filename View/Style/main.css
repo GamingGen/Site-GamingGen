@@ -1870,10 +1870,13 @@ border-top: 0px;
 /* Message d'erreur sur la page d'accueil */
 .popUpMessage {
   position: absolute;
-  right: 0;
-  margin: 5px;
+  left: 0;
+  top:0;
+  padding: 5px;
   display: none;
-  z-index: 1000;
+  background:white;
+  width:100%;
+  z-index: 9999;
 }
 
 .badge-right {
