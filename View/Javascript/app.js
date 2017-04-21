@@ -119,6 +119,8 @@
             if (response.status !== 200) {
               console.log('Stop Chargement Animation');
               
+              errorOnGetArticle(response.statusText);
+              
               $timeout(function () {
                 cfpLoadingBar.complete();
               }, 800);
@@ -144,6 +146,11 @@
           }
         };
       }]);
+      
+      function errorOnGetArticle(err) {
+        $("#msgError").html(err);
+        $("#msgError").show().delay(3000).fadeOut();
+      }
       
       // TODO Trouver comment intercepter le CTRL + R || F5
       // $locationProvider.html5Mode(true);

@@ -75,8 +75,10 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
       
       $scope.connectionEmail = '';
       $scope.connectionPassword = '';
-    }, function error() {
+    }, function error(err) {
       console.log('Connexion Error -_-');
+      
+      errorOnGetArticle(err);
       
       $scope.connectionEmail = '';
       $scope.connectionPassword = '';
@@ -190,7 +192,13 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   
   // ----- jQuery -----
-
+  
+  // Gestion des erreurs
+  function errorOnGetArticle(err) {
+    $("#msgError").html(err);
+    $("#msgError").show().delay(3000).fadeOut();
+  }
+  
   $transitions.onSuccess({}, function () { 
     document.body.scrollTop = document.documentElement.scrollTop = 0
   });

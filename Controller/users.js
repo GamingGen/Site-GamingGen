@@ -323,8 +323,10 @@ router.post('/validate', function(req, res) {
 function login(req, res, next) {// Ajouter une option de bypass pour si le mot de passe est déjà crypté (validation de compte)
   passport.authenticate("local", function(err, user, info) {
     if (!user) {
-      return res.status(401);
+      res.status(401);
+      // res.json({ message : err});
       // res.end();
+      return next(err);
     }
     if (err) {
       console.log(err);
@@ -337,7 +339,7 @@ function login(req, res, next) {// Ajouter une option de bypass pour si le mot d
         res.status(500);
         return next(err);
       }
-      return res.json(user);
+      res.json(user);
     });
   })(req, res, next);
 }
