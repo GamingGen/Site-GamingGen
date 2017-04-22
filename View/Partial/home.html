@@ -47,7 +47,7 @@
     </div>
     <div class="row">
       <div ng-repeat="article in news.articles | limitTo : 4">
-        <div ng-mouseenter="hover=true" ng-mouseleav="hover=false" ng-class="{ 'blanc' : hover, 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
+        <div ng-mouseenter="hover=true" ng-mouseleave="hover=false" ng-class="{ 'blanc' : hover, 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
           <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
             <span class="wrapperPreviewNews">
               <h1>{{article.title }}</h1>
@@ -56,20 +56,23 @@
                 <span class="categoryListNews" ng-show="article.type.critical_info">Info cruciale</span>
                 <span class="ng-binding">{{article.register_date | date : 'MMMM yyyy'}}</span>
               </h2>
+              <div class="badge-right">
+                {{article.comments.length}} <i class="fa fa-comments" aria-hidden="true"></i>
+              </div>
             </span>
             {{article.desc}}...
             <img class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
           </a>
         </div>
       </div>
-      <div class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
-      <a ui-sref="news">
-        <span class="wrapperPreviewNews">
-          <h1>Le reste des articles</h1>
-        </span>
-        <img class="imgThumbNews" ng-src="{{news.moreArticles || news.defaultPicture}}" alt="Le reste des articles">
-      </a>
-    </div>
+      <div ng-mouseenter="hover=true" ng-mouseleave="hover=false" ng-class="{ 'blanc' : hover }" class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
+        <a ui-sref="news">
+          <span class="wrapperPreviewNews">
+            <h1>Le reste des articles</h1>
+          </span>
+          <img class="imgThumbNews" ng-src="{{news.moreArticles || news.defaultPicture}}" alt="Le reste des articles">
+        </a>
+      </div>
     </div>
     
   </div>
