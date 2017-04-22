@@ -19,12 +19,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
     
     <!-- build:css css/min.css -->
+    <link rel="stylesheet" href="Style/please-wait.css">
     <link rel="stylesheet" href="Style/jasny-bootstrap.min.css">
     <link rel="stylesheet" href="Style/main.css">
     <link rel="stylesheet" href="Style/loading-bar.css" media="all">
     <!-- endbuild -->
-    
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  </head>
+  
+  <body ng-controller="mainCtrl">
+    <!-- Splash Screen -->
+    <div class="inner" ng-view>
+    </div>
+    <script type="text/javascript" src="Javascript/Lib/please-wait.min.js"></script>
+    <script type="text/javascript">
+      window.loading_screen = window.pleaseWait({
+        logo: "Img/General/logo.min.png",
+        backgroundColor: '#3f4144',
+        loadingHtml: "<p class='loading-message'>Encore quelques instant, l'application finit de charger...</p><div class='spinner'></div>"
+      });
+    </script>
+
+    <!-- Load Frameworks -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
@@ -32,6 +47,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/locale/bootstrap-table-fr-FR.js"></script>
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
@@ -77,9 +93,8 @@
     
     <script type="text/javascript" src="Javascript/app.js"></script>
     <!-- endbuild -->
-  </head>
-  
-  <body ng-controller="mainCtrl">
+
+
     <!-- Inscription Modal -->
     <div class="modal fade container" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
       <div class="modal-dialog modal-lg" role="document">
@@ -393,121 +408,118 @@
     </ul>
     <div class="row">
       <div class="col-md-12">
-        <!--<div class="body">-->
-          
-          <!--Messages d'erreur -->
-          <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
-          <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>
-          
-        <!--  <section ng-if="showSlider" class="hidden-xs">-->
-        <!--    <div id="wrapper">-->
-        <!--    	<div id="slider">-->
-            	
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide1.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>GamingGen 5</h4>-->
-        <!--    				<p>Nos Tomb Rider ;)</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide2.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>L'accueil</h4>-->
-        <!--    				<p>Comme toujours un qui travail et 3 qui regarde.</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide3.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide4.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide5.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide6.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide7.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide8.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide9.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide10.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide11.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide12.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide13.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    	</div>-->
-        <!--    </div>-->
-        <!--  </section>-->
-          
-          <div class="slider">
-           <a ui-sref="#"></a>
-          </div>
-            <div ng-class="mainView">
-              <div ui-view autoscroll="false"></div>
-            </div>
-
+        <!--Messages d'erreur -->
+        <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
+        <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>
+        
+      <!--  <section ng-if="showSlider" class="hidden-xs">-->
+      <!--    <div id="wrapper">-->
+      <!--    	<div id="slider">-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide1.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>GamingGen 5</h4>-->
+      <!--    				<p>Nos Tomb Rider ;)</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide2.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>L'accueil</h4>-->
+      <!--    				<p>Comme toujours un qui travail et 3 qui regarde.</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide3.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide4.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide5.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide6.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide7.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide8.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide9.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide10.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide11.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide12.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide13.jpg);">-->
+      <!--    			<div class="slide-block">-->
+      <!--    				<h4>La GG6 bientôt</h4>-->
+      <!--    				<p>Commentaire ici...</p>-->
+      <!--    			</div>-->
+      <!--    		</div>-->
+            
+      <!--    	</div>-->
+      <!--    </div>-->
+      <!--  </section>-->
+        
+        <div class="slider">
+          <a ui-sref="#"></a>
         </div>
+          <div ng-class="mainView">
+            <div ui-view autoscroll="false"></div>
+          </div>
+
       </div>
-    <!--</div>-->
+    </div>
     <div class="footer fullwidth">
       <div class="superFooter row">
         <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
@@ -543,9 +555,6 @@
           <a ui-sref="home"><img alt="Logo" ng-src="Img/logowh.svg"></a>
         </div>
         <div class="absolufooter row">
-          <!--<div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
-            <a ui-sref="home"><img alt="Logo" src="Img/logowh.svg"></a>
-          </div>-->
           <div class="footerLinks col-xs-12 col-sm-8">
             <a href="" data-toggle="modal" data-target="#registrationModal">Inscription</a>
             <a href="" data-toggle="modal" data-target="#connectionModal">Connexion</a>
@@ -567,6 +576,30 @@
         </div>
       </div>
     </div>
+
+    <!-- Check if Angular is compatible, and remove the Splash Screen if Ok-->
+    <script>
+      var everythingLoaded = setInterval(function() {
+        if (/loaded|complete/.test(document.readyState)) {
+          clearInterval(everythingLoaded);
+          if(typeof angular === 'undefined') {
+            console.log('Oo, nous avons un problème avec Angular.JS...');
+            setTimeout(function() {
+              var pg = document.getElementsByClassName("pg-removing");
+              while (pg.length)
+              {
+                pg[0].className = pg[0].className.replace(/\bpg-removing\b/g, "");
+              }
+              window.loading_screen.updateLoadingHtml("<p class='loading-message'>Sorry, this WebApp is not compatible with your Browser -_-</p>")
+            }, 1000);
+          }
+          else {
+            console.log('Tout semble correct, l\'application décolle !');
+            window.loading_screen.finish();
+          }
+        }
+      }, 100);
+    </script>
     
     <!-- Hotjar Tracking Code for http://darkterra.fr -->
     <script>
