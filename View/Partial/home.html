@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="row">
-      <div ng-repeat="article in news.articles | limitTo : 4">
+      <div ng-repeat="article in news.articles | orderBy : '-register_date' | limitTo : 4">
         <div ng-mouseenter="hover=true" ng-mouseleave="hover=false" ng-class="{ 'blanc' : hover, 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
           <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
             <span class="wrapperPreviewNews">

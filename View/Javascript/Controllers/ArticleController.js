@@ -8,10 +8,14 @@ var AppControllers = angular.module('AppControllers');
 
 AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', 'UserService', function($scope, $http, socket, $sce, UserService) {
   // ----- Init -----
-  var articlesCtrl                    = this;
-  // $scope.articlesCtrl              = {};
-  articlesCtrl.currentArticle  = {};
-  articlesCtrl.showCommentZone = false;
+  var commentsLength            = 0;
+  var jump                      = 0;
+  $scope.disableInfiniteScroll  = true;
+  $scope.step                   = 5;
+  $scope.comments               = [];
+  var articlesCtrl              = this;
+  articlesCtrl.currentArticle   = {};
+  articlesCtrl.showCommentZone  = false;
   
   var user = UserService.currentUser;
   
@@ -20,9 +24,21 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
   if ($scope.idArticle !== undefined) {
     $http.get('/articles/' + $scope.idArticle).success(function(article) {
       if (article !== null)
+      {
         articlesCtrl.currentArticle = article;
+        
+        // Triage des commentaire du plus récent au plus ancien
+        articlesCtrl.currentArticle.comments.sort(function (a, b) {
+          return b.id - a.id;
+        });
+        commentsLength = articlesCtrl.currentArticle.comments.length;
+        $scope.disableInfiniteScroll = commentsLength < $scope.step;
+        $scope.loadMore();
+      }
       else
+      {
         errorOnGetArticle();
+      }
     }).error(function() {
       errorOnGetArticle();
     });
@@ -45,6 +61,25 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
     }
     else {
       errorOnGetArticle();
+    }
+  };
+
+  $scope.loadMore = function() {
+    console.log('loadMore() Fired...');
+    if(articlesCtrl.currentArticle.comments) {
+      if ($scope.comments.length >= commentsLength) {
+        $scope.disableInfiniteScroll = true;
+        console.log('infiniteScroll disable');
+      }
+      else {
+        if (($scope.comments.length + $scope.step) > commentsLength) {
+          jump = commentsLength
+        }
+        else {
+          jump = $scope.comments.length + $scope.step
+        }
+        $scope.comments = articlesCtrl.currentArticle.comments.slice(0, jump);
+      }
     }
   };
   
@@ -72,7 +107,7 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
   socket.on('NewComment', function(data) {
     // On met à jour le commentaire dans la liste
     if (articlesCtrl.currentArticle.id === data.articleId)
-      articlesCtrl.currentArticle.comments.push(data);
+      $scope.comments.push(data);
   });
   
   

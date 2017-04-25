@@ -74,15 +74,13 @@ let articleEvent = function(ServerEvent) {
       username      : data.username,
       title         : data.title,
       desc          : data.desc,
-      text          : data.text
+      text          : data.text,
+      type          : {
+        critical_info   : data.critical_info,
+        hot_news        : data.hot_news
+      },
+      picture       : data.picture
     });
-      
-      
-    // data = newArticle.CheckOrder(function(err) {
-    //   if(err) {
-    //     console.error(err);
-    //   }
-    // });
     
     newArticle.save(function(err) {
       if (err) {
