@@ -76,8 +76,8 @@ let articleEvent = function(ServerEvent) {
       desc          : data.desc,
       text          : data.text,
       type          : {
-        critical_info   : data.critical_info,
-        hot_news        : data.hot_news
+        critical_info   : data.type.critical_info,
+        hot_news        : data.type.hot_news
       },
       picture       : data.picture
     });
