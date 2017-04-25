@@ -28,6 +28,7 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', '
   
   socket.on('NewArticle', function(data) {
     data.register_date = new Date().toISOString();
+    data.comments = [];
     news.articles.push(data);
   });
   

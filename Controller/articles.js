@@ -89,6 +89,7 @@ let articleEvent = function(ServerEvent) {
       }
       else {
         delete data.text;
+        data.id = id;
         ServerEvent.emit('ArticleSaved', data, socket);
       }
     });
