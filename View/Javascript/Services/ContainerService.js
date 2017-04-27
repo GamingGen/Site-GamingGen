@@ -16,4 +16,4 @@ ContainerService.service('ManageViewService', ['$rootScope', 'slider', function(
     this.getView = function() {
         return $rootScope.mainView;
     };
-}])
+}]);

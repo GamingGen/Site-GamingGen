@@ -94,6 +94,17 @@ let articleEvent = function(ServerEvent) {
       }
     });
   });
+  
+  ServerEvent.on('rmArticle', function(data, socket) {
+    articleSchema.findOneAndRemove({'id' : data.id}, function (err, result) {
+      if (err) {
+        console.log('err: ', err);
+      }
+      else {
+        console.log('Article Supprimé: ', data.title);
+      }
+    });
+  });
 };
 
 // Export

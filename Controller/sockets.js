@@ -248,6 +248,16 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			io.sockets.emit('ChangeChannelTwitch', data);
 		});
 		
+		socket.on('rmComment', function(data) {
+			ServerEvent.emit('rmComment', data);
+			console.log('Emit: rmComment');
+		});
+		
+		socket.on('rmArticle', function(data) {
+			ServerEvent.emit('rmArticle', data);
+			console.log('Emit: rmComment');
+		});
+		
 		// ----------------------- Décompte uniquement des User Connecté ----------------------- //
 		socket.on('disconnect', function() {
 			console.log('Client Disconnect');

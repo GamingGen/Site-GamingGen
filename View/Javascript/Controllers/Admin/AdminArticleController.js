@@ -4,7 +4,11 @@ var AppControllers = angular.module('AppControllers');
 
 AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'UserService', function($scope, $http, socket, UserService) {
   // ----- Init -----
-  var user = UserService.currentUser;
+  var articleCtrl        = this;
+  $scope.tab             = 1;
+  $scope.newArticle      = true;
+  var user               = UserService.currentUser;
+  $scope.selectedArticle = {};
   
   tinymce.init({
     selector: 'textarea',
@@ -29,13 +33,39 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   
   // ----- GET / SET Data -----
-  $scope.tinymceModel = "Il suffit d'écrire l'article ici ^^";
+  $scope.tinymceModel = "<p>Il suffit d'écrire l'article ici ^^</p>";
   $scope.type = {
     name   : 'hot_news'
   };
   
+  $http.get('/articles').success(function(articles) {
+    articleCtrl.lstArticles = articles;
+  }).error(function() {
+    $("#msgError").html("Erreur lors de la récupération des articles, veuillez réessayer ultérieurement.");
+    $("#msgError").show().delay(3000).fadeOut();
+  });
+  
   
   // ----- Public Méthode -----
+  $scope.setSelected = function (index, selectedElement) {
+    if (selectedElement != undefined){
+      $scope.selectedArticle = selectedElement;
+      $scope.idSelectedElement = index;
+    }
+  };
+  
+  $scope.setChildSelected = function (idChildSelectedElement) {
+    if (idChildSelectedElement != undefined){
+      $scope.idChildSelectedElement = idChildSelectedElement;
+    }
+  };
+  
+  $scope.setArticleSelected = function (idArticleSelected) {
+    if (idArticleSelected != undefined){
+      $scope.selectedArticle = idArticleSelected;
+    }
+  };
+  
   $scope.getContent = function() {
     if (user && user.isLoggedIn) {
       var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
@@ -57,13 +87,56 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
       $scope.title = '';
       $scope.desc = '';
       $scope.picture = '';
-      $scope.type.name = "hot_news"
+      $scope.type.name = "hot_news";
       tinymce.activeEditor.setContent('<p></p>');
     }
     else {
       // TODO Deco + redirection home
     }
   };
+  
+  $scope.selectTab = function(setTab) {
+    $scope.tab = setTab;
+    $scope.newArticle = true;
+    $scope.title = '';
+    $scope.desc = '';
+    $scope.picture = '';
+    $scope.type.name = "hot_news";
+    tinymce.activeEditor.setContent('<p></p>');
+  };
+  
+  $scope.isSelected = function(checkTab) {
+    return $scope.tab === checkTab;
+  };
+  
+  $scope.removeComment = function(index) {
+    if (index != undefined && index >= 0) {
+      var rmComment = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.splice(index, 1);
+      socket.emit('rmComment', {article: $scope.selectedArticle, comment: rmComment[0]});
+    }
+  };
+  
+  $scope.editArticle = function(article) {
+    if (article != undefined) {
+      tinymce.activeEditor.setContent(article.text);
+      $scope.title = article.title;
+      $scope.desc = article.desc;
+      $scope.picture = article.picture;
+      $scope.type = {
+        name   : article.type.hot_news === true ? 'hot_news' : 'critical_info'
+      };
+      $scope.newArticle = false;
+      $scope.tab = 1;
+    }
+  };
+  
+  $scope.removeArticle = function(article) {
+    if (article != undefined) {
+      articleCtrl.lstArticles.splice(articleCtrl.lstArticles.indexOf(article), 1);
+      socket.emit('rmArticle', article);
+    }
+  };
+  
   
   
   // ----- Private Méthode -----
