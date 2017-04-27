@@ -30,6 +30,7 @@ let ArticleSchema = new Schema({
     title         : { type: String, required: true },
     desc          : { type: String, required: true },
     text          : { type: String, required: true },
+    update_at     : { type: Date, default: Date.now },
     register_date : { type: Date, required: true, default: Date.now },
     comments      : { type: [Comment.Schema] },
     type          : {

@@ -4,7 +4,8 @@ var AppControllers = angular.module('AppControllers');
 
 AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'UserService', function($scope, $http, socket, UserService) {
   // ----- Init -----
-  var user = UserService.currentUser;
+  $scope.tab = 1;
+  var user   = UserService.currentUser;
   
   tinymce.init({
     selector: 'textarea',
@@ -57,12 +58,20 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
       $scope.title = '';
       $scope.desc = '';
       $scope.picture = '';
-      $scope.type.name = "hot_news"
+      $scope.type.name = "hot_news";
       tinymce.activeEditor.setContent('<p></p>');
     }
     else {
       // TODO Deco + redirection home
     }
+  };
+  
+  $scope.selectTab = function(setTab) {
+    $scope.tab = setTab;
+  };
+  
+  $scope.isSelected = function(checkTab) {
+    return $scope.tab === checkTab;
   };
   
   
