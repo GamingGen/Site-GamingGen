@@ -96,35 +96,30 @@
     <!-- endbuild -->
 
 
-  </head>
-  
-  <body ng-controller="mainCtrl">
-        <!-- Inscription Modal -->
-        <div class="modal fade container" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content inscriptionModal">
-              <div class="blocInscriptionModal row">
-                <div class="modal-header col-md-6">
-                  <span class="titreModalConnection">Inscription</span>
-                  <span class="backgroundInscription"></span>
-                </div>
-                <div class="modal-body col-md-6">
-                  <form ng-submit="formRegistration.$valid && submitRegister()" name="formRegistration" novalidate>
-                    <div class="row">
-                      <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.firstName.$invalid && !formRegistration.firstName.$pristine }">
-                        <div class="form-group">
-                          
-                          <input type="text" ng-model="firstName" class="form-control" id="firstName" name="firstName" placeholder="Nom*" required/>
-                          <label for="firstName">Nom*</label>
-                        </div>
-                      </div>
-                      <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.lastName.$invalid && !formRegistration.lastName.$pristine }">
-                        <div class="form-group">
-                          
-                          <input type="text" ng-model="lastName" class="form-control" id="lastName" name="lastName" placeholder="Prenom*" required/>
-                          <label for="lastName">Prenom*</label>
-                        </div>
-                      </div>
+    <!-- Inscription Modal -->
+    <div class="modal fade container" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content inscriptionModal">
+          <div class="blocInscriptionModal row">
+            <div class="modal-header col-md-6">
+              <span class="titreModalConnection">Inscription</span>
+              <span class="backgroundInscription"></span>
+            </div>
+            <div class="modal-body col-md-6">
+              <form ng-submit="formRegistration.$valid && submitRegister()" name="formRegistration" novalidate>
+                <div class="row">
+                  <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.firstName.$invalid && !formRegistration.firstName.$pristine }">
+                    <div class="form-group">
+                      
+                      <input type="text" ng-model="firstName" class="form-control" id="firstName" name="firstName" placeholder="Nom*" required/>
+                      <label for="firstName">Nom*</label>
+                    </div>
+                  </div>
+                  <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.lastName.$invalid && !formRegistration.lastName.$pristine }">
+                    <div class="form-group">
+                      
+                      <input type="text" ng-model="lastName" class="form-control" id="lastName" name="lastName" placeholder="Prenom*" required/>
+                      <label for="lastName">Prenom*</label>
                     </div>
                   </div>
                 </div>
@@ -185,35 +180,30 @@
             </div>
           </div>
         </div>
-        
-        <!-- Connexion Modal -->
-        <div class="modal fade container" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="connectionModalLabel">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content inscriptionModal">
-              <div class="blocInscriptionModal smallModalConnexion row">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  
-                <div class="modal-header col-md-6">
-                  <span class="titreModalConnection">CONNEXION</span>
-                    <span class="backgroundInscription"></span>
-                </div>
-                <div class="modal-body col-md-6">
-                  <form ng-submit="submitLogin()" name="formConnection" novalidate>
-                    <div class="row">
-                      <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
-                        <label for="connectionEmail">Email* : </label>
-                        <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
-                      </div>
-                      <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
-                        <label for="connectionPassword">Mot de Passe* : </label>
-                        <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
-                      </div>
-                    </div>
-                  </form>
-                  <div class="bottomFooter row">
-                    <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid" data-dismiss="modal">Connexion</a>
-                    <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
-
+      </div>
+    </div>
+    
+    <!-- Connexion Modal -->
+    <div class="modal fade container" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="connectionModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content inscriptionModal">
+          <div class="blocInscriptionModal smallModalConnexion row">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              
+            <div class="modal-header col-md-6">
+              <span class="titreModalConnection">Connexion</span>
+                <span class="backgroundInscription"></span>
+            </div>
+            <div class="modal-body col-md-6">
+              <form ng-submit="submitLogin()" name="formConnection" novalidate>
+                <div class="row">
+                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
+                    <label for="connectionEmail">Email* : </label>
+                    <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
+                  </div>
+                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
+                    <label for="connectionPassword">Mot de Passe* : </label>
+                    <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
                   </div>
                 </div>
               </form>
@@ -340,117 +330,6 @@
                 <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" class="socialLink facebook"><img ng-src="Img/General/facebook.svg"></a>
               </li>
             </div>
-          </li>
-        </ul>
-    <div>
-      <div>
-        <div>
-          
-          <!--Messages d'erreur -->
-          <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
-          <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>
-          
-        <!--  <section ng-if="showSlider" class="hidden-xs">-->
-        <!--    <div id="wrapper">-->
-        <!--    	<div id="slider">-->
-            	
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide1.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>GamingGen 5</h4>-->
-        <!--    				<p>Nos Tomb Rider ;)</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide2.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>L'accueil</h4>-->
-        <!--    				<p>Comme toujours un qui travail et 3 qui regarde.</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide3.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide4.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide5.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide6.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide7.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide8.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide9.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide10.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide11.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide12.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    		<div class="slide" style="background-image: url(../Img/Slider/Slide13.jpg);">-->
-        <!--    			<div class="slide-block">-->
-        <!--    				<h4>La GG6 bientôt</h4>-->
-        <!--    				<p>Commentaire ici...</p>-->
-        <!--    			</div>-->
-        <!--    		</div>-->
-             
-        <!--    	</div>-->
-        <!--    </div>-->
-        <!--  </section>-->
-          
-          <div class="slider">
-           <a ui-sref="#"></a>
             <li ng-if="User.multilang" class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>
@@ -530,8 +409,8 @@
         </div>
       </li>
     </ul>
-    <div class="row">
-      <div class="col-md-12">
+    <div >
+      <div >
         <!--Messages d'erreur -->
         <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
         <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>
