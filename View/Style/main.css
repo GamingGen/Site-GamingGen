@@ -204,6 +204,8 @@ font-size:0.8em;
 }
 .form-group{
   margin-bottom:-10px;
+  padding-left:0px;
+  padding-right:0px;
 }
 .btn-primary.disabled, .btn-primary.disabled.active, .btn-primary.disabled.focus, .btn-primary.disabled:active, .btn-primary.disabled:focus, .btn-primary.disabled:hover, .btn-primary[disabled], .btn-primary[disabled].active, .btn-primary[disabled].focus, .btn-primary[disabled]:active, .btn-primary[disabled]:focus, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary.active, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover{
   background-color: #64DC16!important;
@@ -1058,7 +1060,7 @@ height:25vw;
   height:100px;
 }
 .categoryListNews{
-  color: #64dc13;
+  font-family: 'Droid Sans', sans-serif;
 }
 
 .fullwidth{
@@ -1522,6 +1524,7 @@ height:25vw;
 }
 .blockCommentaire{
   background:#E0E0E0;
+  padding-bottom:20px;
 }
 .blockCommentaire h1, .blockCommentaire h6{
   color:#FFF;
@@ -1533,17 +1536,15 @@ height:25vw;
 .userCommentContent{
   background:#FFF;
   padding:20px;
+  margin-bottom:20px;
   color:#4a4a4a;
-}
-.userCommentContent:last-child{
-  margin-bottom:40px;
 }
 .superFooter{
   
 }
 .reassurance{
   display: flex;
-  height:400px;
+  height:350px;
   background:#262626;
   padding:100px;
 }
@@ -1658,6 +1659,9 @@ height:25vw;
     width: 100%;
     height: 100%;
     cursor: pointer;
+}
+.toggleNews .badge-right{
+  color:rgba(0,0,0,0.8);
 }
 /*RESPONSIVE*/
 /*@media screen and (max-width: 1400px) {
@@ -1807,6 +1811,9 @@ border-top: 0px;
 
 /*TABLETTE*/
 @media screen and (max-width: 1028px) {
+  .listNewsPage{
+    flex-direction:column;
+  }
   .boxmid:hover .boxvert, .boxleft:hover .boxorange{
     height:290px;
   }
@@ -1919,6 +1926,13 @@ border-top: 0px;
    top: 5px;
   }
 }
+@media screen and (max-width: 660px) {
+  .navbar-toggle {
+   margin-right:5%;
+   margin-top: 0px;
+   top: 5px;
+  }
+}
 
 /* Message d'erreur sur la page d'accueil */
 .alert-valid {
@@ -1947,7 +1961,7 @@ background-color: #F4F4F4;
 .popUpMessage {
   padding: 20px 50px;
     border-bottom: 1px solid rgba(255,255,255,0.15);
-    position: absolute;
+    position: fixed;
     -moz-box-shadow: 0px 10px 20px 0px #000000;
     -webkit-box-shadow: 0px 10px 20px 0px #000000;
     -o-box-shadow: 0px 10px 20px 0px #000000;
@@ -1983,9 +1997,6 @@ background-color: #F4F4F4;
     text-transform: uppercase;
 }
 
-.badge-right {
-  float:right;
-}
 
 blockquote {
   font-size: 13px;
