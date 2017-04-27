@@ -255,7 +255,7 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		
 		socket.on('rmArticle', function(data) {
 			ServerEvent.emit('rmArticle', data);
-			console.log('Emit: rmComment');
+			console.log('Emit: rmArticle');
 		});
 		
 		// ----------------------- Décompte uniquement des User Connecté ----------------------- //
