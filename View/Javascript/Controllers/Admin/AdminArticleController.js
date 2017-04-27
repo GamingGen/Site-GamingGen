@@ -6,6 +6,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   // ----- Init -----
   var articleCtrl        = this;
   $scope.tab             = 1;
+  $scope.newArticle      = true;
   var user               = UserService.currentUser;
   $scope.selectedArticle = {};
   
@@ -32,7 +33,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   
   // ----- GET / SET Data -----
-  $scope.tinymceModel = "Il suffit d'écrire l'article ici ^^";
+  $scope.tinymceModel = "<p>Il suffit d'écrire l'article ici ^^</p>";
   $scope.type = {
     name   : 'hot_news'
   };
@@ -56,6 +57,12 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   $scope.setChildSelected = function (idChildSelectedElement) {
     if (idChildSelectedElement != undefined){
       $scope.idChildSelectedElement = idChildSelectedElement;
+    }
+  };
+  
+  $scope.setArticleSelected = function (idArticleSelected) {
+    if (idArticleSelected != undefined){
+      $scope.selectedArticle = idArticleSelected;
     }
   };
   
@@ -90,6 +97,12 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   $scope.selectTab = function(setTab) {
     $scope.tab = setTab;
+    $scope.newArticle = true;
+    $scope.title = '';
+    $scope.desc = '';
+    $scope.picture = '';
+    $scope.type.name = "hot_news";
+    tinymce.activeEditor.setContent('<p></p>');
   };
   
   $scope.isSelected = function(checkTab) {
@@ -100,6 +113,27 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     if (index != undefined && index >= 0) {
       var rmComment = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.splice(index, 1);
       socket.emit('rmComment', {article: $scope.selectedArticle, comment: rmComment[0]});
+    }
+  };
+  
+  $scope.editArticle = function(article) {
+    if (article != undefined) {
+      tinymce.activeEditor.setContent(article.text);
+      $scope.title = article.title;
+      $scope.desc = article.desc;
+      $scope.picture = article.picture;
+      $scope.type = {
+        name   : article.type.hot_news === true ? 'hot_news' : 'critical_info'
+      };
+      $scope.newArticle = false;
+      $scope.tab = 1;
+    }
+  };
+  
+  $scope.removeArticle = function(article) {
+    if (article != undefined) {
+      articleCtrl.lstArticles.splice(articleCtrl.lstArticles.indexOf(article), 1);
+      socket.emit('rmArticle', article);
     }
   };
   

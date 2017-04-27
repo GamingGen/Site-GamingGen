@@ -50,59 +50,70 @@
         <br/>
         <div class="row">
           <div class="col-md-12">
-            <button type="button" ng-click="getContent()" class="btn btn-primary">Enregistrer l'article</button>
+            <button type="button" ng-show="newArticle" ng-click="getContent()" class="btn btn-primary">Enregistrer l'article</button>
+            <button type="button" ng-hide="newArticle" ng-click="getContent()" class="btn btn-warning">Modifier l'article</button>
           </div>
         </div>
       </div>
       <div class"pannel" ng-show="isSelected(2)">
-        <div class="col-md-12 table-responsive">
-          <table class="table table-striped table-condensed table-hover">
-            <thead>
-              <tr>
-                <th>
-                  #
-                </th>
-                <th>
-                  Titre
-                </th>
-                <th>
-                  Desc
-                </th>
-                <th>
-                  Auteur
-                </th>
-                <th>
-                  Date de Création
-                </th>
-                <th>
-                  Date de Modification
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="element in carte.elements" ng-click="setChildSelected($index)" ng-class="{success: $index === idChildSelectedElement}">
-                <td>
-                  <button ng-click="editRow($index)" class="btn btn-warning"data-toggle="modal" data-target="#adminSnackModal" data-id="{{$index}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                  <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                </td>
-                <td>
-                  {{element.title}}
-                </td>
-                <td>
-                  {{element.desc}}
-                </td>
-                <td>
-                  {{element.author}}
-                </td>
-                <td>
-                  {{element.register_date}}
-                </td>
-                <td>
-                  {{element.register_date}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="row">
+          <div class="col-md-4">
+            <input type="search" placeholder="Titre" ng-model="titleArticle.title" />
+          </div>
+          <div class="col-md-8">
+            <input type="search" placeholder="Auteur" ng-model="titleArticle.username" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 table-responsive">
+            <table class="table table-striped table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Titre
+                  </th>
+                  <th>
+                    Desc
+                  </th>
+                  <th>
+                    Auteur
+                  </th>
+                  <th>
+                    Date de Création
+                  </th>
+                  <th>
+                    Date de Modification
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="article in article.lstArticles | orderBy : '-update_at' | filter : titleArticle" ng-click="setArticleSelected($index)" ng-class="{success: $index === selectedArticle}">
+                  <td>
+                    <button ng-click="editArticle(article)" class="btn btn-warning"data-toggle="modal" data-target="#adminSnackModal" data-id="{{$index}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button ng-click="removeArticle(article)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  </td>
+                  <td>
+                    {{article.title}}
+                  </td>
+                  <td>
+                    {{article.desc}}
+                  </td>
+                  <td>
+                    {{article.username}}
+                  </td>
+                  <td>
+                    {{article.register_date | date : 'dd MMM yyyy - HH:mm:ss'}}
+                  </td>
+                  <td>
+                    {{article.update_at | date : 'dd MMM yyyy - HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class"pannel" ng-show="isSelected(3)">
