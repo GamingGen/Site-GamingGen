@@ -1186,6 +1186,12 @@ height:25vw;
 .titrefeedback img{
   padding-left:20px;
 }
+.blockCarouselFlex{
+  display:flex;
+  align-items:center;
+  align-content:center;
+  height:370px;
+}
 .titrefeedback{
   font-size:3em;
   font-family: 'TitlingGothicFBCondRegular';
@@ -1198,7 +1204,6 @@ height:25vw;
   align-items:center;
   justify-content:center;
 }
-
 .carousel-indicators .active {
   background-color: black;
 }
@@ -1212,7 +1217,6 @@ height:25vw;
   width:500px;
 }
 .carousel-inner .item{
-  
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
@@ -1505,10 +1509,8 @@ height:25vw;
 }
 .reassurance{
   display: flex;
-  
   height:400px;
   background:#262626;
-  border-right:2px solid #2e2e2e;
   padding:100px;
 }
 .reassurance a{
@@ -1869,11 +1871,42 @@ border-top: 0px;
 
 /* Message d'erreur sur la page d'accueil */
 .popUpMessage {
-  position: absolute;
-  right: 0;
-  margin: 5px;
-  display: none;
-  z-index: 1000;
+  padding: 20px 50px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    position: absolute;
+    -moz-box-shadow: 0px 10px 20px 0px #000000;
+    -webkit-box-shadow: 0px 10px 20px 0px #000000;
+    -o-box-shadow: 0px 10px 20px 0px #000000;
+    box-shadow: 0px 10px 20px 0px #000000;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, Direction=180, Strength=20);
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    display: none;
+    width: 100%;
+    z-index: 9999;
+}
+.alert-info{
+    background-color: #F4F4F4;
+    font-size: 1.5em;
+    font-family: TitlingGothicFBCondRegular;
+    text-transform: uppercase;
+}
+.alert-danger {
+    color: white;
+    background-color: #dc2b00;
+    font-size: 1.5em;
+    font-family: TitlingGothicFBCondRegular;
+    text-transform: uppercase;
+    border-color: #232323;
+}
+.alert-valid {
+    color: white;
+    background-color: #52B514;
+    font-size: 1.5em;
+    font-family: TitlingGothicFBCondRegular;
+    text-transform: uppercase;
 }
 
 .badge-right {

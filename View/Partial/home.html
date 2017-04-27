@@ -54,7 +54,7 @@
               <h2 class="previewTextThumbNews">
                 <span class="categoryListNews" ng-show="article.type.hot_news">Hot news</span>
                 <span class="categoryListNews" ng-show="article.type.critical_info">Info cruciale</span>
-                <span class="ng-binding">{{article.register_date | date : 'MMMM yyyy'}}</span>
+                <span class="ng-binding">{{article.register_date | date : 'dd MMM yyyy'}}</span>
               </h2>
             </span>
             {{article.desc}}...
@@ -85,17 +85,19 @@
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
       </ol>
-      <div class="carousel-inner">
-        <span class="item active">
-          <h5>"La nécessité de répondre à votre inquiétude journalière, que vous soyez jeunes ou âgés"</h5>
-          <h6>Kamel Chebat</h6>
-          <img ng-src="../Img/finbulle.png">
-        </span>
-        <span class="item">
-          <h5>"Le peu de voitures qui circulaient encore étaient ultra sécurisées"</h5>
-          <h6>Frédéric Guazzini</h6>
-          <img ng-src="../Img/finbulle.png">
-        </span>
+      <div class="blockCarouselFlex">
+        <div class="carousel-inner">
+          <span class="item active">
+            <h5>"La nécessité de répondre à votre inquiétude journalière, que vous soyez jeunes ou âgés"</h5>
+            <h6>Kamel Chebat</h6>
+            <img ng-src="../Img/finbulle.png">
+          </span>
+          <span class="item">
+            <h5>"Le peu de voitures qui circulaient encore étaient ultra sécurisées"</h5>
+            <h6>Frédéric Guazzini</h6>
+            <img ng-src="../Img/finbulle.png">
+          </span>
+        </div>
       </div>
     </div>
   </div>
