@@ -30,6 +30,9 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   // ----- GET / SET Data -----
   $scope.tinymceModel = "Il suffit d'écrire l'article ici ^^";
+  $scope.type = {
+    name   : 'hot_news'
+  };
   
   
   // ----- Public Méthode -----
@@ -41,13 +44,20 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
             username  : user.pseudo,
             title     : $scope.title,
             desc      : $scope.desc,
-            text      : text
+            text      : text,
+            type          : {
+              critical_info   : $scope.type.name === 'critical_info',
+              hot_news        : $scope.type.name === 'hot_news'
+            },
+            picture       : $scope.picture
           };
       
       socket.emit('saveArticle', article);
       
       $scope.title = '';
       $scope.desc = '';
+      $scope.picture = '';
+      $scope.type.name = "hot_news"
       tinymce.activeEditor.setContent('<p></p>');
     }
     else {

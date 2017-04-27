@@ -24,7 +24,6 @@ AppControllers.controller('liveCtrl', ['$http', '$scope', 'socket', '$filter', '
   
   socket.on('ChangeLiveSource', function(data) {
     $scope.youtubeLive = data.id;
-    console.log(data);
   });
   
   socket.emit('getChannelTwitch');

@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'AppControllers', 'Socket', 'Slider', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'UserS']);
+  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'AppControllers', 'Socket', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'infinite-scroll']);
   
   app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -119,6 +119,8 @@
             if (response.status !== 200) {
               console.log('Stop Chargement Animation');
               
+              errorOnGetArticle(response.statusText);
+              
               $timeout(function () {
                 cfpLoadingBar.complete();
               }, 500);
@@ -144,6 +146,11 @@
           }
         };
       }]);
+      
+      function errorOnGetArticle(err) {
+        $("#msgError").html(err);
+        $("#msgError").show().css('display', 'flex').delay(3000).fadeOut();
+      }
       
       // TODO Trouver comment intercepter le CTRL + R || F5
       // $locationProvider.html5Mode(true);
