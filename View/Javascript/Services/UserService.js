@@ -7,9 +7,8 @@ ListRoles.service('usersService', [function () {
   
   self.addUserToList = function(user, isBanned) {
     if (isBanned)
-        self.banList.push(user);
+      self.banList.push(user);
     else
-        self.userList.push(user);
+      self.userList.push(user);
   };
-  
 }]);

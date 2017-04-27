@@ -4,8 +4,10 @@ var AppControllers = angular.module('AppControllers');
 
 AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'UserService', function($scope, $http, socket, UserService) {
   // ----- Init -----
-  $scope.tab = 1;
-  var user   = UserService.currentUser;
+  var articleCtrl        = this;
+  $scope.tab             = 1;
+  var user               = UserService.currentUser;
+  $scope.selectedArticle = {};
   
   tinymce.init({
     selector: 'textarea',
@@ -35,8 +37,28 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     name   : 'hot_news'
   };
   
+  $http.get('/articles').success(function(articles) {
+    articleCtrl.lstArticles = articles;
+  }).error(function() {
+    $("#msgError").html("Erreur lors de la récupération des articles, veuillez réessayer ultérieurement.");
+    $("#msgError").show().delay(3000).fadeOut();
+  });
+  
   
   // ----- Public Méthode -----
+  $scope.setSelected = function (index, selectedElement) {
+    if (selectedElement != undefined){
+      $scope.selectedArticle = selectedElement;
+      $scope.idSelectedElement = index;
+    }
+  };
+  
+  $scope.setChildSelected = function (idChildSelectedElement) {
+    if (idChildSelectedElement != undefined){
+      $scope.idChildSelectedElement = idChildSelectedElement;
+    }
+  };
+  
   $scope.getContent = function() {
     if (user && user.isLoggedIn) {
       var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
@@ -73,6 +95,14 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   $scope.isSelected = function(checkTab) {
     return $scope.tab === checkTab;
   };
+  
+  $scope.removeComment = function(index) {
+    if (index != undefined && index >= 0) {
+      var rmComment = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.splice(index, 1);
+      socket.emit('rmComment', {article: $scope.selectedArticle, comment: rmComment[0]});
+    }
+  };
+  
   
   
   // ----- Private Méthode -----

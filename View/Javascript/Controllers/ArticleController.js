@@ -73,10 +73,10 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
       }
       else {
         if (($scope.comments.length + $scope.step) > commentsLength) {
-          jump = commentsLength
+          jump = commentsLength;
         }
         else {
-          jump = $scope.comments.length + $scope.step
+          jump = $scope.comments.length + $scope.step;
         }
         $scope.comments = articlesCtrl.currentArticle.comments.slice(0, jump);
       }

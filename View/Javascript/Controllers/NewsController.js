@@ -8,13 +8,13 @@ var AppControllers = angular.module('AppControllers');
 
 AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($scope, $http, socket) {
   // ----- Init -----
-  var newsLength                = 0;
-  var jump                      = 0;
-  $scope.disableInfiniteScroll  = true;
-  $scope.step                   = 5;
-  $scope.news                   = [];
-  var newsCtrl = this;
-  newsCtrl.lstArticles = [];
+  var newsCtrl                 = this;
+  newsCtrl.lstArticles         = [];
+  var newsLength               = 0;
+  var jump                     = 0;
+  $scope.disableInfiniteScroll = true;
+  $scope.step                  = 5;
+  $scope.news                  = [];
   
   // ----- GET / SET Data -----
   $http.get('/articles').success(function(articles) {
@@ -43,10 +43,10 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
       }
       else {
         if (($scope.news.length + $scope.step) > newsLength) {
-          jump = newsLength
+          jump = newsLength;
         }
         else {
-          jump = $scope.news.length + $scope.step
+          jump = $scope.news.length + $scope.step;
         }
         $scope.news = newsCtrl.lstArticles.slice(0, jump);
       }

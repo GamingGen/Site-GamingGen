@@ -25,6 +25,6 @@ AppControllers.controller('AdminListUsersCtrl', ['$scope', '$http', 'socket', 'u
         $("#msgError").show().delay(3000).fadeOut();
       });
     }
-  }
+  };
   
 }]);

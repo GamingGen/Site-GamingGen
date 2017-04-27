@@ -26,7 +26,7 @@ var CommentSchema = new Schema({
     id            : { type: Number, required: true, unique: true, index: true, trim: true },
     username      : { type: String, required: true },
     text          : { type: String, required: true },
-    register_date : { type: Date, required: true, default: Date.now },
+    register_date : { type: Date, required: true },
     articleId     : { type: Number, required: true }
 });
 

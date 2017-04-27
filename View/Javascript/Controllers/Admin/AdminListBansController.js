@@ -25,6 +25,6 @@ AppControllers.controller('AdminListBansCtrl', ['$scope', '$http', 'socket', 'us
         $("#msgError").show().delay(3000).fadeOut();
       });
     }
-  }
+  };
   
 }]);

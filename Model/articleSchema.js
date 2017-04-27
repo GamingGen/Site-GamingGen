@@ -30,8 +30,8 @@ let ArticleSchema = new Schema({
     title         : { type: String, required: true },
     desc          : { type: String, required: true },
     text          : { type: String, required: true },
-    update_at     : { type: Date, default: Date.now },
-    register_date : { type: Date, required: true, default: Date.now },
+    update_at     : { type: Date },
+    register_date : { type: Date },
     comments      : { type: [Comment.Schema] },
     type          : {
                       hot_news      : { type : Boolean, default : true },
@@ -59,12 +59,6 @@ ArticleSchema.pre('validate', function(next) {
   // Set de l'id
   // this.id = id++;
   
-  if (!this.register_date) {
-    this.register_date = Date.now();
-  }
-  if (this.critical_info === false && this.hot_news === false) {
-    this.hot_news = true;
-  }
   next();
 });
 
@@ -74,6 +68,14 @@ ArticleSchema.pre('validate', function(next) {
  * @description Pour l'instant aucune vérification avant l'enregistrement
  */
 ArticleSchema.pre('save', function(next) {
+  var dateNow = Date.now();
+  this.update_at = dateNow;
+  if (this.isNew) {
+    this.register_date = dateNow;
+  }
+  if (this.critical_info === false && this.hot_news === false) {
+    this.hot_news = true;
+  }
   next();
 });
 
