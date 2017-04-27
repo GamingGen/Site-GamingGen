@@ -102,6 +102,7 @@
         <div class="modal-content inscriptionModal">
           <div class="blocInscriptionModal row">
             <div class="modal-header col-md-6">
+              <span class="titreModalConnection">Inscription</span>
               <span class="backgroundInscription"></span>
             </div>
             <div class="modal-body col-md-6">
@@ -190,6 +191,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               
             <div class="modal-header col-md-6">
+              <span class="titreModalConnection">Connexion</span>
                 <span class="backgroundInscription"></span>
             </div>
             <div class="modal-body col-md-6">
@@ -407,8 +409,8 @@
         </div>
       </li>
     </ul>
-    <div class="row">
-      <div class="col-md-12">
+    <div >
+      <div >
         <!--Messages d'erreur -->
         <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
         <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>
@@ -521,62 +523,63 @@
 
       </div>
     </div>
-    <div class="footer fullwidth">
-      <div class="superFooter row">
-        <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
-          <a ui-sref="#">
-            <h2>TU VEUX EN SAVOIR PLUS ?</h2>
-            <p></p>
-          </a>
+      <div class="footer fullwidth">
+        <div class="superFooter row">
+          <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
+            <a ui-sref="#">
+              <h2>TU VEUX EN SAVOIR PLUS ?</h2>
+              <p></p>
+            </a>
+          </div>
+          <div class="reassurance First col-xs-12 col-sm-6 col-md-3">
+            <a ui-sref="#">
+            <img src='../Img/General/benevole.svg'/>
+              <h2>DEVENIR BÉNÉVOLE</h2>
+              <p>On fait des réunions sympas.</p>
+            </a>
+          </div>
+          <div class="reassurance Second col-xs-12 col-sm-6 col-md-3">
+            <a ui-sref="#">
+              <img src='../Img/exposant.svg'/>
+              <h2>DEVENIR EXPOSANT</h2>
+              <p>Grande renommée pour toi !</p>
+            </a>
+          </div>
+          <div class="reassurance Third col-xs-12 col-sm-6 col-md-3">
+            <a ui-sref="#">
+              <img src='../Img/tournoireassurance.svg' width="168"/>
+              <h2>PARTICIPER AUX TOURNOIS</h2>
+              <p>Devenir le pro de tes rêves.</p>
+            </a>
+          </div>
         </div>
-        <div class="reassurance First col-xs-12 col-sm-6 col-md-3">
-          <a ui-sref="#">
-          <img src='../Img/General/benevole.svg'/>
-            <h2>DEVENIR BÉNÉVOLE</h2>
-            <p>On fait des réunions sympas.</p>
-          </a>
-        </div>
-        <div class="reassurance Second col-xs-12 col-sm-6 col-md-3">
-          <a ui-sref="#">
-            <img src='../Img/exposant.svg'/>
-            <h2>DEVENIR EXPOSANT</h2>
-            <p>Grande renommée pour toi !</p>
-          </a>
-        </div>
-        <div class="reassurance Third col-xs-12 col-sm-6 col-md-3">
-          <a ui-sref="#">
-            <img src='../Img/tournoireassurance.svg' width="168"/>
-            <h2>PARTICIPER AUX TOURNOIS</h2>
-            <p>Devenir le pro de tes rêves.</p>
-          </a>
-        </div>
-      </div>
-      <div class="absolufooter row">
-        <div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
-          <a ui-sref="home"><img alt="Logo" ng-src="Img/logowh.svg"></a>
-        </div>
-        <div class="absolufooter row">
-          <div class="footerLinks col-xs-12 col-sm-8">
-            <a href="" data-toggle="modal" data-target="#registrationModal">Inscription</a>
-            <a href="" data-toggle="modal" data-target="#connectionModal">Connexion</a>
-            <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" >Facebook</a>
-            <a href="https://twitter.com/gaminggenlan" target="_blank" >Twitter</a>
-            <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" >Instagram</a>
-            <a ui-sref="home">Accueil</a>
-            <a ui-sref="#">Gaming gen 6</a>
-            <a ui-sref="#">Compétitions</a>
-            <a ui-sref="#">Festival du jeu</a>
-            <a ui-sref="#">Plan</a>
-            <a ui-sref="#">Programme</a>
-            <a ui-sref="live">Live</a>
-            <a ui-sref="#">Partenaires</a>
-            <a ui-sref="#">Galerie</a>
-            <a ui-sref="#">Association</a>
-            <a ui-sref="#">Infos utiles</a>
+        <div class="row">
+          <div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
+            <a ui-sref="home"><img alt="Logo" ng-src="Img/logowh.svg"></a>
+          </div>
+            <!--<div class="gamingillustration col-xs-12 col-sm-2 col-sm-offset-1">
+              <a ui-sref="home"><img alt="Logo" src="Img/logowh.svg"></a>
+            </div>-->
+            <div class="footerLinks col-xs-12 col-sm-8">
+              <a href="" data-toggle="modal" data-target="#registrationModal">Inscription</a>
+              <a href="" data-toggle="modal" data-target="#connectionModal">Connexion</a>
+              <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" >Facebook</a>
+              <a href="https://twitter.com/gaminggenlan" target="_blank" >Twitter</a>
+              <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" >Instagram</a>
+              <a ui-sref="home">Accueil</a>
+              <a ui-sref="#">Gaming gen 6</a>
+              <a ui-sref="#">Compétitions</a>
+              <a ui-sref="#">Festival du jeu</a>
+              <a ui-sref="#">Plan</a>
+              <a ui-sref="#">Programme</a>
+              <a ui-sref="live">Live</a>
+              <a ui-sref="#">Partenaires</a>
+              <a ui-sref="#">Galerie</a>
+              <a ui-sref="#">Association</a>
+              <a ui-sref="#">Infos utiles</a>
           </div>
         </div>
       </div>
-    </div>
 
     <!-- Check if Angular is compatible, and remove the Splash Screen if Ok-->
     <script>
