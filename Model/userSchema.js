@@ -154,6 +154,7 @@ UserSchema.statics.authenticate = function(email, password, callback) {
 			callback(null, user);
 		} else if (user || !error) {
 			// Email or password was invalid (no MongoDB error)
+			console.log('error: ', error);
 			error = new Error("Your email address or password is invalid. Please try again.");
 			callback(error, null);
 		} else {

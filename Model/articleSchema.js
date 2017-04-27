@@ -61,6 +61,9 @@ ArticleSchema.pre('validate', function(next) {
   if (!this.register_date) {
     this.register_date = Date.now();
   }
+  if (this.critical_info === false && this.hot_news === false) {
+    this.hot_news = true;
+  }
   next();
 });
 

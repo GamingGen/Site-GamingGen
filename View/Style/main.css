@@ -1056,11 +1056,25 @@ height:25vw;
   color:#000;
   text-transform: inherit;
 }
+.titresectionarticles h1{
+  padding-left: 0px;
+  font-size: 40px;
+  min-width: 27%;
+}
 .titresectionarticles h2{
   padding-top: 0.5em;
+  padding-left: 10px;
 }
 .blanc{
-  color:#FFF;
+  z-index:13;
+  background:#FFF;
+  height:2px;
+  opacity: 0.8;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 .vert{
   background:#64DC16;
@@ -1177,6 +1191,7 @@ height:25vw;
 }
 .lesjoueursledisent p{
   color:#49138b;
+  font-size: 18px;
 }
 .lesjoueursledisent img{
   color:#49138b;
@@ -1598,8 +1613,9 @@ height:25vw;
     font-size: 0.6em;
 }
 .previewTextThumbNews{
+  float:left;
   position:relative;
-      font-size: 1.6em;
+  font-size: 1.6em;
   font-family: 'Droid Sans', sans-serif;
 }
 .previewTextThumbNews .ng-binding{
@@ -1870,6 +1886,29 @@ border-top: 0px;
 }
 
 /* Message d'erreur sur la page d'accueil */
+.alert-valid {
+    color: white;
+    background-color: #52B514;
+    font-size: 1.5em;
+    font-family: TitlingGothicFBCondRegular;
+    text-transform: uppercase;
+}
+.alert-info{
+color: rgba(0,0,0,0.8);
+background-color: #F4F4F4;
+    font-size: 1.5em;
+    font-family: TitlingGothicFBCondRegular;
+    text-transform: uppercase;
+}
+.alert-danger {
+    color: white;
+    background-color: #dc2b00;
+    font-size: 1.5em;
+    font-family: TitlingGothicFBCondRegular;
+    text-transform: uppercase;
+    border-color: #232323;
+}
+
 .popUpMessage {
   padding: 20px 50px;
     border-bottom: 1px solid rgba(255,255,255,0.15);

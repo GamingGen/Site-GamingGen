@@ -28,7 +28,7 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', '
   
   socket.on('NewArticle', function(data) {
     data.register_date = new Date().toISOString();
-    console.log(data);
+    data.comments = [];
     news.articles.push(data);
   });
   
@@ -40,8 +40,8 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', '
   
   // ----- Public Méthode -----
   $scope.scrollTo = function(id) {
-      $location.hash(id);
-      $anchorScroll();
+    $location.hash(id);
+    $anchorScroll();
    };
   
   // ----- Private Méthode -----
