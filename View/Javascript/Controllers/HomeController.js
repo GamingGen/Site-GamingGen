@@ -32,6 +32,11 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', '
     news.articles.push(data);
   });
   
+  socket.on('ArticleUpdated', function(articleUpdated) {
+    var index = news.articles.map(function(element) { return element.id; }).indexOf(articleUpdated.id);
+    news.articles[index] = articleUpdated;
+  });
+  
   socket.on('NewComment', function(data) {
     // On met à jour le commentaire dans la liste
     news.articles.find(function(art) {return art.id === data.articleId}).comments.push(data);

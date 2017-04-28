@@ -65,6 +65,13 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
     newsCtrl.lstArticles.unshift(data);
   });
   
+  socket.on('ArticleUpdated', function(articleUpdated) {
+    var indexAll = newsCtrl.lstArticles.map(function(element) { return element.id; }).indexOf(articleUpdated.id);
+    var indexPartial = $scope.news.map(function(element) { return element.id; }).indexOf(articleUpdated.id);
+    newsCtrl.lstArticles[indexAll] = articleUpdated;
+    $scope.news[indexPartial] = articleUpdated;
+  });
+  
   // Ecoute de l'ajout d'un commentaire
   socket.on('NewComment', function(data) {
     // On met à jour le commentaire dans la liste

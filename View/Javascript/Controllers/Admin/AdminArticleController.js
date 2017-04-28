@@ -45,6 +45,11 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     $("#msgError").show().delay(3000).fadeOut();
   });
   
+  socket.on('ArticleUpdated', function(articleUpdated) {
+    var index = articleCtrl.lstArticles.map(function(element) { return element.id; }).indexOf(articleUpdated.id);
+    articleCtrl.lstArticles[index] = articleUpdated;
+  });
+  
   
   // ----- Public Méthode -----
   $scope.setSelected = function (index, selectedElement) {
@@ -82,8 +87,15 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
             picture       : $scope.picture
           };
       
-      socket.emit('saveArticle', article);
+      if ($scope.newArticle) {
+        socket.emit('saveArticle', article);
+      }
+      else {
+        article.id = $scope.idArticle;
+        socket.emit('updateArticle', article);
+      }
       
+      $scope.newArticle = true;
       $scope.title = '';
       $scope.desc = '';
       $scope.picture = '';
@@ -126,6 +138,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
         name   : article.type.hot_news === true ? 'hot_news' : 'critical_info'
       };
       $scope.newArticle = false;
+      $scope.idArticle = article.id;
       $scope.tab = 1;
     }
   };

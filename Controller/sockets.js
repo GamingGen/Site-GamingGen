@@ -71,6 +71,10 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		io.sockets.emit('NewArticle', data);
 	});
 		
+	ServerEvent.on('ArticleUpdated', function(data, socket) {
+		io.sockets.emit('ArticleUpdated', data);
+	});
+		
 	ServerEvent.on('CommentSaved', function(data, socket) {
 		io.sockets.emit('NewComment', data);
 	});
@@ -184,17 +188,6 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			console.log('Emit: saveShopOrder');
 		});
 		
-		socket.on('saveArticle', function(data) {
-			console.log('Reception article Client');
-			ServerEvent.emit('saveArticle', data, socket);
-			console.log('Emit: saveArticle');
-		});
-		
-		socket.on('saveComment', function(data) {
-			ServerEvent.emit('saveComment', data, socket);
-			console.log('Emit: saveComment');
-		});
-		
 		socket.on('getAllOrders', function() {
 			ServerEvent.emit('findAllOrders', socket);
 			console.log('Emit: findAllOrders');
@@ -246,6 +239,23 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		socket.on('ChangeChannelTwitch', function(data) {
 			twitch = data;
 			io.sockets.emit('ChangeChannelTwitch', data);
+		});
+		
+		socket.on('saveArticle', function(data) {
+			console.log('Reception article Client');
+			ServerEvent.emit('saveArticle', data, socket);
+			console.log('Emit: saveArticle');
+		});
+		
+		socket.on('updateArticle', function(data) {
+			console.log('Reception Update article Client');
+			ServerEvent.emit('updateArticle', data, socket);
+			console.log('Emit: updateArticle');
+		});
+		
+		socket.on('saveComment', function(data) {
+			ServerEvent.emit('saveComment', data, socket);
+			console.log('Emit: saveComment');
 		});
 		
 		socket.on('rmComment', function(data) {

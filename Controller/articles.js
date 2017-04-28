@@ -94,6 +94,35 @@ let articleEvent = function(ServerEvent) {
       }
     });
   });
+  ServerEvent.on('updateArticle', function(data, socket) {
+    var updateArticle = new articleSchema({
+      id            : data.id,
+      username      : data.username,
+      title         : data.title,
+      desc          : data.desc,
+      text          : data.text,
+      type          : {
+        critical_info   : data.type.critical_info,
+        hot_news        : data.type.hot_news
+      },
+      picture       : data.picture
+    });
+    
+    articleSchema.findOneAndUpdate({id: data.id}, data, {new: true}, function (err, rowUpdated) {
+      if (err) {
+        //throw err;
+        console.error(err);
+      }
+      else {
+        if (rowUpdated !== null) {
+          ServerEvent.emit('ArticleUpdated', rowUpdated, socket);
+        }
+        else {
+          console.error(err);
+        }
+      }
+    });
+  });
   
   ServerEvent.on('rmArticle', function(data, socket) {
     articleSchema.findOneAndRemove({'id' : data.id}, function (err, result) {
