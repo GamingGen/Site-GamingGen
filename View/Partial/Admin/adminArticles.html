@@ -182,9 +182,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="comment in selectedArticle.comments | filter : commentArticle" ng-click="setChildSelected($index)" ng-class="{success: $index === idChildSelectedElement}">
+                <tr ng-repeat="comment in selectedArticle.comments | orderBy : '-register_date' | filter : commentArticle" ng-click="setChildSelected($index)" ng-class="{success: $index === idChildSelectedElement}">
                   <td>
-                    <button ng-click="removeComment($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button ng-click="removeComment(comment)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                   </td>
                   </td>
                   <td>

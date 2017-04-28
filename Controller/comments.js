@@ -6,6 +6,8 @@ const articleSchema = require('../Model/articleSchema');
 const express	= require('express');
 const router	= express.Router();
 
+let id = 0;
+
 // -------------------------------------------------------------------------- //
 //                                Events                                      //
 // -------------------------------------------------------------------------- //
@@ -18,7 +20,15 @@ let commentEvent = function(ServerEvent) {
       articleId     : data.articleId
     });
     articleSchema.findOne({'id' : data.articleId}, function (err, result) {
+      id = Math.max.apply(Math, result.comments.map(function(o){
+        return o.y;
+      }));
+      newComment.id = id++;
       newComment.validate();
+      
+      console.log(id);
+      console.log(newComment);
+      console.log(result);
       result.comments.push(newComment);
       result.save(function(err) {
         if (err) {

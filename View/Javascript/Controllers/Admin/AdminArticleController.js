@@ -121,8 +121,9 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     return $scope.tab === checkTab;
   };
   
-  $scope.removeComment = function(index) {
-    if (index != undefined && index >= 0) {
+  $scope.removeComment = function(comment) {
+    if (comment != undefined) {
+      var index = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.map(function(element) { return element.id; }).indexOf(comment.id);
       var rmComment = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.splice(index, 1);
       socket.emit('rmComment', {article: $scope.selectedArticle, comment: rmComment[0]});
     }
