@@ -46,6 +46,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-animate.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ngInfiniteScroll/1.3.0/ng-infinite-scroll.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-scroll/1.0.0/angular-scroll.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -287,7 +288,7 @@
               <a class="autoCollapse" ui-sref="news">News</a>
             </li>
             <li>
-              <a ui-sref="live">Live <img ng-src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a>
+              <a class="autoCollapse" ui-sref="live">Live <img ng-src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a>
             </li>
             <li ui-sref-active="active" class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -517,10 +518,9 @@
         <div class="slider">
           <a ui-sref="#"></a>
         </div>
-          <div ng-class="mainView">
-            <div ui-view autoscroll="false"></div>
-          </div>
-
+        <div ng-class="mainView">
+          <div ui-view autoscroll="false"></div>
+        </div>
       </div>
     </div>
       <div class="footer fullwidth">
