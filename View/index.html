@@ -562,8 +562,8 @@
               <a ui-sref="home"><img alt="Logo" src="Img/logowh.svg"></a>
             </div>-->
             <div class="footerLinks col-xs-12 col-sm-8">
-              <a href="" data-toggle="modal" data-target="#registrationModal">Inscription</a>
-              <a href="" data-toggle="modal" data-target="#connectionModal">Connexion</a>
+              <a href="" ng-hide="User.isLoggedIn" data-toggle="modal" data-target="#registrationModal">Inscription</a>
+              <a href="" ng-hide="User.isLoggedIn" data-toggle="modal" data-target="#connectionModal">Connexion</a>
               <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" >Facebook</a>
               <a href="https://twitter.com/gaminggenlan" target="_blank" >Twitter</a>
               <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" >Instagram</a>
@@ -578,6 +578,7 @@
               <a ui-sref="#">Galerie</a>
               <a ui-sref="#">Association</a>
               <a ui-sref="#">Infos utiles</a>
+              <a href="" ng-click="toTheTop()">ScrollToTop</a>
           </div>
         </div>
       </div>
