@@ -18,10 +18,10 @@
         <!--<div class="articleTitleList comment">{{article.comments.length}}</div><!-- Nombre de commentaires dans l'article -->
         <!--<div>{{article.desc}}</div><!-- Description de l'article -->
         <!--<div>{{article.pseudo}}</div><!-- Auteur de l'article -->
-        <div class="categoryListNews" ng-show="article.type.hot_news">Hot news</div>
-        <div class="categoryListNews" ng-show="article.type.critical_info">Info cruciale</div>
+        <div class="categoryListNews verttxt" ng-show="article.type.hot_news">Hot news</div>
+        <div class="categoryListNews orangetxt" ng-show="article.type.critical_info">Info cruciale</div>
         <div>{{article.update_at | date : 'dd MMMM yyyy'}}</div>
-        <a class="toggleNews" ui-sref="article({ id: article._id })">
+        <a class="toggleNews" ui-sref="article({ id: article.id })">
           <div class="badge-right">
             {{article.comments.length}} <i class="fa fa-comments" aria-hidden="true"></i>
           </div>
