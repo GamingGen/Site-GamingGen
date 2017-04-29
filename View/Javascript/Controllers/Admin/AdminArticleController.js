@@ -45,12 +45,32 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     $("#msgError").show().delay(3000).fadeOut();
   });
   
+  socket.on('ArticleUpdated', function(articleUpdated) {
+    var index = articleCtrl.lstArticles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
+    articleCtrl.lstArticles[index] = articleUpdated;
+  });
+  
+  socket.on('ErrorOnArticleUpdated', function(data) {
+    errorOnPageAdminArticle(data);
+  });
+  
+  socket.on('NewArticle', function(data) {
+    articleCtrl.lstArticles.unshift(data);
+  });
+  
+  // Ecoute de l'ajout d'un commentaire
+  socket.on('NewComment', function(data) {
+    // On met à jour le commentaire dans la liste
+    articleCtrl.lstArticles.find(function(article) {return article._id === data.article_id}).comments.push(data);
+  });
+  
   
   // ----- Public Méthode -----
   $scope.setSelected = function (index, selectedElement) {
     if (selectedElement != undefined){
       $scope.selectedArticle = selectedElement;
       $scope.idSelectedElement = index;
+      $scope.idChildSelectedElement = undefined;
     }
   };
   
@@ -69,9 +89,9 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   $scope.getContent = function() {
     if (user && user.isLoggedIn) {
       var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
-      // TODO Récupérer l'username une fois la partie gestion des connexions fonctionnel
+      // TODO Récupérer l'pseudo une fois la partie gestion des connexions fonctionnel
       var article = {
-            username  : user.pseudo,
+            pseudo    : user.pseudo,
             title     : $scope.title,
             desc      : $scope.desc,
             text      : text,
@@ -82,13 +102,21 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
             picture       : $scope.picture
           };
       
-      socket.emit('saveArticle', article);
-      
-      $scope.title = '';
-      $scope.desc = '';
-      $scope.picture = '';
-      $scope.type.name = "hot_news";
-      tinymce.activeEditor.setContent('<p></p>');
+      if ($scope.newArticle) {
+        socket.emit('saveArticle', article);
+      }
+      else {
+        article._id = $scope.idArticle;
+        socket.emit('updateArticle', article);
+      }
+      socket.on('articleOk', function() {
+        $scope.newArticle = true;
+        $scope.title = '';
+        $scope.desc = '';
+        $scope.picture = '';
+        $scope.type.name = "hot_news";
+        tinymce.activeEditor.setContent('<p></p>');
+      });
     }
     else {
       // TODO Deco + redirection home
@@ -103,16 +131,20 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     $scope.picture = '';
     $scope.type.name = "hot_news";
     tinymce.activeEditor.setContent('<p></p>');
+    $scope.selectedArticle = undefined;
+    $scope.idChildSelectedElement = undefined;
+    $scope.idSelectedElement = undefined;
   };
   
   $scope.isSelected = function(checkTab) {
     return $scope.tab === checkTab;
   };
   
-  $scope.removeComment = function(index) {
-    if (index != undefined && index >= 0) {
+  $scope.removeComment = function(comment) {
+    if (comment != undefined) {
+      var index = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.map(function(element) { return element._id; }).indexOf(comment._id);
       var rmComment = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.splice(index, 1);
-      socket.emit('rmComment', {article: $scope.selectedArticle, comment: rmComment[0]});
+      socket.emit('rmComment', rmComment[0]);
     }
   };
   
@@ -126,6 +158,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
         name   : article.type.hot_news === true ? 'hot_news' : 'critical_info'
       };
       $scope.newArticle = false;
+      $scope.idArticle = article._id;
       $scope.tab = 1;
     }
   };
@@ -139,5 +172,13 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   
   
-  // ----- Private Méthode -----
+  // ----- Private Méthode -----// Gestion des erreurs
+  function errorOnPageAdminArticle(text) {
+    var message = "Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.";
+    if (text) {
+      message = text;
+    }
+    $("#msgError").html(message);
+    $("#msgError").show().delay(3000).fadeOut();
+  }
 }]);

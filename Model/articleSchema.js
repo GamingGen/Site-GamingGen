@@ -12,27 +12,27 @@ const Schema   = mongoose.Schema;
 const Comment  = require('./commentSchema');
 
 // Variables
-let id = 0;
 
 // Schéma ArticleSchema
 /**
  * @class ArticleSchema
- * @param {Number} id - required: true, unique: true, index: true, trim: true
- * @param {String} username - required: true
+ * @param {String} pseudo - required: true
  * @param {String} desc - required: true
  * @param {String} text - required: true
- * @param {Date} register_date - required: true, default: Date.now
+ * @param {Date} update_at - required: true
+ * @param {Date} register_date - required: true
  * @param {Array} comments - Liste des commentaires
+ * @param {Object} type - Type de l'article
+ * @param {String} picture - Lien vers l'image de couverture
  */
 let ArticleSchema = new Schema({
-    id            : { type: Number, required: true, unique: true, index: true, trim: true },
-    username      : { type: String, required: true },
+    pseudo        : { type: String, required: true },
     title         : { type: String, required: true },
     desc          : { type: String, required: true },
     text          : { type: String, required: true },
     update_at     : { type: Date },
     register_date : { type: Date },
-    comments      : { type: [Comment.Schema] },
+    comments      : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     type          : {
                       hot_news      : { type : Boolean, default : true },
                       critical_info : { type : Boolean, default : false }
@@ -41,24 +41,11 @@ let ArticleSchema = new Schema({
 });
 
 /**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
- */
-ArticleSchema.post('init', function(doc) {
-  console.log('ArticleSchema : ', doc._id);
-  id = doc.id;
-  console.log('id: ', id);
-});
-
-/**
  * @function preValidate
  * @param {function} next - Permet d'appeler le prochain middleware
- * @description MAJ de l'id et de la date d'enregistrement
+ * @description WIP
  */
 ArticleSchema.pre('validate', function(next) {
-  // Set de l'id
-  // this.id = id++;
-  
   next();
 });
 
@@ -68,10 +55,9 @@ ArticleSchema.pre('validate', function(next) {
  * @description Pour l'instant aucune vérification avant l'enregistrement
  */
 ArticleSchema.pre('save', function(next) {
-  var dateNow = Date.now();
-  this.update_at = dateNow;
+  this.update_at = Date.now();;
   if (this.isNew) {
-    this.register_date = dateNow;
+    this.register_date = this.update_at;
   }
   if (this.critical_info === false && this.hot_news === false) {
     this.hot_news = true;
@@ -85,6 +71,14 @@ ArticleSchema.pre('save', function(next) {
  * @description Pour l'instant aucune vérification avant la MAJ
  */
 ArticleSchema.pre('findOneAndUpdate', function(next) {
+  console.log('before this._update: ', this._update);
+  if(this._update && this._update['$push'] && this._update['$push'].comments) {
+    console.log('Do Nothing');
+  }
+  else {
+    this._update.update_at = Date.now();
+  }
+  console.log('after this._update: ', this._update);
   next();
 });
 

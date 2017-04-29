@@ -7,7 +7,7 @@
             {{article.currentArticle.title}}
           </h1>
           <h3 class="sousTitreArticleContent">
-              {{article.currentArticle.username}}
+              {{article.currentArticle.pseudo}}
           </h3><!-- Auteur de l'article -->
           <p class="texteArticleContent">
               {{article.currentArticle.register_date | date : 'dd MMMM yyyy'}}
@@ -60,9 +60,9 @@
           <form ng-show="article.showCommentZone" ng-submit="submitComment()" name="formComment" novalidate>
             <div class="row">
               <div class="col-xs-12 form-group">
-                <input type="hidden" id="articleId" name="articleId" value="{{article.currentArticle.id}}"/>
+                <input type="hidden" id="articleId" name="articleId" value="{{article.currentArticle._id}}"/>
                 <label for="comment">Écrivez votre petit mot ci-dessous :</label>
-                <textarea autofocus="autofocus" ng-model="commentData" class="form-control" id="comment" placeholder="Salut, j'aime la Gaming Gen ..." required></textarea>
+                <textarea autofocus="autofocus" ng-model="commentText" class="form-control" id="comment" placeholder="Salut, j'aime la Gaming Gen ..." required></textarea>
                 <input type="submit" value="Envoyer">
               </div>
             </div>
@@ -71,9 +71,9 @@
       </div>
       <div class="row">
         <div infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="disableInfiniteScroll">
-          <div ng-repeat="comment in comments | orderBy : '-register_date' track by $index"><!-- Liste des commentaires -->
+          <div ng-repeat="comment in comments | orderBy : '-register_date'"><!-- Liste des commentaires -->
             <h6 class="userComment col-xs-8 col-lg-5 col-xs-offset-2">
-              {{comment.username}}, le {{comment.register_date | date : 'dd MMMM yyyy'}}
+              {{comment.pseudo}}, le {{comment.register_date | date : 'dd MMMM yyyy'}}
             </h6><!-- Auteur du commentaire -->
             <div class="userCommentContent col-xs-8 col-lg-5 col-xs-offset-2">
               <ng-bind-html ng-bind-html="renderHtml(comment.text)"></ng-bind-html><!-- Contenu du commentaire, en HTML -->

@@ -45,8 +45,8 @@ let UserSchema = Schema({
     password  : { type: String, required: true },
     email     : { type: String, required: true, unique: true, match: /.{2,}\@.{2,10}\..{2,3}/ },
     general   : {
-                  first_name    : { type: String, required: true },
-                  last_name     : { type: String, required: true },
+                  first_name    : { type: String, required: true, lowercase: true },
+                  last_name     : { type: String, required: true, lowercase: true },
                   birthday      : { type: Date, required: true },
                   zip           : { type: Number, required: true },
                   update_at     : { type: Date, default: Date.now },
@@ -65,14 +65,6 @@ let UserSchema = Schema({
                   ban           : { type: Boolean, required: true, default: false },
                   validationKey : String
                 }
-});
-
-/**
- * @function postInit
- * @description Ici seul un console.log affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */
-UserSchema.post('init', function(doc) {
-  console.log('UserSchema : ', doc._id);
 });
 
 /**

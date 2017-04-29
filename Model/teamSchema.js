@@ -28,14 +28,6 @@ var TeamSchema = new Schema({
 });
 
 /**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */
-// TeamSchema.post('init', function(doc) {
-//   console.log('ArticleSchema : ', doc._id);
-// });
-
-/**
  * @function preValidate
  * @param {function} next - Permet d'appeler le prochain middleware
  * @description WIP

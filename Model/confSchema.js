@@ -75,14 +75,6 @@ var ConfSchema = new Schema({
                 }
 });
 
-/**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */
-// ConfSchema.post('init', function(doc) {
-//   console.log('ConfSchema : ', doc._id);
-// });
-
 
 /**
  * @function preValidate

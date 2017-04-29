@@ -68,11 +68,29 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	});
 		
 	ServerEvent.on('ArticleSaved', function(data, socket) {
+		socket.emit('articleOk');
 		io.sockets.emit('NewArticle', data);
+	});
+		
+	ServerEvent.on('ErrorOnArticleUpdated', function(data, socket) {
+		socket.emit('ErrorOnArticleUpdated', data);
+	});
+		
+	ServerEvent.on('ArticleUpdated', function(data, socket) {
+		io.sockets.emit('ArticleUpdated', data);
+	});
+		
+	ServerEvent.on('ArticleRemoved', function(data, socket) {
+		socket.emit('ArticleRemovedOk', data._id);
+		io.sockets.emit('ArticleRemoved', data._id);
 	});
 		
 	ServerEvent.on('CommentSaved', function(data, socket) {
 		io.sockets.emit('NewComment', data);
+	});
+		
+	ServerEvent.on('CommentRemoved', function(data, socket) {
+		io.sockets.emit('CommentRemoved', data._id);
 	});
 	
 	ServerEvent.on('AllOrdersFound', function(data, socket) {
@@ -184,17 +202,6 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			console.log('Emit: saveShopOrder');
 		});
 		
-		socket.on('saveArticle', function(data) {
-			console.log('Reception article Client');
-			ServerEvent.emit('saveArticle', data, socket);
-			console.log('Emit: saveArticle');
-		});
-		
-		socket.on('saveComment', function(data) {
-			ServerEvent.emit('saveComment', data, socket);
-			console.log('Emit: saveComment');
-		});
-		
 		socket.on('getAllOrders', function() {
 			ServerEvent.emit('findAllOrders', socket);
 			console.log('Emit: findAllOrders');
@@ -248,14 +255,29 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			io.sockets.emit('ChangeChannelTwitch', data);
 		});
 		
-		socket.on('rmComment', function(data) {
-			ServerEvent.emit('rmComment', data);
-			console.log('Emit: rmComment');
+		socket.on('saveArticle', function(data) {
+			ServerEvent.emit('saveArticle', data, socket);
+			console.log('Emit: saveArticle');
+		});
+		
+		socket.on('updateArticle', function(data) {
+			ServerEvent.emit('updateArticle', data, socket);
+			console.log('Emit: updateArticle');
 		});
 		
 		socket.on('rmArticle', function(data) {
-			ServerEvent.emit('rmArticle', data);
+			ServerEvent.emit('rmArticle', data, socket);
 			console.log('Emit: rmArticle');
+		});
+		
+		socket.on('saveComment', function(data) {
+			ServerEvent.emit('saveComment', data, socket);
+			console.log('Emit: saveComment');
+		});
+		
+		socket.on('rmComment', function(data) {
+			ServerEvent.emit('rmComment', data, socket);
+			console.log('Emit: rmComment');
 		});
 		
 		// ----------------------- Décompte uniquement des User Connecté ----------------------- //

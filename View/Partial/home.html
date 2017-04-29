@@ -46,15 +46,15 @@
       </div>
     </div>
     <div class="row">
-      <div ng-repeat="article in news.articles | orderBy : '-register_date' | limitTo : 4">
+      <div ng-repeat="article in news.articles | orderBy : '-update_at' | limitTo : 4">
         <div ng-mouseenter="hover=true" ng-mouseleave="hover=false" ng-class="{ 'blanc' : hover, 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
-          <a type="button" class="lirearticle" ui-sref="article({ id: article.id })">
+          <a type="button" class="lirearticle" ui-sref="article({ id: article._id })">
             <span class="wrapperPreviewNews">
               <h1>{{article.title }}</h1>
               <h2 class="previewTextThumbNews">
                 <span class="categoryListNews verttxt" ng-show="article.type.hot_news">Hot news</span>
                 <span class="categoryListNews orangetxt" ng-show="article.type.critical_info">Info cruciale</span>
-                <span class="categoryListNews ng-binding">{{article.register_date | date : 'dd MMM yyyy'}}</span>
+                <span class="categoryListNews ng-binding">{{article.update_at | date : 'dd MMM yyyy'}}</span>
                 <span class="badge-right">{{article.comments.length}} <i class="fa fa-comments" aria-hidden="true"></i></span>
               </h2>
               
