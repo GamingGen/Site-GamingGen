@@ -60,7 +60,6 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
   // ----- Events -----
   // Ecoute de l'ajout d'un article
   socket.on('NewArticle', function(data) {
-    data.register_date = new Date().toISOString();
     $scope.news.push(data);
     newsCtrl.lstArticles.unshift(data);
   });
