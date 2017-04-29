@@ -21,7 +21,7 @@
         <div class="categoryListNews verttxt" ng-show="article.type.hot_news">Hot news</div>
         <div class="categoryListNews orangetxt" ng-show="article.type.critical_info">Info cruciale</div>
         <div>{{article.update_at | date : 'dd MMMM yyyy'}}</div>
-        <a class="toggleNews" ui-sref="article({ id: article.id })">
+        <a class="toggleNews" ui-sref="article({ id: article._id })">
           <div class="badge-right">
             {{article.comments.length}} <i class="fa fa-comments" aria-hidden="true"></i>
           </div>
