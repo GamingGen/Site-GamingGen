@@ -149,6 +149,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   };
   
   $scope.editArticle = function(article) {
+    console.log('article: ', article);
     if (article != undefined) {
       tinymce.activeEditor.setContent(article.text);
       $scope.title = article.title;

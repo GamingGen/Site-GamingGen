@@ -83,8 +83,6 @@ let articleEvent = function(ServerEvent) {
         ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
       }
       else {
-        article = article.toObject();
-        delete article.text;
         ServerEvent.emit('ArticleSaved', article, socket);
       }
     });
