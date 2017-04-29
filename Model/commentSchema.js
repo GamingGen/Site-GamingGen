@@ -18,7 +18,7 @@ const Schema      = mongoose.Schema;
  * @param {ObjectID} article_id - Id de l'article associé
  * @param {String} pseudo - required: true
  * @param {String} text - required: true
- * @param {Date} register_date - required: true, default: Date.now
+ * @param {Date} register_date - required: true
  */
 var CommentSchema = new Schema({
     article_id    : { type: Schema.Types.ObjectId, ref: 'Article', required: true },
@@ -59,6 +59,16 @@ CommentSchema.pre('save', function(next) {
 CommentSchema.pre('findOneAndUpdate', function(next) {
   next();
 });
+
+/**
+ * @function findOneAndRemove
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Permet de supprimer la reference de l'article
+ */
+// CommentSchema.pre('findOneAndRemove', function(next) {
+//   this.model('Article').remove({})
+//   next();
+// });
 
 /**
  * @function postSave

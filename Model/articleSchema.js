@@ -50,22 +50,6 @@ ArticleSchema.pre('validate', function(next) {
 });
 
 /**
- * @function preSave
- * @param {function} next - Permet d'appeler le prochain middleware
- * @description Pour l'instant aucune vérification avant l'enregistrement
- */
-ArticleSchema.pre('save', function(next) {
-  this.update_at = Date.now();;
-  if (this.isNew) {
-    this.register_date = this.update_at;
-  }
-  if (this.critical_info === false && this.hot_news === false) {
-    this.hot_news = true;
-  }
-  next();
-});
-
-/**
  * @function prefindOneAndUpdate
  * @param {function} next - Permet d'appeler le prochain middleware
  * @description Pour l'instant aucune vérification avant la MAJ
@@ -79,6 +63,34 @@ ArticleSchema.pre('findOneAndUpdate', function(next) {
     this._update.update_at = Date.now();
   }
   console.log('after this._update: ', this._update);
+  next();
+});
+
+/**
+ * @function findOneAndRemove
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Permet de supprimer la reference de l'article
+ */
+ArticleSchema.pre('findOneAndRemove', function(next) {
+  console.log('this: ', this);
+  // this.model('Comment').remove({article_id: this._conditions._id}, next);
+  Comment.remove({article_id: this._conditions._id});
+  next();
+});
+
+/**
+ * @function preSave
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Pour l'instant aucune vérification avant l'enregistrement
+ */
+ArticleSchema.pre('save', function(next) {
+  this.update_at = Date.now();;
+  if (this.isNew) {
+    this.register_date = this.update_at;
+  }
+  if (this.critical_info === false && this.hot_news === false) {
+    this.hot_news = true;
+  }
   next();
 });
 
