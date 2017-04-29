@@ -54,7 +54,6 @@ router.get('/:id', function (req, res) {
       console.error(err);
     }
     else {
-      console.log('Populate: ', docs);
       res.json(docs);
     }
   });
