@@ -80,7 +80,7 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	});
 		
 	ServerEvent.on('CommentRemoved', function(data, socket) {
-		socket.emit('CommentRemoved', data);
+		io.sockets.emit('CommentRemoved', data._id);
 	});
 	
 	ServerEvent.on('AllOrdersFound', function(data, socket) {
@@ -257,18 +257,18 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			console.log('Emit: updateArticle');
 		});
 		
+		socket.on('rmArticle', function(data) {
+			ServerEvent.emit('rmArticle', data, socket);
+			console.log('Emit: rmArticle');
+		});
+		
 		socket.on('saveComment', function(data) {
 			ServerEvent.emit('saveComment', data, socket);
 			console.log('Emit: saveComment');
 		});
 		
 		socket.on('rmComment', function(data) {
-			ServerEvent.emit('rmComment', data);
-			console.log('Emit: rmComment');
-		});
-		
-		socket.on('rmArticle', function(data) {
-			ServerEvent.emit('rmArticle', data);
+			ServerEvent.emit('rmComment', data, socket);
 			console.log('Emit: rmComment');
 		});
 		

@@ -23,21 +23,17 @@ let commentEvent = function(ServerEvent) {
       text          : data.text
     });
     
-    
     newComment.save(function(err) {
       if (err) {
         //throw err;
         console.error(err);
       }
       else {
-        console.log('Before newComment: ', newComment);
         articleSchema.findOneAndUpdate({_id: newComment.article_id}, {$push: {comments: newComment._id}}, {new: true}, function(err) {
           if (err) {
             console.log('err: ', err);
           }
           else {
-            // article.comments.push(newComment.article_id);
-            console.log('After newComment: ', newComment);
             ServerEvent.emit('CommentSaved', newComment, socket);
           }
         });
@@ -45,13 +41,13 @@ let commentEvent = function(ServerEvent) {
     });
   });
   
+  // TODO : Clear article.comments[]
   ServerEvent.on('rmComment', function(data, socket) {
-    commentSchema.findOneAndRemove({_id: data.id}, {new: true}, function (err, comment) {
+    commentSchema.findOneAndRemove({_id: data._id}, function (err, comment) {
       if (err) {
         console.log('err: ', err);
       }
       else {
-        console.log('Commentaire Supprimé: ', comment);
         ServerEvent.emit('CommentRemoved', comment, socket);
       }
     });

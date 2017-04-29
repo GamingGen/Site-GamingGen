@@ -50,6 +50,12 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     articleCtrl.lstArticles[index] = articleUpdated;
   });
   
+  // Ecoute de l'ajout d'un commentaire
+  socket.on('NewComment', function(data) {
+    // On met à jour le commentaire dans la liste
+    articleCtrl.lstArticles.find(function(article) {return article.id === data.articleId}).comments.push(data);
+  });
+  
   
   // ----- Public Méthode -----
   $scope.setSelected = function (index, selectedElement) {
@@ -127,11 +133,11 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   $scope.removeComment = function(comment) {
     if (comment != undefined) {
-      var index = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.map(function(element) { return element.id; }).indexOf(comment.id);
+      var index = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.map(function(element) { return element._id; }).indexOf(comment._id);
       var rmComment = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.splice(index, 1);
       console.log('index: ', index);
       console.log('rmComment: ', rmComment);
-      // socket.emit('rmComment', {article: $scope.selectedArticle, comment: rmComment[0]});
+      socket.emit('rmComment', rmComment[0]);
     }
   };
   

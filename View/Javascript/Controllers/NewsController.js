@@ -56,6 +56,29 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
   
   // ----- Private Méthode -----
   
+  function getObject(theObject, value) {
+    var result = null;
+    if(theObject instanceof Array) {
+        for(var i = 0; i < theObject.length; i++) {
+            result = getObject(theObject[i]);
+        }
+    }
+    else
+    {
+        for(var prop in theObject) {
+            console.log(prop + ': ' + theObject[prop]);
+            if(prop == '_id') {
+                if(theObject[prop] === value) {
+                    return theObject;
+                }
+            }
+            if(theObject[prop] instanceof Object || theObject[prop] instanceof Array)
+                result = getObject(theObject[prop]);
+        }
+    }
+    return result;
+  }
+  
   
   // ----- Events -----
   // Ecoute de l'ajout d'un article
@@ -74,7 +97,17 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
   // Ecoute de l'ajout d'un commentaire
   socket.on('NewComment', function(data) {
     // On met à jour le commentaire dans la liste
-    $scope.news.find(function(art) {return art.id === data.articleId}).comments.push(data);
+    $scope.news.find(function(article) {return article.id === data.articleId}).comments.push(data);
+  });
+  
+  socket.on('CommentRemoved', function(id) {
+    console.log(getObject(newsCtrl.lstArticles, id), id);
+    // var indexAll = newsCtrl.lstArticles.map(function(element) { return element.comments._id; }).indexOf(id);
+    // var indexPartial = $scope.news.map(function(element) { return element._id; }).indexOf(id);
+    // newsCtrl.lstArticles[indexAll] = articleUpdated;
+    // $scope.news[indexPartial] = articleUpdated;
+    // var index = $scope.news[$scope.news.indexOf($scope.selectedArticle)].comments.map(function(element) { return element._id; }).indexOf(id);
+    // $scope.news[$scope.news.indexOf($scope.selectedArticle)].comments.splice(index, 1);
   });
   
   // ----- jQuery -----

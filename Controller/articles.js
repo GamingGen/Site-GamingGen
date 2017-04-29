@@ -18,7 +18,9 @@ const router	= express.Router();
 // -------------------------------------------------------------------------- //
 // Récupère la liste complète des articles
 router.get('/', function (req, res) {
-  articleSchema.find({}, function (err, docs) {
+  articleSchema.find({})
+  .populate('comments')
+  .exec(function (err, docs) {
     if (err) {
       console.error(err);
     }
@@ -31,7 +33,9 @@ router.get('/', function (req, res) {
 
 // Récupère uniquement les 4 dernier articles (Spécifique pour la Home)
 router.get('/home', function (req, res) {
-  articleSchema.find({}, null, {sort: { register_date: -1 }, limit: 4 }, function (err, docs) {
+  articleSchema.find({}, null, {sort: { register_date: -1 }, limit: 4 })
+  .populate('comments')
+  .exec(function (err, docs) {
     if (err) {
       console.error(err);
     }
@@ -86,7 +90,6 @@ let articleEvent = function(ServerEvent) {
     });
   });
   ServerEvent.on('updateArticle', function(data, socket) {
-    
     articleSchema.findOneAndUpdate({_id: data.id}, data, {new: true}, function (err, rowUpdated) {
       if (err) {
         //throw err;
