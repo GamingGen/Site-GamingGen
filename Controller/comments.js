@@ -49,20 +49,14 @@ let commentEvent = function(ServerEvent) {
   });
   
   ServerEvent.on('rmComment', function(data, socket) {
-    articleSchema.findOne({'id' : data.article.id}, function (err, result) {
+    commentSchema.findOneAndRemove({_id : data.id}, {new: true}, function (err, result) {
       if (err) {
         console.log('err: ', err);
       }
-      var rmComment = result.comments.splice(result.comments.findIndex(x => x.id === data.comment.id), 1);
-      result.save(function(err) {
-        if (err) {
-          //throw err;
-          console.error('err: ', err);
-        }
-        else {
-          console.log('Commentaire Supprimé: ', rmComment);
-        }
-      });
+      else {
+        console.log('Commentaire Supprimé: ', result);
+        ServerEvent.emit('CommentRemoved', result, socket);
+      }
     });
   });
 };

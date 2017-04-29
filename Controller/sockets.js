@@ -78,6 +78,10 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	ServerEvent.on('CommentSaved', function(data, socket) {
 		io.sockets.emit('NewComment', data);
 	});
+		
+	ServerEvent.on('CommentRemoved', function(data, socket) {
+		socket.emit('CommentRemoved', data);
+	});
 	
 	ServerEvent.on('AllOrdersFound', function(data, socket) {
 		socket.emit('AllOrders', data);

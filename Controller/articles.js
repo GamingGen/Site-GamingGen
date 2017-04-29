@@ -10,18 +10,7 @@ const router	= express.Router();
 // -------------------------------------------------------------------------- //
 //                                 Init                                       //
 // -------------------------------------------------------------------------- //
-let id = 0;
 
-articleSchema.findOne({}, null, {sort: {id: -1}}, function(err, result) {
-  if (err) {
-    console.log(err);
-  }
-  else {
-    if (result !== undefined && result !== null && result.id !== NaN) {
-      id = result.id;
-    }
-  }
-});
 
 
 // -------------------------------------------------------------------------- //
@@ -70,7 +59,6 @@ router.get('/:id', function (req, res) {
 let articleEvent = function(ServerEvent) {
   ServerEvent.on('saveArticle', function(data, socket) {
     var newArticle = new articleSchema({
-      id            : ++id,
       pseudo        : data.pseudo,
       title         : data.title,
       desc          : data.desc,
@@ -89,14 +77,13 @@ let articleEvent = function(ServerEvent) {
       }
       else {
         delete data.text;
-        data.id = id;
         ServerEvent.emit('ArticleSaved', data, socket);
       }
     });
   });
   ServerEvent.on('updateArticle', function(data, socket) {
     
-    articleSchema.findOneAndUpdate({id: data.id}, data, {new: true}, function (err, rowUpdated) {
+    articleSchema.findOneAndUpdate({_id: data.id}, data, {new: true}, function (err, rowUpdated) {
       if (err) {
         //throw err;
         console.error(err);
@@ -113,7 +100,7 @@ let articleEvent = function(ServerEvent) {
   });
   
   ServerEvent.on('rmArticle', function(data, socket) {
-    articleSchema.findOneAndRemove({'id' : data.id}, function (err, result) {
+    articleSchema.findOneAndRemove({_id : data.id}, function (err, result) {
       if (err) {
         console.log('err: ', err);
       }
