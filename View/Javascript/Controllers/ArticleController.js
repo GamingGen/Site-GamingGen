@@ -6,7 +6,7 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', 'UserService', function($scope, $http, socket, $sce, UserService) {
+AppControllers.controller('articleCtrl', ['$scope', '$http', '$state', 'socket', '$sce', 'UserService', function($scope, $http, $state, socket, $sce, UserService) {
   // ----- Init -----
   var commentsLength            = 0;
   var jump                      = 0;
@@ -104,6 +104,9 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
     }
     $("#msgError").html(message);
     $("#msgError").show().delay(3000).fadeOut();
+    if (text === undefined) {
+      $state.go('home');
+    }
   }
   
   
