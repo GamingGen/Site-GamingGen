@@ -6,7 +6,21 @@ const articleSchema = require('../Model/articleSchema');
 const express	= require('express');
 const router	= express.Router();
 
+// -------------------------------------------------------------------------- //
+//                                 Init                                       //
+// -------------------------------------------------------------------------- //
 let id = 0;
+
+commentSchema.findOne({}, null, {sort: {id: -1}}, function(err, result) {
+  if (err) {
+    console.log(err);
+  }
+  else {
+    if (result !== undefined && result !== null && result.id !== NaN) {
+      id = result.id;
+    }
+  }
+});
 
 // -------------------------------------------------------------------------- //
 //                                Events                                      //
@@ -15,31 +29,22 @@ let commentEvent = function(ServerEvent) {
   
   ServerEvent.on('saveComment', function(data, socket) {
     var newComment = new commentSchema({
-      username      : data.username,
-      text          : data.text,
-      articleId     : data.articleId
+      article_id    : data.article_id,
+      pseudo        : data.pseudo,
+      text          : data.text
     });
-    articleSchema.findOne({'id' : data.articleId}, function (err, result) {
-      id = Math.max.apply(Math, result.comments.map(function(o){
-        return o.y;
-      }));
-      newComment.id = id++;
-      newComment.validate();
-      
-      console.log(id);
-      console.log(newComment);
-      console.log(result);
-      result.comments.push(newComment);
-      result.save(function(err) {
-        if (err) {
-          //throw err;
-          console.error(err);
-        }
-        else {
-          delete data.text;
-          ServerEvent.emit('CommentSaved', newComment, socket);
-        }
-      });
+    
+    console.log(newComment);
+    
+    newComment.save(function(err) {
+      if (err) {
+        //throw err;
+        console.error(err);
+      }
+      else {
+        delete data.text;
+        ServerEvent.emit('CommentSaved', newComment, socket);
+      }
     });
   });
   

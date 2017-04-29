@@ -71,7 +71,7 @@ let articleEvent = function(ServerEvent) {
   ServerEvent.on('saveArticle', function(data, socket) {
     var newArticle = new articleSchema({
       id            : ++id,
-      username      : data.username,
+      pseudo        : data.pseudo,
       title         : data.title,
       desc          : data.desc,
       text          : data.text,
@@ -95,18 +95,6 @@ let articleEvent = function(ServerEvent) {
     });
   });
   ServerEvent.on('updateArticle', function(data, socket) {
-    var updateArticle = new articleSchema({
-      id            : data.id,
-      username      : data.username,
-      title         : data.title,
-      desc          : data.desc,
-      text          : data.text,
-      type          : {
-        critical_info   : data.type.critical_info,
-        hot_news        : data.type.hot_news
-      },
-      picture       : data.picture
-    });
     
     articleSchema.findOneAndUpdate({id: data.id}, data, {new: true}, function (err, rowUpdated) {
       if (err) {

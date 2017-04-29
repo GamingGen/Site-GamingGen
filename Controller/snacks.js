@@ -42,8 +42,8 @@ router.get('/getYears', function (req, res) {
 
 // router.post('/insert', function(req, res) {
 //   var newSnack = new snackSchema({
-//     username      : req.query.username,
-//     title         : req.query.title,
+//     pseudo       : req.query.pseudo,
+//     title        : req.query.title,
 //     text          : req.query.text
 //   });
   

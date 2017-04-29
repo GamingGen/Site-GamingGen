@@ -13,11 +13,11 @@ var Schema                = mongoose.Schema;
 // Schéma WatchListSchema
 /**
  * @class WatchListSchema
- * @param {String} username - required: true
+ * @param {String} pseudo - required: true
  * @param {Date} register_date - required: true, default: Date.now
  */
 var WatchListSchema = new Schema({
-    username      : { type: String, required: true },
+    pseudo        : { type: String, required: true },
     register_date : { type: Date, required: true, default: Date.now }
 });
 

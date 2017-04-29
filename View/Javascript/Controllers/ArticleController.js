@@ -37,30 +37,30 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
       }
       else
       {
-        errorOnGetArticle();
+        errorOnPageArticle();
       }
     }).error(function() {
-      errorOnGetArticle();
+      errorOnPageArticle();
     });
   }
   
   
   // ----- Public Méthode -----
   $scope.submitComment = function() {
-    if ($scope.commentData && $scope.commentData.length > 0) {
+    if ($scope.commentcommentTextData && $scope.commentText.length > 0) {
       var comment = {
-            articleId : Number($('#articleId').val()),
-            username  : user.isLoggedIn ? user.pseudo : 'Un visiteur du futur',
-            text      : $scope.commentData
-          };
+        article_id  : $('#articleId').val(),
+        pseudo      : user.isLoggedIn ? user.pseudo : 'Un visiteur du futur',
+        text        : $scope.commentText
+      };
       
       socket.emit('saveComment', comment);
       
-      $scope.commentData = "";
+      $scope.commentText = "";
       articlesCtrl.showCommentZone = false;
     }
     else {
-      errorOnGetArticle();
+      errorOnPageArticle("Une erreur c'est produit lors de l'envoit de votre commentaire, veuillez réessayer ultérieurement.");
     }
   };
 
@@ -97,8 +97,12 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
   // ----- Private Méthode -----
   
   // Gestion des erreurs
-  function errorOnGetArticle() {
-    $("#msgError").html("Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.");
+  function errorOnPageArticle(text) {
+    var message = "Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.";
+    if (text) {
+      message = text;
+    }
+    $("#msgError").html(message);
     $("#msgError").show().delay(3000).fadeOut();
   }
   

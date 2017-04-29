@@ -50,7 +50,7 @@
         <br/>
         <div class="row">
           <div class="col-md-12">
-            <button type="button" ng-show="newArticle" ng-click="getContent()" class="btn btn-primary">Enregistrer l'article</button>
+            <button type="button" ng-show="newArticle" ng-click="getContent()" class="btn btn-success">Enregistrer l'article</button>
             <button type="button" ng-hide="newArticle" ng-click="getContent()" class="btn btn-warning">Modifier l'article</button>
           </div>
         </div>
@@ -61,7 +61,7 @@
             <input type="search" placeholder="Titre" ng-model="titleArticle.title" />
           </div>
           <div class="col-md-8">
-            <input type="search" placeholder="Auteur" ng-model="titleArticle.username" />
+            <input type="search" placeholder="Auteur" ng-model="titleArticle.pseudo" />
           </div>
         </div>
         <div class="row">
@@ -102,7 +102,7 @@
                     {{article.desc}}
                   </td>
                   <td>
-                    {{article.username}}
+                    {{article.pseudo}}
                   </td>
                   <td>
                     {{article.register_date | date : 'dd MMM yyyy - HH:mm:ss'}}
@@ -122,7 +122,7 @@
             <input type="search" placeholder="Titre" ng-model="titleArticle.title" />
           </div>
           <div class="col-md-8">
-            <input type="search" placeholder="Auteur" ng-model="commentArticle.username" />
+            <input type="search" placeholder="Auteur" ng-model="commentArticle.pseudo" />
           </div>
         </div>
         <div class="row">
@@ -150,7 +150,7 @@
                     {{article.title}}
                   </td>
                   <td>
-                    {{article.username}}
+                    {{article.pseudo}}
                   </td>
                   <td>
                     {{article.update_at | date : 'dd MMM yyyy - HH:mm:ss'}}
@@ -191,7 +191,7 @@
                     {{comment.text}}
                   </td>
                   <td>
-                    {{comment.username}}
+                    {{comment.pseudo}}
                   </td>
                   <td>
                     {{comment.register_date | date : 'dd MMM yyyy - HH:mm:ss'}}

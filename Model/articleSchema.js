@@ -18,7 +18,7 @@ let id = 0;
 /**
  * @class ArticleSchema
  * @param {Number} id - required: true, unique: true, index: true, trim: true
- * @param {String} username - required: true
+ * @param {String} pseudo - required: true
  * @param {String} desc - required: true
  * @param {String} text - required: true
  * @param {Date} register_date - required: true, default: Date.now
@@ -26,13 +26,13 @@ let id = 0;
  */
 let ArticleSchema = new Schema({
     id            : { type: Number, required: true, unique: true, index: true, trim: true },
-    username      : { type: String, required: true },
+    pseudo        : { type: String, required: true },
     title         : { type: String, required: true },
     desc          : { type: String, required: true },
     text          : { type: String, required: true },
     update_at     : { type: Date },
     register_date : { type: Date },
-    comments      : { type: [Comment.Schema] },
+    comments      : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     type          : {
                       hot_news      : { type : Boolean, default : true },
                       critical_info : { type : Boolean, default : false }
@@ -85,6 +85,7 @@ ArticleSchema.pre('save', function(next) {
  * @description Pour l'instant aucune vérification avant la MAJ
  */
 ArticleSchema.pre('findOneAndUpdate', function(next) {
+  this._update.update_at = Date.now();
   next();
 });
 

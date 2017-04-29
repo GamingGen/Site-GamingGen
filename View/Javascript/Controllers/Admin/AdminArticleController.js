@@ -56,6 +56,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     if (selectedElement != undefined){
       $scope.selectedArticle = selectedElement;
       $scope.idSelectedElement = index;
+      $scope.idChildSelectedElement = undefined;
     }
   };
   
@@ -74,9 +75,9 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   $scope.getContent = function() {
     if (user && user.isLoggedIn) {
       var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
-      // TODO Récupérer l'username une fois la partie gestion des connexions fonctionnel
+      // TODO Récupérer l'pseudo une fois la partie gestion des connexions fonctionnel
       var article = {
-            username  : user.pseudo,
+            pseudo    : user.pseudo,
             title     : $scope.title,
             desc      : $scope.desc,
             text      : text,
@@ -115,6 +116,9 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     $scope.picture = '';
     $scope.type.name = "hot_news";
     tinymce.activeEditor.setContent('<p></p>');
+    $scope.selectedArticle = undefined;
+    $scope.idChildSelectedElement = undefined;
+    $scope.idSelectedElement = undefined;
   };
   
   $scope.isSelected = function(checkTab) {
@@ -125,7 +129,9 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     if (comment != undefined) {
       var index = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.map(function(element) { return element.id; }).indexOf(comment.id);
       var rmComment = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.splice(index, 1);
-      socket.emit('rmComment', {article: $scope.selectedArticle, comment: rmComment[0]});
+      console.log('index: ', index);
+      console.log('rmComment: ', rmComment);
+      // socket.emit('rmComment', {article: $scope.selectedArticle, comment: rmComment[0]});
     }
   };
   
