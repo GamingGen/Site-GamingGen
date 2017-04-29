@@ -46,14 +46,22 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   });
   
   socket.on('ArticleUpdated', function(articleUpdated) {
-    var index = articleCtrl.lstArticles.map(function(element) { return element.id; }).indexOf(articleUpdated.id);
+    var index = articleCtrl.lstArticles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
     articleCtrl.lstArticles[index] = articleUpdated;
+  });
+  
+  socket.on('ErrorOnArticleUpdated', function(data) {
+    errorOnPageAdminArticle(data);
+  });
+  
+  socket.on('NewArticle', function(data) {
+    articleCtrl.lstArticles.unshift(data);
   });
   
   // Ecoute de l'ajout d'un commentaire
   socket.on('NewComment', function(data) {
     // On met à jour le commentaire dans la liste
-    articleCtrl.lstArticles.find(function(article) {return article.id === data.articleId}).comments.push(data);
+    articleCtrl.lstArticles.find(function(article) {return article._id === data.article_id}).comments.push(data);
   });
   
   
@@ -98,16 +106,17 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
         socket.emit('saveArticle', article);
       }
       else {
-        article.id = $scope.idArticle;
+        article._id = $scope.idArticle;
         socket.emit('updateArticle', article);
       }
-      
-      $scope.newArticle = true;
-      $scope.title = '';
-      $scope.desc = '';
-      $scope.picture = '';
-      $scope.type.name = "hot_news";
-      tinymce.activeEditor.setContent('<p></p>');
+      socket.on('articleOk', function() {
+        $scope.newArticle = true;
+        $scope.title = '';
+        $scope.desc = '';
+        $scope.picture = '';
+        $scope.type.name = "hot_news";
+        tinymce.activeEditor.setContent('<p></p>');
+      });
     }
     else {
       // TODO Deco + redirection home
@@ -135,8 +144,6 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     if (comment != undefined) {
       var index = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.map(function(element) { return element._id; }).indexOf(comment._id);
       var rmComment = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.splice(index, 1);
-      console.log('index: ', index);
-      console.log('rmComment: ', rmComment);
       socket.emit('rmComment', rmComment[0]);
     }
   };
@@ -151,7 +158,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
         name   : article.type.hot_news === true ? 'hot_news' : 'critical_info'
       };
       $scope.newArticle = false;
-      $scope.idArticle = article.id;
+      $scope.idArticle = article._id;
       $scope.tab = 1;
     }
   };
@@ -165,5 +172,13 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   
   
-  // ----- Private Méthode -----
+  // ----- Private Méthode -----// Gestion des erreurs
+  function errorOnPageAdminArticle(text) {
+    var message = "Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.";
+    if (text) {
+      message = text;
+    }
+    $("#msgError").html(message);
+    $("#msgError").show().delay(3000).fadeOut();
+  }
 }]);

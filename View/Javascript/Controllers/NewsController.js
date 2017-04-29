@@ -19,7 +19,7 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
   // ----- GET / SET Data -----
   $http.get('/articles').success(function(articles) {
     newsCtrl.lstArticles = articles;
-
+    
     // Triage des commentaire du plus récent au plus ancien
     newsCtrl.lstArticles.sort(function (a, b) {
       return b.id - a.id;
@@ -88,23 +88,28 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
   });
   
   socket.on('ArticleUpdated', function(articleUpdated) {
-    var indexAll = newsCtrl.lstArticles.map(function(element) { return element.id; }).indexOf(articleUpdated.id);
-    var indexPartial = $scope.news.map(function(element) { return element.id; }).indexOf(articleUpdated.id);
+    var indexAll = newsCtrl.lstArticles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
+    var indexPartial = $scope.news.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
     newsCtrl.lstArticles[indexAll] = articleUpdated;
     $scope.news[indexPartial] = articleUpdated;
+  });
+  
+  socket.on('ArticleRemoved', function(id) {
+    var indexAll = $scope.news.map(function(element) { return element._id; }).indexOf(id);
+    var indexPartial = $scope.news.map(function(element) { return element._id; }).indexOf(id);
+    newsCtrl.lstArticles.splice(indexAll, 1);
+    $scope.news.splice(indexPartial, 1);
   });
   
   // Ecoute de l'ajout d'un commentaire
   socket.on('NewComment', function(data) {
     // On met à jour le commentaire dans la liste
-    $scope.news.find(function(article) {return article.id === data.articleId}).comments.push(data);
+    $scope.news.find(function(article) {return article._id === data.article_id}).comments.push(data);
   });
   
   socket.on('CommentRemoved', function(id) {
     console.log(getObject(newsCtrl.lstArticles, id), id);
-    // var indexAll = newsCtrl.lstArticles.map(function(element) { return element.comments._id; }).indexOf(id);
     // var indexPartial = $scope.news.map(function(element) { return element._id; }).indexOf(id);
-    // newsCtrl.lstArticles[indexAll] = articleUpdated;
     // $scope.news[indexPartial] = articleUpdated;
     // var index = $scope.news[$scope.news.indexOf($scope.selectedArticle)].comments.map(function(element) { return element._id; }).indexOf(id);
     // $scope.news[$scope.news.indexOf($scope.selectedArticle)].comments.splice(index, 1);

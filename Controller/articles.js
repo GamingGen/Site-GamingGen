@@ -81,6 +81,7 @@ let articleEvent = function(ServerEvent) {
       if (err) {
         //throw err;
         console.error(err);
+        ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
       }
       else {
         article = article.toObject();
@@ -90,10 +91,11 @@ let articleEvent = function(ServerEvent) {
     });
   });
   ServerEvent.on('updateArticle', function(data, socket) {
-    articleSchema.findOneAndUpdate({_id: data.id}, data, {new: true}, function (err, rowUpdated) {
+    articleSchema.findOneAndUpdate({_id: data._id}, data, {new: true}, function (err, rowUpdated) {
       if (err) {
         //throw err;
         console.error(err);
+        ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
       }
       else {
         if (rowUpdated !== null) {
@@ -107,12 +109,13 @@ let articleEvent = function(ServerEvent) {
   });
   
   ServerEvent.on('rmArticle', function(data, socket) {
-    articleSchema.findOneAndRemove({_id : data.id}, function (err, result) {
+    articleSchema.findOneAndRemove({_id : data._id}, function (err, result) {
       if (err) {
         console.log('err: ', err);
       }
       else {
-        console.log('Article Supprimé: ', data.title);
+        console.log('Article Supprimé: ', result.title);
+        ServerEvent.emit('ArticleRemoved', result, socket);
       }
     });
   });

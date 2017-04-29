@@ -68,11 +68,21 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	});
 		
 	ServerEvent.on('ArticleSaved', function(data, socket) {
+		socket.emit('articleOk');
 		io.sockets.emit('NewArticle', data);
+	});
+		
+	ServerEvent.on('ErrorOnArticleUpdated', function(data, socket) {
+		socket.emit('ErrorOnArticleUpdated', data);
 	});
 		
 	ServerEvent.on('ArticleUpdated', function(data, socket) {
 		io.sockets.emit('ArticleUpdated', data);
+	});
+		
+	ServerEvent.on('ArticleRemoved', function(data, socket) {
+		socket.emit('ArticleRemovedOk', data._id);
+		io.sockets.emit('ArticleRemoved', data._id);
 	});
 		
 	ServerEvent.on('CommentSaved', function(data, socket) {
@@ -246,13 +256,11 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		});
 		
 		socket.on('saveArticle', function(data) {
-			console.log('Reception article Client');
 			ServerEvent.emit('saveArticle', data, socket);
 			console.log('Emit: saveArticle');
 		});
 		
 		socket.on('updateArticle', function(data) {
-			console.log('Reception Update article Client');
 			ServerEvent.emit('updateArticle', data, socket);
 			console.log('Emit: updateArticle');
 		});

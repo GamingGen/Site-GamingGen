@@ -12,7 +12,7 @@
   <div class="row contentListNews">
     <div infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="disableInfiniteScroll">
       <!-- Liste des articles -->
-      <div ng-repeat="article in news | orderBy : '-register_date'" class="listNewsPage col-md-10 col-md-offset-1">
+      <div ng-repeat="article in news | orderBy : '-update_at'" class="listNewsPage col-md-10 col-md-offset-1">
         <h1 class="articleTitleList">{{article.title}}</h1>
 
         <!--<div class="articleTitleList comment">{{article.comments.length}}</div><!-- Nombre de commentaires dans l'article -->
@@ -20,7 +20,7 @@
         <!--<div>{{article.pseudo}}</div><!-- Auteur de l'article -->
         <div class="categoryListNews" ng-show="article.type.hot_news">Hot news</div>
         <div class="categoryListNews" ng-show="article.type.critical_info">Info cruciale</div>
-        <div>{{article.register_date | date : 'dd MMMM yyyy'}}</div>
+        <div>{{article.update_at | date : 'dd MMMM yyyy'}}</div>
         <a class="toggleNews" ui-sref="article({ id: article._id })">
           <div class="badge-right">
             {{article.comments.length}} <i class="fa fa-comments" aria-hidden="true"></i>

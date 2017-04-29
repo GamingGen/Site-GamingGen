@@ -32,13 +32,18 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', '
   });
   
   socket.on('ArticleUpdated', function(articleUpdated) {
-    var index = news.articles.map(function(element) { return element.id; }).indexOf(articleUpdated.id);
+    var index = news.articles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
     news.articles[index] = articleUpdated;
+  });
+  
+  socket.on('ArticleRemoved', function(id) {
+    var index = news.articles.map(function(element) { return element._id; }).indexOf(id);
+    news.articles.splice(index, 1);
   });
   
   socket.on('NewComment', function(data) {
     // On met à jour le commentaire dans la liste
-    news.articles.find(function(art) {return art.id === data.articleId}).comments.push(data);
+    news.articles.find(function(article) {return article._id === data.article_id}).comments.push(data);
   });
   
   

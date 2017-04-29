@@ -55,10 +55,9 @@ ArticleSchema.pre('validate', function(next) {
  * @description Pour l'instant aucune vérification avant l'enregistrement
  */
 ArticleSchema.pre('save', function(next) {
-  var dateNow = Date.now();
-  this.update_at = dateNow;
+  this.update_at = Date.now();;
   if (this.isNew) {
-    this.register_date = dateNow;
+    this.register_date = this.update_at;
   }
   if (this.critical_info === false && this.hot_news === false) {
     this.hot_news = true;
@@ -72,7 +71,14 @@ ArticleSchema.pre('save', function(next) {
  * @description Pour l'instant aucune vérification avant la MAJ
  */
 ArticleSchema.pre('findOneAndUpdate', function(next) {
-  this._update.update_at = Date.now();
+  console.log('before this._update: ', this._update);
+  if(this._update && this._update['$push'] && this._update['$push'].comments) {
+    console.log('Do Nothing');
+  }
+  else {
+    this._update.update_at = Date.now();
+  }
+  console.log('after this._update: ', this._update);
   next();
 });
 
