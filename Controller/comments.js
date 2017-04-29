@@ -9,18 +9,7 @@ const router	= express.Router();
 // -------------------------------------------------------------------------- //
 //                                 Init                                       //
 // -------------------------------------------------------------------------- //
-let id = 0;
 
-commentSchema.findOne({}, null, {sort: {id: -1}}, function(err, result) {
-  if (err) {
-    console.log(err);
-  }
-  else {
-    if (result !== undefined && result !== null && result.id !== NaN) {
-      id = result.id;
-    }
-  }
-});
 
 // -------------------------------------------------------------------------- //
 //                                Events                                      //
@@ -34,7 +23,6 @@ let commentEvent = function(ServerEvent) {
       text          : data.text
     });
     
-    console.log(newComment);
     
     newComment.save(function(err) {
       if (err) {
@@ -42,20 +30,29 @@ let commentEvent = function(ServerEvent) {
         console.error(err);
       }
       else {
-        delete data.text;
-        ServerEvent.emit('CommentSaved', newComment, socket);
+        console.log('Before newComment: ', newComment);
+        articleSchema.findOneAndUpdate({_id: newComment.article_id}, {$push: {comments: newComment._id}}, {new: true}, function(err) {
+          if (err) {
+            console.log('err: ', err);
+          }
+          else {
+            // article.comments.push(newComment.article_id);
+            console.log('After newComment: ', newComment);
+            ServerEvent.emit('CommentSaved', newComment, socket);
+          }
+        });
       }
     });
   });
   
   ServerEvent.on('rmComment', function(data, socket) {
-    commentSchema.findOneAndRemove({_id : data.id}, {new: true}, function (err, result) {
+    commentSchema.findOneAndRemove({_id: data.id}, {new: true}, function (err, comment) {
       if (err) {
         console.log('err: ', err);
       }
       else {
-        console.log('Commentaire Supprimé: ', result);
-        ServerEvent.emit('CommentRemoved', result, socket);
+        console.log('Commentaire Supprimé: ', comment);
+        ServerEvent.emit('CommentRemoved', comment, socket);
       }
     });
   });

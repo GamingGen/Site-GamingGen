@@ -71,7 +71,7 @@
       </div>
       <div class="row">
         <div infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="disableInfiniteScroll">
-          <div ng-repeat="comment in comments | orderBy : '-register_date' track by $index"><!-- Liste des commentaires -->
+          <div ng-repeat="comment in comments | orderBy : '-register_date'"><!-- Liste des commentaires -->
             <h6 class="userComment col-xs-8 col-lg-5 col-xs-offset-2">
               {{comment.pseudo}}, le {{comment.register_date | date : 'dd MMMM yyyy'}}
             </h6><!-- Auteur du commentaire -->

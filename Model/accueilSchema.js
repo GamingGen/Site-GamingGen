@@ -27,14 +27,6 @@ let AccueilSchema = new Schema({
 });
 
 /**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */
-// AccueilSchema.post('init', function(doc) {
-//   console.log('AccueilSchema : ', doc._id);
-// });
-
-/**
  * @function preValidate
  * @param {function} next - Permet d'appeler le prochain middleware
  * @description MAJ de la date d'enregistrement

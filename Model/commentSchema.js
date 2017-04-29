@@ -11,31 +11,20 @@ const mongoose    = require('mongoose');
 const Schema      = mongoose.Schema;
 
 // Variables
-let id = 0;
 
 // Schéma CommentSchema
 /**
  * @class CommentSchema
- * @param {Number} id - required: true, unique: true, index: true, trim: true
+ * @param {ObjectID} article_id - Id de l'article associé
  * @param {String} pseudo - required: true
  * @param {String} text - required: true
  * @param {Date} register_date - required: true, default: Date.now
- * @param {Number} articleId - Id de l'article associé
  */
 var CommentSchema = new Schema({
     article_id    : { type: Schema.Types.ObjectId, ref: 'Article', required: true },
     pseudo        : { type: String, required: true },
     text          : { type: String, required: true },
     register_date : { type: Date, required: true }
-});
-
-/**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
- */
-CommentSchema.post('init', function(doc) {
-  console.log('CommentSchema : ', doc._id);
-  id = doc.id;
 });
 
 /**

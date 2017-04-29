@@ -12,17 +12,18 @@ const Schema   = mongoose.Schema;
 const Comment  = require('./commentSchema');
 
 // Variables
-let id = 0;
 
 // Schéma ArticleSchema
 /**
  * @class ArticleSchema
- * @param {Number} id - required: true, unique: true, index: true, trim: true
  * @param {String} pseudo - required: true
  * @param {String} desc - required: true
  * @param {String} text - required: true
- * @param {Date} register_date - required: true, default: Date.now
+ * @param {Date} update_at - required: true
+ * @param {Date} register_date - required: true
  * @param {Array} comments - Liste des commentaires
+ * @param {Object} type - Type de l'article
+ * @param {String} picture - Lien vers l'image de couverture
  */
 let ArticleSchema = new Schema({
     pseudo        : { type: String, required: true },
@@ -40,24 +41,11 @@ let ArticleSchema = new Schema({
 });
 
 /**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
- */
-ArticleSchema.post('init', function(doc) {
-  console.log('ArticleSchema : ', doc._id);
-  id = doc.id;
-  console.log('id: ', id);
-});
-
-/**
  * @function preValidate
  * @param {function} next - Permet d'appeler le prochain middleware
- * @description MAJ de l'id et de la date d'enregistrement
+ * @description WIP
  */
 ArticleSchema.pre('validate', function(next) {
-  // Set de l'id
-  // this.id = id++;
-  
   next();
 });
 
