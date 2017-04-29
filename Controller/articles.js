@@ -70,14 +70,15 @@ let articleEvent = function(ServerEvent) {
       picture       : data.picture
     });
     
-    newArticle.save(function(err) {
+    newArticle.save(function(err, article) {
       if (err) {
         //throw err;
         console.error(err);
       }
       else {
-        delete data.text;
-        ServerEvent.emit('ArticleSaved', data, socket);
+        article = article.toObject();
+        delete article.text;
+        ServerEvent.emit('ArticleSaved', article, socket);
       }
     });
   });

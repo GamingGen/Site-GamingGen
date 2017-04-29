@@ -25,7 +25,6 @@ let id = 0;
  * @param {Array} comments - Liste des commentaires
  */
 let ArticleSchema = new Schema({
-    id            : { type: Number, required: true, unique: true, index: true, trim: true },
     pseudo        : { type: String, required: true },
     title         : { type: String, required: true },
     desc          : { type: String, required: true },

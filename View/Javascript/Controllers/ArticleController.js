@@ -47,7 +47,7 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
   
   // ----- Public Méthode -----
   $scope.submitComment = function() {
-    if ($scope.commentcommentTextData && $scope.commentText.length > 0) {
+    if ($scope.commentText && $scope.commentText.length > 0) {
       var comment = {
         article_id  : $('#articleId').val(),
         pseudo      : user.isLoggedIn ? user.pseudo : 'Un visiteur du futur',
@@ -110,7 +110,7 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
   // ----- Events -----
   socket.on('NewComment', function(data) {
     // On met à jour le commentaire dans la liste
-    if (articlesCtrl.currentArticle.id === data.articleId)
+    if (articlesCtrl.currentArticle._id === data.article_id)
       $scope.comments.push(data);
   });
   
