@@ -710,8 +710,8 @@ margin-top: 0px!important;
   border:0px;
 }
 .slider {
+  background: url("../Img/General/LAN-PARTY.min.jpg") center center no-repeat;
   background-size: cover;
-  -webkit-background-size: cover;
   position:relative;
   margin-top: 1px;
   height: 450px;
