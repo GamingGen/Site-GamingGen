@@ -23,6 +23,8 @@ router.get('/', function (req, res) {
   .exec(function (err, docs) {
     if (err) {
       console.error(err);
+      res.status(500);
+      res.json({message : err});
     }
     else {
       res.json(docs);
@@ -38,6 +40,8 @@ router.get('/home', function (req, res) {
   .exec(function (err, docs) {
     if (err) {
       console.error(err);
+      res.status(500);
+      res.json({message : err});
     }
     else {
       res.json(docs);
@@ -52,6 +56,8 @@ router.get('/:id', function (req, res) {
   .exec(function (err, docs) {
     if (err) {
       console.error(err);
+      res.status(500);
+      res.json({message : err});
     }
     else {
       res.json(docs);
@@ -88,6 +94,7 @@ let articleEvent = function(ServerEvent) {
     });
   });
   ServerEvent.on('updateArticle', function(data, socket) {
+    console.log('Socket: ', socket);
     articleSchema.findOneAndUpdate({_id: data._id}, data, {new: true}, function (err, rowUpdated) {
       if (err) {
         //throw err;
