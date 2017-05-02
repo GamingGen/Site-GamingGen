@@ -29,6 +29,9 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', '$state', 'socket',
         commentsLength = articlesCtrl.currentArticle.comments.length;
         $scope.disableInfiniteScroll = commentsLength < $scope.step;
         $scope.loadMore();
+
+        console.log('articlesCtrl: ', articlesCtrl);
+        console.log('commentsLength: ', commentsLength);
       }
       else
       {

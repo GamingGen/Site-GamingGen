@@ -60,11 +60,11 @@
               
             </span>
             {{article.desc}}...
-            <img ng-image-appear animation="blurIn" class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
+            <img ng-image-appear animation="fadeIn" class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
           </a>
         </div>
       </div>
-      <div ng-mouseenter="hover=true" ng-mouseleave="hover=false" ng-class="{ 'blanc' : hover }" class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
+      <div ng-mouseenter="hover2=true" ng-mouseleave="hover2=false" ng-class="{ 'blanc' : hover2 }" class="otherThumbNews col-xs-12 col-sm-6 col-lg-4">
         <a ui-sref="news">
           <span class="wrapperPreviewNews">
             <h1>Le reste des articles</h1>
