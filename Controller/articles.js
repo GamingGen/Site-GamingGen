@@ -18,7 +18,7 @@ const router	= express.Router();
 // -------------------------------------------------------------------------- //
 // Récupère la liste complète des articles
 router.get('/', function (req, res) {
-  articleSchema.find({})
+  articleSchema.find({}, null, {sort: { update_at: -1 }})
   .populate('comments')
   .exec(function (err, docs) {
     if (err) {
@@ -35,7 +35,7 @@ router.get('/', function (req, res) {
 
 // Récupère uniquement les 4 dernier articles (Spécifique pour la Home)
 router.get('/home', function (req, res) {
-  articleSchema.find({}, null, {sort: { register_date: -1 }, limit: 4 })
+  articleSchema.find({}, null, {sort: { update_at: -1 }, limit: 4 })
   .populate('comments')
   .exec(function (err, docs) {
     if (err) {
@@ -76,7 +76,7 @@ let articleEvent = function(ServerEvent) {
     socket.request.session.reload(err => {
       if (err) {
         console.log(err);
-        ServerEvent.emit('ErrorOnArticleUpdated', err, socket);
+        ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
       }
       else {
         console.log(socket.request.session.passport.user);
@@ -145,7 +145,7 @@ let articleEvent = function(ServerEvent) {
     socket.request.session.reload(err => {
       if (err) {
         console.log(err);
-        ServerEvent.emit('ErrorOnArticleUpdated', err, socket);
+        ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
       }
       else {
         console.log(socket.request.session.passport.user);
