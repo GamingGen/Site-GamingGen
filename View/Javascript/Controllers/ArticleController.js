@@ -26,11 +26,6 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', '$state', 'socket',
       if (article !== null)
       {
         articlesCtrl.currentArticle = article.data;
-        
-        // Triage des commentaire du plus récent au plus ancien
-        articlesCtrl.currentArticle.comments.sort(function (a, b) {
-          return b.id - a.id;
-        });
         commentsLength = articlesCtrl.currentArticle.comments.length;
         $scope.disableInfiniteScroll = commentsLength < $scope.step;
         $scope.loadMore();
@@ -98,10 +93,8 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', '$state', 'socket',
   
   // Gestion des erreurs
   function errorOnPageArticle(text) {
-    var message = "Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.";
-    if (text) {
-      message = text;
-    }
+    var message = text || "Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.";
+
     $("#msgError").html(message);
     $("#msgError").show().delay(3000).fadeOut();
     if (text === undefined) {

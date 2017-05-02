@@ -23,6 +23,8 @@ router.get('/', function (req, res) {
   .exec(function (err, docs) {
     if (err) {
       console.error(err);
+      res.status(500);
+      res.json({message : err});
     }
     else {
       res.json(docs);
@@ -38,6 +40,8 @@ router.get('/home', function (req, res) {
   .exec(function (err, docs) {
     if (err) {
       console.error(err);
+      res.status(500);
+      res.json({message : err});
     }
     else {
       res.json(docs);
@@ -52,6 +56,8 @@ router.get('/:id', function (req, res) {
   .exec(function (err, docs) {
     if (err) {
       console.error(err);
+      res.status(500);
+      res.json({message : err});
     }
     else {
       res.json(docs);

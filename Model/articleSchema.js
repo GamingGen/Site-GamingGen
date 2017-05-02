@@ -50,12 +50,29 @@ ArticleSchema.pre('validate', function(next) {
 });
 
 /**
+ * @function prefindOneAndUpdate
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Pour l'instant aucune vérification avant la MAJ
+ */
+ArticleSchema.pre('findOneAndUpdate', function(next) {
+  // console.log('before this._update: ', this._update);
+  if(this._update && this._update['$push'] && this._update['$push'].comments) {
+    console.log('Do Nothing');
+  }
+  else {
+    this._update.update_at = Date.now();
+  }
+  // console.log('after this._update: ', this._update);
+  next();
+});
+
+/**
  * @function preSave
  * @param {function} next - Permet d'appeler le prochain middleware
  * @description Pour l'instant aucune vérification avant l'enregistrement
  */
 ArticleSchema.pre('save', function(next) {
-  this.update_at = Date.now();;
+  this.update_at = Date.now();
   if (this.isNew) {
     this.register_date = this.update_at;
   }
@@ -66,17 +83,14 @@ ArticleSchema.pre('save', function(next) {
 });
 
 /**
- * @function prefindOneAndUpdate
+ * @function findOneAndRemove
  * @param {function} next - Permet d'appeler le prochain middleware
- * @description Pour l'instant aucune vérification avant la MAJ
+ * @description Permet de supprimer la reference de l'article
  */
-ArticleSchema.pre('findOneAndUpdate', function(next) {
-  if(this._update && this._update['$push'] && this._update['$push'].comments) {
-    console.log('Do Nothing');
-  }
-  else {
-    this._update.update_at = Date.now();
-  }
+ArticleSchema.pre('findOneAndRemove', function(next) {
+  console.log('this: ', this);
+  // this.model('Comment').remove({article_id: this._conditions._id}, next);
+  Comment.remove({article_id: this._conditions._id});
   next();
 });
 
