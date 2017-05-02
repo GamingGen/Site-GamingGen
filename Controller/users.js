@@ -138,6 +138,14 @@ router.post('/login', login);
 router.post('/logout', (req, res) => {
   console.log('req.user: ', req.user);
   req.logout();
+  req.session.destroy(function (err) {
+    if (err) {
+        return next(err);
+    }
+
+    // destroy session data
+    req.session = null;
+  });
   res.sendStatus(200);
 });
 
