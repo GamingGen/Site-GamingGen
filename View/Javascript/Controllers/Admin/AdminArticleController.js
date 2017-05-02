@@ -39,7 +39,6 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   };
   
   $http.get('/articles').then(function(articles) {
-    console.log(articles);
     articleCtrl.lstArticles = articles.data;
   }).catch(function() {
     $("#msgError").html("Erreur lors de la récupération des articles, veuillez réessayer ultérieurement.");
@@ -89,7 +88,8 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   $scope.getContent = function() {
     if (user && user.isLoggedIn) {
-      var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
+      var text = "<img class=\"img-responsive\" style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"" + $scope.picture + "\" alt=\"\"/></p>\n";
+      text += tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
       // TODO Récupérer l'pseudo une fois la partie gestion des connexions fonctionnel
       var article = {
             pseudo    : user.pseudo,
@@ -117,7 +117,6 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
         $scope.picture = '';
         $scope.type.name = "hot_news";
         tinymce.activeEditor.setContent('<p></p>');
-        successOnPageAdminArticle("L'article à bien était enregistré");
       });
     }
     else {
@@ -175,8 +174,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   
   
-  // ----- Private Méthode -----
-  // Gestion des erreurs
+  // ----- Private Méthode -----// Gestion des erreurs
   function errorOnPageAdminArticle(text) {
     var message = "Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.";
     if (text) {
@@ -184,14 +182,5 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     }
     $("#msgError").html(message);
     $("#msgError").show().delay(3000).fadeOut();
-  }
-  // Gestion des erreurs
-  function successOnPageAdminArticle(text) {
-    var message = "...";
-    if (text) {
-      message = text;
-    }
-    $("#msgInfo").html(message);
-    $("#msgInfo").show().delay(3000).fadeOut();
   }
 }]);
