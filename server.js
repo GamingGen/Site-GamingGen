@@ -107,7 +107,7 @@ const port = process.env.PORT || 3000;
 const EXPRESS_SID_VALUE = 'Secret Keyboard DarkTerra Cat';
 const sessionMiddleware = session({
   secret              : EXPRESS_SID_VALUE,
-  resave              : false,
+  resave              : true,
   saveUninitialized   : true,
   store               : new MongoStore({ mongooseConnection: mongoose.connection })
 });
