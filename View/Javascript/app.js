@@ -166,12 +166,12 @@
       // $locationProvider.html5Mode(true);
     }
   ])
-  .run(function (PermPermissionStore, PermRoleStore) {
+  .run(['PermPermissionStore', 'PermRoleStore', function (PermPermissionStore, PermRoleStore) {
     PermPermissionStore
     .definePermission('seeAdminArticle', function () {
       return true;
     });
     PermRoleStore
     .defineRole('ADMIN_ARTICLE', ['seeAdminArticle']);
-  });
+  }]);
 })();
