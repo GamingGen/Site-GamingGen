@@ -994,6 +994,7 @@ height:25vw;
   display:flex;
   justify-content:center;
   height:48px;
+      margin-top: 100px;
 }
 .triggerComment a{
   background:white;
@@ -1053,11 +1054,25 @@ height:25vw;
   padding-top:10px;
   
 }
-.micComment svg:not(:root){
+.commentTitle svg:not(:root){
   width: 55px;
+      position: absolute;
+      display:flex;
+      justify-content:flex-start;
+    top: 30%;
 }
 .commentTitle{
+  fill:rgba(0,0,0,0.2);
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  align-content: center;
+  padding-top:10px;
   height:100px;
+}
+.commentTitle span{
+  width:100%;
 }
 .categoryListNews{
   font-family: 'Droid Sans', sans-serif;
