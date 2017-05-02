@@ -38,9 +38,10 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     name   : 'hot_news'
   };
   
-  $http.get('/articles').success(function(articles) {
-    articleCtrl.lstArticles = articles;
-  }).error(function() {
+  $http.get('/articles').then(function(articles) {
+    console.log(articles);
+    articleCtrl.lstArticles = articles.data;
+  }).catch(function() {
     $("#msgError").html("Erreur lors de la récupération des articles, veuillez réessayer ultérieurement.");
     $("#msgError").show().delay(3000).fadeOut();
   });

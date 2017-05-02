@@ -118,6 +118,8 @@ angular.module("AuthServices", [])
     };
   };
   
+  this.isLoggedIn = (SessionService.getValue("session.email") ? true : false);
+  
   this.login = function(user) {
       var self = this;
       
@@ -146,7 +148,7 @@ angular.module("AuthServices", [])
   
   this.logout = function() {
       var self = this;
-      return $http.post("/users/logout").success(function() {
+      return $http.post("/users/logout").then(function() {
           self.currentUser.isLoggedIn = false;
           SessionService.destroyItem("session.email");
           SessionService.destroyItem("session.pseudo");
@@ -164,11 +166,11 @@ angular.module("AuthServices", [])
         .success(function(user) {
           self.login(user);
         })*/
-        .success(function() {
+        .then(function() {
           $("#msgInfo").html("Compte validé !");
           $("#msgInfo").show().delay(3000).fadeOut();
         })
-        .error(function() {
+        .catch(function() {
           $("#msgError").html("Validation du compte impossible.");
           $("#msgError").show().delay(3000).fadeOut();
       });

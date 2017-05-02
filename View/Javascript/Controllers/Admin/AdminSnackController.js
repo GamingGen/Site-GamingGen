@@ -16,13 +16,17 @@ AppControllers.controller('adminSnackCtrl', ['$scope', '$http', 'socket', functi
   
   
   // ----- GET / SET Data -----
-  $http.get('/confs/typeMenu').success(function(data) {
-    snack.list = data;
+  $http.get('/confs/typeMenu').then(function(data) {
+    snack.list = data.data;
     $scope.type.name = snack.list[0].name;
+  }).catch(function(err) {
+    console.log(err);
   });
   
-  $http.get('/menusnacks/').success(function(data) {
-    snack.cartes = data;
+  $http.get('/menusnacks/').then(function(data) {
+    snack.cartes = data.data;
+  }).catch(function(err) {
+    console.log(err);
   });
   
   socket.on('ClientPrinterPrintedDone', function(number) {
@@ -31,8 +35,10 @@ AppControllers.controller('adminSnackCtrl', ['$scope', '$http', 'socket', functi
     }
   });
   
-  $http.get('/snacks/getYears').success(function(data) {
-    snack.histo.years = data;
+  $http.get('/snacks/getYears').then(function(data) {
+    snack.histo.years = data.data;
+  }).catch(function(err) {
+    console.log(err);
   });
   
   
@@ -98,9 +104,11 @@ AppControllers.controller('adminSnackCtrl', ['$scope', '$http', 'socket', functi
   };
   
   $scope.SearchByYear = function(year) {
-    $http.get('/snacks/getOrders/' + year).success(function(data) {
-      snack.histo.elements = data;
-    });
+    $http.get('/snacks/getOrders/' + year).then(function(data) {
+      snack.histo.elements = data.data;
+    }).catch(function(err) {
+    console.log(err);
+  });
   };
   
   $scope.Print  = function(index) {
@@ -143,10 +151,12 @@ AppControllers.controller('adminSnackCtrl', ['$scope', '$http', 'socket', functi
     modal.find('.modal-title').text(id);
     modal.find('.modal-body').text('Loading...');
     
-    // $http.get('/articles/' + id).success(function(data) {
-    //   console.log(data);
+    // $http.get('/articles/' + id).then(function(data) {
+    //   console.log(data.data);
     //   modal.find('.modal-title').text(data.title);
     //   modal.find('.modal-body').text(data.text);
+    // }).catch(function(err) {
+    //   console.log(err);
     // });
   });
   

@@ -17,8 +17,8 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
   $scope.news                  = [];
   
   // ----- GET / SET Data -----
-  $http.get('/articles').success(function(articles) {
-    newsCtrl.lstArticles = articles;
+  $http.get('/articles').then(function(articles) {
+    newsCtrl.lstArticles = articles.data;
     
     // Triage des commentaire du plus récent au plus ancien
     newsCtrl.lstArticles.sort(function (a, b) {
@@ -27,7 +27,7 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
     newsLength = newsCtrl.lstArticles.length;
     $scope.disableInfiniteScroll = newsLength < $scope.step;
     $scope.loadMore();
-  }).error(function() {
+  }).catch(function() {
     $("#msgError").html("Erreur lors de la récupération des articles, veuillez réessayer ultérieurement.");
     $("#msgError").show().delay(3000).fadeOut();
   });

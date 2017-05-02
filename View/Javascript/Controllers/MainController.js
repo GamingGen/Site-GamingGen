@@ -100,7 +100,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     
     console.log(JSON.stringify(user));
     $http.post('/users/insert', JSON.stringify(user))
-      .success(function(data){
+      .then(function(data){
         $scope.firstName = '';
         $scope.lastName  = '';
         $scope.pseudo    = '';
@@ -114,11 +114,11 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
         
         $('#registrationModal').modal('toggle');
         
-        console.log('data: ', data);
-        $("#msgInfo").html(data.message);
+        console.log('data: ', data.data);
+        $("#msgInfo").html(data.data.message);
         $("#msgInfo").show().delay(3000).fadeOut();
       })
-      .error(function(err) {
+      .catch(function(err) {
         $scope.firstName = '';
         $scope.lastName  = '';
         $scope.pseudo    = '';
@@ -139,8 +139,11 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     console.log('Logout Call');
     
     UserService.logout()
-    .success(function() {
+    .then(function() {
       $state.go('home');
+    })
+    .catch(function(err) {
+      console.log(err)
     });
   };
   

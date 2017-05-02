@@ -13,13 +13,17 @@ AppControllers.controller('adminShopCtrl', ['$scope', '$http', 'socket', functio
   
   
   // ----- GET / SET Data -----
-  $http.get('/confs/shop').success(function(data) {
-    shop.list = data;
+  $http.get('/confs/shop').then(function(data) {
+    shop.list = data.data;
     $scope.type.name = shop.list[0].name;
+  }).catch(function(err) {
+    console.log(err);
   });
   
-  $http.get('/shop/').success(function(data) {
-    shop.cartes = data;
+  $http.get('/shop/').then(function(data) {
+    shop.cartes = data.data;
+  }).catch(function(err) {
+    console.log(err);
   });
   
   $scope.idSelectedElement = undefined;
@@ -106,13 +110,15 @@ AppControllers.controller('adminShopCtrl', ['$scope', '$http', 'socket', functio
     modal.find('.modal-title').text(name);
     // modal.find('.modal-body').text('Loading...');
     
-    $http.get('/shop/getProduct/' + name).success(function(data) {
-      modal.find('.modal-title').text(data.name);
+    $http.get('/shop/getProduct/' + name).then(function(data) {
+      modal.find('.modal-title').text(data.data.name);
       // modal.find('.modal-body').text('');
-      modal.find('.modal-value-name').val(data.name);
-      modal.find('.modal-value-unit_price').val(data.unit_price);
-      modal.find('.modal-value-quantity').val(data.quantity);
-      modal.find('.modal-value-quantity_min').val(data.quantity_min);
+      modal.find('.modal-value-name').val(data.data.name);
+      modal.find('.modal-value-unit_price').val(data.data.unit_price);
+      modal.find('.modal-value-quantity').val(data.data.quantity);
+      modal.find('.modal-value-quantity_min').val(data.data.quantity_min);
+    }).catch(function(err) {
+      console.log(err);
     });
   });
   
