@@ -87,6 +87,10 @@ a:hover{
   text-decoration:none;
 }
 
+.img-center {
+  margin: auto;
+}
+
 h1, h2, .panel-title , h4.modal-title {
   font-family: 'TitlingGothicFBCondRegular';
   /*font-size: 2.40em;*/
