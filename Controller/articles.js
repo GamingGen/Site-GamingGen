@@ -141,7 +141,7 @@ let articleEvent = function(ServerEvent) {
     else {
       ServerEvent.emit('ErrorOnArticleUpdated', 'You are not Authorized', socket);
     }
-  }
+  });
 };
 
 // Export
