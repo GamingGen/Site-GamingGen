@@ -103,6 +103,7 @@ let articleEvent = function(ServerEvent) {
     }
   });
   ServerEvent.on('updateArticle', function(data, socket) {
+    console.log(socket.request.session.passport);
     if (socket.request.session && socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.roles && socket.request.session.passport.user.roles.includes('Rédacteur')) {
       articleSchema.findOneAndUpdate({_id: data._id}, data, {new: true}, function (err, rowUpdated) {
         if (err) {
@@ -125,6 +126,7 @@ let articleEvent = function(ServerEvent) {
     }
   });
   ServerEvent.on('rmArticle', function(data, socket) {
+    console.log(socket.request.session.passport);
     if (socket.request.session && socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.roles && socket.request.session.passport.user.roles.includes('AdminRédacteur')) {
       articleSchema.findOneAndRemove({_id : data._id}, function (err, result) {
         if (err) {

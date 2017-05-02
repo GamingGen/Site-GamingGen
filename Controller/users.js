@@ -120,7 +120,7 @@ function SendMail(req, res, mails, html, hash) {
   // }
   
   // send mail with defined transport object 
-  transporter.sendMail(mailOptions, function(error, info) {
+  transporter.sendMail(mailOptions, (error, info) => {
     console.log('info: ', info);
       if(error) {
         console.error(error);
@@ -136,15 +136,11 @@ function SendMail(req, res, mails, html, hash) {
 router.post('/login', login);
 
 router.post('/logout', (req, res) => {
-  console.log('req.user: ', req.user);
   req.logout();
-  req.session.destroy(function (err) {
+  req.session.destroy(err => {
     if (err) {
         return next(err);
     }
-
-    // destroy session data
-    req.session = null;
   });
   res.sendStatus(200);
 });
@@ -153,7 +149,7 @@ router.post('/logout', (req, res) => {
 router.get('/role/:id', (req, res) => {
     userSchema.findOne({_id: req.params.id})
     .populate('access.roles')
-    .exec(function (err, docs) {
+    .exec((err, docs) => {
       if (err) {
         console.error(err);
       }
@@ -176,7 +172,7 @@ router.get('/role/:id', (req, res) => {
 //   });
 // });
 
-router.post('/insert', function (req, res) {
+router.post('/insert', (req, res) => {
   let hash = crypto.createHmac('sha256', cryptoSecret)
     .update(req.body.pseudo + req.body.email + Date.now())
     .digest('hex');
@@ -196,7 +192,7 @@ router.post('/insert', function (req, res) {
     }
   });
   
-  newUser.save(function(err) {
+  newUser.save(err => {
     if (err) {
       console.error(err);
       res.status(500);
@@ -218,8 +214,8 @@ router.post('/insert', function (req, res) {
 /**
  * Récupération de la liste des utilisateurs non-bannis
  */
-router.get('/listNoBan', function (req, res) {
-  userSchema.find({'access.ban' : false}, function (err, rows) {
+router.get('/listNoBan', (req, res) => {
+  userSchema.find({'access.ban' : false}, (err, rows) => {
     if (err) {
       console.error(err);
       res.status(500);
@@ -233,8 +229,8 @@ router.get('/listNoBan', function (req, res) {
 /**
  * Récupération de la liste des utilisateurs bannis
  */
-router.get('/listBan', function (req, res) {
-  userSchema.find({'access.ban' : true}, function (err, rows) {
+router.get('/listBan', (req, res) => {
+  userSchema.find({'access.ban' : true}, (err, rows) => {
     if (err) {
       console.error(err);
       res.status(500);
@@ -248,8 +244,8 @@ router.get('/listBan', function (req, res) {
 /**
  * Bannissement d'un utilisateur
  */
-router.post('/ban', function(req, res) {
-   userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : true},function (err, rows) {
+router.post('/ban', (req, res) => {
+   userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : true}, (err, rows) => {
     if (err) {
       console.error(err);
       res.status(500);
@@ -266,8 +262,8 @@ router.post('/ban', function(req, res) {
 /**
  * Dé-bannissement d'un utilisateur
  */
-router.post('/unban', function(req, res) {
-  userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : false}, function (err, rows) {
+router.post('/unban', (req, res) => {
+  userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : false}, (err, rows) => {
     if (err) {
       console.error(err);
       res.status(500);
@@ -282,10 +278,10 @@ router.post('/unban', function(req, res) {
 /**
  * Validation d'un compte utilisateur
  */
-router.post('/validate', function(req, res) {
+router.post('/validate', (req, res) => {
   console.log("Validation d'un user...");
   console.log("req.body: ", req.body);
-  userSchema.findOneAndUpdate({'access.validationKey': req.body.hash}, {'access.validationKey': '', 'access.level': 1}, function (err, rowUpdated) {
+  userSchema.findOneAndUpdate({'access.validationKey': req.body.hash}, {'access.validationKey': '', 'access.level': 1}, (err, rowUpdated) => {
     if (err) {
       console.log("Validate first error : " + err);
       res.status(500);
@@ -314,7 +310,7 @@ router.post('/validate', function(req, res) {
 });
 
 function login(req, res, next) {// Ajouter une option de bypass pour si le mot de passe est déjà crypté (validation de compte)
-  passport.authenticate("local", function(err, user, info) {
+  passport.authenticate("local", (err, user, info) => {
     if (!user) {
       res.status(401);
       // res.json({ message : err});
@@ -326,7 +322,7 @@ function login(req, res, next) {// Ajouter une option de bypass pour si le mot d
       res.status(500);
       return next(err);
     }
-    req.logIn(user, function(err) {
+    req.logIn(user, err => {
       if (err) {
         console.log(err);
         res.status(500);
@@ -338,10 +334,10 @@ function login(req, res, next) {// Ajouter une option de bypass pour si le mot d
 }
 
 // ------------------------------ Events ------------------------------
-var userEvent = function(ServerEvent) {
-  ServerEvent.on('isMailExist', function(email, socket) {
+var userEvent = ServerEvent => {
+  ServerEvent.on('isMailExist', (email, socket) => {
     email = email.toLowerCase();
-    userSchema.findOne({email: email}, function (err, doc) {
+    userSchema.findOne({email: email}, (err, doc) => {
       if (err) {
         console.error(err);
       }
@@ -354,8 +350,8 @@ var userEvent = function(ServerEvent) {
     });
   });
   
-  ServerEvent.on('isPseudoExist', function(pseudo, socket) {
-    userSchema.findOne({pseudo: pseudo}, function (err, doc) {
+  ServerEvent.on('isPseudoExist', (pseudo, socket) => {
+    userSchema.findOne({pseudo: pseudo}, (err, doc) => {
       if (err) {
         console.error(err);
       }
