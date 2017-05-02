@@ -37,7 +37,7 @@ let ArticleSchema = new Schema({
                       hot_news      : { type : Boolean, default : true },
                       critical_info : { type : Boolean, default : false }
                   },
-    picture       : String,
+    picture       : { type: String, required: true }
 });
 
 /**

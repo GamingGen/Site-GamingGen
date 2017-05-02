@@ -82,8 +82,8 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	});
 		
 	ServerEvent.on('ArticleRemoved', function(data, socket) {
-		socket.emit('ArticleRemovedOk', data._id);
-		io.sockets.emit('ArticleRemoved', data._id);
+		socket.emit('ArticleRemoved', data);
+		socket.broadcast.emit('ArticleRemoved', data._id);
 	});
 		
 	ServerEvent.on('CommentSaved', function(data, socket) {
@@ -91,7 +91,8 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	});
 		
 	ServerEvent.on('CommentRemoved', function(data, socket) {
-		io.sockets.emit('CommentRemoved', data._id);
+		socket.emit('CommentRemoved', data);
+		socket.broadcast.emit('CommentRemoved', {_id: data._id, article_id: data.article_id});
 	});
 	
 	ServerEvent.on('AllOrdersFound', function(data, socket) {

@@ -44,6 +44,10 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     $("#msgError").html("Erreur lors de la récupération des articles, veuillez réessayer ultérieurement.");
     $("#msgError").show().delay(3000).fadeOut();
   });
+
+  socket.on('NewArticle', function(data) {
+    articleCtrl.lstArticles.unshift(data);
+  });
   
   socket.on('ArticleUpdated', function(articleUpdated) {
     var index = articleCtrl.lstArticles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
@@ -54,14 +58,26 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     errorOnPageAdminArticle(data);
   });
   
-  socket.on('NewArticle', function(data) {
-    articleCtrl.lstArticles.unshift(data);
+  socket.on('ArticleRemoved', function(data) {
+    articleCtrl.lstArticles.splice(articleCtrl.lstArticles.indexOf(data), 1);
   });
   
-  // Ecoute de l'ajout d'un commentaire
+  // Mise à jour le commentaire dans la liste
   socket.on('NewComment', function(data) {
-    // On met à jour le commentaire dans la liste
     articleCtrl.lstArticles.find(function(article) {return article._id === data.article_id}).comments.push(data);
+  });
+  
+  socket.on('CommentRemoved', function(data) {
+    var index = articleCtrl.lstArticles
+      .find(function(article) { return article._id === data.article_id; })
+      .comments
+      .findIndex(function(comment) {
+        return comment._id === data._id;
+      });
+
+    articleCtrl.lstArticles
+      .find(function(article) { return article._id === data.article_id; })
+      .comments.splice(index, 1);
   });
   
   
@@ -115,6 +131,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
         $scope.picture = '';
         $scope.type.name = "hot_news";
         tinymce.activeEditor.setContent('<p></p>');
+        successOnPageAdminArticle("L'article à bien était enregistré");
       });
     }
     else {
@@ -141,14 +158,11 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   $scope.removeComment = function(comment) {
     if (comment != undefined) {
-      var index = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.map(function(element) { return element._id; }).indexOf(comment._id);
-      var rmComment = articleCtrl.lstArticles[articleCtrl.lstArticles.indexOf($scope.selectedArticle)].comments.splice(index, 1);
-      socket.emit('rmComment', rmComment[0]);
+      socket.emit('rmComment', comment);
     }
   };
   
   $scope.editArticle = function(article) {
-    console.log('article: ', article);
     if (article != undefined) {
       tinymce.activeEditor.setContent(article.text);
       $scope.title = article.title;
@@ -165,14 +179,14 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   $scope.removeArticle = function(article) {
     if (article != undefined) {
-      articleCtrl.lstArticles.splice(articleCtrl.lstArticles.indexOf(article), 1);
+      articleCtrl.lstArticles.slice(articleCtrl.lstArticles.indexOf(article), 1);
       socket.emit('rmArticle', article);
     }
   };
   
-  
-  
-  // ----- Private Méthode -----// Gestion des erreurs
+
+  // ----- Private Méthode -----
+  // Gestion des erreurs
   function errorOnPageAdminArticle(text) {
     var message = "Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.";
     if (text) {
@@ -180,5 +194,14 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     }
     $("#msgError").html(message);
     $("#msgError").show().delay(3000).fadeOut();
+  }
+  // Gestion des success
+  function successOnPageAdminArticle(text) {
+    var message = "...";
+    if (text) {
+      message = text;
+    }
+    $("#msgInfo").html(message);
+    $("#msgInfo").show().delay(3000).fadeOut();
   }
 }]);
