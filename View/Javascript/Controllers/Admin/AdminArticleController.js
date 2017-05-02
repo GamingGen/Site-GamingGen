@@ -38,9 +38,10 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     name   : 'hot_news'
   };
   
-  $http.get('/articles').success(function(articles) {
-    articleCtrl.lstArticles = articles;
-  }).error(function() {
+  $http.get('/articles').then(function(articles) {
+    console.log(articles);
+    articleCtrl.lstArticles = articles.data;
+  }).catch(function() {
     $("#msgError").html("Erreur lors de la récupération des articles, veuillez réessayer ultérieurement.");
     $("#msgError").show().delay(3000).fadeOut();
   });
@@ -116,6 +117,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
         $scope.picture = '';
         $scope.type.name = "hot_news";
         tinymce.activeEditor.setContent('<p></p>');
+        successOnPageAdminArticle("L'article à bien était enregistré");
       });
     }
     else {
@@ -173,7 +175,8 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   
   
-  // ----- Private Méthode -----// Gestion des erreurs
+  // ----- Private Méthode -----
+  // Gestion des erreurs
   function errorOnPageAdminArticle(text) {
     var message = "Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.";
     if (text) {
@@ -181,5 +184,14 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     }
     $("#msgError").html(message);
     $("#msgError").show().delay(3000).fadeOut();
+  }
+  // Gestion des erreurs
+  function successOnPageAdminArticle(text) {
+    var message = "...";
+    if (text) {
+      message = text;
+    }
+    $("#msgInfo").html(message);
+    $("#msgInfo").show().delay(3000).fadeOut();
   }
 }]);

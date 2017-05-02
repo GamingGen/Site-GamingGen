@@ -22,10 +22,10 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', '$state', 'socket',
 
   // ----- GET / SET Data -----
   if ($scope.idArticle !== undefined) {
-    $http.get('/articles/' + $scope.idArticle).success(function(article) {
+    $http.get('/articles/' + $scope.idArticle).then(function(article) {
       if (article !== null)
       {
-        articlesCtrl.currentArticle = article;
+        articlesCtrl.currentArticle = article.data;
         commentsLength = articlesCtrl.currentArticle.comments.length;
         $scope.disableInfiniteScroll = commentsLength < $scope.step;
         $scope.loadMore();
@@ -34,7 +34,7 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', '$state', 'socket',
       {
         errorOnPageArticle();
       }
-    }).error(function() {
+    }).catch(function() {
       errorOnPageArticle();
     });
   }

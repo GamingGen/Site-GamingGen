@@ -55,14 +55,14 @@ ArticleSchema.pre('validate', function(next) {
  * @description Pour l'instant aucune vérification avant la MAJ
  */
 ArticleSchema.pre('findOneAndUpdate', function(next) {
-  console.log('before this._update: ', this._update);
+  // console.log('before this._update: ', this._update);
   if(this._update && this._update['$push'] && this._update['$push'].comments) {
     console.log('Do Nothing');
   }
   else {
     this._update.update_at = Date.now();
   }
-  console.log('after this._update: ', this._update);
+  // console.log('after this._update: ', this._update);
   next();
 });
 

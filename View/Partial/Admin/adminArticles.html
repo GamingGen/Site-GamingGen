@@ -1,6 +1,10 @@
 <div ng-controller="adminArticleCtrl as article">
   <div class="row">
     <div class="col-md-12">
+      <!--<div permission 
+          permission-only="'ADMIN_ARTICL'">
+        <span>Congrats! You are logged in.</span>  
+      </div>-->
       <ul class="nav nav-tabs nav-justified">
         <li role="presentation" ng-class="{active: isSelected(1)}"><a ng-click="selectTab(1)">Créer un nouvel article</a></li>
         <li role="presentation" ng-class="{active: isSelected(2)}"><a ng-click="selectTab(2)">Gérer les articles</a></li>
@@ -31,7 +35,6 @@
               <label>
                 <input type="radio" ng-model="type.name" value="critical_info">
                 Info Crucial
-              <!--<input type="radio" class="form-control" id="desc" ng-model="desc" placeholder="Description" required>-->
             </form>
           </div>
           <div class="col-md-9">

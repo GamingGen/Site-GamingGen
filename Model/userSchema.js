@@ -61,7 +61,7 @@ let UserSchema = Schema({
     access    : {
                   token         : String,
                   level         : { type: Number, required: true, default: 0 },
-                  groups        : { type: Array, required: true, default: ['member'] }, // TODO Save a referential Array in DB
+                  roles         : { type: Array, required: true, default: 'membre'},
                   ban           : { type: Boolean, required: true, default: false },
                   validationKey : String
                 }
@@ -136,13 +136,14 @@ UserSchema.post('save', function(error, doc, next) {
 UserSchema.statics.authenticate = function(email, password, callback) {
   console.log(email);
   console.log(password);
-	this.findOne({ email: email }, function(error, user) {
+	this.findOne({ email: email })
+  .populate('confs.roles')
+  .exec(function(error, user) {
 		if (user && bcrypt.compareSync(password, user.password)) {
 		  // Remove Password before send to the client
       user = user.toObject();
       delete user.password;
-      
-		  console.log('user after delete: ', user);
+      console.log(user);
 			callback(null, user);
 		} else if (user || !error) {
 			// Email or password was invalid (no MongoDB error)

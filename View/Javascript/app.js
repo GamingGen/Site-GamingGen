@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'AuthServices', 'AppControllers', 'Socket', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll']);
+  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'AuthServices', 'AppControllers' ,'Socket', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
   
   app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -68,8 +68,13 @@
         })
         .state('admin', {
           url         : '/admin',
-          templateUrl : '../Partial/Admin/admin.html'
-          // authorized  : true
+          templateUrl : '../Partial/Admin/admin.html',
+          // data        : {
+          //   permissions: {
+          //     only: ['ADMIN_ARTICL'],
+          //     redirectTo: 'home'
+          //   }
+          // }
         })
         .state('admin.stream', {
           url         : '/adminStream',
@@ -85,7 +90,13 @@
         })
         .state('admin.articles', {
           url         : '/adminArticles',
-          templateUrl : '../Partial/Admin/adminArticles.html'
+          templateUrl : '../Partial/Admin/adminArticles.html',
+          data        : {
+            permissions: {
+              only: ['ADMIN_ARTICL'],
+              redirectTo: 'home'
+            }
+          }
         })
         .state('admin.shop', {
           url         : '/adminShop',
@@ -105,7 +116,7 @@
             },
           }
         });
-      $urlRouterProvider.otherwise('/home');
+      // $urlRouterProvider.otherwise('/home');
       
       
       $httpProvider.interceptors.push(['$q', '$location', '$state', 'HttpBufferService', '$timeout', 'cfpLoadingBar', function($q, $location, $state, HttpBufferService, $timeout, cfpLoadingBar) {
@@ -128,7 +139,6 @@
             
             if (response.status === 401) {
               console.log('401');
-              // $location.path('#/home');
               $state.go('home');
               // $timeout(function(){$state.go('home');});
               
@@ -155,5 +165,13 @@
       // TODO Trouver comment intercepter le CTRL + R || F5
       // $locationProvider.html5Mode(true);
     }
-  ]);
+  ])
+  .run(['PermPermissionStore', 'PermRoleStore', function (PermPermissionStore, PermRoleStore) {
+    PermPermissionStore
+    .definePermission('seeAdminArticle', function () {
+      return true;
+    });
+    PermRoleStore
+    .defineRole('ADMIN_ARTICLE', ['seeAdminArticle']);
+  }]);
 })();

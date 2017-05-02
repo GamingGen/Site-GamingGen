@@ -133,27 +133,7 @@ function SendMail(req, res, mails, html, hash) {
   });
 }
 
-
-
-
 router.post('/login', login);
-
-// passport.authenticate('local'), (req, res) => {
-//   if (req.user) {
-//     console.log('User: ' + req.user.pseudo + ' Connecté');
-//     res.status(200);
-//     res.end();
-//   }
-//   else {
-//     res.status(401);
-//     res.end();
-//   }
-// });
-
-// router.post('/login', (req, res) => {
-//   console.log('Bad Auth');
-//   res.status(401);
-// });
 
 router.post('/logout', (req, res) => {
   console.log('req.user: ', req.user);
@@ -162,12 +142,15 @@ router.post('/logout', (req, res) => {
 });
 
 // En cour de tests
-router.get('/', (req, res) => {
-    userSchema.findOne({pseudo: 'DarkTerra'}).populate('name').exec(function (err, docs) {
+router.get('/role/:id', (req, res) => {
+    userSchema.findOne({_id: req.params.id})
+    .populate('access.roles')
+    .exec(function (err, docs) {
       if (err) {
         console.error(err);
       }
       else {
+        console.log(docs);
         res.json(docs);
       }
     });
