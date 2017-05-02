@@ -64,7 +64,6 @@ router.get('/:id', function (req, res) {
 // -------------------------------------------------------------------------- //
 let articleEvent = function(ServerEvent) {
   ServerEvent.on('saveArticle', function(data, socket) {
-    // TODO /!\ A inverser /!\
     if (socket.request.session.passport.user.roles && socket.request.session.passport.user.roles.includes('Rédacteur')) {
       var newArticle = new articleSchema({
         pseudo        : data.pseudo,
@@ -94,8 +93,6 @@ let articleEvent = function(ServerEvent) {
     }
   });
   ServerEvent.on('updateArticle', function(data, socket) {
-    // TODO /!\ A inverser /!\
-    console.log(socket.request.session.passport.user);
     if (socket.request.session.passport.user.roles && socket.request.session.passport.user.roles.includes('Rédacteur')) {
       articleSchema.findOneAndUpdate({_id: data._id}, data, {new: true}, function (err, rowUpdated) {
         if (err) {
@@ -118,7 +115,6 @@ let articleEvent = function(ServerEvent) {
     }
   });
   ServerEvent.on('rmArticle', function(data, socket) {
-    // TODO /!\ A inverser /!\
     if (socket.request.session.passport.user.roles && socket.request.session.passport.user.roles.includes('AdminRédacteur')) {
       articleSchema.findOneAndRemove({_id : data._id}, function (err, result) {
         if (err) {

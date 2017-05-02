@@ -77,6 +77,7 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	});
 		
 	ServerEvent.on('ArticleUpdated', function(data, socket) {
+		socket.emit('articleOk');
 		io.sockets.emit('ArticleUpdated', data);
 	});
 		
