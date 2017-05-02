@@ -88,9 +88,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   $scope.getContent = function() {
     if (user && user.isLoggedIn) {
-      var text = "<img class=\"img-responsive\" style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"" + $scope.picture + "\" alt=\"\"/></p>\n";
-      text += tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
-      // TODO Récupérer l'pseudo une fois la partie gestion des connexions fonctionnel
+      var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
       var article = {
             pseudo    : user.pseudo,
             title     : $scope.title,

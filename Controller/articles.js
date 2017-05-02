@@ -52,7 +52,10 @@ router.get('/home', function (req, res) {
 // Récupère un article suivant l'ID
 router.get('/:id', function (req, res) {
   articleSchema.findOne({_id: req.params.id})
-  .populate('comments')
+  .populate({
+    path: 'comments',
+    options:  {sort: { register_date: -1 }}
+  })
   .exec(function (err, docs) {
     if (err) {
       console.error(err);
