@@ -17,6 +17,7 @@
       <div class="row">
         <div class="contentRealArticle col-lg-8 col-lg-offset-2">
           <p><img ng-image-appear animation="blurInUp" class="img-responsive" style="display: block; margin-left: auto; margin-right: auto;" ng-src="{{article.currentArticle.picture}}" alt="{{article.currentArticle.picture}}"/></p>
+          <br />
           <ng-bind-html ng-bind-html="renderHtml(article.currentArticle.text)"></ng-bind-html><!-- Contenu de l'article, en HTML -->
         </div>
       </div>
