@@ -116,8 +116,8 @@
             },
           }
         });
-      // $urlRouterProvider.otherwise('/home');
-      
+      $urlRouterProvider.otherwise('/home');
+      $locationProvider.hashPrefix('');
       
       $httpProvider.interceptors.push(['$q', '$location', '$state', 'HttpBufferService', '$timeout', 'cfpLoadingBar', function($q, $location, $state, HttpBufferService, $timeout, cfpLoadingBar) {
         return {
