@@ -2,7 +2,7 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$scope', '$transitions', 'socket', '$window', '$http', function(UserService, $location, $state, $scope, $transitions, socket, $window, $http) {
+AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$scope', '$transitions', 'socket', '$window', '$http', '$document', function(UserService, $location, $state, $scope, $transitions, socket, $window, $http, $document) {
   // ----- Init -----
   var user        = {};
   var pages       = {};
@@ -160,6 +160,10 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     
     // $scope.isMailExist = false;
     // $scope.isPseudoExist = false;
+  };
+  
+  $scope.toTheTop = function() {
+    $document.scrollTop(0, 500);
   };
   
   // Launch fullscreen for browsers that support it!
