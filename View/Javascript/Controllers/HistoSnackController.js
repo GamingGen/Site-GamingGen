@@ -16,15 +16,19 @@ AppControllers.controller('histosnackCtrl', ['$http', '$scope', 'socket', functi
     }
   });
   
-  $http.get('/snacks/getYears').success(function(data) {
-    histo.years = data;
+  $http.get('/snacks/getYears').then(function(data) {
+    histo.years = data.data;
+  }).catch(function(err) {
+    console.log(err);
   });
   
   
   // ----- Public Méthode -----
   $scope.SearchByYear = function(year) {
-    $http.get('/snacks/getOrders/' + year).success(function(data) {
-      histo.elements = data;
+    $http.get('/snacks/getOrders/' + year).then(function(data) {
+      histo.elements = data.data;
+    }).catch(function(err) {
+      console.log(err);
     });
   };
   

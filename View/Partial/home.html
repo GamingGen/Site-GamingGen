@@ -60,7 +60,7 @@
               
             </span>
             {{article.desc}}...
-            <img class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
+            <img ng-image-appear animation="blurIn" class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
           </a>
         </div>
       </div>

@@ -64,57 +64,71 @@ router.get('/:id', function (req, res) {
 // -------------------------------------------------------------------------- //
 let articleEvent = function(ServerEvent) {
   ServerEvent.on('saveArticle', function(data, socket) {
-    var newArticle = new articleSchema({
-      pseudo        : data.pseudo,
-      title         : data.title,
-      desc          : data.desc,
-      text          : data.text,
-      type          : {
-        critical_info   : data.type.critical_info,
-        hot_news        : data.type.hot_news
-      },
-      picture       : data.picture
-    });
-    
-    newArticle.save(function(err, article) {
-      if (err) {
-        //throw err;
-        console.error(err);
-        ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
-      }
-      else {
-        ServerEvent.emit('ArticleSaved', article, socket);
-      }
-    });
-  });
-  ServerEvent.on('updateArticle', function(data, socket) {
-    articleSchema.findOneAndUpdate({_id: data._id}, data, {new: true}, function (err, rowUpdated) {
-      if (err) {
-        //throw err;
-        console.error(err);
-        ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
-      }
-      else {
-        if (rowUpdated !== null) {
-          ServerEvent.emit('ArticleUpdated', rowUpdated, socket);
+    if (socket.request.session.passport.user.roles && socket.request.session.passport.user.roles.includes('Rédacteur')) {
+      var newArticle = new articleSchema({
+        pseudo        : data.pseudo,
+        title         : data.title,
+        desc          : data.desc,
+        text          : data.text,
+        type          : {
+          critical_info   : data.type.critical_info,
+          hot_news        : data.type.hot_news
+        },
+        picture       : data.picture
+      });
+      
+      newArticle.save(function(err, article) {
+        if (err) {
+          //throw err;
+          console.error(err);
+          ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
         }
         else {
-          console.error(err);
+          ServerEvent.emit('ArticleSaved', article, socket);
         }
-      }
-    });
+      });
+    }
+    else {
+      ServerEvent.emit('ErrorOnArticleUpdated', 'You are not Authorized', socket);
+    }
   });
-  
+  ServerEvent.on('updateArticle', function(data, socket) {
+    if (socket.request.session.passport.user.roles && socket.request.session.passport.user.roles.includes('Rédacteur')) {
+      articleSchema.findOneAndUpdate({_id: data._id}, data, {new: true}, function (err, rowUpdated) {
+        if (err) {
+          //throw err;
+          console.error(err);
+          ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
+        }
+        else {
+          if (rowUpdated !== null) {
+            ServerEvent.emit('ArticleUpdated', rowUpdated, socket);
+          }
+          else {
+            console.error(err);
+          }
+        }
+      });
+    }
+    else {
+      ServerEvent.emit('ErrorOnArticleUpdated', 'You are not Authorized', socket);
+    }
+  });
   ServerEvent.on('rmArticle', function(data, socket) {
-    articleSchema.findOneAndRemove({_id : data._id}, function (err, result) {
-      if (err) {
-        console.log('err: ', err);
-      }
-      else {
-        console.log('Article Supprimé: ', result.title);
-        ServerEvent.emit('ArticleRemoved', result, socket);
-      }
-    });
+    if (socket.request.session.passport.user.roles && socket.request.session.passport.user.roles.includes('AdminRédacteur')) {
+      articleSchema.findOneAndRemove({_id : data._id}, function (err, result) {
+        if (err) {
+          console.log('err: ', err);
+        }
+        else {
+          console.log('Article Supprimé: ', result.title);
+          ServerEvent.emit('ArticleRemoved', result, socket);
+        }
+      });
+    }
+    else {
+      ServerEvent.emit('ErrorOnArticleUpdated', 'You are not Authorized', socket);
+    }
   });
 };
 

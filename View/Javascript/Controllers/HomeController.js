@@ -22,8 +22,10 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
     player.mute();
   });
   
-  $http.get('/articles/home').success(function(data) {
-    news.articles = data;
+  $http.get('/articles/home').then(function(data) {
+    news.articles = data.data;
+  }).catch(function(err) {
+    console.log(err);
   });
   
   socket.on('NewArticle', function(data) {

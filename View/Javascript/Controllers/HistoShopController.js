@@ -16,15 +16,19 @@ AppControllers.controller('histoShopCtrl', ['$http', '$scope', 'socket', functio
     }
   });
   
-  $http.get('/order/getYears').success(function(data) {
-    histo.years = data;
+  $http.get('/order/getYears').then(function(data) {
+    histo.years = data.data;
+  }).catch(function(err) {
+    console.log(err);
   });
   
   
   // ----- Public Méthode -----
   $scope.SearchByYear = function(year) {
-    $http.get('/order/getOrders/' + year).success(function(data) {
-      histo.elements = data;
+    $http.get('/order/getOrders/' + year).then(function(data) {
+      histo.elements = data.data;
+    }).catch(function(err) {
+      console.log(err);
     });
   };
   
