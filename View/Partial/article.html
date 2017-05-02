@@ -78,7 +78,7 @@
               {{comment.pseudo}}, le {{comment.register_date | date : 'dd MMMM yyyy'}}
             </h6><!-- Auteur du commentaire -->
             <div class="userCommentContent col-xs-8 col-lg-5 col-xs-offset-2">
-              <ng-bind-html ng-bind-html="renderHtml(comment.text)"></ng-bind-html><!-- Contenu du commentaire, en HTML -->
+             {{comment.text}}
             </div>
           </div>
           <div style="clear: both;"></div>
