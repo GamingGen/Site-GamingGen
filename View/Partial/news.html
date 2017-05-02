@@ -13,8 +13,8 @@
     <div infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="disableInfiniteScroll">
       <!-- Liste des articles -->
       <div ng-repeat="article in news | orderBy : '-update_at'" class="listNewsPage col-md-10 col-md-offset-1">
+        <img ng-image-appear no-loader animation="blurIn" class="img-news img-rounded img-responsive" ng-src="{{article.picture || defaultPicture}}" alt="{{article.desc}}">
         <h1 class="articleTitleList">{{article.title}}</h1>
-
         <!--<div class="articleTitleList comment">{{article.comments.length}}</div><!-- Nombre de commentaires dans l'article -->
         <!--<div>{{article.desc}}</div><!-- Description de l'article -->
         <!--<div>{{article.pseudo}}</div><!-- Auteur de l'article -->

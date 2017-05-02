@@ -15,6 +15,7 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
   $scope.disableInfiniteScroll = true;
   $scope.step                  = 5;
   $scope.news                  = [];
+  $scope.defaultPicture         = "Img/Articles/default-thumbnail.jpg";
   
   // ----- GET / SET Data -----
   $http.get('/articles').then(function(articles) {
