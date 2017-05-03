@@ -52,6 +52,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   socket.on('ArticleUpdated', function(articleUpdated) {
     var index = articleCtrl.lstArticles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
     articleCtrl.lstArticles[index] = articleUpdated;
+    successOnPageAdminArticle("L'article à bien était mis à jour");
   });
   
   socket.on('ErrorOnArticleUpdated', function(data) {
@@ -63,6 +64,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
       .findIndex(function(article) { return article._id === data; });
 
     articleCtrl.lstArticles.splice(index, 1);
+    successOnPageAdminArticle("L'article à bien était supprimé");
   });
   
   // Mise à jour le commentaire dans la liste
@@ -81,6 +83,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     articleCtrl.lstArticles
       .find(function(article) { return article._id === data.article_id; })
       .comments.splice(index, 1);
+    successOnPageAdminArticle("Le commentaire à bien était supprimé");
   });
   
   
