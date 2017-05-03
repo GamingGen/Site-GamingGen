@@ -59,7 +59,10 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   });
   
   socket.on('ArticleRemoved', function(data) {
-    articleCtrl.lstArticles.splice(articleCtrl.lstArticles.indexOf(data), 1);
+    var index = articleCtrl.lstArticles
+      .findIndex(function(article) { return article._id === data; });
+
+    articleCtrl.lstArticles.splice(index, 1);
   });
   
   // Mise à jour le commentaire dans la liste
@@ -179,7 +182,6 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   
   $scope.removeArticle = function(article) {
     if (article != undefined) {
-      articleCtrl.lstArticles.slice(articleCtrl.lstArticles.indexOf(article), 1);
       socket.emit('rmArticle', article);
     }
   };

@@ -82,8 +82,7 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	});
 		
 	ServerEvent.on('ArticleRemoved', function(data, socket) {
-		socket.emit('ArticleRemoved', data);
-		socket.broadcast.emit('ArticleRemoved', data._id);
+		io.sockets.emit('ArticleRemoved', data._id);
 	});
 		
 	ServerEvent.on('CommentSaved', function(data, socket) {
