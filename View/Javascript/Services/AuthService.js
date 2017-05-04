@@ -121,7 +121,7 @@ angular.module("AuthServices", [])
       isLoggedIn  : (SessionService.getValue("session.email") ? true : false)
     };
     
-    if (that.currentUser.isLoggedIn && that.currentUser.access && that.currentUser.permissions) {
+    if (that.currentUser.isLoggedIn && that.currentUser.access && that.currentUser.access.permissions) {
       // Suppression des permissions et roles
       PermPermissionStore.clearStore();
       
@@ -130,13 +130,14 @@ angular.module("AuthServices", [])
       .defineManyPermissions(that.currentUser.access.permissions, function (permissionName) {
         return that.currentUser.access.permissions.indexOf(permissionName) !== -1;
       });
-    }    
+    }
     
     // Gestion des roles
     $http.get("/confs/roles").then(function (result) {
       // Suppression des roles
       PermRoleStore.clearStore();
-
+      
+      // Ajout des roles
       if (that.currentUser.access && that.currentUser.access.roles) {
         angular.forEach(that.currentUser.access.roles, function(value, key) {
           result.data[key] = value;
