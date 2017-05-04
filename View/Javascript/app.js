@@ -5,6 +5,7 @@
   
   app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+      
       // Système de routage
       $stateProvider
         .state('home', {
@@ -44,11 +45,23 @@
         })
         .state('shop.order', {
           url         : '/order',
-          templateUrl : '../Partial/Shop/orderShop.html'
+          templateUrl : '../Partial/Shop/orderShop.html',
+          data        : {
+            permissions: {
+              only: ['ADMIN', 'ADMIN_VENDEUR', 'VENDEUR'],
+              redirectTo: 'home'
+            }
+          }
         })
         .state('shop.histo', {
           url         : '/histo',
-          templateUrl : '../Partial/Shop/histoShop.html'
+          templateUrl : '../Partial/Shop/histoShop.html',
+          data        : {
+            permissions: {
+              only: ['ADMIN', 'ADMIN_VENDEUR', 'VENDEUR'],
+              redirectTo: 'home'
+            }
+          }
         })
         .state('snack', {
           url         : '/snack',
@@ -56,51 +69,95 @@
         })
         .state('snack.staff', {
           url         : '/staff',
-          templateUrl : '../Partial/Snack/staff.html'
+          templateUrl : '../Partial/Snack/staff.html',
+          data        : {
+            permissions: {
+              only: ['ADMIN', 'SNAC_STAFF'],
+              redirectTo: 'home'
+            }
+          }
         })
         .state('snack.staff.commande', {
           url         : '/commande',
-          templateUrl : '../Partial/Snack/commande.html'
+          templateUrl : '../Partial/Snack/commande.html',
+          data        : {
+            permissions: {
+              only: ['ADMIN', 'SNAC_STAFF'],
+              redirectTo: 'home'
+            }
+          }
         })
         .state('snack.staff.histo', {
           url         : '/histoSnack',
           templateUrl : '../Partial/Snack/histoSnack.html',
+          data        : {
+            permissions: {
+              only: ['ADMIN', 'SNAC_STAFF'],
+              redirectTo: 'home'
+            }
+          }
         })
         .state('admin', {
           url         : '/admin',
           templateUrl : '../Partial/Admin/admin.html',
-          // data        : {
-          //   permissions: {
-          //     only: ['ADMIN_ARTICL'],
-          //     redirectTo: 'home'
-          //   }
-          // }
+          data        : {
+            permissions: {
+              only: ['ADMIN']
+            }
+          }
         })
         .state('admin.stream', {
           url         : '/adminStream',
-          templateUrl : '../Partial/Admin/adminStream.html'
+          templateUrl : '../Partial/Admin/adminStream.html',
+          data        : {
+            permissions: {
+              only: ['ADMIN', 'ADMIN_STREAM'],
+              redirectTo: 'home'
+            }
+          }
         })
         .state('admin.snack', {
           url         : '/adminSnack',
           templateUrl : '../Partial/Admin/adminSnack.html',
+          data        : {
+            permissions: {
+              only: ['ADMIN', 'ADMIN_SNACK'],
+              redirectTo: 'home'
+            }
+          }
         })
         .state('admin.accueil', {
           url         : '/adminAccueil',
-          templateUrl : '../Partial/Admin/adminAccueil.html'
+          templateUrl : '../Partial/Admin/adminAccueil.html',
+          data        : {
+            permissions: {
+              only: ['ADMIN', 'ADMIN_ACCUEIL'],
+              redirectTo: 'home'
+            }
+          }
         })
         .state('admin.articles', {
           url         : '/adminArticles',
           templateUrl : '../Partial/Admin/adminArticles.html',
           data        : {
             permissions: {
-              only: ['ADMIN_ARTICL'],
-              redirectTo: 'home'
+              only: ['ADMIN', 'REDACTEUR', 'ADMIN_REDACTEUR'],
+              redirectTo: {
+                
+                default: 'home'
+              }
             }
           }
         })
         .state('admin.shop', {
           url         : '/adminShop',
-          templateUrl : '../Partial/Admin/adminShop.html'
+          templateUrl : '../Partial/Admin/adminShop.html',
+          data        : {
+            permissions: {
+              only: ['ADMIN', 'ADMIN_VENDEUR'],
+              redirectTo: 'home'
+            }
+          }
         })
         .state('admin.ban', {
           url         : '/Ban',
@@ -116,7 +173,11 @@
             },
           }
         });
+      
+      // Route par defaut
       $urlRouterProvider.otherwise('/home');
+      
+      // Supprime le caractère ! dans l'url
       $locationProvider.hashPrefix('');
       
       $httpProvider.interceptors.push(['$q', '$location', '$state', 'HttpBufferService', '$timeout', 'cfpLoadingBar', function($q, $location, $state, HttpBufferService, $timeout, cfpLoadingBar) {
@@ -166,12 +227,9 @@
       // $locationProvider.html5Mode(true);
     }
   ])
-  .run(['PermPermissionStore', 'PermRoleStore', function (PermPermissionStore, PermRoleStore) {
-    PermPermissionStore
-    .definePermission('seeAdminArticle', function () {
-      return true;
-    });
-    PermRoleStore
-    .defineRole('ADMIN_ARTICLE', ['seeAdminArticle']);
+  .run(['UserService', function (UserService) {
+    if (UserService.currentUser.isLoggedIn) {
+      UserService.MajCurrentUser();
+    }
   }]);
 })();

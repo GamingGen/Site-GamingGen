@@ -8,6 +8,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   $scope.tab             = 1;
   $scope.newArticle      = true;
   var user               = UserService.currentUser;
+  $scope.user            = user;
   $scope.selectedArticle = {};
   
   tinymce.init({

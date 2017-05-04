@@ -45,8 +45,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-resource.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
     <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-rc.1/angular-ui-router.min.js"></script>-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-permission/5.2.3/angular-permission.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-permission/5.2.3/angular-permission-ui.min.js"></script>
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-permission/5.2.3/angular-permission.min.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-permission/5.2.3/angular-permission-ui.min.js"></script>-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-animate.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/angular.image-appear/1.11.3/ng-image-appear.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.js"></script>
@@ -65,6 +65,8 @@
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     
     <!-- build:js js/lib.min.js -->
+    <script type="text/javascript" src="Javascript/Lib/angular-permission.min.js"></script>
+    <script type="text/javascript" src="Javascript/Lib/angular-permission-ui.min.js"></script>
     <script type="text/javascript" src="Javascript/Lib/jasny-bootstrap.min.js"></script>
     <script type="text/javascript" src="Javascript/Lib/jquery.carouFredSel-6.2.0-packed.js"></script>
     <script type="text/javascript" src="Javascript/Lib/angular-youtube-embed.min.js"></script>
@@ -323,9 +325,11 @@
                     Mon Compte
                   </a>
                   <ul class="socialLink compte dropdown-menu">
-                    <li ng-show="User.accessLvl > 0"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                    <li ng-show="User.accessLvl > 0"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                    <li ng-show="User.accessLvl > 0"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
                     <li role="separator" class="divider"></li>
                     <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
                   </ul>
@@ -397,8 +401,6 @@
             <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
             <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
             <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 50" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
           </ul>
         </div>
       </li>
@@ -410,10 +412,12 @@
             Mon Compte
           </a>
           <ul class="loggedmenu dropdown-menu">
-            <li ng-show="User.accessLvl > 0"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-            <li ng-show="User.accessLvl > 0"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-            <li ng-show="User.accessLvl > 0"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-            <li ng-show="User.accessLvl > 0" role="separator" class="divider"></li>
+            <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+            <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+            <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+            <li ng-show="User.accessLvl > 1" role="separator" class="divider"></li>
+            <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+            <li role="separator" class="divider"></li>
             <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
           </ul>
         </div>

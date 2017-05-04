@@ -54,12 +54,7 @@ var ConfSchema = new Schema({
                     printer_cook_length_element   : Number,
                     type_menu                     : Array
                   },
-    roles       : [{
-                    name        : { type: String, required: true},
-                    role_id     : { type: Schema.Types.ObjectId, ref: 'User', required: true },
-                    permissions : [{ type: String, required: true }],
-                    level       : Number
-                  }],
+    roles       : { type: Object, required: true, default: '"MEMBRE": ["member"]'},
     pages       : [{
                     name  : String
                   }],

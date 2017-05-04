@@ -105,27 +105,34 @@ let articleEvent = function(ServerEvent) {
   });
   ServerEvent.on('updateArticle', function(data, socket) {
     console.log(socket.request.session.passport);
-    if (socket.request.session && socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.roles && socket.request.session.passport.user.roles.includes('Rédacteur')) {
-      console.log(socket.request.session.passport.user);
-      articleSchema.findOneAndUpdate({_id: data._id}, data, {new: true}, function (err, rowUpdated) {
-        if (err) {
-          //throw err;
-          console.error(err);
-          ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
+    socket.request.session.reload(err => {
+      if (err) {
+        console.log(`error on reload session : ${err}`);
+      }
+      else {
+        if (socket.request.session && socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.roles && socket.request.session.passport.user.roles.includes('Rédacteur')) {
+          console.log(socket.request.session.passport.user);
+          articleSchema.findOneAndUpdate({_id: data._id}, data, {new: true}, function (err, rowUpdated) {
+            if (err) {
+              //throw err;
+              console.error(err);
+              ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
+            }
+            else {
+              if (rowUpdated !== null) {
+                ServerEvent.emit('ArticleUpdated', rowUpdated, socket);
+              }
+              else {
+                console.error(err);
+              }
+            }
+          });
         }
         else {
-          if (rowUpdated !== null) {
-            ServerEvent.emit('ArticleUpdated', rowUpdated, socket);
-          }
-          else {
-            console.error(err);
-          }
+          ServerEvent.emit('ErrorOnArticleUpdated', 'You are not Authorized', socket);
         }
-      });
-    }
-    else {
-      ServerEvent.emit('ErrorOnArticleUpdated', 'You are not Authorized', socket);
-    }
+      }
+    });
   });
   ServerEvent.on('rmArticle', function(data, socket) {
     console.log(socket.request.session.passport);

@@ -604,7 +604,8 @@ margin-top: 0px!important;
   top: 60px;
 }
 
-.admin-container .dropdown-menu .divider {
+
+.dropdown-menu .divider {
   height: 1px;
   background-color: rgb(229, 229, 229);
   margin: 0px 0px !important;

@@ -28,6 +28,12 @@ router.get('/shop', function (req, res) {
     });
 });
 
+router.get('/roles', function (req, res) {
+    confSchema.findOne({}, {_id: false, roles: true}, {sort: {$natural: -1}}, function (err, docs) {
+      res.json(docs.roles);
+    });
+});
+
 
 // var users = {
 // 		password_min_length: 8

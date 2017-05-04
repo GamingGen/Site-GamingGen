@@ -81,7 +81,7 @@
               {{comment.pseudo}}, le {{comment.register_date | date : 'dd MMMM yyyy'}}
             </h6><!-- Auteur du commentaire -->
             <div class="userCommentContent col-xs-8 col-lg-5 col-xs-offset-2">
-             {{comment.text}}
+             {{comment.text.substring(0, maxlength)}}
             </div>
           </div>
           <div style="clear: both;"></div>

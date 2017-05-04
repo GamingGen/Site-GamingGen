@@ -49,8 +49,8 @@ let UserSchema = Schema({
                   last_name     : { type: String, required: true, lowercase: true },
                   birthday      : { type: Date, required: true },
                   zip           : { type: Number, required: true },
-                  update_at     : { type: Date, default: Date.now },
-                  register_date : { type: Date, default: Date.now }
+                  update_at     : { type: Date },
+                  register_date : { type: Date }
                 },
     team      : {
                   name          : { type: String, ref: 'Team' },
@@ -61,7 +61,8 @@ let UserSchema = Schema({
     access    : {
                   token         : String,
                   level         : { type: Number, required: true, default: 0 },
-                  roles         : { type: Array, required: true, default: 'membre'},
+                  permissions   : { type: Array, required: true, default: 'member'},
+                  roles         : Object,
                   ban           : { type: Boolean, required: true, default: false },
                   validationKey : String
                 }
@@ -89,10 +90,9 @@ UserSchema.pre('validate', function(next) {
  * @description Chiffre le MDP et enregistre nouvel utilisateur
  */
 UserSchema.pre('save', function(next) {
-  var dateNow = Date.now();
-  this.general.update_at = dateNow;
+  this.general.update_at = Date.now();
   if (this.isNew) {
-    this.general.register_date = dateNow;
+    this.general.register_date = this.general.update_at;
     this.password = bcrypt.hashSync(this.password, saltRounds);
   }
   next();

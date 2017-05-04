@@ -88,74 +88,97 @@ angular.module("AuthServices", [])
         localStorage.removeItem(key);
     };
 })
-.service("UserService", ['$http', '$location', 'SessionService', 'HttpBufferService', function($http, $location, SessionService, HttpBufferService) {
+.service("UserService", ['$http', '$location', 'SessionService', 'HttpBufferService', 'PermPermissionStore', 'PermRoleStore', function($http, $location, SessionService, HttpBufferService, PermPermissionStore, PermRoleStore) {
   var level = 0;
-  // SessionService.destroyItem('session.access');
   if (SessionService.getValue("session.access") !== null) {
     level = JSON.parse(SessionService.getValue("session.access")).level;
   }
   this.currentUser = {
       email       : SessionService.getValue("session.email") || "",
       pseudo      : SessionService.getValue("session.pseudo") || "",
+      access      : JSON.parse(SessionService.getValue("session.access")) || "",
       accessLvl   : level || 0,
-      general     : SessionService.getValue("session.general") || "",
+      general     : JSON.parse(SessionService.getValue("session.general")) || "",
       team        : SessionService.getValue("session.team") || "",
       isLoggedIn  : (SessionService.getValue("session.email") ? true : false)
   };
   
   this.MajCurrentUser = function() {
+    console.log('MajCurrentUser !!!');
+    var that = this;
+    
     if (SessionService.getValue("session.access") !== null) {
       level = JSON.parse(SessionService.getValue("session.access")).level;
     }
     
-    this.currentUser = {
+    that.currentUser = {
       email       : SessionService.getValue("session.email") || "",
       pseudo      : SessionService.getValue("session.pseudo") || "",
+      access      : JSON.parse(SessionService.getValue("session.access")) || "",
       accessLvl   : level || 0,
-      general     : SessionService.getValue("session.general") || "",
+      general     : JSON.parse(SessionService.getValue("session.general")) || "",
       team        : SessionService.getValue("session.team") || "",
       isLoggedIn  : (SessionService.getValue("session.email") ? true : false)
     };
+    
+    // Suppression des permissions et roles
+    PermPermissionStore.clearStore();
+    PermRoleStore.clearStore();
+    
+    // Gestion des permissions
+    PermPermissionStore
+    .defineManyPermissions(that.currentUser.access.permissions, function (permissionName) {
+      return that.currentUser.access.permissions.indexOf(permissionName) !== -1;
+    });
+    
+    // Gestion des roles
+    $http.get("/confs/roles").then(function (result) {
+      if (that.currentUser.access.roles) {
+        angular.forEach(that.currentUser.access.roles, function(value, key) {
+          result.data[key] = value;
+        });
+      }
+      PermRoleStore
+      .defineManyRoles(result.data);
+    });
   };
   
-  this.isLoggedIn = (SessionService.getValue("session.email") ? true : false);
-  
   this.login = function(user) {
-      var self = this;
+    var self = this;
+    
+    return $http.post("/users/login", {
+        "email": user.email,
+        "password": user.password
+    }).then(function success(response) {
+      console.log('response: ', response);
       
-      return $http.post("/users/login", {
-          "email": user.email,
-          "password": user.password
-      }).then(function success(response) {
-        console.log('response: ', response);
-        
-        user.password = '';
-        self.currentUser.email = response.data.email;
-        self.currentUser.isLoggedIn = true;
-        SessionService.setValue("session.email", response.data.email);
-        SessionService.setValue("session.pseudo", response.data.pseudo);
-        SessionService.setValue("session.access", JSON.stringify(response.data.access));
-        SessionService.setValue("session.general", JSON.stringify(response.data.general));
-        SessionService.setValue("session.team", JSON.stringify(response.data.team));
-        // $location.path("/");
-        // or
-        // HttpBufferService.retryLastRequest();
-      }, function error(err) {
-        console.log('err: ', err);
-      });
-      
+      user.password = '';
+      self.currentUser.email = response.data.email;
+      self.currentUser.isLoggedIn = true;
+      SessionService.setValue("session.email", response.data.email);
+      SessionService.setValue("session.pseudo", response.data.pseudo);
+      SessionService.setValue("session.access", JSON.stringify(response.data.access));
+      SessionService.setValue("session.general", JSON.stringify(response.data.general));
+      SessionService.setValue("session.team", JSON.stringify(response.data.team));
+      // $location.path("/");
+      // or
+      // HttpBufferService.retryLastRequest();
+    }, function error(err) {
+      console.log('err: ', err);
+    });
   };
   
   this.logout = function() {
-      var self = this;
-      return $http.post("/users/logout").then(function() {
-          self.currentUser.isLoggedIn = false;
-          SessionService.destroyItem("session.email");
-          SessionService.destroyItem("session.pseudo");
-          SessionService.destroyItem("session.access");
-          SessionService.destroyItem("session.general");
-          SessionService.destroyItem("session.team");
-      });
+    var self = this;
+    return $http.post("/users/logout").then(function() {
+      console.log('ClearSession');
+      self.currentUser.isLoggedIn = false;
+      SessionService.destroyItem("session.email");
+      SessionService.destroyItem("session.pseudo");
+      SessionService.destroyItem("session.access");
+      SessionService.destroyItem("session.general");
+      SessionService.destroyItem("session.team");
+    });
   };
   
   this.validate = function(hash) {
@@ -190,20 +213,20 @@ angular.module("AuthServices", [])
 
 
     return {
-        storeRequest: function(request) {
-            buffer = request;
-        },
-        retryLastRequest: function() {
+      storeRequest: function(request) {
+          buffer = request;
+      },
+      retryLastRequest: function() {
 
-            function successCallback(response) {
-                buffer.deferred.resolve(response);
-            }
-
-            function errorCallback(response) {
-                buffer.deferred.reject(response);
-            }
-            $http = $http || $injector.get("$http");
-            $http(buffer.config).then(successCallback, errorCallback);
+        function successCallback(response) {
+            buffer.deferred.resolve(response);
         }
+
+        function errorCallback(response) {
+            buffer.deferred.reject(response);
+        }
+        $http = $http || $injector.get("$http");
+        $http(buffer.config).then(successCallback, errorCallback);
+      }
     };
 }]);
