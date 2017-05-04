@@ -1,4 +1,40 @@
 <div ng-controller="adminArticleCtrl as article">
+  
+  <!-- Suppression Modal -->
+  <div class="modal fade" id="rmModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Validation</h4>
+        </div>
+        <div class="modal-body">
+          <p>Etes vous sur de vouloir supprimer ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button"ng-click="removeArticle()" data-dismiss="modal" class="btn btn-error">Supprimer</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<div class="modal fade container" id="rmModal" tabindex="-1" role="dialog" aria-labelledby="rmModalLabel">-->
+  <!--  <div class="modal-dialog modal-lg" role="document">-->
+  <!--    <div class="modal-content inscriptionModal">-->
+  <!--      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+  <!--      <div class="modal-body col-md-6">-->
+  <!--        <div class="bottomFooter row">-->
+  <!--          <a type="submit" ng-click="" class="btn btn-error">Supprimer</a>-->
+  <!--          <a type="button" id="closeConnection" class="btn btn-warning" data-dismiss="modal">Annuler</a>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  
+  
+  
+  
   <div class="row">
     <div class="col-md-12">
       <ul class="nav nav-tabs nav-justified">
@@ -91,8 +127,8 @@
               <tbody>
                 <tr ng-repeat="article in article.lstArticles | orderBy : '-update_at' | filter : titleArticle" ng-click="setArticleSelected($index)" ng-class="{success: $index === selectedArticle}">
                   <td>
-                    <button ng-show="(article.pseudo === user.pseudo && user.isLoggedIn) || user.access.roles['ADMIN_REDACTEUR'] !== undefined" ng-click="editArticle(article)" class="btn btn-warning"data-toggle="modal" data-target="#adminSnackModal" data-id="{{$index}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                    <button permission permission-only="'ADMIN_REDACTEUR'" ng-click="removeArticle(article)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button permission permission-only="'ADMIN_REDACTEUR'" ng-click="prepareRemoveArticle(article)" class="btn btn-danger" data-toggle="modal" data-target="#rmModal"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button ng-show="(user.isLoggedIn && canEditArticle && article.pseudo === user.pseudo) || canEditOtherArticle" class="btn btn-warning" ng-click="editArticle(article)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                   </td>
                   <td>
                     {{article.title}}

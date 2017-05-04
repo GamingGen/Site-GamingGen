@@ -2,17 +2,17 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'UserService', 'PermRoleStore', function($scope, $http, socket, UserService, PermRoleStore) {
+AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'UserService', 'PermPermissionStore', function($scope, $http, socket, UserService, PermPermissionStore) {
   // ----- Init -----
-  var articleCtrl        = this;
-  $scope.tab             = 1;
-  $scope.newArticle      = true;
-  var user               = UserService.currentUser;
-  $scope.user            = user;
-  $scope.selectedArticle = {};
-  $scope.adminRedacteur  = PermRoleStore.getRoleDefinition('ADMIN_REDACTEUR');
-  
-  console.log('$scope.adminRedacteur: ', $scope.adminRedacteur);
+  var articleCtrl            = this;
+  $scope.tab                 = 1;
+  $scope.newArticle          = true;
+  var user                   = UserService.currentUser;
+  var selectedArticleToRm    = undefined;
+  $scope.user                = user;
+  $scope.selectedArticle     = {};
+  $scope.canEditArticle      = PermPermissionStore.getPermissionDefinition('canEditArticle') !== undefined;
+  $scope.canEditOtherArticle = PermPermissionStore.getPermissionDefinition('canEditOtherArticle') !== undefined;
   
   tinymce.init({
     selector: 'textarea',
@@ -187,9 +187,16 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
     }
   };
   
-  $scope.removeArticle = function(article) {
+  $scope.prepareRemoveArticle = function(article) {
     if (article != undefined) {
-      socket.emit('rmArticle', article);
+      selectedArticleToRm = article;
+    }
+  };
+  
+  $scope.removeArticle = function() {
+    if (selectedArticleToRm != undefined) {
+      socket.emit('rmArticle', selectedArticleToRm);
+      selectedArticleToRm = undefined;
     }
   };
   

@@ -140,7 +140,7 @@ let authStrategy = new LocalStrategy({
 });
 
 let authSerializer = (user, done) => {
-	done(null, {_id: user._id, roles: user.access.roles});
+	done(null, {_id: user._id, permissions: user.access.permissions});
 };
 
 let authDeserializer = (user, done) => {
