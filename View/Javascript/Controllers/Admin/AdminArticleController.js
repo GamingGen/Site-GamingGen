@@ -2,7 +2,7 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'UserService', function($scope, $http, socket, UserService) {
+AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'UserService', 'PermRoleStore', function($scope, $http, socket, UserService, PermRoleStore) {
   // ----- Init -----
   var articleCtrl        = this;
   $scope.tab             = 1;
@@ -10,6 +10,9 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'Use
   var user               = UserService.currentUser;
   $scope.user            = user;
   $scope.selectedArticle = {};
+  $scope.adminRedacteur  = PermRoleStore.getRoleDefinition('ADMIN_REDACTEUR');
+  
+  console.log('$scope.adminRedacteur: ', $scope.adminRedacteur);
   
   tinymce.init({
     selector: 'textarea',
