@@ -12,7 +12,7 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', '$state', 'socket',
   var jump                      = 0;
   $scope.disableInfiniteScroll  = true;
   $scope.step                   = 5;
-  $scope.maxlength              = 300;
+  $scope.maxlength              = 500;
   $scope.comments               = [];
   var articlesCtrl              = this;
   articlesCtrl.currentArticle   = {};
