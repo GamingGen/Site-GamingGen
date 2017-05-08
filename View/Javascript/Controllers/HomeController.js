@@ -39,8 +39,13 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
   });
   
   socket.on('ArticleRemoved', function(id) {
-    var index = news.articles.map(function(element) { return element._id; }).indexOf(id);
-    news.articles.splice(index, 1);
+    // var index = news.articles.map(function(element) { return element._id; }).indexOf(id);
+    // news.articles.splice(index, 1);
+      $http.get('/articles/home').then(function(data) {
+      news.articles = data.data;
+    }).catch(function(err) {
+      console.log(err);
+    });
   });
   
   socket.on('NewComment', function(data) {
