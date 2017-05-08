@@ -35,7 +35,7 @@ router.get('/', function (req, res) {
 
 // Récupère uniquement les 4 dernier articles (Spécifique pour la Home)
 router.get('/home', function (req, res) {
-  articleSchema.find({}, null, {sort: { update_at: -1 }, limit: 4 })
+  articleSchema.find({}, {text : 0}, {sort: { update_at: -1 }, limit: 4 })
   .populate('comments')
   .exec(function (err, docs) {
     if (err) {
