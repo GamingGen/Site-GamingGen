@@ -2,13 +2,14 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('adminArticleCtrl', ['$scope', '$http', 'socket', 'UserService', 'PermPermissionStore', function($scope, $http, socket, UserService, PermPermissionStore) {
+AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', 'socket', 'UserService', 'PermPermissionStore', function($scope, $http, $location, socket, UserService, PermPermissionStore) {
   // ----- Init -----
   var articleCtrl            = this;
   $scope.tab                 = 1;
   $scope.newArticle          = true;
   var user                   = UserService.currentUser;
   var selectedArticleToRm    = undefined;
+  $scope.baseArticleUrl      = $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/#/articles/';
   $scope.user                = user;
   $scope.selectedArticle     = {};
   $scope.canEditArticle      = PermPermissionStore.getPermissionDefinition('canEditArticle') !== undefined;

@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'AuthServices', 'AppControllers' ,'Socket', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
+  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'AppControllers' ,'Socket', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
   
   app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
