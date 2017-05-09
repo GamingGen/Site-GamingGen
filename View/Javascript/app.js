@@ -171,6 +171,12 @@
             'lstBans@admin.ban'  : {
               templateUrl : '../Partial/Admin/ListBans.html'
             },
+          },
+          data        : {
+            permissions: {
+              only: ['canBan'],
+              redirectTo: 'home'
+            }
           }
         });
       
