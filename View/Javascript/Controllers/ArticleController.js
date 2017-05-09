@@ -43,10 +43,10 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', '$state', 'socket',
   
   // ----- Public Méthode -----
   $scope.submitComment = function() {
-    if ($scope.commentText && $scope.commentText.length > 0) {
+    if (user.isLoggedIn && $scope.commentText && $scope.commentText.length > 0) {
       var comment = {
         article_id  : $('#articleId').val(),
-        pseudo      : user.isLoggedIn ? user.pseudo : 'Un visiteur du futur',
+        pseudo      : user.pseudo,
         text        : $scope.commentText
       };
       

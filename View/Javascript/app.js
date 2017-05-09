@@ -141,7 +141,7 @@
           templateUrl : '../Partial/Admin/adminArticles.html',
           data        : {
             permissions: {
-              only: ['ADMIN', 'REDACTEUR', 'ADMIN_REDACTEUR'],
+              only: ['REDACTEUR', 'ADMIN_REDACTEUR'],
               redirectTo: {
                 
                 default: 'home'
