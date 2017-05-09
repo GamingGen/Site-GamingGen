@@ -127,9 +127,9 @@
               <tbody>
                 <tr ng-repeat="article in article.lstArticles | orderBy : '-update_at' | filter : titleArticle" ng-click="setArticleSelected($index)" ng-class="{success: $index === selectedArticle}">
                   <td>
-                    <button ngclipboard data-clipboard-text="{{baseArticleUrl}}{{article._id}}" ngclipboard-success="onSuccess(e);" ngclipboard-error="onError(e);" class="btn btn-primary"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
-                    <button permission permission-only="'ADMIN_REDACTEUR'" ng-click="prepareRemoveArticle(article)" class="btn btn-danger" data-toggle="modal" data-target="#rmModal"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                    <button ng-show="(user.isLoggedIn && canEditArticle && article.pseudo === user.pseudo) || canEditOtherArticle" class="btn btn-warning" ng-click="editArticle(article)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button ngclipboard data-clipboard-text="{{baseArticleUrl}}{{article._id}}" ngclipboard-success="onSuccess(e);" ngclipboard-error="onError(e);" class="btn btn-primary" title="Copier le lien"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+                    <button permission permission-only="'ADMIN_REDACTEUR'" ng-click="prepareRemoveArticle(article)" class="btn btn-danger" data-toggle="modal" data-target="#rmModal" title="Supprimer l'article"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button ng-show="(user.isLoggedIn && canEditArticle && article.pseudo === user.pseudo) || canEditOtherArticle" class="btn btn-warning" ng-click="editArticle(article)" title="modifier l'article"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                   </td>
                   <td>
                     {{article.title}}
@@ -220,7 +220,7 @@
               <tbody>
                 <tr ng-repeat="comment in selectedArticle.comments | orderBy : '-register_date' | filter : commentArticle" ng-click="setChildSelected($index)" ng-class="{success: $index === idChildSelectedElement}">
                   <td>
-                    <button permission permission-only="'ADMIN_REDACTEUR'" ng-click="removeComment(comment)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button permission permission-only="'ADMIN_REDACTEUR'" ng-click="removeComment(comment)" class="btn btn-danger" title="Supprimer le commentaire"><i class="fa fa-trash" aria-hidden="true"></i></button>
                   </td>
                   </td>
                   <td>
