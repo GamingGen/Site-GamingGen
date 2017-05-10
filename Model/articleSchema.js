@@ -88,9 +88,9 @@ ArticleSchema.pre('save', function(next) {
  * @description Permet de supprimer la reference de l'article
  */
 ArticleSchema.pre('findOneAndRemove', function(next) {
-  console.log('this: ', this);
-  // this.model('Comment').remove({article_id: this._conditions._id}, next);
-  Comment.remove({article_id: this._conditions._id});
+  // TODO : Try to replace remove comment by this line below
+  // this.model('Comment').remove({'article_id': this._conditions._id}, { multi: true }, next);
+  Comment.remove({article_id: this._conditions._id}).exec();
   next();
 });
 

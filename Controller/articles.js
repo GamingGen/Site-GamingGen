@@ -35,9 +35,7 @@ router.get('/', function (req, res) {
 
 // Récupère uniquement les 4 dernier articles (Spécifique pour la Home)
 router.get('/home', function (req, res) {
-  articleSchema.find({}, {text : 0}, {sort: { update_at: -1 }, limit: 4 })
-  .populate('comments')
-  .exec(function (err, docs) {
+  articleSchema.find({}, {text : 0}, {sort: { update_at: -1 }, limit: 4 }, function (err, docs) {
     if (err) {
       console.error(err);
       res.status(500);
@@ -137,7 +135,6 @@ let articleEvent = function(ServerEvent) {
   ServerEvent.on('rmArticle', function(data, socket) {
     // console.log(socket.request.session.passport);
     if (socket.request.session && socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.permissions && socket.request.session.passport.user.permissions.includes('canRemoveArticle')) {
-      console.log('data: ', data);
       articleSchema.findOneAndRemove({_id : data._id}, function (err, result) {
         if (err) {
           console.log('err: ', err);
