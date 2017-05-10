@@ -7,8 +7,9 @@
 /**
  * @requires Schema
  */
-const mongoose    = require('mongoose');
-const Schema      = mongoose.Schema;
+const mongoose  = require('mongoose');
+const Schema    = mongoose.Schema;
+const Article   = require('./articleSchema');
 
 // Variables
 
@@ -65,10 +66,10 @@ CommentSchema.pre('findOneAndUpdate', function(next) {
  * @param {function} next - Permet d'appeler le prochain middleware
  * @description Permet de supprimer la reference de l'article
  */
-// CommentSchema.pre('findOneAndRemove', function(next) {
-//   this.model('Article').remove({})
-//   next();
-// });
+CommentSchema.pre('findOneAndRemove', function(next) {
+  Article.update({comments: {$in: this._conditions._id}}, { $pull: { comments: this._conditions._id }}).exec();
+  next();
+});
 
 /**
  * @function postSave
