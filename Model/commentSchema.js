@@ -9,7 +9,6 @@
  */
 const mongoose  = require('mongoose');
 const Schema    = mongoose.Schema;
-const Article   = require('./articleSchema');
 
 // Variables
 
@@ -67,7 +66,7 @@ CommentSchema.pre('findOneAndUpdate', function(next) {
  * @description Permet de supprimer la reference de l'article
  */
 CommentSchema.pre('findOneAndRemove', function(next) {
-  Article.update({comments: {$in: this._conditions._id}}, { $pull: { comments: this._conditions._id }}).exec();
+  mongoose.model('Article').update({comments: this._conditions._id}, { $pull: { comments: this._conditions._id }}).exec();
   next();
 });
 

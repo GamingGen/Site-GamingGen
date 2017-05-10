@@ -29,7 +29,6 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
   });
   
   socket.on('NewArticle', function(data) {
-    data.comments = [];
     news.articles.push(data);
   });
   
