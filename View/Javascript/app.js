@@ -1,7 +1,9 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'AppControllers' ,'Socket', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
+  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'Socket', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
+  const adminLayout = 'container-fluid admin';
+  const normalLayout = 'container';
   
   app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -138,12 +140,29 @@
         })
         .state('admin.roles', {
           url         : '/Roles',
-          templateUrl : '../Partial/Admin/Roles.html'
+          views       : {
+            ''  : {
+              templateUrl : '../Partial/Admin/Roles.html'
+            },
+            'lstRoles@admin.roles'  : {
+              templateUrl : '../Partial/Admin/ListRoles.html'
+            },
+            'modifRole@admin.roles' : {
+              templateUrl : '../Partial/Admin/ModifRole.html'
+            },
+            'lstPages@admin.roles'  : {
+              templateUrl : '../Partial/Admin/ListPages.html'
+            },
+          }
         })
-        .state('admin.roles.role', {
-          url         : '/:role',
-          templateUrl : '../Partial/Admin/ListRoles.html'
-        })
+        // .state('admin.roles', {
+        //   url         : '/Roles',
+        //   templateUrl : '../Partial/Admin/Roles.html'
+        // })
+        // .state('admin.roles.role', {
+        //   url         : '/:role',
+        //   templateUrl : '../Partial/Admin/ModifRole.html'
+        // })
         .state('admin.articles', {
           url         : '/adminArticles',
           templateUrl : '../Partial/Admin/adminArticles.html',
