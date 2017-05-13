@@ -87,7 +87,7 @@ ArticleSchema.pre('save', function(next) {
  * @description Permet de supprimer la reference de l'article
  */
 ArticleSchema.pre('findOneAndRemove', function(next) {
-  mongoose.model('Comment').remove({'article_id': this._conditions._id}, { multi: true }, next);
+  mongoose.model('Comment').remove({'article_id': this._conditions._id}).exec();
   next();
 });
 
