@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'Socket', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
+  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'SocketF', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
   const adminLayout = 'container-fluid admin';
   const normalLayout = 'container';
   
