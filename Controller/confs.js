@@ -8,11 +8,13 @@ var confSchema = require('../Model/confSchema');
 var exports = module.exports = {};
 
 router.get('/', function (req, res) {
-    confSchema.find({}, function (err, docs) {
-        res.json(docs);
-    });
+  confSchema.find({}, function (err, docs) {
+  if (err) {
+    console.log(err);
+  }
+      res.json(docs);
+  });
 });
-
 
 router.get('/typeMenu', function (req, res) {
   confSchema.findOne({}, 'snack', {sort: {$natural: -1}}, function (err, docs) {
@@ -29,7 +31,7 @@ router.get('/roles', function (req, res) {
     if (err) {
       console.log(err);
     }
-    console.log(docs);
+    // console.log(docs);
     res.json(docs.roles);
   });
 });
@@ -94,6 +96,15 @@ router.get('/roles', function (req, res) {
 //     console.log((user));
 //   });
 // });
+router.get('/pages', function (req, res) {
+  confSchema.findOne({}, 'pages', {sort: {$natural: -1}}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    // console.log(docs);
+    res.json(docs.pages);
+  });
+});
 
 
 // ------------------------------ Events ------------------------------
