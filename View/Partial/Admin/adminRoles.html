@@ -1,4 +1,4 @@
-<div ng-controller="adminRolesCtrl as roles">
+<div ng-controller="adminRolesCtrl as admroles">
   <!-- Modal -->
   <!--<div class="modal fade" id="adminSnackModal" tabindex="-1" role="dialog" aria-labelledby="adminSnackModalLabel">-->
   <!--  <div class="modal-dialog modal-lg" role="document">-->
@@ -19,8 +19,8 @@
   <div class="row">
     <div class="col-md-12">
       <ul class="nav nav-tabs nav-justified">
-        <li role="presentation" ng-class="{active: isSelected(1)}"><a ng-click="selectTab(1)">Gestion des Rôles</a></li>
-        <li role="presentation" ng-class="{active: isSelected(2)}"><a ng-click="selectTab(2)">Gesiton des Permissisons</a></li>
+        <li role="presentation" ng-class="{active: isSelected(1)}"><a ng-click="selectTab(1)">Gestion des Permissisons</a></li>
+        <li role="presentation" ng-class="{active: isSelected(2)}"><a ng-click="selectTab(2)">Gesiton des Rôles</a></li>
         <!--<li role="presentation" ng-class="{active: isSelected(3)}"><a ng-click="selectTab(3)">Recharger la Carte</a></li>-->
       </ul>
       <br/>
@@ -109,17 +109,23 @@
                   #
                 </th>
                 <th>
-                  Année
+                  Roles
+                </th>
+                <th>
+                  #
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="carte in menuSnack.cartes" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
+              <tr ng-repeat="roles in admroles.roles" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
                 <td>
                   <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </td>
                 <td>
-                  {{carte.year}}
+                  {{roles.name}}
+                </td>
+                <td>
+                  <button ng-click="removeRow($index)" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                 </td>
               </tr>
             </tbody>
