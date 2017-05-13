@@ -1,0 +1,180 @@
+<div ng-controller="adminRolesCtrl as roles">
+  <!-- Modal -->
+  <!--<div class="modal fade" id="adminSnackModal" tabindex="-1" role="dialog" aria-labelledby="adminSnackModalLabel">-->
+  <!--  <div class="modal-dialog modal-lg" role="document">-->
+  <!--    <div class="modal-content">-->
+  <!--      <div class="modal-header">-->
+  <!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+  <!--        <h4 class="modal-title" id="adminSnackModalLabel"></h4>-->
+  <!--      </div>-->
+  <!--      <div class="modal-body">-->
+  <!--      </div>-->
+  <!--      <div class="modal-footer">-->
+  <!--        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs nav-justified">
+        <li role="presentation" ng-class="{active: isSelected(1)}"><a ng-click="selectTab(1)">Gestion des Rôles</a></li>
+        <li role="presentation" ng-class="{active: isSelected(2)}"><a ng-click="selectTab(2)">Gesiton des Permissisons</a></li>
+        <!--<li role="presentation" ng-class="{active: isSelected(3)}"><a ng-click="selectTab(3)">Recharger la Carte</a></li>-->
+      </ul>
+      <br/>
+      <div class"pannel" ng-show="isSelected(1)">
+        <div class="col-md-4">
+          <form name="formMenu" novalidate>
+            <div class="form-group">
+              <label for="name">Nom : </label>
+              <input type="text" class="form-control" id="name" ng-model="name" placeholder="Entrez le nom" required>
+              <br/>
+              <label for="unit_price">Prix : </label>
+              <input type="number" min="0" max="1000" class="form-control" id="unit_price" ng-model="unit_price" placeholder="Entrez le prix" required>
+              <br/>
+              <label for="quantity">Capacité de vente : </label>
+              <input type="number" min="0" class="form-control" id="quantity" ng-model="quantity" placeholder="Capacité totale pour l'évenement" required>
+              <br/>
+              <label for="quantity_min">Quantité minimum : </label>
+              <input type="number" min="0" class="form-control" id="quantity_min" ng-model="quantity_min" placeholder="Quantité minimum à avoir en stock" required>
+              <br/>
+              <label for="type">Type : </label>
+              <select id="type" name="type" class="form-control" ng-model="type" ng-options="type.name for type in menuSnack.list track by type.name">
+              </select>
+              <br/>
+              <button type="button" ng-click="formMenu.$valid && addRow()" ng-disabled="!formMenu.$valid" class="btn btn-info">Ajouter</button>
+              <button type="button" ng-click="sendMenu()" class="pull-right btn btn-primary">Sauvgarder</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-8">
+          <div class="table-responsive table-snack">
+            <table class="table table-striped table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Nom
+                  </th>
+                  <th>
+                    Type
+                  </th>
+                  <th>
+                    Prix
+                  </th>
+                  <th>
+                    Capacité
+                  </th>
+                  <th>
+                    Quantité minimum
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="element in menuSnack.elements" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
+                  <td>
+                    <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  </td>
+                  <td>
+                    {{element.name}}
+                  </td>
+                  <td>
+                    {{element.type}}
+                  </td>
+                  <td>
+                    {{element.unit_price}}
+                  </td>
+                  <td>
+                    {{element.quantity}}
+                  </td>
+                  <td>
+                    {{element.quantity_min}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class"pannel" ng-show="isSelected(2)">
+        <div class="col-md-4">
+          <table class="table table-striped table-condensed table-hover">
+            <thead>
+              <tr>
+                <th>
+                  #
+                </th>
+                <th>
+                  Année
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="carte in menuSnack.cartes" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
+                <td>
+                  <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
+                <td>
+                  {{carte.year}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+          
+        <div class="col-md-8 table-responsive">
+          <table class="table table-striped table-condensed table-hover">
+            <thead>
+              <tr>
+                <th>
+                  #
+                </th>
+                <th>
+                  Année
+                </th>
+                <th>
+                  Type
+                </th>
+                <th>
+                  Prix
+                </th>
+                <th>
+                  Capacité
+                </th>
+                <th>
+                  Quantité minimum
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="element in carte.elements" ng-click="setChildSelected($index)" ng-class="{success: $index === idChildSelectedElement}">
+                <td>
+                  <button ng-click="editRow($index)" class="btn btn-warning"data-toggle="modal" data-target="#adminSnackModal" data-id="{{$index}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                </td>
+                <td>
+                  {{element.name}}
+                </td>
+                <td>
+                  {{element.type}}
+                </td>
+                <td>
+                  {{element.unit_price}}
+                </td>
+                <td>
+                  {{element.quantity}}
+                </td>
+                <td>
+                  {{element.quantity_min}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

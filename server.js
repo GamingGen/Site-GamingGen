@@ -12,9 +12,9 @@
  * @version Alpha 1.3.0
  * 
  * @author Jérémy Young            <darkterra01@gmail.com>
- * @author Loïc Tardivel-Lacombe   <>
- * @author Laura Auboin Maurizio   <>
- * @author Frédéric Guazzini       <>
+ * @author Loïc Tardivel-Lacombe   <loic.tardivel@gmail.com>
+ * @author Laura Auboin Maurizio   <lala@gaming-gen.fr>
+ * @author Frédéric Guazzini       <lala@gaming-gen.fr>
  * 
  */
 

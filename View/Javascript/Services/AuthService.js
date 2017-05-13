@@ -79,13 +79,13 @@
 angular.module("AuthServices", [])
 .service("SessionService", function() {
     this.setValue = function(key, value) {
-        localStorage.setItem(key, value);
+      localStorage.setItem(key, value);
     };
     this.getValue = function(key) {
-        return localStorage.getItem(key);
+      return localStorage.getItem(key);
     };
     this.destroyItem = function(key) {
-        localStorage.removeItem(key);
+      localStorage.removeItem(key);
     };
 })
 .service("UserService", ['$http', '$location', 'SessionService', 'HttpBufferService', 'PermPermissionStore', 'PermRoleStore', function($http, $location, SessionService, HttpBufferService, PermPermissionStore, PermRoleStore) {
