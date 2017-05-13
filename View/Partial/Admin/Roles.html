@@ -101,36 +101,7 @@
         </div>
       </div>
       <div class"pannel" ng-show="isSelected(2)">
-        <div class="col-md-4">
-          <table class="table table-striped table-condensed table-hover">
-            <thead>
-              <tr>
-                <th>
-                  #
-                </th>
-                <th>
-                  Roles
-                </th>
-                <th>
-                  #
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="roles in admRoles.roleList" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
-                <td>
-                  <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                </td>
-                <td>
-                  {{roles.name}}
-                </td>
-                <td>
-                  <button ng-click="removeRow($index)" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <div ui-view></div>
           
         <div class="col-md-5">
           <form ng-submit="sendOrder()" name="formRole" novalidate>
@@ -149,30 +120,9 @@
               <button type="button" ng-click="formRole.roleName.$valid && sendRole($roleName, allowedpages, level)" ng-disabled="!formRole.$valid" class="btn btn-info">valider</button>
           </form>
         </div>
-        <div class="col-md-3">
-          <table class="table table-striped table-condensed table-hover">
-            <thead>
-              <tr>
-                <th>
-                  #
-                </th>
-                <th>
-                  Pages
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="pages in admRoles.pageList | orderBy : 'name'" ng-click="setSelected($index)" ng-class="{success: $index === idSelectedElement}">
-                <td>
-                  <input type="checkbox"><!--<button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
-                </td>
-                <td>
-                  {{pages.name}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        
+        <!--<div ui-view></div>-->
+        
       </div>
     </div>
   </div>

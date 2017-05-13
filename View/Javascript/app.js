@@ -137,8 +137,12 @@
           }
         })
         .state('admin.roles', {
-          url         : '/adminRoles',
-          templateUrl : '../Partial/Admin/adminRoles.html'
+          url         : '/Roles',
+          templateUrl : '../Partial/Admin/Roles.html'
+        })
+        .state('admin.roles.role', {
+          url         : '/:role',
+          templateUrl : '../Partial/Admin/ListRoles.html'
         })
         .state('admin.articles', {
           url         : '/adminArticles',
