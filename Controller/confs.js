@@ -49,6 +49,15 @@ router.get('/roles', function (req, res) {
     });
 });
 
+router.get('/roles', function (req, res) {
+  confSchema.findOne({}, 'roles', {sort: {$natural: -1}}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    // console.log(docs);
+    res.json(docs.roles);
+  });
+});
 
 // var users = {
 // 		password_min_length: 8
