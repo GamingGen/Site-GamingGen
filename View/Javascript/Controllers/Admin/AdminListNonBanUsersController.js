@@ -13,7 +13,6 @@ AppControllers.controller('AdminListNonBanUsersCtrl', ['$scope', '$http', 'socke
   
   $http.get('/users/listNoBan').then(function(data) {
     lstUsers.data.userList = data.data;
-    console.log(lstUsers.data.userList);
   }).catch(function(err) {
     console.log(err);
   });

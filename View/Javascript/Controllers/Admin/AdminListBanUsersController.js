@@ -6,7 +6,7 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('AdminListBansCtrl', ['$scope', '$http', 'socket', 'usersService', function($scope, $http, socket, usersService) {
+AppControllers.controller('AdminListBanUsersCtrl', ['$scope', '$http', 'socket', 'usersService', function($scope, $http, socket, usersService) {
   // ----- Init -----
   var lstUsers             = this;
   lstUsers.data            = usersService;
