@@ -17,7 +17,7 @@ ListPermissionsCtrl.controller('ListPermissionsCtrl', ['$scope', 'socket', 'role
   // ----- Public Méthode -----
 
   $scope.setSelected = function (selectedElement) {
-    if (selectedElement !== undefined && lstPermissions.data.currentRole !== undefined){
+    if (selectedElement !== undefined ){
       $scope.SelectedElement = selectedElement;
       lstPermissions.data.togglePermission(selectedElement);
     }
@@ -26,7 +26,12 @@ ListPermissionsCtrl.controller('ListPermissionsCtrl', ['$scope', 'socket', 'role
   $scope.selectAll = function () {
     lstPermissions.data.selectAllPermissisons();
   };
+
   $scope.unselectAll = function () {
     lstPermissions.data.unselectAllPermissions();
+  };
+  
+  $scope.removePermission = function (permission) {
+    lstPermissions.data.removePermission(permission);
   };
 }]);

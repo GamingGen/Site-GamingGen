@@ -1,18 +1,16 @@
 <div ng-controller="ModifRoleCtrl as mdfRoles">
-  <div class="col-md-5">
-    <form name="formRole" novalidate>
-      <div class="form-group">
-        <label for="roleName">Nom du Rôle :</label>
-        <input type="text" class="form-control" id="roleName" ng-model="mdfRoles.data.currentRole.name" placeholder="Role" required>
-      </div>
-      <!--<div class="form-group">
-        <label for="level">Level : </label>
-        <input type="number" min="0" max="99" class="form-control" id="level" ng-model="mdfRoles.data.currentRole.level" placeholder="Level" required>
-      </div>-->
-        <button type="button" ng-show="mdfRoles.data.newRole" ng-click="formRole.$valid && sendRole()" ng-disabled="!formRole.$valid" class="btn btn-info">Créer</button>
-        <button type="button" ng-hide="mdfRoles.data.newRole" ng-click="formRole.$valid && sendRole()" ng-disabled="!formRole.$valid" class="btn btn-warning">Modifier</button>
-        <button type="button" ng-click="clear()" ng-disabled="(mdfRoles.data.currentRole.name === '' || mdfRoles.data.currentRole.name === undefined)" class="pull-right btn btn-danger">Clear</button>
-    </form>
-  </div>
-  
+  <form name="formRole" novalidate>
+    <div class="form-group">
+      <label for="roleName">Nom du Rôle :</label>
+      <input type="text" class="form-control" id="roleName" ng-model="mdfRoles.data.currentRole.name" placeholder="Role" required>
+    </div>
+    <!--<div class="form-group">
+      <label for="level">Level : </label>
+      <input type="number" min="0" max="99" class="form-control" id="level" ng-model="mdfRoles.data.currentRole.level" placeholder="Level" required>
+    </div>-->
+    <br/>
+    <button type="button" ng-show="mdfRoles.data.newRole" ng-click="formRole.$valid && sendRole()" ng-disabled="!formRole.$valid" class="btn btn-info">Créer</button>
+    <button type="button" ng-hide="mdfRoles.data.newRole" ng-click="formRole.$valid && sendRole()" ng-disabled="!formRole.$valid" class="btn btn-warning">Modifier</button>
+    <button type="button" ng-click="clear()" ng-disabled="(mdfRoles.data.currentRole.name === '' || mdfRoles.data.currentRole.name === undefined)" class="pull-right btn btn-danger">Clear</button>
+  </form>
 </div>

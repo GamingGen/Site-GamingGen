@@ -171,6 +171,23 @@ var confEvent = function(ServerEvent) {
       }
     });
   });
+  ServerEvent.on('UpdatePermissions', function(data, socket) {
+    confSchema.findOneAndUpdate({_id: data._id}, {permissions: data.permissions}, {new: true}, function (err, rowUpdated) {
+      if (err) {
+        //throw err;
+        console.error(err);
+        ServerEvent.emit('ErrorOnPermissionsUpdated', err.message, socket);
+      }
+      else {
+        if (rowUpdated !== null) {
+          ServerEvent.emit('PermissionsUpdated', rowUpdated, socket);
+        }
+        else {
+          console.error(err);
+        }
+      }
+    });
+  });
 };
 
 

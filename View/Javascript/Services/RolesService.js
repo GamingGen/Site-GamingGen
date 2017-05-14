@@ -12,6 +12,7 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
   self.currentRole        = undefined;
   self.currentPermissions = [];
   self.newRole            = true;
+  self.tab                = undefined;
   var removePermission    = false;
 
   getRolesAndPermissions(function(data) {
@@ -38,6 +39,18 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
       refreshLstPermissions();
     }
   };
+
+  self.addPermission = function(permission) {
+    self.permissions.push({name: permission});
+    
+    angular.forEach(self.permissions, function (permission) {
+      delete permission.allowed;
+    });
+
+    console.log(self.permissions);
+
+    socket.emit('UpdatePermissions', {_id: self._idConf, permissions: self.permissions});
+  };
   
   self.togglePermission = function(selectedPermission) {
     var temp = self.currentPermissions.map(function(permission) {
@@ -61,6 +74,19 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
 
       self.permissions[index].allowed = true;
     }
+  };
+
+  self.removePermission = function(selectedPermission) {
+    var index = self.permissions
+      .findIndex(function(permission) { return permission.name === selectedPermission.name; });
+
+    self.permissions.splice(index, 1);
+
+    angular.forEach(self.permissions, function (permission) {
+      delete permission.allowed;
+    });
+
+    socket.emit('UpdatePermissions', {_id: self._idConf, permissions: self.permissions});
   };
   
   self.unselectRole = function() {
@@ -91,6 +117,20 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
     self.roles        = data.roles;
     self.permissions  = data.permissions;
     refreshLstRoles();
+  });
+  
+  socket.on('ErrorOnRolesUpdated', function(data) {
+    console.log(data);
+  });
+  
+  socket.on('PermissionsUpdated', function(data) {
+    self.roles        = data.roles;
+    self.permissions  = data.permissions;
+    refreshLstRoles();
+  });
+  
+  socket.on('ErrorOnPermissionsUpdated', function(data) {
+    console.log(data);
   });
   
   // Private methode
