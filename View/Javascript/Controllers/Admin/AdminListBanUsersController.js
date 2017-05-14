@@ -19,7 +19,7 @@ AppControllers.controller('AdminListBansCtrl', ['$scope', '$http', 'socket', 'us
   
   $scope.unbanUser = function(user) {
     if (user !== undefined) {
-      $http.post('/users/unban', {'user' : user.pseudo}).then(function() {
+      $http.post('/users/unban', {user : {id: user._id, pseudo: user.pseudo}}).then(function() {
         usersService.addUserToList(user, false);
         lstUsers.data.banList.splice(lstUsers.data.banList.indexOf(user), 1);
       }).catch(function() {

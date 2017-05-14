@@ -50,6 +50,14 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	ServerEvent.on('PermissionsUpdated', function(data, socket) {
 		socket.emit('PermissionsUpdated', data);
 	});
+
+	ServerEvent.on('ErrorOnUserPermissionsUpdated', function(data, socket) {
+		socket.emit('ErrorOnUserPermissionsUpdated', data);
+	});
+		
+	ServerEvent.on('UserPermissionsUpdated', function(data, socket) {
+		socket.emit('UserPermissionsUpdated', data);
+	});
 	
 	ServerEvent.on('isMailExistResult', function(data, socket) {
 		socket.emit('isMailExist', data);
@@ -162,6 +170,10 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		
 		socket.on('isPseudoExist', function(data) {
 			ServerEvent.emit('isPseudoExist', data, socket);
+		});
+		
+		socket.on('UpdateUserPermissions', function(data) {
+			ServerEvent.emit('UpdateUserPermissions', data, socket);
 		});
 		
 		socket.on('IamTheClientPrinter', function() {

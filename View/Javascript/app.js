@@ -142,7 +142,10 @@
           url         : '/Roles',
           views       : {
             ''  : {
-              templateUrl : '../Partial/Admin/Roles.html'
+              templateUrl : '../Partial/Admin/adminRoles.html'
+            },
+            'lstUsers@admin.roles' : {
+              templateUrl : '../Partial/Admin/_listUsers.html'
             },
             'lstRoles@admin.roles'  : {
               templateUrl : '../Partial/Admin/_listRoles.html'
@@ -152,7 +155,7 @@
             },
             'lstPermissions@admin.roles'  : {
               templateUrl : '../Partial/Admin/_listPermissions.html'
-            },
+            }
           }
         })
         .state('admin.articles', {
@@ -182,18 +185,18 @@
           url         : '/Ban',
           views       : {
             ''  : {
-              templateUrl : '../Partial/Admin/Ban.html'
+              templateUrl : '../Partial/Admin/adminBan.html'
             },
-            'lstUsers@admin.ban'  : {
-              templateUrl : '../Partial/Admin/ListUsers.html'
+            'lstNonBanUsers@admin.ban'  : {
+              templateUrl : '../Partial/Admin/_listNonBanUsers.html'
             },
-            'lstBans@admin.ban'  : {
-              templateUrl : '../Partial/Admin/ListBans.html'
+            'lstBansUsers@admin.ban'  : {
+              templateUrl : '../Partial/Admin/_listBanUsers.html'
             },
           },
           data        : {
             permissions: {
-              only: ['canBan'],
+              only: ['canBan', 'canUnBan'],
               redirectTo: 'home'
             }
           }

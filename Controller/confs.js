@@ -155,15 +155,15 @@ var confEvent = function(ServerEvent) {
     });
   });
   ServerEvent.on('UpdateRoles', function(data, socket) {
-    confSchema.findOneAndUpdate({_id: data._id}, {roles: data.roles}, {new: true}, function (err, rowUpdated) {
+    confSchema.findOneAndUpdate({_id: data._id}, {roles: data.roles}, {new: true}, function (err, docUpdated) {
       if (err) {
         //throw err;
         console.error(err);
         ServerEvent.emit('ErrorOnRolesUpdated', err.message, socket);
       }
       else {
-        if (rowUpdated !== null) {
-          ServerEvent.emit('RolesUpdated', rowUpdated, socket);
+        if (docUpdated !== null) {
+          ServerEvent.emit('RolesUpdated', docUpdated, socket);
         }
         else {
           console.error(err);
@@ -172,15 +172,15 @@ var confEvent = function(ServerEvent) {
     });
   });
   ServerEvent.on('UpdatePermissions', function(data, socket) {
-    confSchema.findOneAndUpdate({_id: data._id}, {permissions: data.permissions}, {new: true}, function (err, rowUpdated) {
+    confSchema.findOneAndUpdate({_id: data._id}, {permissions: data.permissions}, {new: true}, function (err, docUpdated) {
       if (err) {
         //throw err;
         console.error(err);
         ServerEvent.emit('ErrorOnPermissionsUpdated', err.message, socket);
       }
       else {
-        if (rowUpdated !== null) {
-          ServerEvent.emit('PermissionsUpdated', rowUpdated, socket);
+        if (docUpdated !== null) {
+          ServerEvent.emit('PermissionsUpdated', docUpdated, socket);
         }
         else {
           console.error(err);

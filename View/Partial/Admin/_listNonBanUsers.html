@@ -1,0 +1,25 @@
+<div ng-controller="AdminListNonBanUsersCtrl as lstUsers">
+  <input type="search" ng-model="filter.pseudo" placeholder="Filter les utilisateurs" />
+  <table class="table table-striped table-condensed table-hover">
+    <thead>
+      <tr>
+        <th class="col-xs-10">
+          Utilisateurs
+        </th>
+        <th class="col-xs-2 text-center">
+          Bannir ?
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in lstUsers.data.userList | orderBy : 'pseudo' | filter : filter">
+        <td>
+          {{user.pseudo}}
+        </td>
+        <td>
+          <button permission permission-only="'canBan'" ng-click="banUser(user)" class="btn btn-danger center-block"><i class="fa fa-ban" aria-hidden="true"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

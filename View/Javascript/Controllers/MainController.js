@@ -40,7 +40,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   // Déconnexion si utilisateur banni
   socket.on('BanUser', function(user) {
-    if ($scope.User !== undefined && $scope.User.pseudo === user) {
+    if ($scope.User !== undefined && $scope.User.pseudo === user.pseudo) {
       UserService.logout().success(function() {
         $state.go('home');
       });

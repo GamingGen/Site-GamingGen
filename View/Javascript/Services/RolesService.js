@@ -23,7 +23,7 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
   });
   
   self.selectAllPermissisons = function() {
-    if (self.currentRole !== undefined) {
+    if (self.currentRole !== undefined || self.tab === 3) {
       selectAllPermissions();
     }
   };
@@ -39,6 +39,12 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
       refreshLstPermissions();
     }
   };
+  
+  self.refreshLstPermissions = function(permisssions) {
+    if (permisssions !== undefined) {
+      refreshLstPermissions(permisssions);
+    }
+  };
 
   self.addPermission = function(permission) {
     self.permissions.push({name: permission});
@@ -50,6 +56,18 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
     console.log(self.permissions);
 
     socket.emit('UpdatePermissions', {_id: self._idConf, permissions: self.permissions});
+  };
+
+  self.getCurrentPermissions = function() {
+    var temp = [];
+    angular.forEach(self.currentPermissions, function (permission) {
+      temp.push(permission.name);
+    });
+    return temp;
+  };
+
+  self.getAllPermissions = function() {
+    return self.permissions;
   };
   
   self.togglePermission = function(selectedPermission) {
@@ -158,7 +176,7 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
     });
   }
 
-  function refreshLstPermissions () {
+  function refreshLstPermissions (permisssions) {
     if (self.currentRole !== undefined) {
       self.currentPermissions = [];
       
@@ -168,6 +186,21 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
       });
 
       angular.forEach(self.roles[self.currentRole.name], function(_permission) {
+        self.currentPermissions.push({name: _permission});
+
+        var index = self.permissions
+        .findIndex(function(permission) { return permission.name === _permission; });
+
+        self.permissions[index].allowed = true;
+      });
+    }
+    else if (permisssions) {
+      // Set false all allowed permissions
+      angular.forEach(self.permissions, function(permission) {
+        permission.allowed = false;
+      });
+
+      angular.forEach(permisssions, function(_permission) {
         self.currentPermissions.push({name: _permission});
 
         var index = self.permissions
