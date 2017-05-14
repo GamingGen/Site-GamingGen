@@ -4,44 +4,27 @@
  
 'use strict';
 
-var ListRolesCtrl = angular.module('AppControllers');
+var ModifRoleCtrl = angular.module('AppControllers');
 
-ListRolesCtrl.controller('ModifRoleCtrl', ['$scope', '$http', 'socket', 'rolesService', function($scope, $http, socket, rolesService) {
+ModifRoleCtrl.controller('ModifRoleCtrl', ['$scope', 'socket', 'rolesAndPermissionsService', function($scope, socket, rolesAndPermissionsService) {
   // ----- Init -----
   var mdfRoles             = this;
-  mdfRoles.data            = rolesService;
+  mdfRoles.data            = rolesAndPermissionsService;
   $scope.idSelectedElement = undefined;
   
   // ----- GET / SET Data -----
-  // socket.emit('getChannelTwitch');
   
-  // socket.on('toogleLive', function(live) {
-  //   $scope.live = live;
-  // });
-  
-  
-  // Utiliser des sous vue, comparer la liste des pages avec les pages du role pour check ou non une checkbox
   
   // ----- Public Méthode -----
   
-  $scope.setSelected = function (idSelectedElement) {
-    if (idSelectedElement != undefined){
-      $scope.idSelectedElement = idSelectedElement;
-    }
+  $scope.clear = function () {
+    mdfRoles.data.unselectRole();
   };
-  $scope.getSelected = function() {
-    return mdfRoles[$scope.idSelectedElement];
+
+  $scope.sendRole = function() {
+    mdfRoles.data.sendRole();
   };
   
   
   // ----- Private Méthode -----
-  // function ChangeChannelTwitch(channel) {
-  //   playerAdmin.setChannel(channel);
-  //   // playerAdmin.setVolume(1.0);
-  //   playerAdmin.setMuted(false);
-  //   if (playerAdmin.isPaused()) {
-  //     playerAdmin.play();
-  //     console.log('Player play ?');
-  //   }
-  // }
 }]);

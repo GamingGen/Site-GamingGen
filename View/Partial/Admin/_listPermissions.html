@@ -1,6 +1,6 @@
-<div ng-controller="ListPagesCtrl as lstPages">
+<div ng-controller="ListPermissionsCtrl as lstPermissions">
   <div class="col-md-3">
-    <input ng-model="filter" placeholder="Filter les Pages" />
+    <input type="search" ng-model="filter" placeholder="Filter les Permissions" />
     <button type="button" ng-click="selectAll()" class="btn btn-xs btn-danger">Tout sélectionner</button>
     <button type="button" ng-click="unselectAll()" class="btn btn-xs btn-warning">Tout désélectionner</button>
     <table class="table table-striped table-condensed table-hover">
@@ -10,17 +10,17 @@
             #
           </th>
           <th>
-            Etats
+            Permissions
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="page in lstPages.data.pageList | orderBy : 'name' | filter : filter" ng-click="setSelected($index, page)" ng-class="{success: page.allowed}">
+        <tr ng-repeat="permission in lstPermissions.data.permissions | orderBy : 'name' | filter : filter" ng-click="setSelected(permission)" ng-class="{success: permission.allowed}">
           <td>
-            <input type="checkbox" ng-model="page.allowed">
+            {{permission.allowed === true}}
           </td>
           <td>
-            {{page.name}}
+            {{permission.name}}
           </td>
         </tr>
       </tbody>

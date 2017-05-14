@@ -29,7 +29,7 @@ var Schema                = mongoose.Schema;
  * @param {String} permission.name - WIP
  * @param {String} roles.name - WIP
  * @param {Number} roles.level - WIP
- * @param {String} pages.name - WIP
+ * @param {String} permissions.name - WIP
  * @param {String} shop.type_order.name - WIP
  */
 var ConfSchema = new Schema({
@@ -55,8 +55,8 @@ var ConfSchema = new Schema({
                     type_menu                     : Array
                   },
     roles       : { type: Object, required: true, default: '"MEMBRE": ["canWriteComment"]'},
-    pages       : [{
-                    name  : String
+    permissions : [{
+                    name  : { type: Object, required: true, default: '"name": "canWriteComment"'}
                   }],
     shop        : {
                     type_order  : [{

@@ -50,12 +50,12 @@ router.get('/roles', function (req, res) {
 });
 
 router.get('/roles', function (req, res) {
-  confSchema.findOne({}, 'roles', {sort: {$natural: -1}}, function (err, docs) {
+  confSchema.findOne({}, {roles : 1}, {sort: {$natural: -1}}, function (err, docs) {
     if (err) {
       console.log(err);
     }
     // console.log(docs);
-    res.json(docs.roles);
+    res.json(docs);
   });
 });
 
@@ -105,13 +105,23 @@ router.get('/roles', function (req, res) {
 //     console.log((user));
 //   });
 // });
-router.get('/pages', function (req, res) {
-  confSchema.findOne({}, 'pages', {sort: {$natural: -1}}, function (err, docs) {
+router.get('/permissions', function (req, res) {
+  confSchema.findOne({}, {permissions : 1}, {sort: {$natural: -1}}, function (err, docs) {
     if (err) {
       console.log(err);
     }
     // console.log(docs);
-    res.json(docs.pages);
+    res.json(docs);
+  });
+});
+
+router.get('/rolesandpermissions', function (req, res) {
+  confSchema.findOne({}, {roles: 1, permissions : 1}, {sort: {$natural: -1}}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    // console.log(docs);
+    res.json(docs);
   });
 });
 
@@ -141,6 +151,23 @@ var confEvent = function(ServerEvent) {
       else
       {
         console.log('Ok');
+      }
+    });
+  });
+  ServerEvent.on('UpdateRoles', function(data, socket) {
+    confSchema.findOneAndUpdate({_id: data._id}, {roles: data.roles}, {new: true}, function (err, rowUpdated) {
+      if (err) {
+        //throw err;
+        console.error(err);
+        ServerEvent.emit('ErrorOnRolesUpdated', err.message, socket);
+      }
+      else {
+        if (rowUpdated !== null) {
+          ServerEvent.emit('RolesUpdated', rowUpdated, socket);
+        }
+        else {
+          console.error(err);
+        }
       }
     });
   });

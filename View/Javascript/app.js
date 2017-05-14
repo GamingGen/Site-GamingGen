@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'SocketF', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
+  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'SocketF', 'RolesS', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
   const adminLayout = 'container-fluid admin';
   const normalLayout = 'container';
   
@@ -145,13 +145,13 @@
               templateUrl : '../Partial/Admin/Roles.html'
             },
             'lstRoles@admin.roles'  : {
-              templateUrl : '../Partial/Admin/ListRoles.html'
+              templateUrl : '../Partial/Admin/_listRoles.html'
             },
             'modifRole@admin.roles' : {
-              templateUrl : '../Partial/Admin/ModifRole.html'
+              templateUrl : '../Partial/Admin/_modifRole.html'
             },
-            'lstPages@admin.roles'  : {
-              templateUrl : '../Partial/Admin/ListPages.html'
+            'lstPermissions@admin.roles'  : {
+              templateUrl : '../Partial/Admin/_listPermissions.html'
             },
           }
         })

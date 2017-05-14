@@ -34,6 +34,14 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	io.use(function(socket, next) {
 		sessionMiddleware(socket.request, socket.request.res, next);
 	});
+
+	ServerEvent.on('ErrorOnRolesUpdated', function(data, socket) {
+		socket.emit('ErrorOnRolesUpdated', data);
+	});
+		
+	ServerEvent.on('RolesUpdated', function(data, socket) {
+		socket.emit('RolesUpdated', data);
+	});
 	
 	ServerEvent.on('isMailExistResult', function(data, socket) {
 		socket.emit('isMailExist', data);
@@ -129,7 +137,11 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
   io.sockets.on('connection', function (socket) {
 	  
 	  console.log('Client Connecté');
-	  
+		
+		socket.on('UpdateRoles', function(data) {
+			ServerEvent.emit('UpdateRoles', data, socket);
+			console.log('Emit: UpdateRoles');
+		});
 	  
 	  socket.on('isMailExist', function(data) {
 	  	ServerEvent.emit('isMailExist', data, socket);

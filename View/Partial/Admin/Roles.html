@@ -21,7 +21,7 @@
       <ul class="nav nav-tabs nav-justified">
         <li role="presentation" ng-class="{active: isSelected(1)}"><a ng-click="selectTab(1)">Gestion des Permissisons</a></li>
         <li role="presentation" ng-class="{active: isSelected(2)}"><a ng-click="selectTab(2)">Gesiton des Rôles</a></li>
-        <!--<li role="presentation" ng-class="{active: isSelected(3)}"><a ng-click="selectTab(3)">Recharger la Carte</a></li>-->
+        <li role="presentation" ng-class="{active: isSelected(3)}"><a ng-click="selectTab(3)">Gestion des Users</a></li>
       </ul>
       <br/>
       <div class"pannel" ng-show="isSelected(1)">
@@ -103,9 +103,12 @@
       <div class"pannel" ng-show="isSelected(2)">
         <div ui-view="lstRoles"></div>
         <div ui-view="modifRole"></div>
-        <div ui-view="lstPages"></div>
-        <!--<div ui-view></div>-->
-        
+        <div ui-view="lstPermissions"></div>
+      </div>
+       <div class"pannel" ng-show="isSelected(3)">
+        <!--<div ui-view="lstRoles"></div>
+        <div ui-view="modifRole"></div>
+        <div ui-view="lstPermissions"></div>-->
       </div>
     </div>
   </div>
