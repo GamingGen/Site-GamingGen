@@ -9,7 +9,7 @@
       <br/>
       <div class"pannel" ng-show="isSelected(1)">
         <div class="col-md-4">
-          <form name="formMenu" novalidate>
+          <form ng-submit="formMenu.$valid && addPermission()" name="formMenu" novalidate>
             <div class="form-group">
               <label for="namePermission">Nom : </label>
               <input type="text" class="form-control" id="namePermission" ng-model="namePermission" placeholder="Entrez le nom" required>

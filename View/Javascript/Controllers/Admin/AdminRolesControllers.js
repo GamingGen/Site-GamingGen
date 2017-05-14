@@ -34,8 +34,14 @@ adminRolesCtrl.controller('adminRolesCtrl', ['$scope', 'socket', 'rolesAndPermis
   };
   
   $scope.addPermission = function(checkTab) {
-    adminRoles.data.addPermission($scope.namePermission);
-    $scope.namePermission = "";
+    if (!$scope.permissionsList.includes($scope.namePermission)) {
+      adminRoles.data.addPermission($scope.namePermission);
+      $scope.namePermission = "";
+    }
+    else{
+      $("#msgError").html('La permission existe déjà');
+      $("#msgError").show().delay(3000).fadeOut();
+    }
   };
   
   
