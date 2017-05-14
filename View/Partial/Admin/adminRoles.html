@@ -1,0 +1,47 @@
+<div ng-controller="adminRolesCtrl as adminRoles">
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs nav-justified">
+        <li role="presentation" ng-class="{active: isSelected(1)}"><a ng-click="selectTab(1)">Gestion des Permissisons</a></li>
+        <li role="presentation" ng-class="{active: isSelected(2)}"><a ng-click="selectTab(2)">Gesiton des Rôles</a></li>
+        <li role="presentation" ng-class="{active: isSelected(3)}"><a ng-click="selectTab(3)">Gestion des Users</a></li>
+      </ul>
+      <br/>
+      <div class"pannel" ng-show="isSelected(1)">
+        <div class="col-md-4">
+          <form name="formMenu" novalidate>
+            <div class="form-group">
+              <label for="namePermission">Nom : </label>
+              <input type="text" class="form-control" id="namePermission" ng-model="namePermission" placeholder="Entrez le nom" required>
+              <br/>
+              <button type="button" ng-click="formMenu.$valid && addPermission()" ng-disabled="!formMenu.$valid || permissionsList.includes(namePermission)" class="btn btn-info">Ajouter</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-8">
+          <div ui-view="lstPermissions"></div>
+        </div>
+      </div>
+      <div class"pannel" ng-show="isSelected(2)">
+        <div class="col-md-4">
+          <div ui-view="lstRoles"></div>
+        </div>
+        <div class="col-md-5">
+          <div ui-view="modifRole"></div>
+        </div>
+        <div class="col-md-3">
+          <div ui-view="lstPermissions"></div>
+        </div>
+      </div>
+       <div class"pannel" ng-show="isSelected(3)">
+        <div class="col-md-6">
+          <div ui-view="lstUsers"></div>
+        </div>
+        <!--TODO AJOUTER UNE VUE POUR POUVOIR SELECTIONNER PAR ROLE-->
+        <div class="col-md-6">
+          <div ui-view="lstPermissions"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

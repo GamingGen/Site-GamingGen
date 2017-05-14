@@ -152,37 +152,39 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
         - http://jasmine.github.io/2.0/introduction.html
         - http://www.responsinator.com/?url=https://si-gaminggen-darkterra-1.c9users.io/#/home
 
-5.  Infos
-        - https://cdnjs.com/libraries/angular.js/1.5.7
-        - http://www.angular-js.fr/decouvrez-angularjs/
-        - https://openclassrooms.com/courses/developpez-vos-applications-web-avec-angularjs/
-        - http://stackoverflow.com/questions/22189544/print-a-div-using-javascript-in-angularjs-single-page-aplication
-        - http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr
-        - http://www.tutoriel-angularjs.fr/tutoriel/2-utilisation-complete-d-angularjs/1-le-routage
-        - http://www.tinci.fr/blog/apprendre-angular-en-un-jour-le-guide-ultime/
-        - http://www.funnyant.com/angularjs-ui-router/
-        - https://egghead.io/lessons/angularjs-introduction-ui-router
-        - http://slides.com/timkindberg/ui-router#/
-        - https://github.com/imperugo/NodeJs-Sample/blob/master/Logging/WinstonSample/express-configuration/index.js
-        - https://blog.serverdensity.com/monitor-mongodb/
-        - http://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619
-        - https://github.com/jaredhanson/passport-local
-        - http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/
-        - http://www.synbioz.com/blog/les_collections_avec_mongodb
-        - https://davidwalsh.name/fullscreen
-        - http://jsfiddle.net/rabidGadfly/GF3Xg/
-        - https://scotch.io/bar-talk/bootstrap-3-tips-and-tricks-you-still-might-not-know
-        - http://www.tutorialspoint.com/mongodb/mongodb_quick_guide.htm
-        - https://jsfiddle.net/alexsuch/RLQhh/
-        - http://blogs.infinitesquare.com/b/seb/archives/gestion-authorization-angularjs#.V2vaP_mLTRY
-        - http://maxlab.fr/javascript/securiser-spa-partie2-client-angularjs/
-        - https://www.occitech.fr/blog/2014/04/lauthentification-avec-angularjs/
-        - https://hnryjms.github.io/2014/04/authentication/
-        - https://gist.github.com/aheckmann/2408370
-        - http://marketblog.envato.com/web-design/addons-plugins-extending-bootstrap/
-        - http://connect.adfab.fr/outils/les-tests-de-charge-kesako
-        - https://github.com/mlazarov/ddos-stress
-        - https://github.com/justintv/Twitch-API
+5. Infos
+    - https://cdnjs.com/libraries/angular.js/1.5.7
+    - https://www.grafikart.fr/formations/angularjs/directives
+    - http://www.angular-js.fr/decouvrez-angularjs/
+    - https://openclassrooms.com/courses/developpez-vos-applications-web-avec-angularjs/
+    - http://stackoverflow.com/questions/22189544/print-a-div-using-javascript-in-angularjs-single-page-aplication
+    - http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr
+    - http://www.tutoriel-angularjs.fr/tutoriel/2-utilisation-complete-d-angularjs/1-le-routage
+    - http://www.tinci.fr/blog/apprendre-angular-en-un-jour-le-guide-ultime/
+    - http://www.funnyant.com/angularjs-ui-router/
+    - https://egghead.io/lessons/angularjs-introduction-ui-router
+    - http://slides.com/timkindberg/ui-router#/
+    - https://github.com/imperugo/NodeJs-Sample/blob/master/Logging/WinstonSample/express-configuration/index.js
+    - https://blog.serverdensity.com/monitor-mongodb/
+    - http://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619
+    - https://github.com/jaredhanson/passport-local
+    - http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/
+    - http://www.synbioz.com/blog/les_collections_avec_mongodb
+    - https://davidwalsh.name/fullscreen
+    - http://jsfiddle.net/rabidGadfly/GF3Xg/
+    - https://scotch.io/bar-talk/bootstrap-3-tips-and-tricks-you-still-might-not-know
+    - http://www.tutorialspoint.com/mongodb/mongodb_quick_guide.htm
+    - https://jsfiddle.net/alexsuch/RLQhh/
+    - http://blogs.infinitesquare.com/b/seb/archives/gestion-authorization-angularjs#.V2vaP_mLTRY
+    - http://maxlab.fr/javascript/securiser-spa-partie2-client-angularjs/
+    - https://www.occitech.fr/blog/2014/04/lauthentification-avec-angularjs/
+    - https://hnryjms.github.io/2014/04/authentication/
+    - https://gist.github.com/aheckmann/2408370
+    - http://marketblog.envato.com/web-design/addons-plugins-extending-bootstrap/
+    - http://connect.adfab.fr/outils/les-tests-de-charge-kesako
+    - https://github.com/mlazarov/ddos-stress
+    - https://github.com/justintv/Twitch-API
+    - https://www.atlassian.com/git/tutorials/undoing-changes/git-clean
     
     
         - https://www.tipeeestream.com/

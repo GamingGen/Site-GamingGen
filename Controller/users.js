@@ -1,7 +1,8 @@
 'use strict';
 
 // Récupération des schémas
-let userSchema = require('../Model/userSchema');
+let userSchema    = require('../Model/userSchema');
+let sessionSchema = require('../Model/sessionSchema');
 
 
 // Récupération des modules
@@ -212,16 +213,40 @@ router.post('/insert', (req, res) => {
 });
 
 /**
- * Récupération de la liste des utilisateurs non-bannis
+ * Récupération de la liste de tous les utilisateurs
  */
-router.get('/listNoBan', (req, res) => {
-  userSchema.find({'access.ban' : false}, (err, rows) => {
+router.get('/refresh', (req, res) => {
+  req.session.reload(function(err) {
+    res.status(200);
+    res.end();
+  })
+});
+/**
+ * Récupération de la liste de tous les utilisateurs
+ */
+router.get('/listAll', (req, res) => {
+  userSchema.find({}, {pseudo: 1, 'access.permissions': 1, 'access.ban': 1}, (err, docs) => {
     if (err) {
       console.error(err);
       res.status(500);
       res.end();
     } else {
-      res.json(rows);
+      res.json(docs);
+    }
+  });
+});
+
+/**
+ * Récupération de la liste des utilisateurs non-bannis
+ */
+router.get('/listNoBan', (req, res) => {
+  userSchema.find({'access.ban' : false}, {pseudo: 1}, (err, docs) => {
+    if (err) {
+      console.error(err);
+      res.status(500);
+      res.end();
+    } else {
+      res.json(docs);
     }
   });
 });
@@ -230,13 +255,13 @@ router.get('/listNoBan', (req, res) => {
  * Récupération de la liste des utilisateurs bannis
  */
 router.get('/listBan', (req, res) => {
-  userSchema.find({'access.ban' : true}, (err, rows) => {
+  userSchema.find({'access.ban' : true}, {pseudo: 1}, (err, docs) => {
     if (err) {
       console.error(err);
       res.status(500);
       res.end();
     } else {
-      res.json(rows);
+      res.json(docs);
     }
   });
 });
@@ -245,7 +270,7 @@ router.get('/listBan', (req, res) => {
  * Bannissement d'un utilisateur
  */
 router.post('/ban', (req, res) => {
-   userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : true}, (err, rows) => {
+   userSchema.findOneAndUpdate({_id : req.body.user.id}, {'access.ban' : true}, (err, docs) => {
     if (err) {
       console.error(err);
       res.status(500);
@@ -263,7 +288,7 @@ router.post('/ban', (req, res) => {
  * Dé-bannissement d'un utilisateur
  */
 router.post('/unban', (req, res) => {
-  userSchema.findOneAndUpdate({'pseudo' : req.body.user}, {'access.ban' : false}, (err, rows) => {
+  userSchema.findOneAndUpdate({_id : req.body.user.id}, {'access.ban' : false}, (err, docs) => {
     if (err) {
       console.error(err);
       res.status(500);
@@ -281,16 +306,16 @@ router.post('/unban', (req, res) => {
 router.post('/validate', (req, res) => {
   console.log("Validation d'un user...");
   console.log("req.body: ", req.body);
-  userSchema.findOneAndUpdate({'access.validationKey': req.body.hash}, {'access.validationKey': '', 'access.level': 1}, (err, rowUpdated) => {
+  userSchema.findOneAndUpdate({'access.validationKey': req.body.hash}, {'access.validationKey': '', 'access.level': 1}, (err, docUpdated) => {
     if (err) {
       console.log("Validate first error : " + err);
       res.status(500);
       res.end();
     } else {
-      if (rowUpdated !== null) {
+      if (docUpdated !== null) {
         req.body = {
-          "email": rowUpdated.email,
-          "password": rowUpdated.password
+          "email": docUpdated.email,
+          "password": docUpdated.password
         };
         res.status(200);
         res.end();
@@ -362,6 +387,46 @@ var userEvent = ServerEvent => {
         ServerEvent.emit('isPseudoExistResult', false, socket);
       }
     });
+  });
+  
+  ServerEvent.on('UpdateUserPermissions', (data, socket) => {
+    let socketIds = [];
+    
+    if (socket.request.session && socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.permissions
+    && socket.request.session.passport.user.permissions.includes('canAddUserPermission')
+    && socket.request.session.passport.user.permissions.includes('canRemoveUserPermission')) {
+      userSchema.findOneAndUpdate({_id: data._id}, {'access.permissions': data.permissions}, {new: true}, (err, docUpdated) => {
+        if (err) {
+          ServerEvent.emit('ErrorOnUserPermissionsUpdated', err.message, socket);
+        }
+        else {
+          sessionSchema.find({session: { "$regex": data._id, "$options": "i" }}, {}, (err, docs) => {
+            if (err) {
+              ServerEvent.emit('ErrorOnUserPermissionsUpdated', err.message, socket);
+            }
+            else {
+              docs.forEach(function (session) {
+                session = session.toObject();
+                session = JSON.parse(session.session);
+                if (session.passport && session.passport.user && session.passport.user.socketId) {
+                  socketIds.push(session.passport.user.socketId);
+                }
+              });
+                if (socketIds.length > 0) {
+                  ServerEvent.emit('UserPermissionsUpdated', docUpdated, socketIds, socket);
+                }
+                else {
+                  ServerEvent.emit('ErrorOnUserPermissionsUpdated', `Socket de l'user non trouvé`, socket);
+                }
+                socketIds = [];
+            }
+          });
+        }
+      });
+    }
+    else {
+      ServerEvent.emit('ErrorOnUserPermissionsUpdated', 'You are not Authorized', socket);
+    }
   });
 };
 

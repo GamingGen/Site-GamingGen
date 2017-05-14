@@ -1,7 +1,9 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'AppControllers' ,'Socket', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
+  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'SocketF', 'RolesS', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
+  const adminLayout = 'container-fluid admin';
+  const normalLayout = 'container';
   
   app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -102,7 +104,7 @@
           templateUrl : '../Partial/Admin/admin.html',
           data        : {
             permissions: {
-              only: ['ADMIN']
+              only: ['canSeeAdmin']
             }
           }
         })
@@ -136,6 +138,35 @@
             }
           }
         })
+        .state('admin.roles', {
+          url         : '/Roles',
+          views       : {
+            ''  : {
+              templateUrl : '../Partial/Admin/adminRoles.html'
+            },
+            'lstUsers@admin.roles' : {
+              templateUrl : '../Partial/Admin/_listUsers.html'
+            },
+            'lstRoles@admin.roles'  : {
+              templateUrl : '../Partial/Admin/_listRoles.html'
+            },
+            'modifRole@admin.roles' : {
+              templateUrl : '../Partial/Admin/_modifRole.html'
+            },
+            'lstPermissions@admin.roles'  : {
+              templateUrl : '../Partial/Admin/_listPermissions.html'
+            }
+          },
+          data        : {
+            permissions: {
+              only: ['ADMIN_ROLES'],
+              redirectTo: {
+                
+                default: 'home'
+              }
+            }
+          }
+        })
         .state('admin.articles', {
           url         : '/adminArticles',
           templateUrl : '../Partial/Admin/adminArticles.html',
@@ -163,18 +194,18 @@
           url         : '/Ban',
           views       : {
             ''  : {
-              templateUrl : '../Partial/Admin/Ban.html'
+              templateUrl : '../Partial/Admin/adminBan.html'
             },
-            'lstUsers@admin.ban'  : {
-              templateUrl : '../Partial/Admin/ListUsers.html'
+            'lstNonBanUsers@admin.ban'  : {
+              templateUrl : '../Partial/Admin/_listNonBanUsers.html'
             },
-            'lstBans@admin.ban'  : {
-              templateUrl : '../Partial/Admin/ListBans.html'
+            'lstBansUsers@admin.ban'  : {
+              templateUrl : '../Partial/Admin/_listBanUsers.html'
             },
           },
           data        : {
             permissions: {
-              only: ['canBan'],
+              only: ['canBan', 'canUnBan'],
               redirectTo: 'home'
             }
           }
