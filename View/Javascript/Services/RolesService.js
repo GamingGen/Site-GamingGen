@@ -52,9 +52,6 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
     angular.forEach(self.permissions, function (permission) {
       delete permission.allowed;
     });
-
-    console.log(self.permissions);
-
     socket.emit('UpdatePermissions', {_id: self._idConf, permissions: self.permissions});
   };
 

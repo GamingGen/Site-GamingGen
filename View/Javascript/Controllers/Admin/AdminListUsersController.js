@@ -34,9 +34,7 @@ AppControllers.controller('AdminListUsersCtrl', ['$scope', '$http', 'socket', 'u
   $scope.updateUser = function () {
     lstUsers.currentPermissions = lstUsers.rolesAndPermissionsService.getCurrentPermissions();
     allPermissions = lstUsers.rolesAndPermissionsService.getAllPermissions();
-    console.log('lstUsers.currentPermissions: ', lstUsers.currentPermissions);
     if (lstUsers.currentPermissions.length > 0) {
-      console.log($scope.selectedUser);
       lstUsers.usersService.sendPermissions($scope.selectedUser, lstUsers.currentPermissions, allPermissions);
     }
   };

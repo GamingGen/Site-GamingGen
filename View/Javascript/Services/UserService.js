@@ -31,8 +31,6 @@ ListRoles.service('usersService', ['socket', function (socket) {
           user.access.permissions.push(_permission);
         }
       });
-
-      console.log({_id: user._id, permissions: user.access.permissions});
       socket.emit('UpdateUserPermissions', {_id: user._id, permissions: user.access.permissions});
     }
   };
