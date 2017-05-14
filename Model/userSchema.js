@@ -50,7 +50,8 @@ let UserSchema = Schema({
                   birthday      : { type: Date, required: true },
                   zip           : { type: Number, required: true },
                   update_at     : { type: Date },
-                  register_date : { type: Date }
+                  register_date : { type: Date },
+                  number_phone  : { type: String, match: /[\+]{0,1}[\d]{0,2}[ |(\d)]{0,4}[\d{1,10}| |\.]{1,14}/ }
                 },
     team      : {
                   name          : { type: String, ref: 'Team' },
@@ -64,6 +65,7 @@ let UserSchema = Schema({
                   permissions   : { type: Array, required: true, default: 'member'},
                   roles         : Object,
                   ban           : { type: Boolean, required: true, default: false },
+                  lost_password : { type: Boolean, required: true, default: false },
                   validationKey : String
                 }
 });
