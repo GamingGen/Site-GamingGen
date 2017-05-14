@@ -1,7 +1,8 @@
 'use strict';
 
 // Récupération des schémas
-let userSchema = require('../Model/userSchema');
+let userSchema    = require('../Model/userSchema');
+let sessionSchema = require('../Model/sessionSchema');
 
 
 // Récupération des modules
@@ -214,6 +215,15 @@ router.post('/insert', (req, res) => {
 /**
  * Récupération de la liste de tous les utilisateurs
  */
+router.get('/refresh', (req, res) => {
+  req.session.reload(function(err) {
+    res.status(200);
+    res.end();
+  })
+});
+/**
+ * Récupération de la liste de tous les utilisateurs
+ */
 router.get('/listAll', (req, res) => {
   userSchema.find({}, {pseudo: 1, 'access.permissions': 1, 'access.ban': 1}, (err, docs) => {
     if (err) {
@@ -380,14 +390,43 @@ var userEvent = ServerEvent => {
   });
   
   ServerEvent.on('UpdateUserPermissions', (data, socket) => {
-    userSchema.findOneAndUpdate({_id: data._id}, {'access.permissions': data.permissions}, {new: true}, function (err, docUpdated) {
-      if (err) {
-        ServerEvent.emit('ErrorOnUserPermissionsUpdated', err.message, socket);
-      }
-      else {
-        ServerEvent.emit('UserPermissionsUpdated', false, socket);
-      }
-    });
+    let socketIds = [];
+    
+    if (socket.request.session && socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.permissions
+    && socket.request.session.passport.user.permissions.includes('canAddUserPermission')
+    && socket.request.session.passport.user.permissions.includes('canRemoveUserPermission')) {
+      userSchema.findOneAndUpdate({_id: data._id}, {'access.permissions': data.permissions}, {new: true}, (err, docUpdated) => {
+        if (err) {
+          ServerEvent.emit('ErrorOnUserPermissionsUpdated', err.message, socket);
+        }
+        else {
+          sessionSchema.find({session: { "$regex": data._id, "$options": "i" }}, {}, (err, docs) => {
+            if (err) {
+              ServerEvent.emit('ErrorOnUserPermissionsUpdated', err.message, socket);
+            }
+            else {
+              docs.forEach(function (session) {
+                session = session.toObject();
+                session = JSON.parse(session.session);
+                if (session.passport && session.passport.user && session.passport.user.socketId) {
+                  socketIds.push(session.passport.user.socketId);
+                }
+              });
+                if (socketIds.length > 0) {
+                  ServerEvent.emit('UserPermissionsUpdated', docUpdated, socketIds, socket);
+                }
+                else {
+                  ServerEvent.emit('ErrorOnUserPermissionsUpdated', `Socket de l'user non trouvé`, socket);
+                }
+                socketIds = [];
+            }
+          });
+        }
+      });
+    }
+    else {
+      ServerEvent.emit('ErrorOnUserPermissionsUpdated', 'You are not Authorized', socket);
+    }
   });
 };
 

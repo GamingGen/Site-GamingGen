@@ -104,7 +104,7 @@
           templateUrl : '../Partial/Admin/admin.html',
           data        : {
             permissions: {
-              only: ['ADMIN']
+              only: ['canSeeAdmin']
             }
           }
         })
@@ -155,6 +155,15 @@
             },
             'lstPermissions@admin.roles'  : {
               templateUrl : '../Partial/Admin/_listPermissions.html'
+            }
+          },
+          data        : {
+            permissions: {
+              only: ['ADMIN_ROLES'],
+              redirectTo: {
+                
+                default: 'home'
+              }
             }
           }
         })

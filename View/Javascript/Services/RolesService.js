@@ -191,7 +191,9 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
         var index = self.permissions
         .findIndex(function(permission) { return permission.name === _permission; });
 
-        self.permissions[index].allowed = true;
+        if (index !== -1) {
+          self.permissions[index].allowed = true;
+        }
       });
     }
     else if (permisssions) {
@@ -205,8 +207,10 @@ ListRoles.service('rolesAndPermissionsService', ['$http', 'socket', function ($h
 
         var index = self.permissions
         .findIndex(function(permission) { return permission.name === _permission; });
-
-        self.permissions[index].allowed = true;
+        
+        if (index !== -1) {
+          self.permissions[index].allowed = true;
+        }
       });
     }
   }

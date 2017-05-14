@@ -55,8 +55,11 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		socket.emit('ErrorOnUserPermissionsUpdated', data);
 	});
 		
-	ServerEvent.on('UserPermissionsUpdated', function(data, socket) {
-		socket.emit('UserPermissionsUpdated', data);
+	ServerEvent.on('UserPermissionsUpdated', function(data, socketIds, socket) {
+		socket.emit('UserPermissionsUpdatedOk', data);
+		socketIds.forEach(socketId => {
+			io.to(socketId).emit('UserPermissionsUpdated', data);
+		});
 	});
 	
 	ServerEvent.on('isMailExistResult', function(data, socket) {
@@ -153,6 +156,14 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
   io.sockets.on('connection', function (socket) {
 	  
 	  console.log('Client Connecté');
+
+		// Save the socket.id
+		socket.request.session.passport.user.socketId = socket.id;
+		socket.request.session.save(function(err) {
+			if (err) {
+				console.log(err);
+			}
+		});
 		
 		socket.on('UpdateRoles', function(data) {
 			ServerEvent.emit('UpdateRoles', data, socket);

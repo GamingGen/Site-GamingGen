@@ -148,6 +148,11 @@ angular.module("AuthServices", [])
     });
   };
   
+  this.refreshAccess = function(data) {
+    SessionService.setValue("session.access", JSON.stringify(data));
+    this.MajCurrentUser();
+  }
+
   this.login = function(user) {
     var self = this;
     
