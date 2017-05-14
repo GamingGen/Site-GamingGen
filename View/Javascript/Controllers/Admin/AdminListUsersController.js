@@ -26,7 +26,6 @@ AppControllers.controller('AdminListUsersCtrl', ['$scope', '$http', 'socket', 'u
     if (selectedUser !== undefined ){
       $scope.selectedUser = selectedUser;
       lstUsers.currentPermissions = selectedUser.access.permissions;
-      console.log('lstUsers.currentPermissions: ', lstUsers.currentPermissions);
       lstUsers.rolesAndPermissionsService.refreshLstPermissions(lstUsers.currentPermissions);
     }
   };
