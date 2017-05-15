@@ -7,37 +7,25 @@
 /**
  * @requires Schema
  */
-const mongoose    = require('mongoose');
-const Schema      = mongoose.Schema;
+const mongoose  = require('mongoose');
+const Schema    = mongoose.Schema;
 
 // Variables
-let id = 0;
 
 // Schéma CommentSchema
 /**
  * @class CommentSchema
- * @param {Number} id - required: true, unique: true, index: true, trim: true
- * @param {String} username - required: true
+ * @param {ObjectID} article_id - Id de l'article associé
+ * @param {String} pseudo - required: true
  * @param {String} text - required: true
- * @param {Date} register_date - required: true, default: Date.now
- * @param {Number} articleId - Id de l'article associé
+ * @param {Date} register_date - required: true
  */
 var CommentSchema = new Schema({
-    id            : { type: Number, required: true, unique: true, index: true, trim: true },
-    username      : { type: String, required: true },
+    article_id    : { type: Schema.Types.ObjectId, ref: 'Article', required: true },
+    pseudo        : { type: String, required: true },
     text          : { type: String, required: true },
-    register_date : { type: Date, required: true, default: Date.now },
-    articleId     : { type: Number, required: true }
+    register_date : { type: Date, required: true }
 });
-
-/**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
- */
-// CommentSchema.post('init', function(doc) {
-//   console.log('CommentSchema : ', doc._id);
-//   id = doc.id;
-// });
 
 /**
  * @function preValidate
@@ -46,7 +34,7 @@ var CommentSchema = new Schema({
  */
 CommentSchema.pre('validate', function(next) {
   // Set de l'id
-  this.id = id++;
+  // this.id = id++;
   
   if (!this.register_date) {
     this.register_date = Date.now();
@@ -69,6 +57,16 @@ CommentSchema.pre('save', function(next) {
  * @description Pour l'instant aucune vérification avant la MAJ
  */
 CommentSchema.pre('findOneAndUpdate', function(next) {
+  next();
+});
+
+/**
+ * @function findOneAndRemove
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Permet de supprimer la reference de l'article
+ */
+CommentSchema.pre('findOneAndRemove', function(next) {
+  mongoose.model('Article').update({comments: this._conditions._id}, { $pull: { comments: this._conditions._id }}).exec();
   next();
 });
 

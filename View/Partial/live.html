@@ -12,7 +12,7 @@
       </div>
       
       <div ng-show="!($parent.live.Youtube || $parent.live.Twitch)">
-        <img ng-src="../Img/Live/LiveInPause2.jpg" class="img-rounded img-responsive" alt="Responsive image"></img>
+        <img ng-src="../Img/Live/LiveInPause2.jpg" ng-image-appear animation="blurIn" class="img-rounded img-responsive img-center" alt="Responsive image"></img>
       </div>
       
       <div ng-if="$parent.live.Youtube">

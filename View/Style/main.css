@@ -87,6 +87,15 @@ a:hover{
   text-decoration:none;
 }
 
+.img-center {
+  margin: auto;
+}
+
+.img-news {
+  width: 100px;
+  margin-right: 10px;
+}
+
 h1, h2, .panel-title , h4.modal-title {
   font-family: 'TitlingGothicFBCondRegular';
   /*font-size: 2.40em;*/
@@ -120,6 +129,9 @@ h4.modal-title {
   justify-content: center;
   padding-left:15px;
   padding-right: 15px;
+}
+:disabled{
+  color:red;
 }
 .modal-body{
   height:100%;
@@ -207,25 +219,25 @@ font-size:0.8em;
   padding-left:0px;
   padding-right:0px;
 }
-.btn-primary.disabled, .btn-primary.disabled.active, .btn-primary.disabled.focus, .btn-primary.disabled:active, .btn-primary.disabled:focus, .btn-primary.disabled:hover, .btn-primary[disabled], .btn-primary[disabled].active, .btn-primary[disabled].focus, .btn-primary[disabled]:active, .btn-primary[disabled]:focus, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary.active, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover{
-  background-color: #64DC16!important;
-}
-.btn-primary{
-  background-color: #64DC16;
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
-  -ms-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-}
-.btn-primary:focus, .btn-primary:hover {
-  background-color: #64DC16;
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
-  -ms-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-}
+/*.btn-primary.disabled, .btn-primary.disabled.active, .btn-primary.disabled.focus, .btn-primary.disabled:active, .btn-primary.disabled:focus, .btn-primary.disabled:hover, .btn-primary[disabled], .btn-primary[disabled].active, .btn-primary[disabled].focus, .btn-primary[disabled]:active, .btn-primary[disabled]:focus, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary.active, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover{*/
+/*  background-color: #64DC16!important;*/
+/*}*/
+/*.btn-primary{*/
+/*  background-color: #64DC16;*/
+/*  -webkit-transition: all 0.3s ease-out;*/
+/*  -moz-transition: all 0.3s ease-out;*/
+/*  -o-transition: all 0.3s ease-out;*/
+/*  -ms-transition: all 0.3s ease-out;*/
+/*  transition: all 0.3s ease-out;*/
+/*}*/
+/*.btn-primary:focus, .btn-primary:hover {*/
+/*  background-color: #64DC16;*/
+/*  -webkit-transition: all 0.3s ease-out;*/
+/*  -moz-transition: all 0.3s ease-out;*/
+/*  -o-transition: all 0.3s ease-out;*/
+/*  -ms-transition: all 0.3s ease-out;*/
+/*  transition: all 0.3s ease-out;*/
+/*}*/
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   background-color: #7B7B7B!important;
   background-image: none;
@@ -273,6 +285,14 @@ span.ng-binding h2{
     color: #dc2b00;
     border-color: transparent;
     font-size: 1em;
+        background-color: transparent;
+    color: #dc2b00;
+    border-color: transparent;
+    font-size: 1em;
+    position: relative;
+    padding: 0;
+    top: 30px;
+    left: 15px;
 }
 .backgroundInscription{
   display: flex;
@@ -400,18 +420,18 @@ span.ng-binding h2{
   height  :290px;
   width   : 100%;
 }
-.btn{
-  outline: none;
-  height: 50px;
-  width: 100px;
-  border-radius: 30px;
-  background-image:none;
-  border:0px;
-  font-size: 1.4em;
-  font-family: 'TitlingGothicFBCondRegular';
+/*.btn{*/
+/*  outline: none;*/
+/*  height: 50px;*/
+/*  width: 100px;*/
+/*  border-radius: 30px;*/
+/*  background-image:none;*/
+/*  border:0px;*/
+/*  font-size: 1.4em;*/
+/*  font-family: 'TitlingGothicFBCondRegular';*/
   /*font-size: 2.40em;*/
-  text-transform: uppercase;
-}
+/*  text-transform: uppercase;*/
+/*}*/
 .btn-danger{
   background-color: #7b7b7b;
 }
@@ -595,7 +615,8 @@ margin-top: 0px!important;
   top: 60px;
 }
 
-.admin-container .dropdown-menu .divider {
+
+.dropdown-menu .divider {
   height: 1px;
   background-color: rgb(229, 229, 229);
   margin: 0px 0px !important;
@@ -675,7 +696,7 @@ margin-top: 0px!important;
 .admin-container .dropdown-menu {
   margin-top: 14px !important;
   left: -57px;
-  z-index: 99;
+  /*z-index: 99;*/
   position: absolute;
 }
 .navbar-inverse .navbar-nav>li>a{
@@ -694,6 +715,10 @@ margin-top: 0px!important;
   padding-top: 20px;
   padding-left:40px;
 }
+.loading-message{
+  width:60%;
+  margin:0 auto;
+}
 .navbar a{
   cursor:pointer;
   font-size:1.3em;
@@ -709,10 +734,10 @@ margin-top: 0px!important;
 .navbar-inverse{
   border:0px;
 }
+
 .slider {
-  background: url("http://multijoueur.ca/wp-content/uploads/2016/04/LAN-PARTY-Gabriel-Kuling.jpg") center center no-repeat;
+  background: url("../Img/General/LAN-PARTY.min.jpg") center center no-repeat;
   background-size: cover;
-  -webkit-background-size: cover;
   position:relative;
   margin-top: 1px;
   height: 450px;
@@ -767,6 +792,9 @@ margin-top: 0px!important;
   z-index:15;
   color:#F4F4F4;
   float:left;
+}
+.img-rounded{
+  border-radius:2px;
 }
 .imgbox{
   overflow:hidden;
@@ -881,7 +909,7 @@ height:25vw;
   height:290px;
 }
 .boxmid{
-  background:url('../Img/compe.jpg')center center;
+  background:url('../Img/General/arena.jpg')center center;
   background-size: cover;
   -webkit-background-size: cover;
   width: 25%;
@@ -1429,6 +1457,19 @@ height:25vw;
   right:0;
   justify-content:flex-end;
   
+}
+.bienvenue-user-pseudo-alternate{
+      left: -60px;
+  border-left:none!important;
+}
+.bienvenue-user-pseudo-alternate:hover{
+  background:transparent!important;
+}
+.admin-alternate{
+  position:absolute;
+}
+.demiSocial-alternate{
+ right: -60px!important;
 }
 .socialBloc{
   right:0px;

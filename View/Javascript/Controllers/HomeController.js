@@ -1,7 +1,7 @@
 'use strict';
 
 var AppControllers = angular.module('AppControllers');
-AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', '$location', '$anchorScroll', function($http, $scope, socket, $filter, $location, $anchorScroll){
+AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', function($http, $scope, socket){
   // ----- Init -----
   var news      = this;
   news.articles = [];
@@ -22,27 +22,38 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', '
     player.mute();
   });
   
-  $http.get('/articles/home').success(function(data) {
-    news.articles = data;
+  $http.get('/articles/home').then(function(data) {
+    news.articles = data.data;
+  }).catch(function(err) {
+    console.log(err);
   });
   
   socket.on('NewArticle', function(data) {
-    data.register_date = new Date().toISOString();
-    data.comments = [];
     news.articles.push(data);
+  });
+  
+  socket.on('ArticleUpdated', function(articleUpdated) {
+    var index = news.articles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
+    news.articles[index] = articleUpdated;
+  });
+  
+  socket.on('ArticleRemoved', function(id) {
+    // var index = news.articles.map(function(element) { return element._id; }).indexOf(id);
+    // news.articles.splice(index, 1);
+      $http.get('/articles/home').then(function(data) {
+      news.articles = data.data;
+    }).catch(function(err) {
+      console.log(err);
+    });
   });
   
   socket.on('NewComment', function(data) {
     // On met à jour le commentaire dans la liste
-    news.articles.find(function(art) {return art.id === data.articleId}).comments.push(data);
+    news.articles.find(function(article) {return article._id === data.article_id}).comments.push(data);
   });
   
   
   // ----- Public Méthode -----
-  $scope.scrollTo = function(id) {
-    $location.hash(id);
-    $anchorScroll();
-   };
   
   // ----- Private Méthode -----
   

@@ -2,7 +2,7 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$scope', '$transitions', 'socket', '$window', '$http', function(UserService, $location, $state, $scope, $transitions, socket, $window, $http) {
+AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$scope', '$transitions', 'socket', '$window', '$http', '$document', function(UserService, $location, $state, $scope, $transitions, socket, $window, $http, $document) {
   // ----- Init -----
   var user        = {};
   var pages       = {};
@@ -38,9 +38,49 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     $scope.isPseudoExist = data;
   });
   
+  socket.on('UserPermissionsUpdatedOk', function(data) {
+    $("#msgInfo").html('Permissions mises à jour pour le user : ' + data.pseudo);
+    $("#msgInfo").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('UserPermissionsUpdated', function(data) {
+    $http.get('/users/refresh').then(function() {
+      UserService.refreshAccess(data.access)
+    }).catch(function(err) {
+      console.log(err);
+    });
+    $("#msgInfo").html('Vos drois ont était mis à jours');
+    $("#msgInfo").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('ErrorOnUserPermissionsUpdated', function(data) {
+    $("#msgError").html(data.message);
+    $("#msgError").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('RolesUpdated', function(data) {
+    $("#msgInfo").html('Permissions mises à jour pour la configuration : ' + data.name);
+    $("#msgInfo").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('ErrorOnRolesUpdated', function(data) {
+    $("#msgError").html(data.message);
+    $("#msgError").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('PermissionsUpdated', function(data) {
+    $("#msgInfo").html('Permissions mises à jour pour la configuration : ' + data.name);
+    $("#msgInfo").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('ErrorOnPermissionsUpdated', function(data) {
+    $("#msgError").html(data.message);
+    $("#msgError").show().delay(3000).fadeOut();
+  });
+
   // Déconnexion si utilisateur banni
   socket.on('BanUser', function(user) {
-    if ($scope.User !== undefined && $scope.User.pseudo === user) {
+    if ($scope.User !== undefined && $scope.User.pseudo === user.pseudo) {
       UserService.logout().success(function() {
         $state.go('home');
       });
@@ -100,7 +140,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     
     console.log(JSON.stringify(user));
     $http.post('/users/insert', JSON.stringify(user))
-      .success(function(data){
+      .then(function(data){
         $scope.firstName = '';
         $scope.lastName  = '';
         $scope.pseudo    = '';
@@ -114,11 +154,11 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
         
         $('#registrationModal').modal('toggle');
         
-        console.log('data: ', data);
-        $("#msgInfo").html(data.message);
+        console.log('data: ', data.data);
+        $("#msgInfo").html(data.data.message);
         $("#msgInfo").show().delay(3000).fadeOut();
       })
-      .error(function(err) {
+      .catch(function(err) {
         $scope.firstName = '';
         $scope.lastName  = '';
         $scope.pseudo    = '';
@@ -139,8 +179,11 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     console.log('Logout Call');
     
     UserService.logout()
-    .success(function() {
+    .then(function() {
       $state.go('home');
+    })
+    .catch(function(err) {
+      console.log(err)
     });
   };
   
@@ -157,6 +200,10 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     
     // $scope.isMailExist = false;
     // $scope.isPseudoExist = false;
+  };
+  
+  $scope.toTheTop = function() {
+    $document.scrollTop(0, 500);
   };
   
   // Launch fullscreen for browsers that support it!

@@ -7,14 +7,14 @@
  * <b>~5 306 442</b> de lignes de code <br />
  * <br />
  * Date de Création 30/04/2016 <br />
- * Date de modification 18/03/2017 <br />
+ * Date de modification 29/04/2017 <br />
  * 
- * @version Alpha 1.1.0
+ * @version Alpha 1.3.0
  * 
  * @author Jérémy Young            <darkterra01@gmail.com>
- * @author Loïc Tardivel-Lacombe   <>
- * @author Laura Auboin Maurizio   <>
- * @author Frédéric Guazzini       <>
+ * @author Loïc Tardivel-Lacombe   <loic.tardivel@gmail.com>
+ * @author Laura Auboin Maurizio   <lala@gaming-gen.fr>
+ * @author Frédéric Guazzini       <lala@gaming-gen.fr>
  * 
  */
 
@@ -107,7 +107,7 @@ const port = process.env.PORT || 3000;
 const EXPRESS_SID_VALUE = 'Secret Keyboard DarkTerra Cat';
 const sessionMiddleware = session({
   secret              : EXPRESS_SID_VALUE,
-  resave              : false,
+  resave              : true,
   saveUninitialized   : true,
   store               : new MongoStore({ mongooseConnection: mongoose.connection })
 });
@@ -140,11 +140,11 @@ let authStrategy = new LocalStrategy({
 });
 
 let authSerializer = (user, done) => {
-	done(null, user._id);
+	done(null, {_id: user._id, permissions: user.access.permissions});
 };
 
-let authDeserializer = (id, done) => {
-	User.userSchema.findById(id, (error, user) => {
+let authDeserializer = (user, done) => {
+	User.userSchema.findById(user._id, (error, user) => {
 		done(error, user);
 	});
 };
@@ -187,6 +187,7 @@ app.use('/menusnacks', MenuSnack.router);
 app.use('/shop', Shop.router);
 app.use('/order', Order.router);
 
+
 // Functions
 function shouldCompress(req, res) {
   if (req.headers['x-no-compression']) {
@@ -200,7 +201,9 @@ function shouldCompress(req, res) {
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     // req.user is available for use here
-    return next(); }
+    console.log('Im Auth Muahahahahahahahahhahahahahahhahah !!!');
+    return next();
+  }
 
   // denied
   res.status(401);
@@ -213,7 +216,7 @@ function startMessage (err, nodeVersion, refVersion) {
     console.log(`Version demandé : ${refVersion}, votre version : ${nodeVersion}`.data);
   }
   else {
-    console.log(`Version du server OK...`.verbose);
+    console.log(`\nVersion du server OK...`.verbose);
     console.log(`La version du serveur Node.JS : `.data + process.version.warn);
     console.log(`Le serveur Node.JS fonctionne sur la plateforme : `.data + process.platform.warn);
   }
@@ -232,10 +235,6 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     const nodeVersionMajeur = parseInt(nodeVersion[0], 10);
     const nodeVersionMineur = parseInt(nodeVersion[1], 10);
     const nodeVersionFix    = parseInt(nodeVersion[2], 10);
-    
-    console.log(operator);
-    console.log(refVersion);
-    console.log(nodeVersion);
     
     if (operator === '>=') {
       if (nodeVersionMajeur > refVersionMajeur) {
@@ -259,8 +258,9 @@ fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
 
     // Création du serveur
     http.listen(port, () => {
-      console.log(`\nSI-GamingGen listening at 127.0.0.1:${port}`.verbose);
+      console.log(`\n\nSI-GamingGen listening at 127.0.0.1:${port}`.verbose);
       console.log('La plateforme fonctionne depuis : '.data + colors.warn(moment.duration((os.uptime().toFixed(0))*1000).humanize()));
+      console.log();
     });
   });
 

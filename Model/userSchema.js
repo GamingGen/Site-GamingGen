@@ -45,12 +45,13 @@ let UserSchema = Schema({
     password  : { type: String, required: true },
     email     : { type: String, required: true, unique: true, match: /.{2,}\@.{2,10}\..{2,3}/ },
     general   : {
-                  first_name    : { type: String, required: true },
-                  last_name     : { type: String, required: true },
+                  first_name    : { type: String, required: true, lowercase: true },
+                  last_name     : { type: String, required: true, lowercase: true },
                   birthday      : { type: Date, required: true },
                   zip           : { type: Number, required: true },
-                  update_at     : { type: Date, default: Date.now },
-                  register_date : { type: Date, default: Date.now }
+                  update_at     : { type: Date },
+                  register_date : { type: Date },
+                  number_phone  : { type: String, match: /[\+]{0,1}[\d]{0,2}[ |(\d)]{0,4}[\d{1,10}| |\.]{1,14}/ }
                 },
     team      : {
                   name          : { type: String, ref: 'Team' },
@@ -61,18 +62,12 @@ let UserSchema = Schema({
     access    : {
                   token         : String,
                   level         : { type: Number, required: true, default: 0 },
-                  groups        : { type: Array, required: true, default: ['member'] }, // TODO Save a referential Array in DB
+                  permissions   : { type: Array, required: true, default: 'member'},
+                  roles         : Object,
                   ban           : { type: Boolean, required: true, default: false },
+                  lost_password : { type: Boolean, required: true, default: false },
                   validationKey : String
                 }
-});
-
-/**
- * @function postInit
- * @description Ici seul un console.log affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */
-UserSchema.post('init', function(doc) {
-  console.log('UserSchema : ', doc._id);
 });
 
 /**
@@ -97,10 +92,9 @@ UserSchema.pre('validate', function(next) {
  * @description Chiffre le MDP et enregistre nouvel utilisateur
  */
 UserSchema.pre('save', function(next) {
-  var dateNow = Date.now();
-  this.general.update_at = dateNow;
+  this.general.update_at = Date.now();
   if (this.isNew) {
-    this.general.register_date = dateNow;
+    this.general.register_date = this.general.update_at;
     this.password = bcrypt.hashSync(this.password, saltRounds);
   }
   next();
@@ -144,13 +138,14 @@ UserSchema.post('save', function(error, doc, next) {
 UserSchema.statics.authenticate = function(email, password, callback) {
   console.log(email);
   console.log(password);
-	this.findOne({ email: email }, function(error, user) {
+	this.findOne({ email: email })
+  .populate('confs.roles')
+  .exec(function(error, user) {
 		if (user && bcrypt.compareSync(password, user.password)) {
 		  // Remove Password before send to the client
       user = user.toObject();
       delete user.password;
-      
-		  console.log('user after delete: ', user);
+      console.log(user);
 			callback(null, user);
 		} else if (user || !error) {
 			// Email or password was invalid (no MongoDB error)

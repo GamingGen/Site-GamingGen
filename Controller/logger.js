@@ -8,10 +8,11 @@ const fs = require('fs');
 
 const dirname = 'Logs';
 const logPath = path.join(__dirname, '..', dirname, 'all-logs.log');
+const logErrorPath = path.join(__dirname, '..', dirname, 'all-errors-logs.log');
 
 fs.access(path.dirname(logPath), fs.R_OK | fs.W_OK, (err) => {
-  console.log(err ? 'no access!' : 'can read/write');
   if (err) {
+    console.log('no access !');
     fs.mkdir(dirname, (err) => {
       if (err) {
         console.error(err);
@@ -27,8 +28,19 @@ fs.access(path.dirname(logPath), fs.R_OK | fs.W_OK, (err) => {
 var logger = new winston.Logger({
   transports: [
     new winston.transports.File({
+      name: 'info-file',
       level: 'info',
       filename: logPath,
+      handleExceptions: false,
+      json: true,
+      maxsize: 5242880, //5MB
+      maxFiles: 5,
+      colorize: false
+    }),
+    new winston.transports.File({
+      name: 'error-file',
+      level: 'error',
+      filename: logErrorPath,
       handleExceptions: true,
       json: true,
       maxsize: 5242880, //5MB
@@ -36,7 +48,7 @@ var logger = new winston.Logger({
       colorize: false
     }),
     new winston.transports.Console({
-      level: 'debug',
+      level: 'error',
       handleExceptions: true,
       json: false,
       colorize: true

@@ -6,12 +6,13 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', 'UserService', function($scope, $http, socket, $sce, UserService) {
+AppControllers.controller('articleCtrl', ['$scope', '$http', '$state', 'socket', '$sce', 'UserService', function($scope, $http, $state, socket, $sce, UserService) {
   // ----- Init -----
   var commentsLength            = 0;
   var jump                      = 0;
   $scope.disableInfiniteScroll  = true;
   $scope.step                   = 5;
+  $scope.maxlength              = 500;
   $scope.comments               = [];
   var articlesCtrl              = this;
   articlesCtrl.currentArticle   = {};
@@ -22,45 +23,40 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
 
   // ----- GET / SET Data -----
   if ($scope.idArticle !== undefined) {
-    $http.get('/articles/' + $scope.idArticle).success(function(article) {
+    $http.get('/articles/' + $scope.idArticle).then(function(article) {
       if (article !== null)
       {
-        articlesCtrl.currentArticle = article;
-        
-        // Triage des commentaire du plus récent au plus ancien
-        articlesCtrl.currentArticle.comments.sort(function (a, b) {
-          return b.id - a.id;
-        });
+        articlesCtrl.currentArticle = article.data;
         commentsLength = articlesCtrl.currentArticle.comments.length;
         $scope.disableInfiniteScroll = commentsLength < $scope.step;
         $scope.loadMore();
       }
       else
       {
-        errorOnGetArticle();
+        errorOnPageArticle();
       }
-    }).error(function() {
-      errorOnGetArticle();
+    }).catch(function() {
+      errorOnPageArticle();
     });
   }
   
   
   // ----- Public Méthode -----
   $scope.submitComment = function() {
-    if ($scope.commentData && $scope.commentData.length > 0) {
+    if (user.isLoggedIn && $scope.commentText && $scope.commentText.length > 0) {
       var comment = {
-            articleId : Number($('#articleId').val()),
-            username  : user.isLoggedIn ? user.pseudo : 'Un visiteur du futur',
-            text      : $scope.commentData
-          };
+        article_id  : $('#articleId').val(),
+        pseudo      : user.pseudo,
+        text        : $scope.commentText
+      };
       
       socket.emit('saveComment', comment);
       
-      $scope.commentData = "";
+      $scope.commentText = "";
       articlesCtrl.showCommentZone = false;
     }
     else {
-      errorOnGetArticle();
+      errorOnPageArticle("Une erreur c'est produit lors de l'envoit de votre commentaire, veuillez réessayer ultérieurement.");
     }
   };
 
@@ -73,10 +69,10 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
       }
       else {
         if (($scope.comments.length + $scope.step) > commentsLength) {
-          jump = commentsLength
+          jump = commentsLength;
         }
         else {
-          jump = $scope.comments.length + $scope.step
+          jump = $scope.comments.length + $scope.step;
         }
         $scope.comments = articlesCtrl.currentArticle.comments.slice(0, jump);
       }
@@ -97,16 +93,21 @@ AppControllers.controller('articleCtrl', ['$scope', '$http', 'socket', '$sce', '
   // ----- Private Méthode -----
   
   // Gestion des erreurs
-  function errorOnGetArticle() {
-    $("#msgError").html("Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.");
+  function errorOnPageArticle(text) {
+    var message = text || "Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement.";
+
+    $("#msgError").html(message);
     $("#msgError").show().delay(3000).fadeOut();
+    if (text === undefined) {
+      $state.go('home');
+    }
   }
   
   
   // ----- Events -----
   socket.on('NewComment', function(data) {
     // On met à jour le commentaire dans la liste
-    if (articlesCtrl.currentArticle.id === data.articleId)
+    if (articlesCtrl.currentArticle._id === data.article_id)
       $scope.comments.push(data);
   });
   

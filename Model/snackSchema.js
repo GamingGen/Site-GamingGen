@@ -46,14 +46,6 @@ var SnackSchema = new Schema({
 });
 
 /**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */
-// SnackSchema.post('init', function(doc) {
-//   console.log('SnackSchema : ', doc._id);
-// });
-
-/**
  * @function CheckOrder
  * @description Permet de vérifier la commande (Nom des items, leur prix et le total).<br />
  * Si jamais il y a une différence, la valeur utiliser sera celle calculé ou récupéré par la BDD.

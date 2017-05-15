@@ -14,25 +14,17 @@ const Schema                = mongoose.Schema;
 // Schéma AccueilSchema
 /**
  * @class AccueilSchema
- * @param {String} username - required: true
+ * @param {String} pseudo - required: true
  * @param {String} title - required: true
  * @param {String} text - required: true
  * @param {Date} register_date - required: true, default: Date.now
  */
 let AccueilSchema = new Schema({
-    username      : { type: String, required: true },
+    pseudo        : { type: String, required: true },
     title         : { type: String, required: true },
     text          : { type: String, required: true },
     register_date : { type: Date, required: true, default: Date.now }
 });
-
-/**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */
-// AccueilSchema.post('init', function(doc) {
-//   console.log('AccueilSchema : ', doc._id);
-// });
 
 /**
  * @function preValidate

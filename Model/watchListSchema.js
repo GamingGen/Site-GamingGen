@@ -13,21 +13,13 @@ var Schema                = mongoose.Schema;
 // Schéma WatchListSchema
 /**
  * @class WatchListSchema
- * @param {String} username - required: true
+ * @param {String} pseudo - required: true
  * @param {Date} register_date - required: true, default: Date.now
  */
 var WatchListSchema = new Schema({
-    username      : { type: String, required: true },
+    pseudo        : { type: String, required: true },
     register_date : { type: Date, required: true, default: Date.now }
 });
-
-/**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */
-// WatchListSchema.post('init', function(doc) {
-//   console.log('WatchListSchema : ', doc._id);
-// });
 
 /**
  * @function preValidate

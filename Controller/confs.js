@@ -8,17 +8,32 @@ var confSchema = require('../Model/confSchema');
 var exports = module.exports = {};
 
 router.get('/', function (req, res) {
-    confSchema.find({}, function (err, docs) {
-        res.json(docs);
-    });
+  confSchema.find({}, function (err, docs) {
+  if (err) {
+    console.log(err);
+  }
+      res.json(docs);
+  });
 });
 
-
 router.get('/typeMenu', function (req, res) {
-    confSchema.findOne({}, 'snack', {sort: {$natural: -1}}, function (err, docs) {
-      console.log(docs);
-      res.json(docs.snack.type_menu);
-    });
+  confSchema.findOne({}, 'snack', {sort: {$natural: -1}}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(docs);
+    res.json(docs.snack.type_menu);
+  });
+});
+
+router.get('/roles', function (req, res) {
+  confSchema.findOne({}, 'roles', {sort: {$natural: -1}}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    // console.log(docs);
+    res.json(docs.roles);
+  });
 });
 
 router.get('/shop', function (req, res) {
@@ -28,6 +43,21 @@ router.get('/shop', function (req, res) {
     });
 });
 
+router.get('/roles', function (req, res) {
+    confSchema.findOne({}, {_id: false, roles: true}, {sort: {$natural: -1}}, function (err, docs) {
+      res.json(docs.roles);
+    });
+});
+
+router.get('/roles', function (req, res) {
+  confSchema.findOne({}, {roles : 1}, {sort: {$natural: -1}}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    // console.log(docs);
+    res.json(docs);
+  });
+});
 
 // var users = {
 // 		password_min_length: 8
@@ -75,6 +105,25 @@ router.get('/shop', function (req, res) {
 //     console.log((user));
 //   });
 // });
+router.get('/permissions', function (req, res) {
+  confSchema.findOne({}, {permissions : 1}, {sort: {$natural: -1}}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    // console.log(docs);
+    res.json(docs);
+  });
+});
+
+router.get('/rolesandpermissions', function (req, res) {
+  confSchema.findOne({}, {roles: 1, permissions : 1}, {sort: {$natural: -1}}, function (err, docs) {
+    if (err) {
+      console.log(err);
+    }
+    // console.log(docs);
+    res.json(docs);
+  });
+});
 
 
 // ------------------------------ Events ------------------------------
@@ -102,6 +151,40 @@ var confEvent = function(ServerEvent) {
       else
       {
         console.log('Ok');
+      }
+    });
+  });
+  ServerEvent.on('UpdateRoles', function(data, socket) {
+    confSchema.findOneAndUpdate({_id: data._id}, {roles: data.roles}, {new: true}, function (err, docUpdated) {
+      if (err) {
+        //throw err;
+        console.error(err);
+        ServerEvent.emit('ErrorOnRolesUpdated', err.message, socket);
+      }
+      else {
+        if (docUpdated !== null) {
+          ServerEvent.emit('RolesUpdated', docUpdated, socket);
+        }
+        else {
+          console.error(err);
+        }
+      }
+    });
+  });
+  ServerEvent.on('UpdatePermissions', function(data, socket) {
+    confSchema.findOneAndUpdate({_id: data._id}, {permissions: data.permissions}, {new: true}, function (err, docUpdated) {
+      if (err) {
+        //throw err;
+        console.error(err);
+        ServerEvent.emit('ErrorOnPermissionsUpdated', err.message, socket);
+      }
+      else {
+        if (docUpdated !== null) {
+          ServerEvent.emit('PermissionsUpdated', docUpdated, socket);
+        }
+        else {
+          console.error(err);
+        }
       }
     });
   });

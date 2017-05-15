@@ -12,8 +12,10 @@ AppControllers.controller('shopCtrl', ['$scope', 'socket', '$http', function($sc
   
   
   // ----- GET / SET Data -----
-  $http.get('/shop/getProducts').success(function(data) {
-    shop.lists = data.elements;
+  $http.get('/shop/getProducts').then(function(data) {
+    shop.lists = data.data.elements;
+  }).catch(function(err) {
+    console.log(err);
   });
   
   $scope.idSelectedElement = undefined;

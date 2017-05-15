@@ -1,47 +1,243 @@
 <div ng-controller="adminArticleCtrl as article">
-  <div class="row">
-    <div class="col-md-3">
-      <form>
-        <input type="text" class="form-control" id="title" ng-model="title" placeholder="Titre" required>
-      </form>
-    </div>
-    <div class="col-md-9">
-      <form>
-        <input type="text" class="form-control" id="desc" ng-model="desc" placeholder="Description" required>
-      </form>
-    </div>
-  </div>
-  <br/>
-  <div class="row">
-    <div class="col-md-3">
-      <form>
-        <label>
-          <input type="radio" ng-model="type.name" value="hot_news">
-          Hot News
-        </label>
-        <label>
-          <input type="radio" ng-model="type.name" value="critical_info">
-          Info Crucial
-        <!--<input type="radio" class="form-control" id="desc" ng-model="desc" placeholder="Description" required>-->
-      </form>
-    </div>
-    <div class="col-md-9">
-      <form>
-        <input type="text" class="form-control" id="picture" ng-model="picture" placeholder="Image (URL)" required>
-      </form>
+  
+  <!-- Suppression Modal -->
+  <div class="modal fade" id="rmModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Validation</h4>
+        </div>
+        <div class="modal-body">
+          <p>Etes vous sur de vouloir supprimer ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button"ng-click="removeArticle()" data-dismiss="modal" class="btn btn-error">Supprimer</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        </div>
+      </div>
     </div>
   </div>
+  <!--<div class="modal fade container" id="rmModal" tabindex="-1" role="dialog" aria-labelledby="rmModalLabel">-->
+  <!--  <div class="modal-dialog modal-lg" role="document">-->
+  <!--    <div class="modal-content inscriptionModal">-->
+  <!--      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+  <!--      <div class="modal-body col-md-6">-->
+  <!--        <div class="bottomFooter row">-->
+  <!--          <a type="submit" ng-click="" class="btn btn-error">Supprimer</a>-->
+  <!--          <a type="button" id="closeConnection" class="btn btn-warning" data-dismiss="modal">Annuler</a>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--</div>-->
+  
+  
+  
+  
   <div class="row">
     <div class="col-md-12">
-      <form>
-        <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
-      </form>
-    </div>
-  </div>
-  <br/>
-  <div class="row">
-    <div class="col-md-12">
-      <button type="button" ng-click="getContent()" class="btn btn-primary">Enregistrer l'article</button>
+      <ul class="nav nav-tabs nav-justified">
+        <li role="presentation" ng-class="{active: isSelected(1)}"><a ng-click="selectTab(1)">Créer un nouvel article</a></li>
+        <li role="presentation" ng-class="{active: isSelected(2)}"><a ng-click="selectTab(2)">Gérer les articles</a></li>
+        <li role="presentation" ng-class="{active: isSelected(3)}"><a ng-click="selectTab(3)">Gérer les commentaires</a></li>
+      </ul>
+      <br/>
+      <div class"pannel" ng-show="isSelected(1)">
+        <div class="row">
+          <div class="col-md-3">
+            <form>
+              <input type="text" class="form-control" id="title" ng-model="title" placeholder="Titre" required>
+            </form>
+          </div>
+          <div class="col-md-9">
+            <form>
+              <input type="text" class="form-control" id="desc" ng-model="desc" placeholder="Description" required>
+            </form>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-md-3">
+            <form>
+              <label>
+                <input type="radio" ng-model="type.name" value="hot_news">
+                Hot News
+              </label>
+              <label>
+                <input type="radio" ng-model="type.name" value="critical_info">
+                Info Crucial
+            </form>
+          </div>
+          <div class="col-md-9">
+            <form>
+              <input type="text" class="form-control" id="picture" ng-model="picture" placeholder="Image (URL)" required>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <form>
+              <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
+            </form>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-md-12">
+            <button type="button" ng-show="newArticle" ng-click="getContent()" class="btn btn-success">Enregistrer l'article</button>
+            <button type="button" ng-hide="newArticle" ng-click="getContent()" class="btn btn-warning">Modifier l'article</button>
+          </div>
+        </div>
+      </div>
+      <div class"pannel" ng-show="isSelected(2)">
+        <div class="row">
+          <div class="col-md-4">
+            <input type="search" placeholder="Titre" ng-model="titleArticle.title" />
+          </div>
+          <div class="col-md-8">
+            <input type="search" placeholder="Auteur" ng-model="titleArticle.pseudo" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 table-responsive">
+            <table class="table table-striped table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Titre
+                  </th>
+                  <th>
+                    Desc
+                  </th>
+                  <th>
+                    Auteur
+                  </th>
+                  <th>
+                    Date de Création
+                  </th>
+                  <th>
+                    Date de Modification
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="article in article.lstArticles | orderBy : '-update_at' | filter : titleArticle" ng-click="setArticleSelected($index)" ng-class="{success: $index === selectedArticle}">
+                  <td>
+                    <button ngclipboard data-clipboard-text="{{baseArticleUrl}}{{article._id}}" ngclipboard-success="onSuccess(e);" ngclipboard-error="onError(e);" class="btn btn-primary" title="Copier le lien"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+                    <button permission permission-only="'ADMIN_REDACTEUR'" ng-click="prepareRemoveArticle(article)" class="btn btn-danger" data-toggle="modal" data-target="#rmModal" title="Supprimer l'article"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button ng-show="(user.isLoggedIn && canEditArticle && article.pseudo === user.pseudo) || canEditOtherArticle" class="btn btn-warning" ng-click="editArticle(article)" title="modifier l'article"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  </td>
+                  <td>
+                    {{article.title}}
+                  </td>
+                  <td>
+                    {{article.desc}}
+                  </td>
+                  <td>
+                    {{article.pseudo}}
+                  </td>
+                  <td>
+                    {{article.register_date | date : 'dd MMM yyyy - HH:mm:ss'}}
+                  </td>
+                  <td>
+                    {{article.update_at | date : 'dd MMM yyyy - HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class"pannel" ng-show="isSelected(3)">
+        <div class="row">
+          <div class="col-md-4">
+            <input type="search" placeholder="Titre" ng-model="titleArticle.title" />
+          </div>
+          <div class="col-md-8">
+            <input type="search" placeholder="Auteur" ng-model="commentArticle.pseudo" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <table class="table table-striped table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    Titre
+                  </th>
+                  <th>
+                    Auteur
+                  </th>
+                  <th>
+                    Date de Modification
+                  </th>
+                  <th>
+                    Nb Commentaires
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="article in article.lstArticles | orderBy : '-update_at' | filter : titleArticle" ng-click="setSelected($index, article)" ng-class="{success: $index === idSelectedElement}">
+                  <td>
+                    {{article.title}}
+                  </td>
+                  <td>
+                    {{article.pseudo}}
+                  </td>
+                  <td>
+                    {{article.update_at | date : 'dd MMM yyyy - HH:mm:ss'}}
+                  </td>
+                  <td>
+                    {{article.comments.length}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+            
+          <div class="col-md-8 table-responsive">
+            <table class="table table-striped table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Commentaire
+                  </th>
+                  <th>
+                    Auteur
+                  </th>
+                  <th>
+                    Date
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="comment in selectedArticle.comments | orderBy : '-register_date' | filter : commentArticle" ng-click="setChildSelected($index)" ng-class="{success: $index === idChildSelectedElement}">
+                  <td>
+                    <button permission permission-only="'ADMIN_REDACTEUR'" ng-click="removeComment(comment)" class="btn btn-danger" title="Supprimer le commentaire"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  </td>
+                  </td>
+                  <td>
+                    {{comment.text}}
+                  </td>
+                  <td>
+                    {{comment.pseudo}}
+                  </td>
+                  <td>
+                    {{comment.register_date | date : 'dd MMM yyyy - HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

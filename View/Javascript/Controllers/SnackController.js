@@ -12,8 +12,10 @@ AppControllers.controller('snackCtrl', ['$scope', 'socket', '$http', function($s
   
   
   // ----- GET / SET Data -----
-  $http.get('/menusnacks/getLastMenu').success(function(data) {
-    order.lists = data.elements;
+  $http.get('/menusnacks/getLastMenu').then(function(data) {
+    order.lists = data.data.elements;
+  }).catch(function(err) {
+    console.log(err);
   });
   
   $scope.idSelectedElement = undefined;
