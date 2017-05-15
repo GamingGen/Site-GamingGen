@@ -158,12 +158,14 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	  console.log('Client Connecté');
 
 		// Save the socket.id
-		socket.request.session.passport.user.socketId = socket.id;
-		socket.request.session.save(function(err) {
-			if (err) {
-				console.log(err);
-			}
-		});
+		if (socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.socketId) {
+			socket.request.session.passport.user.socketId = socket.id;
+			socket.request.session.save(function(err) {
+				if (err) {
+					console.log(err);
+				}
+			});
+		}
 		
 		socket.on('UpdateRoles', function(data) {
 			ServerEvent.emit('UpdateRoles', data, socket);
