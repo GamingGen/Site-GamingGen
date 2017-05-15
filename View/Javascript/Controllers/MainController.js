@@ -38,9 +38,49 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     $scope.isPseudoExist = data;
   });
   
+  socket.on('UserPermissionsUpdatedOk', function(data) {
+    $("#msgInfo").html('Permissions mises à jour pour le user : ' + data.pseudo);
+    $("#msgInfo").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('UserPermissionsUpdated', function(data) {
+    $http.get('/users/refresh').then(function() {
+      UserService.refreshAccess(data.access)
+    }).catch(function(err) {
+      console.log(err);
+    });
+    $("#msgInfo").html('Vos drois ont était mis à jours');
+    $("#msgInfo").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('ErrorOnUserPermissionsUpdated', function(data) {
+    $("#msgError").html(data.message);
+    $("#msgError").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('RolesUpdated', function(data) {
+    $("#msgInfo").html('Permissions mises à jour pour la configuration : ' + data.name);
+    $("#msgInfo").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('ErrorOnRolesUpdated', function(data) {
+    $("#msgError").html(data.message);
+    $("#msgError").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('PermissionsUpdated', function(data) {
+    $("#msgInfo").html('Permissions mises à jour pour la configuration : ' + data.name);
+    $("#msgInfo").show().delay(3000).fadeOut();
+  });
+  
+  socket.on('ErrorOnPermissionsUpdated', function(data) {
+    $("#msgError").html(data.message);
+    $("#msgError").show().delay(3000).fadeOut();
+  });
+
   // Déconnexion si utilisateur banni
   socket.on('BanUser', function(user) {
-    if ($scope.User !== undefined && $scope.User.pseudo === user) {
+    if ($scope.User !== undefined && $scope.User.pseudo === user.pseudo) {
       UserService.logout().success(function() {
         $state.go('home');
       });

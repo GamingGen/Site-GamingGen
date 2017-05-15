@@ -29,7 +29,7 @@ var Schema                = mongoose.Schema;
  * @param {String} permission.name - WIP
  * @param {String} roles.name - WIP
  * @param {Number} roles.level - WIP
- * @param {String} pages.name - WIP
+ * @param {String} permissions.name - WIP
  * @param {String} shop.type_order.name - WIP
  */
 var ConfSchema = new Schema({
@@ -54,9 +54,9 @@ var ConfSchema = new Schema({
                     printer_cook_length_element   : Number,
                     type_menu                     : Array
                   },
-    roles       : { type: Object, required: true, default: '"MEMBRE": ["member"]'},
-    pages       : [{
-                    name  : String
+    roles       : { type: Object, required: true, default: '"MEMBRE": ["canDoNothing"]'},
+    permissions : [{
+                    name  : { type: Object, required: true, default: '"name": "canDoNothing"'}
                   }],
     shop        : {
                     type_order  : [{

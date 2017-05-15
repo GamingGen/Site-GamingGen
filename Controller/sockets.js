@@ -34,6 +34,33 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	io.use(function(socket, next) {
 		sessionMiddleware(socket.request, socket.request.res, next);
 	});
+
+	ServerEvent.on('ErrorOnRolesUpdated', function(data, socket) {
+		socket.emit('ErrorOnRolesUpdated', data);
+	});
+		
+	ServerEvent.on('RolesUpdated', function(data, socket) {
+		socket.emit('RolesUpdated', data);
+	});
+
+	ServerEvent.on('ErrorOnPermissionsUpdated', function(data, socket) {
+		socket.emit('ErrorOnPermissionsUpdated', data);
+	});
+		
+	ServerEvent.on('PermissionsUpdated', function(data, socket) {
+		socket.emit('PermissionsUpdated', data);
+	});
+
+	ServerEvent.on('ErrorOnUserPermissionsUpdated', function(data, socket) {
+		socket.emit('ErrorOnUserPermissionsUpdated', data);
+	});
+		
+	ServerEvent.on('UserPermissionsUpdated', function(data, socketIds, socket) {
+		socket.emit('UserPermissionsUpdatedOk', data);
+		socketIds.forEach(socketId => {
+			io.to(socketId).emit('UserPermissionsUpdated', data);
+		});
+	});
 	
 	ServerEvent.on('isMailExistResult', function(data, socket) {
 		socket.emit('isMailExist', data);
@@ -129,7 +156,26 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
   io.sockets.on('connection', function (socket) {
 	  
 	  console.log('Client Connecté');
-	  
+
+		// Save the socket.id
+		if (socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.socketId) {
+			socket.request.session.passport.user.socketId = socket.id;
+			socket.request.session.save(function(err) {
+				if (err) {
+					console.log(err);
+				}
+			});
+		}
+		
+		socket.on('UpdateRoles', function(data) {
+			ServerEvent.emit('UpdateRoles', data, socket);
+			console.log('Emit: UpdateRoles');
+		});
+		
+		socket.on('UpdatePermissions', function(data) {
+			ServerEvent.emit('UpdatePermissions', data, socket);
+			console.log('Emit: UpdatePermissions');
+		});
 	  
 	  socket.on('isMailExist', function(data) {
 	  	ServerEvent.emit('isMailExist', data, socket);
@@ -137,6 +183,10 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		
 		socket.on('isPseudoExist', function(data) {
 			ServerEvent.emit('isPseudoExist', data, socket);
+		});
+		
+		socket.on('UpdateUserPermissions', function(data) {
+			ServerEvent.emit('UpdateUserPermissions', data, socket);
 		});
 		
 		socket.on('IamTheClientPrinter', function() {

@@ -110,15 +110,15 @@ let articleEvent = function(ServerEvent) {
       else {
         if (socket.request.session && socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.permissions && socket.request.session.passport.user.permissions.includes('canEditArticle')) {
           console.log(socket.request.session.passport.user);
-          articleSchema.findOneAndUpdate({_id: data._id}, data, {new: true}, function (err, rowUpdated) {
+          articleSchema.findOneAndUpdate({_id: data._id}, data, {new: true}, function (err, docUpdated) {
             if (err) {
               //throw err;
               console.error(err);
               ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
             }
             else {
-              if (rowUpdated !== null) {
-                ServerEvent.emit('ArticleUpdated', rowUpdated, socket);
+              if (docUpdated !== null) {
+                ServerEvent.emit('ArticleUpdated', docUpdated, socket);
               }
               else {
                 console.error(err);
