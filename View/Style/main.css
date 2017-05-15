@@ -951,6 +951,8 @@ height:25vw;
 }
 .articleTitleList{
   color:#252525;
+  margin-left:60px;
+  margin-right:60px;
 }
 .listNewsPage{
   display:flex;
@@ -1171,9 +1173,19 @@ height:25vw;
 .titresectionarticles h2 {
   padding-top: 6px;
   font-size: 1.4em;
-  background: url(../Img/General/genevert.png)right bottom no-repeat;
-  background-size: 130px;
   line-height: 126%;
+}
+.titresectionarticles h2:after{
+    content: '';
+    display: flex;
+    background: url(../Img/General/genevert.png)right bottom no-repeat;
+    background-size: 150px;
+    width: 185px;
+    height: 80px;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform:rotate(180deg);
 }
 .articles{
   position:relative;
@@ -1652,6 +1664,7 @@ height:25vw;
 }
 .previewTextThumbNews{
   float:left;
+  margin-top:0px;
   position:relative;
   font-size: 1.6em;
   font-family: 'Droid Sans', sans-serif;

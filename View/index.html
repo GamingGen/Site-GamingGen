@@ -62,6 +62,16 @@
     <script type="text/javascript" src="Javascript/Lib/jasny-bootstrap.min.js"></script>
     <script type="text/javascript" src="Javascript/Lib/jquery.carouFredSel-6.2.0-packed.js"></script>
     <script type="text/javascript" src="Javascript/Lib/angular-youtube-embed.min.js"></script>
+    <!-- cdn for modernizr, if you haven't included it already -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+    <!-- polyfiller file to detect and load polyfills -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+    <script>
+      webshims.setOptions('waitReady', false);
+      webshims.setOptions('forms-ext', {types: 'date'});
+      webshims.polyfill('forms forms-ext');
+    </script>
+
     <!-- endbuild -->
 
     <!-- build:js js/main.min.js -->
@@ -198,13 +208,15 @@
               <form ng-submit="submitLogin()" name="formConnection" novalidate>
                 <div class="row">
                   <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
-                    <label for="connectionEmail">Email* : </label>
+                   
                     <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
+                     <label for="connectionEmail">Email* : </label>                  
                   </div>
                   <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
-                    <label for="connectionPassword">Mot de Passe* : </label>
+                    
                     <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
-                  </div>
+                    <label for="connectionPassword">Mot de Passe* : </label>
+                 </div>
                 </div>
               </form>
               <div class="bottomFooter row">
