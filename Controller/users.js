@@ -22,13 +22,13 @@ const GamingGen      = 'www.gaming-gen.fr';
 const URLGamingGen   = `<a href="${GamingGen}">${GamingGen}</a>`;
 const Facebook       = 'https://www.facebook.com/gaming.gen.festival';
 const FacebookIMG    = `[host]/Img/General/facebookMail.png`;
-const URLFacebook    = `<a href="${Facebook}"><img src="${FacebookIMG}" alt="${Facebook}"></a>`;
+const URLFacebook    = `<a style="height:30px;" href="${Facebook}"><img src="${FacebookIMG}" alt="${Facebook}"></a>`;
 const Twitter        = 'https://twitter.com/gaminggenlan';
 const TwitterIMG     = `[host]/Img/General/twitterMail.png`;
-const URLTwitter     = `<a href="${Twitter}"><img src="${TwitterIMG}" alt="${Twitter}"></a>`;
+const URLTwitter     = `<a style="height:30px;" href="${Twitter}"><img src="${TwitterIMG}" alt="${Twitter}"></a>`;
 const Instagram      = 'https://www.instagram.com/gaming_gen_festival';
 const InstagramIMG   = `[host]/Img/General/instaMail.png`;
-const URLInstagram   = `<a href="${Instagram}"><img src="${InstagramIMG}" alt="${Instagram}"></a>`;
+const URLInstagram   = `<a style="height:30px;" href="${Instagram}"><img src="${InstagramIMG}" alt="${Instagram}"></a>`;
 
 const ButonURL       = `<a href="[lienBouton]"
                                 style="background-color:#64DC13;
@@ -72,7 +72,7 @@ Ce message a été envoyé automatiquement. Merci de ne pas répondre.
 [Footer] www.gaming-gen.fr [picto Facebook] [picto Twitter] [picto Instagram]`;
 
 
-// TODO /!\ A tester ! /!\
+// Récupération du template pour le mail
 registrationHtml = fs.readFileSync(path.join(__dirname, '..', 'Template', 'templateMail.html'), 'utf8');
 
 
@@ -90,8 +90,9 @@ function SendMail(req, res, mails, html, hash) {
   
   // Gestion mail Inscription
   if (hash) {
-    const validationURL = `${req.protocol}://${req.headers.host}/#/users/validate/${hash}`;
-    const validationLink = `<a href="${validationURL}">${validationURL}</a>`;
+    const host            = `${req.protocol}://${req.headers.host}`;
+    const validationURL   = `${host}/#/users/validate/${hash}`;
+    const validationLink  = `<a href="${validationURL}">${validationURL}</a>`;
     html = registrationHtml.replace('[lien]', validationLink)
                             .replace('[boutonValidation]', ButonURL)
                             .replace('[lienBouton]', validationURL)
@@ -99,7 +100,7 @@ function SendMail(req, res, mails, html, hash) {
                             .replace('[Facebook]', URLFacebook)
                             .replace('[Twitter]', URLTwitter)
                             .replace('[Instagram]', URLInstagram)
-                            .replace('[host]', `${req.protocol}://${req.headers.host}`);
+                            .replace('[host]', `${host}`);
   }
   
   // setup e-mail data with unicode symbols 
