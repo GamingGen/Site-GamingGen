@@ -100,7 +100,7 @@ function SendMail(req, res, mails, html, hash) {
                             .replace('[Facebook]', URLFacebook)
                             .replace('[Twitter]', URLTwitter)
                             .replace('[Instagram]', URLInstagram)
-                            .replace('[host]', `${host}`);
+                            .replace(/\[host\]/g, `${host}`);
   }
   
   // setup e-mail data with unicode symbols 
