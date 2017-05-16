@@ -144,7 +144,7 @@ h4.modal-title {
 }
 .blocInscriptionModal .modal-header{
   height:100%;
-  background:url('Img/bgInscription.png');
+  background:url('../Img/bgInscription.png');
   background-size:cover;
 }
 .blocInscriptionModal label{
