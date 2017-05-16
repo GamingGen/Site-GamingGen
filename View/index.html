@@ -38,7 +38,7 @@
       window.loading_screen = window.pleaseWait({
         logo: "Img/logowh.svg",
         backgroundColor: '#232323',
-        loadingHtml: "<p class='loading-message'>Encore 2 instants, l'application finit de charger...</p><div class='spinner'></div>"
+        loadingHtml: "<p class='loading-message'>Pour accéder au site, faites R2 - croix - carré - R1 - R1 - gauche - croix - rond... ou patientez quelques secondes...</p><div class='spinner'></div>"
       });
     </script>
 
@@ -76,8 +76,21 @@
     <script type="text/javascript" src="Javascript/Lib/jasny-bootstrap.min.js"></script>
     <script type="text/javascript" src="Javascript/Lib/jquery.carouFredSel-6.2.0-packed.js"></script>
     <script type="text/javascript" src="Javascript/Lib/angular-youtube-embed.min.js"></script>
+
+    <!-- cdn for modernizr, if you haven't included it already -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+    <!-- polyfiller file to detect and load polyfills -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+    <script>
+      webshims.setOptions('waitReady', false);
+      webshims.setOptions('forms-ext', {types: 'date'});
+      webshims.polyfill('forms forms-ext');
+    </script>
+
+
     <script type="text/javascript" src="Javascript/Lib/classie.js"></script>
     <script type="text/javascript" src="Javascript/Lib/ngclipboard.min.js"></script>
+
     <!-- endbuild -->
 
     <!-- build:js js/main.min.js -->
@@ -191,7 +204,7 @@
                   </div>
                 </div>
                 <div class="bottomFooter row">
-                  <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" >Envoyer</a>
+                  <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" >S'inscrire</a>
                   <a type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
                 </div>
                 <div class="row">
@@ -220,13 +233,15 @@
               <form ng-submit="submitLogin()" name="formConnection" novalidate>
                 <div class="row">
                   <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
-                    <label for="connectionEmail">Email* : </label>
+                   
                     <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
+                     <label for="connectionEmail">Email* : </label>                  
                   </div>
                   <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
-                    <label for="connectionPassword">Mot de Passe* : </label>
+                    
                     <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
-                  </div>
+                    <label for="connectionPassword">Mot de Passe* : </label>
+                 </div>
                 </div>
               </form>
               <div class="bottomFooter row">
@@ -244,35 +259,70 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <div class="socialHeader hidden-xs">
-              <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
-                <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
-                <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
-              </li>
-              <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
-              <li ng-show="" ui-sref-active="active" class="socialBloc demiSocial dropdown">
-                <div class="socialBloc demiSocial">
-                  <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Mon Compte
-                  </a>
-                  <ul class="socialLink compte dropdown-menu">
-                    <li ng-show="User.accessLvl > 0"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                    <li ng-show="User.accessLvl > 0"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                    <li ng-show="User.accessLvl > 0"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li class="socialBloc demiSocial">
-                <a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>
-                <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="../Img/General/instagram.svg"></a>
-              </li>
-              <li class="socialBloc">
-                <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="../Img/General/twitter.svg"></a>
-                <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" class="socialLink facebook"><img ng-src="../Img/General/facebook.svg"></a>
-
-              </li>
-            </div>
+            <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
+              <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
+              <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
+            </li>
+            <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
+            <!--ng-if="isConnected && isAdmin" -->
+            
+            <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
+            <li ng-show="User.isLoggedIn" ui-sref-active="active" class="socialBloc demiSocial demiSocial-alternate dropdown">
+                <a class="bienvenue-user-pseudo-alternate socialLink compte dropdown-toggle"><img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
+                <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  Mon Compte
+                </a>
+                <ul class="socialLink compte dropdown-menu">
+                  <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                  <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                  <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
+                </ul>
+            </li>
+            <li class="socialBloc demiSocial">
+              <a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>
+              <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="../Img/General/instagram.svg"></a>
+            </li>
+            <li class="socialBloc">
+              <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="../Img/General/twitter.svg"></a>
+              <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" class="socialLink facebook"><img ng-src="../Img/General/facebook.svg"></a>
+            </li>
+            
+          </div>
+          <li ng-show="User.isLoggedIn && User.accessLvl >= 0" ui-sref-active="active" class="dropdown loggedici">
+              <div class="admin-container admin-alternate">
+                <a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-cogs" aria-hidden="true"></i> Admin
+                </a>
+                <ul class="loggedmenu dropdown-menu">
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
+                        
+                        <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
+                        <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
+      
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
+                </ul>
+              </div>
+            </li>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -334,6 +384,7 @@
               <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
               <li ng-show="" ui-sref-active="active" class="socialBloc demiSocial dropdown">
                 <div class="socialBloc demiSocial">
+                  <a class="bienvenue-user-pseudo-alernate socialLink compte dropdown-toggle"><img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
                   <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     Mon Compte
                   </a>
@@ -381,41 +432,6 @@
         <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#connectionModal">
           Connexion
         </a>
-      </li>
-      <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-      <!--ng-if="isConnected && isAdmin" -->
-      <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
-        <div class="admin-container">
-          <a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-cogs" aria-hidden="true"></i> Admin
-          </a>
-          <ul class="loggedmenu dropdown-menu">
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-                  
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
-
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
-          </ul>
-        </div>
       </li>
       <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
       <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
