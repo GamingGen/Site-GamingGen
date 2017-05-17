@@ -1465,6 +1465,12 @@ height:25vw;
 .bienvenue-user-pseudo-alternate:hover{
   background:transparent!important;
 }
+.demiSocial .compte img{
+  width:33px;
+}
+ul.socialLink.compte.dropdown-menu{
+  flex-direction:column;
+}
 .admin-alternate{
   position:absolute;
 }
