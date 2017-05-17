@@ -80,7 +80,7 @@
     <script type="text/javascript" src="Javascript/Lib/angular-youtube-embed.min.js"></script>
     <script type="text/javascript" src="Javascript/Lib/classie.js"></script>
     <script type="text/javascript" src="Javascript/Lib/ngclipboard.min.js"></script>
-    <script type="text/javascript" src="Javascript/Lib/simplebar.js"></script>
+    <!--<script type="text/javascript" src="Javascript/Lib/simplebar.js"></script>-->
     <!-- endbuild -->
 
     <!-- build:js js/main.min.js -->
@@ -224,16 +224,18 @@
               <form ng-submit="submitLogin()" name="formConnection" novalidate>
                 <div class="row">
                   <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
-                   
                     <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
-                     <label for="connectionEmail">Email* : </label>                  
+                    <label for="connectionEmail">Email* : </label>                  
                   </div>
                   <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
-                    
                     <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
                     <label for="connectionPassword">Mot de Passe* : </label>
                  </div>
                 </div>
+              </form>
+              <div class="bottomFooter row">
+                <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid">Connexion</a>
+                <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
               </div>
             </div>
           </div>
@@ -255,14 +257,18 @@
             
             <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
             <li ng-show="User.isLoggedIn" ui-sref-active="active" class="socialBloc demiSocial demiSocial-alternate dropdown">
-                <a class="bienvenue-user-pseudo-alternate socialLink compte dropdown-toggle"><img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
+                <div class="bienvenue-user-pseudo-alternate socialLink compte dropdown-toggle">
+                  <img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b>
+                </div>
                 <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   Mon Compte
                 </a>
                 <ul class="socialLink compte dropdown-menu">
-                  <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                  <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                  <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                  <li ng-show="User.accessLvl > 5"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                  <li ng-show="User.accessLvl > 5"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                  <li ng-show="User.accessLvl > 5"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
                   <li role="separator" class="divider"></li>
                   <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
                 </ul>
@@ -277,36 +283,36 @@
             </li>
             
           </div>
-          <li ng-show="User.isLoggedIn && User.accessLvl >= 0" ui-sref-active="active" class="dropdown loggedici">
+          <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
               <div class="admin-container admin-alternate">
                 <a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-cogs" aria-hidden="true"></i> Admin
                 </a>
                 <ul class="loggedmenu dropdown-menu">
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
                         
-                        <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
-                        <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
+                        <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
+                        <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
       
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0" role="separator" class="divider"></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 0"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
                 </ul>
               </div>
             </li>
@@ -376,9 +382,9 @@
                     Mon Compte
                   </a>
                   <ul class="socialLink compte dropdown-menu">
-                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                    <li ng-show="User.accessLvl > 5"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                    <li ng-show="User.accessLvl > 5"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                    <li ng-show="User.accessLvl > 5"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
                     <li role="separator" class="divider"></li>
@@ -398,9 +404,6 @@
                   <li><a ui-sref="info.contact">Contact</a></li>
                 </ul>
               </li>
-              
-              <!--<li><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>-->
-  
               <div class="socialHeader socialHeaderXS hidden-sm hidden-md hidden-lg">
                 <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
                   <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
@@ -458,52 +461,11 @@
           Connexion
         </a>
       </li>
-      <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-      <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
-        <a class="bienvenue-user-pseudo"><img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
-        <div class="mon-compte-container">
-          <a href="" class="dropdown-toggle mon-compte" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Mon Compte
-          </a>
-        </li>
-        <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-        <!--ng-if="isConnected && isAdmin" -->
-        <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
-          <div class="admin-container">
-            <a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-cogs" aria-hidden="true"></i> Admin
-            </a>
-            <ul class="loggedmenu dropdown-menu">
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-                    
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
-                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
-  
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
-              <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
-            </ul>
-          </div>
-        </li>
         <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
         <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
-          <a class="bienvenue-user-pseudo"><img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
+          <div class="bienvenue-user-pseudo">
+            <img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b>
+          </div>
           <div class="mon-compte-container">
             <a href="" class="dropdown-toggle mon-compte" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               Mon Compte
