@@ -45,7 +45,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   socket.on('UserPermissionsUpdated', function(data) {
     $http.get('/users/refresh').then(function() {
-      UserService.refreshAccess(data.access)
+      UserService.refreshAccess(data.access);
     }).catch(function(err) {
       console.log(err);
     });

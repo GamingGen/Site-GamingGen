@@ -13,8 +13,8 @@
     <link rel="icon" href="Img/General/favicon.ico"/>
     <link rel="icon" type="image/png" href="Img/General/favicon.png"/>
     
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
     
@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="Style/main.css">
     <link rel="stylesheet" href="Style/loading-bar.css" media="all">
     <link rel="stylesheet" href="Style/classie.css" media="all">
+    <link rel="stylesheet" href="Style/simplebar.css" media="all">
     <!-- endbuild -->
   </head>
   
@@ -47,22 +48,23 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-resource.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
     <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-rc.1/angular-ui-router.min.js"></script>-->
-    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-permission/5.2.3/angular-permission.min.js"></script>-->
-    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-permission/5.2.3/angular-permission-ui.min.js"></script>-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-animate.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/angular.image-appear/1.11.3/ng-image-appear.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ngInfiniteScroll/1.3.0/ng-infinite-scroll.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-scroll/1.0.0/angular-scroll.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.1/clipboard.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
     <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/3.2.9/ui-grid.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-mask/1.8.7/mask.min.js"></script>-->
     <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/locale/bootstrap-table-fr-FR.js"></script>-->
+    
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript" src="https://player.twitch.tv/js/embed/v1.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.5/tinymce.min.js"></script>
@@ -78,6 +80,7 @@
     <script type="text/javascript" src="Javascript/Lib/angular-youtube-embed.min.js"></script>
     <script type="text/javascript" src="Javascript/Lib/classie.js"></script>
     <script type="text/javascript" src="Javascript/Lib/ngclipboard.min.js"></script>
+    <script type="text/javascript" src="Javascript/Lib/simplebar.js"></script>
     <!-- endbuild -->
 
     <!-- build:js js/main.min.js -->
@@ -117,331 +120,329 @@
     <script type="text/javascript" src="Javascript/app.js"></script>
     <!-- endbuild -->
 
-
-    <!-- Inscription Modal -->
-    <div class="modal fade container" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content inscriptionModal">
-          <div class="blocInscriptionModal row">
-            <div class="modal-header col-md-6">
-              <span class="titreModalConnection">Inscription</span>
-              <span class="backgroundInscription"></span>
-            </div>
-            <div class="modal-body col-md-6">
-              <form ng-submit="formRegistration.$valid && submitRegister()" name="formRegistration" novalidate>
-                <div class="row">
-                  <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.firstName.$invalid && !formRegistration.firstName.$pristine }">
-                    <div class="form-group">
-                      
-                      <input type="text" ng-model="firstName" class="form-control" id="firstName" name="firstName" placeholder="Nom*" required/>
-                      <label for="firstName">Nom*</label>
-                    </div>
-                  </div>
-                  <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.lastName.$invalid && !formRegistration.lastName.$pristine }">
-                    <div class="form-group">
-                      
-                      <input type="text" ng-model="lastName" class="form-control" id="lastName" name="lastName" placeholder="Prenom*" required/>
-                      <label for="lastName">Prenom*</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-6" ng-class="{ 'has-error' : (formRegistration.pseudo.$invalid && !formRegistration.pseudo.$pristine) || isPseudoExist }">
-                    <div class="form-group has-feedback">
-                      
-                      <input type="text" ng-model="pseudo" ng-model-options="{ debounce: 1000 }" class="form-control" id="pseudo" name="pseudo" placeholder="Pseudo*" required/>
-                       <label for="pseudo">Pseudo* </label>
-                      <span ng-show="isPseudoExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
-                      <span ng-show="isPseudoExist" id="emailStatus" class="sr-only">(warning)</span>
-                    </div>
-                  </div>
-                  <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.password.$invalid && !formRegistration.password.$pristine }">
-                    <div class="form-group">
-                      
-                      <input type="password" ng-model="password" class="form-control" id="password" name="password" placeholder="Mot de Passe*" required/>
-                      <label for="password">Mot de Passe*</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.zip.$invalid && !formRegistration.zip.$pristine }">
-                    <div class="form-group">
-                      
-                      <input type="number" min="0100" max="99999" ng-model="zip" class="form-control" id="zip" name="zip" placeholder="Code Postal*" required/>
-                      <label for="email">Code Postal*</label>
-                    </div>
-                  </div>
-                  <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.birthday.$invalid && !formRegistration.birthday.$pristine }">
-                    <div class="form-group">
-                      
-                      <input type="date" ng-model="birthday" class="form-control" id="birthday" name="birthday" placeholder="Date de Naissance*" required/>
-                      <label for="email">Date de Naissance*</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12" ng-class="{ 'has-error' : (formRegistration.email.$invalid && !formRegistration.email.$pristine) || isMailExist }">
-                    <div class="form-group has-feedback">
-                      
-                      <input type="email" ng-model="email" ng-model-options="{ debounce: 1000 }" class="form-control" id="email" name="email" placeholder="Email*" required/>
-                      <label for="email">Email*</label>
-                      <span ng-show="isMailExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
-                      <span ng-show="isMailExist" id="emailStatus" class="sr-only">(warning)</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="bottomFooter row">
-                  <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" >Envoyer</a>
-                  <a type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
-                </div>
-                <div class="row">
-                  <div ng-show="isPseudoExist" class="alert alert-danger" role="alert">Ce pseudo existe déjà</div>
-                  <div ng-show="isMailExist" class="alert alert-danger" role="alert">Cette adresse mail existe déjà</div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Connexion Modal -->
-    <div class="modal fade container" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="connectionModalLabel">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content inscriptionModal">
-          <div class="blocInscriptionModal smallModalConnexion row">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              
-            <div class="modal-header col-md-6">
-              <span class="titreModalConnection">Connexion</span>
+    <div data-simplebar>
+      <!-- Inscription Modal -->
+      <div class="modal fade container" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content inscriptionModal">
+            <div class="blocInscriptionModal row">
+              <div class="modal-header col-md-6">
+                <span class="titreModalConnection">Inscription</span>
                 <span class="backgroundInscription"></span>
-            </div>
-            <div class="modal-body col-md-6">
-              <form ng-submit="submitLogin()" name="formConnection" novalidate>
-                <div class="row">
-                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
-                    <label for="connectionEmail">Email* : </label>
-                    <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
+              </div>
+              <div class="modal-body col-md-6">
+                <form ng-submit="formRegistration.$valid && submitRegister()" name="formRegistration" novalidate>
+                  <div class="row">
+                    <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.firstName.$invalid && !formRegistration.firstName.$pristine }">
+                      <div class="form-group">
+                        
+                        <input type="text" ng-model="firstName" class="form-control" id="firstName" name="firstName" placeholder="Nom*" required/>
+                        <label for="firstName">Nom*</label>
+                      </div>
+                    </div>
+                    <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.lastName.$invalid && !formRegistration.lastName.$pristine }">
+                      <div class="form-group">
+                        
+                        <input type="text" ng-model="lastName" class="form-control" id="lastName" name="lastName" placeholder="Prenom*" required/>
+                        <label for="lastName">Prenom*</label>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
-                    <label for="connectionPassword">Mot de Passe* : </label>
-                    <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
+                  <div class="row">
+                    <div class="col-xs-6" ng-class="{ 'has-error' : (formRegistration.pseudo.$invalid && !formRegistration.pseudo.$pristine) || isPseudoExist }">
+                      <div class="form-group has-feedback">
+                        
+                        <input type="text" ng-model="pseudo" ng-model-options="{ debounce: 1000 }" class="form-control" id="pseudo" name="pseudo" placeholder="Pseudo*" required/>
+                         <label for="pseudo">Pseudo* </label>
+                        <span ng-show="isPseudoExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="isPseudoExist" id="emailStatus" class="sr-only">(warning)</span>
+                      </div>
+                    </div>
+                    <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.password.$invalid && !formRegistration.password.$pristine }">
+                      <div class="form-group">
+                        
+                        <input type="password" ng-model="password" class="form-control" id="password" name="password" placeholder="Mot de Passe*" required/>
+                        <label for="password">Mot de Passe*</label>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </form>
-              <div class="bottomFooter row">
-                <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid">Connexion</a>
-                <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
+                  <div class="row">
+                    <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.zip.$invalid && !formRegistration.zip.$pristine }">
+                      <div class="form-group">
+                        
+                        <input type="number" min="0100" max="99999" ng-model="zip" class="form-control" id="zip" name="zip" placeholder="Code Postal*" required/>
+                        <label for="email">Code Postal*</label>
+                      </div>
+                    </div>
+                    <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.birthday.$invalid && !formRegistration.birthday.$pristine }">
+                      <div class="form-group">
+                        
+                        <input type="date" ng-model="birthday" class="form-control" id="birthday" name="birthday" placeholder="Date de Naissance*" required/>
+                        <label for="email">Date de Naissance*</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12" ng-class="{ 'has-error' : (formRegistration.email.$invalid && !formRegistration.email.$pristine) || isMailExist }">
+                      <div class="form-group has-feedback">
+                        
+                        <input type="email" ng-model="email" ng-model-options="{ debounce: 1000 }" class="form-control" id="email" name="email" placeholder="Email*" required/>
+                        <label for="email">Email*</label>
+                        <span ng-show="isMailExist" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="isMailExist" id="emailStatus" class="sr-only">(warning)</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bottomFooter row">
+                    <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" >Envoyer</a>
+                    <a type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
+                  </div>
+                  <div class="row">
+                    <div ng-show="isPseudoExist" class="alert alert-danger" role="alert">Ce pseudo existe déjà</div>
+                    <div ng-show="isMailExist" class="alert alert-danger" role="alert">Cette adresse mail existe déjà</div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <div class="socialHeader hidden-xs">
-              <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
-                <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
-                <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
-              </li>
-              <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
-              <li ng-show="" ui-sref-active="active" class="socialBloc demiSocial dropdown">
-                <div class="socialBloc demiSocial">
-                  <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Mon Compte
-                  </a>
-                  <ul class="socialLink compte dropdown-menu">
-                    <li ng-show="User.accessLvl > 0"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                    <li ng-show="User.accessLvl > 0"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                    <li ng-show="User.accessLvl > 0"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
-                  </ul>
+      
+      <!-- Connexion Modal -->
+      <div class="modal fade container" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="connectionModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content inscriptionModal">
+            <div class="blocInscriptionModal smallModalConnexion row">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                
+              <div class="modal-header col-md-6">
+                <span class="titreModalConnection">Connexion</span>
+                  <span class="backgroundInscription"></span>
+              </div>
+              <div class="modal-body col-md-6">
+                <form ng-submit="submitLogin()" name="formConnection" novalidate>
+                  <div class="row">
+                    <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
+                      <label for="connectionEmail">Email* : </label>
+                      <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
+                    </div>
+                    <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
+                      <label for="connectionPassword">Mot de Passe* : </label>
+                      <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
+                    </div>
+                  </div>
+                </form>
+                <div class="bottomFooter row">
+                  <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid">Connexion</a>
+                  <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
                 </div>
-              </li>
-              <li class="socialBloc demiSocial">
-                <a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>
-                <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="../Img/General/instagram.svg"></a>
-              </li>
-              <li class="socialBloc">
-                <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="../Img/General/twitter.svg"></a>
-                <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" class="socialLink facebook"><img ng-src="../Img/General/facebook.svg"></a>
-
-              </li>
+              </div>
             </div>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" ui-sref="home"><img class="logo img-rounded" alt="Logo" src="Img/logowh.svg"></a>
-        </div>
-    
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li ui-sref-active="active" class="dropdown">
-              <a href="" class="displayBlockDropdown dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span>Gaming Gen 6</span><span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a ui-sref="competitions">Les compétitions</a></li>
-                <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="festival">Festival du jeu</a></li>
-                <li><a ui-sref="forum">Forum des métiers du digital</a></li>
-                <li><a ui-sref="plan">Le Plan</a></li>
-                <!--<li role="separator" class="divider"></li>-->
-                <li><a ui-sref="programme">Le Programme</a></li>
-                <!--<li role="separator" class="divider"></li>-->
-                <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>
-              </ul>
-            </li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
-              <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
-            <li>
-              <a class="autoCollapse" ui-sref="partenaires">Les Partenaires</a>
-            </li>
-            <li>
-              <a class="autoCollapse" ui-sref="news">News</a>
-            </li>
-            <li>
-              <a class="autoCollapse" ui-sref="live">Live <img ng-src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a>
-            </li>
-            <li ui-sref-active="active" class="dropdown">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                L'association<span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a ui-sref="staff">L'équipe Gaming Gen</a></li>
-                <li><a ui-sref="events">Nos précédents événements</a></li>
-                <li><a ui-sref="media">Médias</a></li>
-                <li><a ui-sref="info.mention">Mentions légales</a></li>
-                <li><a ui-sref="info.contact">Contact</a></li>
-              </ul>
-            </li>
-            
-            <!--<li><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>-->
-
-            <div class="socialHeader socialHeaderXS hidden-sm hidden-md hidden-lg">
-              <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
-                <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
-                <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
-              </li>
-              <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
-              <li ng-show="" ui-sref-active="active" class="socialBloc demiSocial dropdown">
-                <div class="socialBloc demiSocial">
-                  <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Mon Compte
-                  </a>
-                  <ul class="socialLink compte dropdown-menu">
-                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li class="socialBloc demiSocial">
-                <a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>
-                <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="Img/General/instagram.svg"></a>
-              </li>
-              <li class="socialBloc">
-                <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="Img/General/twitter.svg"></a>
-                <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" class="socialLink facebook"><img ng-src="Img/General/facebook.svg"></a>
-              </li>
-            </div>
-            <li ng-if="User.multilang" class="dropdown">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>
-                <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>
-              </ul>
-            </li>
-          </ul>
+          </div>
         </div>
       </div>
-    </nav>
-    <ul class="orangebox">
-
-      <li class="bouton-inscription hover" ng-hide="User.isLoggedIn">
-        <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#registrationModal">
-          Créer un compte
-        </a>
-      </li>
-      <li class="bouton-connexion hover" ng-hide="User.isLoggedIn">
-        <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#connectionModal">
-          Connexion
-        </a>
-      </li>
-      <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-      <!--ng-if="isConnected && isAdmin" -->
-      <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
-        <div class="admin-container">
-          <a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-cogs" aria-hidden="true"></i> Admin
-          </a>
-          <ul class="loggedmenu dropdown-menu">
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-                  
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
-                  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
-
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
-            <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
-          </ul>
+      
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <div class="socialHeader hidden-xs">
+                <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
+                  <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
+                  <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
+                </li>
+                <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
+                <li ng-show="" ui-sref-active="active" class="socialBloc demiSocial dropdown">
+                  <div class="socialBloc demiSocial">
+                    <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      Mon Compte
+                    </a>
+                    <ul class="socialLink compte dropdown-menu">
+                      <li ng-show="User.accessLvl > 0"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                      <li ng-show="User.accessLvl > 0"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                      <li ng-show="User.accessLvl > 0"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="socialBloc demiSocial">
+                  <a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>
+                  <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="../Img/General/instagram.svg"></a>
+                </li>
+                <li class="socialBloc">
+                  <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="../Img/General/twitter.svg"></a>
+                  <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" class="socialLink facebook"><img ng-src="../Img/General/facebook.svg"></a>
+  
+                </li>
+              </div>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="home"><img class="logo img-rounded" alt="Logo" src="Img/logowh.svg"></a>
+          </div>
+      
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li ui-sref-active="active" class="dropdown">
+                <a href="" class="displayBlockDropdown dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span>Gaming Gen 6</span><span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a ui-sref="competitions">Les compétitions</a></li>
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="festival">Festival du jeu</a></li>
+                  <li><a ui-sref="forum">Forum des métiers du digital</a></li>
+                  <li><a ui-sref="plan">Le Plan</a></li>
+                  <!--<li role="separator" class="divider"></li>-->
+                  <li><a ui-sref="programme">Le Programme</a></li>
+                  <!--<li role="separator" class="divider"></li>-->
+                  <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>
+                </ul>
+              </li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
+                <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
+              <li>
+                <a class="autoCollapse" ui-sref="partenaires">Les Partenaires</a>
+              </li>
+              <li>
+                <a class="autoCollapse" ui-sref="news">News</a>
+              </li>
+              <li>
+                <a class="autoCollapse" ui-sref="live">Live <img ng-src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a>
+              </li>
+              <li ui-sref-active="active" class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  L'association<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a ui-sref="staff">L'équipe Gaming Gen</a></li>
+                  <li><a ui-sref="events">Nos précédents événements</a></li>
+                  <li><a ui-sref="media">Médias</a></li>
+                  <li><a ui-sref="info.mention">Mentions légales</a></li>
+                  <li><a ui-sref="info.contact">Contact</a></li>
+                </ul>
+              </li>
+              
+              <!--<li><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>-->
+  
+              <div class="socialHeader socialHeaderXS hidden-sm hidden-md hidden-lg">
+                <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
+                  <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
+                  <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
+                </li>
+                <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
+                <li ng-show="" ui-sref-active="active" class="socialBloc demiSocial dropdown">
+                  <div class="socialBloc demiSocial">
+                    <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      Mon Compte
+                    </a>
+                    <ul class="socialLink compte dropdown-menu">
+                      <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+                      <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+                      <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="socialBloc demiSocial">
+                  <a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>
+                  <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="Img/General/instagram.svg"></a>
+                </li>
+                <li class="socialBloc">
+                  <a href="https://twitter.com/gaminggenlan" target="_blank" class="socialLink twitter"><img ng-src="Img/General/twitter.svg"></a>
+                  <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" class="socialLink facebook"><img ng-src="Img/General/facebook.svg"></a>
+                </li>
+              </div>
+              <li ng-if="User.multilang" class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-language" aria-hidden="true"></i><span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a ui-sref="language.french" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">Français</a></li>
+                  <li><a ui-sref="language.english" data-toggle="tooltip" data-placement="bottom" title="Available on BETA version">English</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-      </li>
-      <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-      <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
-        <a class="bienvenue-user-pseudo"><img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
-        <div class="mon-compte-container">
-          <a href="" class="dropdown-toggle mon-compte" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Mon Compte
+      </nav>
+      <ul class="orangebox">
+  
+        <li class="bouton-inscription hover" ng-hide="User.isLoggedIn">
+          <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#registrationModal">
+            Créer un compte
           </a>
-          <ul class="loggedmenu dropdown-menu">
-            <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-            <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-            <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-            <li ng-show="User.accessLvl > 1" role="separator" class="divider"></li>
-            <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
-            <li role="separator" class="divider"></li>
-            <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-    <div >
-      <div >
-        <!--Messages d'erreur -->
-        <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
-        <!--<div id="msgError" class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" role="alert"></div>-->
-        <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>
+        </li>
+        <li class="bouton-connexion hover" ng-hide="User.isLoggedIn">
+          <a href="" class="btnins toCollapse" data-toggle="modal" data-target="#connectionModal">
+            Connexion
+          </a>
+        </li>
+        <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
+        <!--ng-if="isConnected && isAdmin" -->
+        <li ng-show="User.isLoggedIn && User.accessLvl >= 50" ui-sref-active="active" class="dropdown loggedici">
+          <div class="admin-container">
+            <a href="" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-cogs" aria-hidden="true"></i> Admin
+            </a>
+            <ul class="loggedmenu dropdown-menu">
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 55"><a ui-sref="admin.tournois"><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> Tournois</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 50"><a ui-sref="admin.players"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Joueurs & Teams</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="admin.stream"><i class="fa fa-twitch fa-fw" aria-hidden="true"></i> Stream</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 51" role="separator" class="divider"></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.accueil"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Accueil</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 51"><a ui-sref="admin.slider"><i class="fa fa-slideshare fa-fw" aria-hidden="true"></i> Slider</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
+                    
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 5"><a ui-sref="snack.joueur.commande">Commande Joueur</a></li>
+                    <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.infoLive">Infos Event & Snack</a></li>
+  
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.commande" aria-expanded="false">Commande Staff</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.staff.histo">Historique des commandes</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.snack"><i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> Snack</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 52" role="separator" class="divider"></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="admin.shop"><i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> Shop</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 52"><a ui-sref="shop.histo"><i class="fa fa-history fa-fw" aria-hidden="true"></i> Shop Histo</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 70" role="separator" class="divider"></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 70"><a ui-sref="admin.ban"><i class="fa fa-ban fa-fw" aria-hidden="true"></i> BAN</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 90" role="separator" class="divider"></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 90"><a ui-sref="admin.roles"><i class="fa fa-lock fa-fw" aria-hidden="true"></i> Rôles & Permissions</a></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 99" role="separator" class="divider"></li>
+              <li ng-show="User.isLoggedIn && User.accessLvl >= 99"><a ui-sref="admin.bdd"><i class="fa fa-database fa-fw" aria-hidden="true"></i> BDD</a></li>
+            </ul>
+          </div>
+        </li>
+        <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
+        <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
+          <a class="bienvenue-user-pseudo"><img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
+          <div class="mon-compte-container">
+            <a href="" class="dropdown-toggle mon-compte" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              Mon Compte
+            </a>
+            <ul class="loggedmenu dropdown-menu">
+              <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
+              <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
+              <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
+              <li ng-show="User.accessLvl > 1" role="separator" class="divider"></li>
+              <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+              <li role="separator" class="divider"></li>
+              <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      <!--Messages d'erreur -->
+      <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
+      <!--<div id="msgError" class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" role="alert"></div>-->
+      <div id="msgInfo" class="alert alert-info popUpMessage" role="alert"></div>
         
       <!--  <section ng-if="showSlider" class="hidden-xs">-->
       <!--    <div id="wrapper">-->
@@ -541,15 +542,13 @@
       <!--    	</div>-->
       <!--    </div>-->
       <!--  </section>-->
-        
-        <div class="slider">
-          <a ui-sref="#"></a>
-        </div>
-        <div ng-class="mainView">
-          <div ui-view autoscroll="false"></div>
-        </div>
+      
+      <div class="slider">
+        <a ui-sref="#"></a>
       </div>
-    </div>
+      <div ng-class="mainView">
+        <div ui-view autoscroll="false"></div>
+      </div>
       <div class="footer fullwidth">
         <div class="superFooter row">
           <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
@@ -608,7 +607,7 @@
           </div>
         </div>
       </div>
-
+    </div>
     <!-- Check if Angular is compatible, and remove the Splash Screen if Ok-->
     <script>
       var everythingLoaded = setInterval(function() {
