@@ -130,6 +130,9 @@ h4.modal-title {
   padding-left:15px;
   padding-right: 15px;
 }
+:disabled{
+  color:red;
+}
 .modal-body{
   height:100%;
   background:white;
@@ -141,7 +144,7 @@ h4.modal-title {
 }
 .blocInscriptionModal .modal-header{
   height:100%;
-  background:url('Img/bgInscription.png');
+  background:url('../Img/bgInscription.png');
   background-size:cover;
 }
 .blocInscriptionModal label{
@@ -282,6 +285,14 @@ span.ng-binding h2{
     color: #dc2b00;
     border-color: transparent;
     font-size: 1em;
+        background-color: transparent;
+    color: #dc2b00;
+    border-color: transparent;
+    font-size: 1em;
+    position: relative;
+    padding: 0;
+    top: 30px;
+    left: 15px;
 }
 .backgroundInscription{
   display: flex;
@@ -704,6 +715,10 @@ margin-top: 0px!important;
   padding-top: 20px;
   padding-left:40px;
 }
+.loading-message{
+  width:60%;
+  margin:0 auto;
+}
 .navbar a{
   cursor:pointer;
   font-size:1.3em;
@@ -719,6 +734,7 @@ margin-top: 0px!important;
 .navbar-inverse{
   border:0px;
 }
+
 .slider {
   background: url("../Img/General/LAN-PARTY.min.jpg") center center no-repeat;
   background-size: cover;
@@ -776,6 +792,9 @@ margin-top: 0px!important;
   z-index:15;
   color:#F4F4F4;
   float:left;
+}
+.img-rounded{
+  border-radius:2px;
 }
 .imgbox{
   overflow:hidden;
@@ -890,7 +909,7 @@ height:25vw;
   height:290px;
 }
 .boxmid{
-  background:url('../Img/compe.jpg')center center;
+  background:url('../Img/General/arena.jpg')center center;
   background-size: cover;
   -webkit-background-size: cover;
   width: 25%;
@@ -960,6 +979,8 @@ height:25vw;
 }
 .articleTitleList{
   color:#252525;
+  margin-left:60px;
+  margin-right:60px;
 }
 .listNewsPage{
   display:flex;
@@ -1003,6 +1024,7 @@ height:25vw;
   display:flex;
   justify-content:center;
   height:48px;
+      margin-top: 100px;
 }
 .triggerComment a{
   background:white;
@@ -1062,11 +1084,25 @@ height:25vw;
   padding-top:10px;
   
 }
-.micComment svg:not(:root){
+.commentTitle svg:not(:root){
   width: 55px;
+      position: absolute;
+      display:flex;
+      justify-content:flex-start;
+    top: 30%;
 }
 .commentTitle{
+  fill:rgba(0,0,0,0.2);
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  align-content: center;
+  padding-top:10px;
   height:100px;
+}
+.commentTitle span{
+  width:100%;
 }
 .categoryListNews{
   font-family: 'Droid Sans', sans-serif;
@@ -1165,9 +1201,19 @@ height:25vw;
 .titresectionarticles h2 {
   padding-top: 6px;
   font-size: 1.4em;
-  background: url(../Img/General/genevert.png)right bottom no-repeat;
-  background-size: 130px;
   line-height: 126%;
+}
+.titresectionarticles h2:after{
+    content: '';
+    display: flex;
+    background: url(../Img/General/genevert.png)right bottom no-repeat;
+    background-size: 150px;
+    width: 185px;
+    height: 80px;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform:rotate(180deg);
 }
 .articles{
   position:relative;
@@ -1412,6 +1458,19 @@ height:25vw;
   justify-content:flex-end;
   
 }
+.bienvenue-user-pseudo-alternate{
+      left: -60px;
+  border-left:none!important;
+}
+.bienvenue-user-pseudo-alternate:hover{
+  background:transparent!important;
+}
+.admin-alternate{
+  position:absolute;
+}
+.demiSocial-alternate{
+ right: -60px!important;
+}
 .socialBloc{
   right:0px;
   display:flex!important;
@@ -1646,6 +1705,7 @@ height:25vw;
 }
 .previewTextThumbNews{
   float:left;
+  margin-top:0px;
   position:relative;
   font-size: 1.6em;
   font-family: 'Droid Sans', sans-serif;
