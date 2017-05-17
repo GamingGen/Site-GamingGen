@@ -144,7 +144,7 @@ h4.modal-title {
 }
 .blocInscriptionModal .modal-header{
   height:100%;
-  background:url('Img/bgInscription.png');
+  background:url('../Img/bgInscription.png');
   background-size:cover;
 }
 .blocInscriptionModal label{
@@ -612,7 +612,7 @@ margin-top: 0px!important;
 
 .admin-container{
   position: relative;
-  top: 60px;
+  top: 55px;
 }
 
 
@@ -694,10 +694,14 @@ margin-top: 0px!important;
   margin-left: 4px !important;
 }
 .admin-container .dropdown-menu {
-  margin-top: 14px !important;
-  left: -57px;
+  margin-top: 10px !important;
+  left: -55px;
+  font-size: 12px;
   /*z-index: 99;*/
   position: absolute;
+}
+.admin-container .dropdown-menu li a {
+  padding: 8px 20px !important;
 }
 .navbar-inverse .navbar-nav>li>a{
   letter-spacing: 0.3px;
