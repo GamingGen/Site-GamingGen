@@ -233,8 +233,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
     }
   };
   
-  
-  
+  // Gestion de la Grid (article)
   $scope.gridOptions = {
     enableFiltering          : true,
     enableRowSelection       : true,
@@ -302,10 +301,6 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
     {
       name: 'Date de Modification',
       field: 'update_at',
-      // sort: {
-      //   direction: uiGridConstants.DESC,
-      //   // priority: 1
-      // },
       cellFilter: 'date:"dd MMM yyyy - HH:mm:ss"',
       enableFiltering: false,
       enableSorting: false,
@@ -316,12 +311,6 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
   ];
   
   
-  
-  
-  
-  
-  
-
   // ----- Private Méthode -----
   // Gestion des erreurs
   function errorOnPageAdminArticle(text) {
