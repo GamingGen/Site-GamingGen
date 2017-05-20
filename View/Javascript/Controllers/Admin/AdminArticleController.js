@@ -43,7 +43,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
   
   
   // ----- GET / SET Data -----
-  $scope.tinymceModel = "<p>Il suffit d'écrire l'article ici ^^</p>";
+  $scope.tinymceModel = "<br /><p><strong><em>--</em></strong><strong><em><br /></em></strong><strong><em>Gaming Gen, le jeu est dans nos g&egrave;nes !</em></strong></p>";
   $scope.type = {
     name   : 'hot_news'
   };
@@ -147,7 +147,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
         $scope.desc = '';
         $scope.picture = '';
         $scope.type.name = "hot_news";
-        tinymce.activeEditor.setContent('<p></p>');
+        tinymce.activeEditor.setContent($scope.tinymceModel);
         successOnPageAdminArticle("L'article à bien était enregistré");
       });
     }
