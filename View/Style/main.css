@@ -65,6 +65,11 @@ body {
 /*}*/
 
 
+.myGrid {
+  width: 100%;
+  height: 450px;
+}
+
 p, h3, label {
   color: #000;
   font-family: 'Droid Sans', sans-serif;

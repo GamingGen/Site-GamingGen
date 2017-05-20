@@ -22,7 +22,7 @@ ListRoles.service('usersService', ['socket', function (socket) {
           .findIndex(function(permission) { return permission === _permission.name; });
         }
 
-        user.access.permissions.splice(index, 1)
+        user.access.permissions.splice(index, 1);
       });
 
       // Update user permissions

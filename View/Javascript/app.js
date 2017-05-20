@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'SocketF', 'RolesS', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
+  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ui.grid', 'ui.grid.selection', 'ui.grid.pinning', 'ui.grid.autoResize', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'SocketF', 'RolesS', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
   const adminLayout = 'container-fluid admin';
   const normalLayout = 'container';
   
@@ -170,15 +170,15 @@
         .state('admin.articles', {
           url         : '/adminArticles',
           templateUrl : '../Partial/Admin/adminArticles.html',
-          data        : {
-            permissions: {
-              only: ['REDACTEUR', 'ADMIN_REDACTEUR'],
-              redirectTo: {
+          // data        : {
+          //   permissions: {
+          //     only: ['REDACTEUR', 'ADMIN_REDACTEUR'],
+          //     redirectTo: {
                 
-                default: 'home'
-              }
-            }
-          }
+          //       default: 'home'
+          //     }
+          //   }
+          // }
         })
         .state('admin.shop', {
           url         : '/adminShop',

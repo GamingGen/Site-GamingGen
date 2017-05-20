@@ -54,6 +54,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   });
   
   socket.on('ErrorOnUserPermissionsUpdated', function(data) {
+    console.log(data);
     $("#msgError").html(data.message);
     $("#msgError").show().delay(3000).fadeOut();
   });
