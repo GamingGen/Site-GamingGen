@@ -65,9 +65,16 @@ body {
 /*}*/
 
 
-.myGrid {
+.adminArticleGrid {
   width: 100%;
   height: 450px;
+}
+
+.mergedRow {
+  text-align: center;
+  /*background-color: DeepSkyBlue !important;*/
+  /*background-color: LightSkyBlue !important;*/
+  /*background-color: MediumTurquoise !important;*/
 }
 
 p, h3, label {

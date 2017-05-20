@@ -45,26 +45,33 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
   
   
   // ----- GET / SET Data -----
-  $scope.tinymceModel = "<br /><p><strong><em>--</em></strong><strong><em><br /></em></strong><strong><em>Gaming Gen, le jeu est dans nos g&egrave;nes !</em></strong></p>";
+  $scope.tinymceModel = '<br /><p><strong><em>--</em></strong><strong><em><br /></em></strong><strong><em>Gaming Gen, le jeu est dans nos g&egrave;nes !</em></strong></p>';
   $scope.type = {
     name   : 'hot_news'
   };
   
   $http.get('/articles').then(function(articles) {
-    articleCtrl.lstArticles = articles.data;
+    // articleCtrl.lstArticles = articles.data;
     $scope.gridOptions.data = articles.data;
+    $scope.gridOptions.data.splice(4, 0,{merge: true, title:'Article non visible sur la Home'});
+    $scope.gridOptions.data.unshift({merge: true, title:'Article visible sur la Home'});
+    
   }).catch(function() {
     $("#msgError").html("Erreur lors de la récupération des articles, veuillez réessayer ultérieurement.");
     $("#msgError").show().delay(3000).fadeOut();
   });
 
   socket.on('NewArticle', function(data) {
-    articleCtrl.lstArticles.unshift(data);
+    // articleCtrl.lstArticles.unshift(data);
+    $scope.gridOptions.data.splice(1, 0, data);
+    $scope.gridOptions.data.splice(6, 0, $scope.gridOptions.data.splice(5, 1)[0]);
   });
   
   socket.on('ArticleUpdated', function(articleUpdated) {
-    var index = articleCtrl.lstArticles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
-    articleCtrl.lstArticles[index] = articleUpdated;
+    // var index = articleCtrl.lstArticles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
+    // articleCtrl.lstArticles[index] = articleUpdated;
+    var index = $scope.gridOptions.data.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
+    $scope.gridOptions.data[index] = articleUpdated;
     successOnPageAdminArticle("L'article à bien était mis à jour");
   });
   
@@ -73,27 +80,43 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
   });
   
   socket.on('ArticleRemoved', function(data) {
-    var index = articleCtrl.lstArticles
-      .findIndex(function(article) { return article._id === data; });
+    // var index = articleCtrl.lstArticles
+    //   .findIndex(function(article) { return article._id === data; });
 
-    articleCtrl.lstArticles.splice(index, 1);
+    // articleCtrl.lstArticles.splice(index, 1);
+    
+    var index = $scope.gridOptions.data
+      .findIndex(function(article) { return article._id === data; });
+    $scope.gridOptions.data.splice(index, 1);
     successOnPageAdminArticle("L'article à bien était supprimé");
   });
   
   // Mise à jour le commentaire dans la liste
   socket.on('NewComment', function(data) {
-    articleCtrl.lstArticles.find(function(article) {return article._id === data.article_id}).comments.push(data);
+    // articleCtrl.lstArticles.find(function(article) {return article._id === data.article_id}).comments.push(data);
+    $scope.gridOptions.data.find(function(article) {return article._id === data.article_id}).comments.push(data);
   });
   
   socket.on('CommentRemoved', function(data) {
-    var index = articleCtrl.lstArticles
+    // var index = articleCtrl.lstArticles
+    //   .find(function(article) { return article._id === data.article_id; })
+    //   .comments
+    //   .findIndex(function(comment) {
+    //     return comment._id === data._id;
+    //   });
+
+    // articleCtrl.lstArticles
+    //   .find(function(article) { return article._id === data.article_id; })
+    //   .comments.splice(index, 1);
+      
+    var index = $scope.gridOptions.data
       .find(function(article) { return article._id === data.article_id; })
       .comments
       .findIndex(function(comment) {
         return comment._id === data._id;
       });
-
-    articleCtrl.lstArticles
+      
+    $scope.gridOptions.data
       .find(function(article) { return article._id === data.article_id; })
       .comments.splice(index, 1);
     successOnPageAdminArticle("Le commentaire à bien était supprimé");
@@ -165,7 +188,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
     $scope.desc = '';
     $scope.picture = '';
     $scope.type.name = "hot_news";
-    tinymce.activeEditor.setContent('<p></p>');
+    tinymce.activeEditor.setContent('<br /><p><strong><em>--</em></strong><strong><em><br /></em></strong><strong><em>Gaming Gen, le jeu est dans nos g&egrave;nes !</em></strong></p>');
     $scope.selectedArticle = undefined;
     $scope.idChildSelectedElement = undefined;
     $scope.idSelectedElement = undefined;
@@ -220,11 +243,14 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
     modifierKeysToMultiSelect: false,
     multiSelect              : false,
     showGridFooter           : true,
-    data                     : articleCtrl.lstArticles,
+    data                     : [],
     onRegisterApi: function(gridApi){
       $scope.gridApi = gridApi;
     }
   };
+  
+  $scope.gridOptions.rowTemplate = '<div class="mergedRow" ng-if="row.entity.merge">{{row.entity.title}}</div>'
+  + '<div ng-if="!row.entity.merge" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>';
   
   $scope.gridOptions.columnDefs = [
     {
@@ -241,6 +267,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
     {
       name: 'Titre',
       field: 'title',
+      enableSorting: false,
       enableColumnMenu: false,
       minWidth:200,
       width:'15%',
@@ -248,14 +275,16 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
     {
       name: 'Desc',
       field: 'desc',
-      enableColumnMenu: false,
       enableFiltering: false,
+      enableSorting: false,
+      enableColumnMenu: false,
       minWidth:300,
       width: '48%',
     },
     {
       name: 'Auteur',
       field: 'pseudo',
+      enableSorting: false,
       enableColumnMenu: false,
       minWidth:130,
       width:'8%',
@@ -264,17 +293,23 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
       name: 'Date de Création',
       field: 'register_date',
       cellFilter: 'date:"dd MMM yyyy - HH:mm:ss"',
-      enableColumnMenu: false,
       enableFiltering: false,
+      enableSorting: false,
+      enableColumnMenu: false,
       minWidth:140,
       width:'10%',
     },
     {
       name: 'Date de Modification',
       field: 'update_at',
+      // sort: {
+      //   direction: uiGridConstants.DESC,
+      //   // priority: 1
+      // },
       cellFilter: 'date:"dd MMM yyyy - HH:mm:ss"',
-      enableColumnMenu: false,
       enableFiltering: false,
+      enableSorting: false,
+      enableColumnMenu: false,
       minWidth:170,
       width:'12%',
     }

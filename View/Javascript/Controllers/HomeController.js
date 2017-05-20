@@ -34,7 +34,12 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
   
   socket.on('ArticleUpdated', function(articleUpdated) {
     var index = news.articles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
-    news.articles[index] = articleUpdated;
+    if (index !== -1) {
+      news.articles[index] = articleUpdated;
+    }
+    else {
+      news.articles.push(articleUpdated);
+    }
   });
   
   socket.on('ArticleRemoved', function(id) {

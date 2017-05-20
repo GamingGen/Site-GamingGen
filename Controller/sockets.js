@@ -158,6 +158,7 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	  console.log('Client Connecté');
 
 		// Save the socket.id
+		console.log('socket.request.session: ', socket.request.session);
 		if (socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.socketId) {
 			socket.request.session.passport.user.socketId = socket.id;
 			socket.request.session.save(function(err) {
