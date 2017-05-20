@@ -272,6 +272,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
       var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
       notif.onclick = function () {
         $state.go(data.state, data.options);
+        notif.close();
       };
     }
     else if (window.Notification && Notification.permission !== "denied") {
@@ -286,6 +287,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
           var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
           notif.onclick = function () {
             $state.go(data.state, data.options);
+            notif.close();
           };
         }
       });
