@@ -27,7 +27,15 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   socket.on('toogleLive', function(live) {
     $scope.live = live;
-    showNotification({NewArticle});
+    
+    if (live.notificationOff !== true) {
+      live.title = live.Youtube === true ? 'Live Youtube !' : 'Live Twitch !';
+      live.picture = live.Youtube === true ? 'https://www.youtube.com/yt/brand/media/image/YouTube-icon-full_color.png' : 'https://s3-us-west-2.amazonaws.com/web-design-ext-production/p/Combologo_474x356.png';
+      live.state = 'live';
+      live.options = undefined;
+
+      showNotification(live);
+    }
   });
   
   socket.on('isMailExist', function(data) {
@@ -40,10 +48,14 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   });
   
   socket.on('NewArticle', function(NewArticle) {
+    NewArticle.state = 'article';
+    NewArticle.options = {id: NewArticle._id};
     showNotification(NewArticle);
   });
   
   socket.on('ArticleUpdated', function(articleUpdated) {
+    articleUpdated.state = 'article';
+    articleUpdated.options = {id: articleUpdated._id};
     showNotification(articleUpdated);
   });
   
@@ -259,7 +271,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
       console.log('First ', Notification.permission);
       var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
       notif.onclick = function () {
-        $state.go('article', {id: data._id});
+        $state.go(data.state, data.options);
       };
     }
     else if (window.Notification && Notification.permission !== "denied") {
@@ -273,7 +285,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
           console.log('Second ', Notification.permission);
           var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
           notif.onclick = function () {
-            $state.go('article', {id: data._id});
+            $state.go(data.state, data.options);
           };
         }
       });

@@ -264,12 +264,14 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		});
 		
 		socket.on('getLive', function() {
+			Live.notificationOff = true;
 			socket.emit('toogleLive', Live);
 		});
 		
 		socket.on('LiveOff', function() {
 			Live.Youtube = false;
 			Live.Twitch = false;
+			Live.notificationOff = true;
 			io.sockets.emit('toogleLive', Live);
 			console.log(Live);
 		});
@@ -277,6 +279,7 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		socket.on('LiveYoutube', function() {
 			Live.Youtube = true;
 			Live.Twitch = false;
+			Live.desc	= youtube;
 			io.sockets.emit('toogleLive', Live);
 			console.log(Live);
 		});
@@ -284,6 +287,7 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		socket.on('LiveTwitch', function() {
 			Live.Twitch = true;
 			Live.Youtube = false;
+			Live.desc	= twitch;
 			io.sockets.emit('toogleLive', Live);
 			console.log(Live);
 		});
