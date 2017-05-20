@@ -6,6 +6,8 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
   // ----- Init -----
   var articleCtrl            = this;
   articleCtrl.lstArticles    = [];
+  $scope.maxLengthTitle      = 75;
+  $scope.maxLengthDesc       = 120;
   $scope.tab                 = 1;
   $scope.newArticle          = true;
   var user                   = UserService.currentUser;
