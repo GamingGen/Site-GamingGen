@@ -27,6 +27,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   socket.on('toogleLive', function(live) {
     $scope.live = live;
+    showNotification({NewArticle});
   });
   
   socket.on('isMailExist', function(data) {
@@ -47,8 +48,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   });
   
   socket.on('UserPermissionsUpdatedOk', function(data) {
-    $("#msgInfo").html('Permissions mises à jour pour le user : ' + data.pseudo);
-    $("#msgInfo").show().delay(3000).fadeOut();
+    alertInfo('Permissions mises à jour pour le user : ' + data.pseudo);
   });
   
   socket.on('UserPermissionsUpdated', function(data) {
@@ -57,34 +57,28 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     }).catch(function(err) {
       console.log(err);
     });
-    $("#msgInfo").html('Vos drois ont était mis à jours');
-    $("#msgInfo").show().delay(3000).fadeOut();
+    alertInfo('Vos drois ont était mis à jours');
   });
   
   socket.on('ErrorOnUserPermissionsUpdated', function(data) {
     console.log(data);
-    $("#msgError").html(data.message);
-    $("#msgError").show().delay(3000).fadeOut();
+    alertError(data.message);
   });
   
   socket.on('RolesUpdated', function(data) {
-    $("#msgInfo").html('Permissions mises à jour pour la configuration : ' + data.name);
-    $("#msgInfo").show().delay(3000).fadeOut();
+    alertInfo('Permissions mises à jour pour la configuration : ' + data.name);
   });
   
   socket.on('ErrorOnRolesUpdated', function(data) {
-    $("#msgError").html(data.message);
-    $("#msgError").show().delay(3000).fadeOut();
+    alertError(data.message);
   });
   
   socket.on('PermissionsUpdated', function(data) {
-    $("#msgInfo").html('Permissions mises à jour pour la configuration : ' + data.name);
-    $("#msgInfo").show().delay(3000).fadeOut();
+    alertInfo('Permissions mises à jour pour la configuration : ' + data.name);
   });
   
   socket.on('ErrorOnPermissionsUpdated', function(data) {
-    $("#msgError").html(data.message);
-    $("#msgError").show().delay(3000).fadeOut();
+    alertError(data.message);
   });
 
   // Déconnexion si utilisateur banni
@@ -129,7 +123,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     }, function error(err) {
       console.log('Connexion Error -_-');
       
-      errorOnGetArticle(err);
+      alertError(err);
       
       $scope.connectionEmail = '';
       $scope.connectionPassword = '';
@@ -164,8 +158,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
         $('#registrationModal').modal('toggle');
         
         console.log('data: ', data.data);
-        $("#msgInfo").html(data.data.message);
-        $("#msgInfo").show().delay(3000).fadeOut();
+        alertInfo(data.data.message);
       })
       .catch(function(err) {
         $scope.firstName = '';
@@ -177,8 +170,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
         $scope.email     = '';
 
         console.log('err: ', err);
-        $("#msgError").html(err.message);
-        $("#msgError").show().delay(3000).fadeOut();
+        alertError(err.message);
     });
     
   };
@@ -252,51 +244,49 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   
   // ----- jQuery -----
+  if (window.Notification && Notification.permission !== "granted") {
+    Notification.requestPermission(function (status) {
+      if (Notification.permission !== status) {
+        console.log('getStatusNotification: ', status);
+        Notification.permission = status;
+      }
+    });
+  }
   
-  // Gestion des notifications
-  // window.addEventListener('load', function () {
-    // Premièrement, vérifions que nous avons la permission de notifier
-    // Sinon, demandons la permission
-    if (window.Notification && Notification.permission !== "granted") {
+  function showNotification (data) {
+    // Si l'utilisateur accepte les notifications, sinon rien ne se passe
+    if (window.Notification && Notification.permission === "granted") {
+      console.log('First ', Notification.permission);
+      var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
+      notif.onclick = function () {
+        $state.go('article', {id: data._id});
+      };
+    }
+    else if (window.Notification && Notification.permission !== "denied") {
       Notification.requestPermission(function (status) {
         if (Notification.permission !== status) {
-          console.log('getStatusNotification: ', status);
           Notification.permission = status;
+        }
+        
+        // Si l'utilisateur a accepté les notifications, sinon rien ne se passe
+        if (status === "granted") {
+          console.log('Second ', Notification.permission);
+          var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
+          notif.onclick = function () {
+            $state.go('article', {id: data._id});
+          };
         }
       });
     }
-    
-    function showNotification (data) {
-      // Si l'utilisateur accepte les notifications
-      // essayons d'envoyer 10 notifications
-      if (window.Notification && Notification.permission === "granted") {
-        console.log('First ', Notification.permission);
-        var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
-        notif.onclick = function () {
-          $state.go('article', {id: data._id});
-        };
-      }
-      else if (window.Notification && Notification.permission !== "denied") {
-        Notification.requestPermission(function (status) {
-          if (Notification.permission !== status) {
-            Notification.permission = status;
-          }
-          
-          // Si l'utilisateur a accepté les notifications
-          if (status === "granted") {
-            console.log('Second ', Notification.permission);
-            var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
-            notif.onclick = function () {
-              $state.go('article', {id: data._id});
-            };
-          }
-        });
-      }
-    }
-  // });
+  }
   
-  // Gestion des erreurs
-  function errorOnGetArticle(err) {
+  // Gestion des alerts
+  function alertInfo(info) {
+    $("#msgInfo").html(info);
+    $("#msgInfo").show().delay(3000).fadeOut();
+  }
+
+  function alertError(err) {
     $("#msgError").html(err);
     $("#msgError").show().delay(3000).fadeOut();
   }
