@@ -33,7 +33,7 @@ adminRolesCtrl.controller('adminRolesCtrl', ['$scope', 'socket', 'rolesAndPermis
     return adminRoles.data.tab === checkTab;
   };
   
-  $scope.addPermission = function(checkTab) {
+  $scope.addPermission = function() {
     if (!$scope.permissionsList.includes($scope.namePermission)) {
       adminRoles.data.addPermission($scope.namePermission);
       $scope.namePermission = "";

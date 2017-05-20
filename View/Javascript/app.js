@@ -1,12 +1,14 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'SocketF', 'RolesS', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear']);
+  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ui.grid', 'ui.grid.selection', 'ui.grid.pinning', 'ui.grid.autoResize', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'SocketF', 'RolesS', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear', 'ui.bootstrap.datetimepicker']);
   const adminLayout = 'container-fluid admin';
   const normalLayout = 'container';
   
-  app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
-    function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', '$qProvider',
+    function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $qProvider) {
+      
+      // $qProvider.errorOnUnhandledRejections(false);
       
       // Système de routage
       $stateProvider
@@ -174,7 +176,6 @@
             permissions: {
               only: ['REDACTEUR', 'ADMIN_REDACTEUR'],
               redirectTo: {
-                
                 default: 'home'
               }
             }

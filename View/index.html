@@ -16,17 +16,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.4/css/datetimepicker.min.css">
     
     <!-- build:css css/min.css -->
     <link rel="stylesheet" href="Style/please-wait.css">
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/3.2.9/ui-grid.min.css">-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.min.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.4/ui-grid.min.css">
     <link rel="stylesheet" href="Style/jasny-bootstrap.min.css">
     <link rel="stylesheet" href="Style/main.css">
     <link rel="stylesheet" href="Style/loading-bar.css" media="all">
     <link rel="stylesheet" href="Style/classie.css" media="all">
-    <link rel="stylesheet" href="Style/simplebar.css" media="all">
+    <!--<link rel="stylesheet" href="Style/simplebar.css" media="all">-->
     <!-- endbuild -->
   </head>
   
@@ -57,13 +57,14 @@
     <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.4/js/datetimepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.4/js/datetimepicker.templates.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     
-    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/3.2.9/ui-grid.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-mask/1.8.7/mask.min.js"></script>-->
-    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/locale/bootstrap-table-fr-FR.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.min.js"></script>-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.4/ui-grid.min.js"></script>
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-mask/1.8.7/mask.min.js"></script>-->
     
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript" src="https://player.twitch.tv/js/embed/v1.js"></script>
@@ -80,7 +81,7 @@
     <script type="text/javascript" src="Javascript/Lib/angular-youtube-embed.min.js"></script>
     <script type="text/javascript" src="Javascript/Lib/classie.js"></script>
     <script type="text/javascript" src="Javascript/Lib/ngclipboard.min.js"></script>
-    <script type="text/javascript" src="Javascript/Lib/simplebar.js"></script>
+    <!--<script type="text/javascript" src="Javascript/Lib/simplebar.js"></script>-->
     <!-- endbuild -->
 
     <!-- build:js js/main.min.js -->
@@ -120,7 +121,7 @@
     <script type="text/javascript" src="Javascript/app.js"></script>
     <!-- endbuild -->
 
-    <div data-simplebar>
+    <!--<div data-simplebar>-->
       <!-- Inscription Modal -->
       <div class="modal fade container" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
         <div class="modal-dialog modal-lg" role="document">
@@ -176,7 +177,15 @@
                     </div>
                     <div class="col-xs-6" ng-class="{ 'has-error' : formRegistration.birthday.$invalid && !formRegistration.birthday.$pristine }">
                       <div class="form-group">
-                        
+                        <!--<div class="dropdown">-->
+                        <!--  <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">-->
+                        <!--    <div class="input-group"><input type="text" class="form-control" data-ng-model="data.dateDropDownInput"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>-->
+                        <!--    </div>-->
+                        <!--  </a>-->
+                        <!--  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">-->
+                        <!--    <datetimepicker data-ng-model="data.dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>-->
+                        <!--  </ul>-->
+                        <!--</div>-->
                         <input type="date" ng-model="birthday" class="form-control" id="birthday" name="birthday" placeholder="Date de Naissance*" required/>
                         <label for="email">Date de Naissance*</label>
                       </div>
@@ -648,7 +657,7 @@
           </div>
         </div>
       </div>
-    </div>
+    <!--</div>-->
     <!-- Check if Angular is compatible, and remove the Splash Screen if Ok-->
     <script>
       var everythingLoaded = setInterval(function() {

@@ -2,9 +2,10 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', 'socket', 'UserService', 'PermPermissionStore', function($scope, $http, $location, socket, UserService, PermPermissionStore) {
+AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', 'socket', 'UserService', 'PermPermissionStore', 'uiGridConstants', function($scope, $http, $location, socket, UserService, PermPermissionStore, uiGridConstants) {
   // ----- Init -----
   var articleCtrl            = this;
+  articleCtrl.lstArticles    = [];
   $scope.tab                 = 1;
   $scope.newArticle          = true;
   var user                   = UserService.currentUser;
@@ -14,6 +15,10 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
   $scope.selectedArticle     = {};
   $scope.canEditArticle      = PermPermissionStore.getPermissionDefinition('canEditArticle') !== undefined;
   $scope.canEditOtherArticle = PermPermissionStore.getPermissionDefinition('canEditOtherArticle') !== undefined;
+  
+  var today = new Date();
+  var nextWeek = new Date();
+  nextWeek.setDate(nextWeek.getDate() + 7);
   
   tinymce.init({
     selector: 'textarea',
@@ -38,13 +43,14 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
   
   
   // ----- GET / SET Data -----
-  $scope.tinymceModel = "<p>Il suffit d'écrire l'article ici ^^</p>";
+  $scope.tinymceModel = "<br /><p><strong><em>--</em></strong><strong><em><br /></em></strong><strong><em>Gaming Gen, le jeu est dans nos g&egrave;nes !</em></strong></p>";
   $scope.type = {
     name   : 'hot_news'
   };
   
   $http.get('/articles').then(function(articles) {
     articleCtrl.lstArticles = articles.data;
+    $scope.gridOptions.data = articles.data;
   }).catch(function() {
     $("#msgError").html("Erreur lors de la récupération des articles, veuillez réessayer ultérieurement.");
     $("#msgError").show().delay(3000).fadeOut();
@@ -141,7 +147,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
         $scope.desc = '';
         $scope.picture = '';
         $scope.type.name = "hot_news";
-        tinymce.activeEditor.setContent('<p></p>');
+        tinymce.activeEditor.setContent($scope.tinymceModel);
         successOnPageAdminArticle("L'article à bien était enregistré");
       });
     }
@@ -175,6 +181,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
   
   $scope.editArticle = function(article) {
     if (article != undefined) {
+      console.log('article: ', article);
       tinymce.activeEditor.setContent(article.text);
       $scope.title = article.title;
       $scope.desc = article.desc;
@@ -200,6 +207,82 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
       selectedArticleToRm = undefined;
     }
   };
+  
+  
+  
+  $scope.gridOptions = {
+    enableFiltering          : true,
+    enableRowSelection       : true,
+    enableRowHeaderSelection : false,
+    noUnselect               : true,
+    modifierKeysToMultiSelect: false,
+    multiSelect              : false,
+    showGridFooter           : true,
+    data                     : articleCtrl.lstArticles,
+    onRegisterApi: function(gridApi){
+      $scope.gridApi = gridApi;
+    }
+  };
+  
+  $scope.gridOptions.columnDefs = [
+    {
+      name: '#',
+      enableFiltering: false,
+      enableSorting: false,
+      enableColumnMenu: false,
+      minWidth:100,
+      width:'7%',
+      cellTemplate: '<button ngclipboard data-clipboard-text="{{grid.appScope.baseArticleUrl}}{{row.entity._id}}" ngclipboard-success="onSuccess(e);" ngclipboard-error="onError(e);" class="btn btn-primary btn-sm" title="Copier le lien"><i class="fa fa-clipboard" aria-hidden="true"></i></button>'
+      + '<button permission permission-only="\'ADMIN_REDACTEUR\'" ng-click="grid.appScope.prepareRemoveArticle(row.entity)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#rmModal" title="Supprimer l\'article"><i class="fa fa-trash" aria-hidden="true"></i></button>'
+      + '<button ng-show="(grid.appScope.user.isLoggedIn && grid.appScope.canEditArticle && row.entity.pseudo === grid.appScope.user.pseudo) || grid.appScope.canEditOtherArticle" class="btn btn-warning btn-sm" ng-click="grid.appScope.editArticle(row.entity)" title="modifier l\'article"><i class="fa fa-pencil" aria-hidden="true"></i></button>',
+    },
+    {
+      name: 'Titre',
+      field: 'title',
+      enableColumnMenu: false,
+      minWidth:200,
+      width:'15%',
+    },
+    {
+      name: 'Desc',
+      field: 'desc',
+      enableColumnMenu: false,
+      enableFiltering: false,
+      minWidth:300,
+      width: '48%',
+    },
+    {
+      name: 'Auteur',
+      field: 'pseudo',
+      enableColumnMenu: false,
+      minWidth:130,
+      width:'8%',
+    },
+    {
+      name: 'Date de Création',
+      field: 'register_date',
+      cellFilter: 'date:"dd MMM yyyy - HH:mm:ss"',
+      enableColumnMenu: false,
+      enableFiltering: false,
+      minWidth:140,
+      width:'10%',
+    },
+    {
+      name: 'Date de Modification',
+      field: 'update_at',
+      cellFilter: 'date:"dd MMM yyyy - HH:mm:ss"',
+      enableColumnMenu: false,
+      enableFiltering: false,
+      minWidth:170,
+      width:'12%',
+    }
+  ];
+  
+  
+  
+  
+  
+  
   
 
   // ----- Private Méthode -----

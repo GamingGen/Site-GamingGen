@@ -38,6 +38,14 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     $scope.isPseudoExist = data;
   });
   
+  socket.on('NewArticle', function(NewArticle) {
+    showNotification(NewArticle);
+  });
+  
+  socket.on('ArticleUpdated', function(articleUpdated) {
+    showNotification(articleUpdated);
+  });
+  
   socket.on('UserPermissionsUpdatedOk', function(data) {
     $("#msgInfo").html('Permissions mises à jour pour le user : ' + data.pseudo);
     $("#msgInfo").show().delay(3000).fadeOut();
@@ -54,6 +62,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   });
   
   socket.on('ErrorOnUserPermissionsUpdated', function(data) {
+    console.log(data);
     $("#msgError").html(data.message);
     $("#msgError").show().delay(3000).fadeOut();
   });
@@ -183,7 +192,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
       $state.go('home');
     })
     .catch(function(err) {
-      console.log(err)
+      console.log(err);
     });
   };
   
@@ -243,6 +252,48 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   
   // ----- jQuery -----
+  
+  // Gestion des notifications
+  // window.addEventListener('load', function () {
+    // Premièrement, vérifions que nous avons la permission de notifier
+    // Sinon, demandons la permission
+    if (window.Notification && Notification.permission !== "granted") {
+      Notification.requestPermission(function (status) {
+        if (Notification.permission !== status) {
+          console.log('getStatusNotification: ', status);
+          Notification.permission = status;
+        }
+      });
+    }
+    
+    function showNotification (data) {
+      // Si l'utilisateur accepte les notifications
+      // essayons d'envoyer 10 notifications
+      if (window.Notification && Notification.permission === "granted") {
+        console.log('First ', Notification.permission);
+        var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
+        notif.onclick = function () {
+          $state.go('article', {id: data._id});
+        };
+      }
+      else if (window.Notification && Notification.permission !== "denied") {
+        Notification.requestPermission(function (status) {
+          if (Notification.permission !== status) {
+            Notification.permission = status;
+          }
+          
+          // Si l'utilisateur a accepté les notifications
+          if (status === "granted") {
+            console.log('Second ', Notification.permission);
+            var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
+            notif.onclick = function () {
+              $state.go('article', {id: data._id});
+            };
+          }
+        });
+      }
+    }
+  // });
   
   // Gestion des erreurs
   function errorOnGetArticle(err) {
