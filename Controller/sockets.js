@@ -279,17 +279,17 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		socket.on('LiveYoutube', function() {
 			Live.Youtube = true;
 			Live.Twitch = false;
-			Live.desc	= youtube;
+			Live.notificationOff = false;
+			Live.desc	= 'WIP';
 			io.sockets.emit('toogleLive', Live);
-			console.log(Live);
 		});
 		
 		socket.on('LiveTwitch', function() {
 			Live.Twitch = true;
 			Live.Youtube = false;
-			Live.desc	= twitch;
+			Live.notificationOff = false;
+			Live.desc	= 'WIP';
 			io.sockets.emit('toogleLive', Live);
-			console.log(Live);
 		});
 		
 		socket.on('getLiveSource', function() {
