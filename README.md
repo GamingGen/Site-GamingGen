@@ -20,7 +20,7 @@ Installation Prod (Ubuntu Server 16.04 LTS):
         - sudo apt-get install libcap2-bin
         - sudo setcap cap_net_bind_service=+ep /usr/bin/nodejs
     
-    2. Installer Node.JS(6.xx.x) & NPM (3.x)
+    2. Installer Node.JS(7.xx.x) & NPM (3.x)
         - sudo apt-get install curl
         - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
         - sudo apt-get install -y nodejs
@@ -47,9 +47,12 @@ Installation Prod (Ubuntu Server 16.04 LTS):
         - pm2 install pm2-mongodb (Déjà activé ?)
         * [INFO]: http://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/
     
-    6. Certificat SSL
-        - Faire la demande (ou en créer un en auto-signé mais fortement déconseillé)
-        - pm2 install pm2-mongodb (Déjà activé ?)
+    6. Installer GraphicsMagick
+        - sudo apt-get install graphicsmagick
+        
+    7. Certificat SSL
+        - Faire la demande (ou en créer un en auto-signé mais fortement déconseillé) Let's Encrypt
+        * [INFO] https://www.unsimpleclic.com/lets-encrypt-un-certificat-ssl-gratuit-et-reconnu-par-tous-les-navigateurs_98699.html
         * [INFO]: https://www.sitepoint.com/how-to-use-ssltls-with-node-js/
 
 2. Configuration du serveur
@@ -66,7 +69,8 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     - Créer le Workspase (préciser le repo Github)
 
 2. Installation
-    1. Node.JS (6.x.x)
+    1. Node.JS (7.x.x)
+        - utiliser nvm (gestionnaire de version Node.js)
 
     2. MongoDB (3.x)
         - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
@@ -78,8 +82,8 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     3. PM2
         - sudo npm install -g pm2
     
-    4. Grunt CLI
-        - npm install -g grunt-cli
+    4. Installer GraphicsMagick
+        - sudo apt-get install graphicsmagick
 
 3. Configuration
     1. Créer un dossier permettant d'accueillir la BDD
