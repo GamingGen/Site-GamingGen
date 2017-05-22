@@ -7,6 +7,7 @@ const articleSchema = require('../Model/articleSchema');
 const express = require('express');
 const router  = express.Router();
 const gm      = require('gm');
+const request = require('request');
 
 // -------------------------------------------------------------------------- //
 //                                 Init                                       //
@@ -88,10 +89,9 @@ let articleEvent = function(ServerEvent) {
       });
       
       if(data.picture.toLowerCase().includes('.gif')) {
-        console.log('data.picture: ', data.picture);
-        gm(data.picture)
+        gm(request(data.picture))
         .selectFrame(0)
-        .toBuffer('PNG', function(err, buffer){
+        .toBuffer('PNG', function(err, buffer) {
           if (err) {
             console.log('err toBuffer img: ', err);
           }

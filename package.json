@@ -36,6 +36,7 @@
     "pm2": "^2.4.6",
     "pmx": "^1.2.0",
     "rcon": "^1.0.3",
+    "request": "^2.81.0",
     "serve-favicon": "^2.4.2",
     "socket.io": "^2.0.1",
     "socket.io-mongodb": "^1.1.1",
