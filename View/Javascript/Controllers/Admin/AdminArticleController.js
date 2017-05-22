@@ -71,8 +71,15 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
     // var index = articleCtrl.lstArticles.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
     // articleCtrl.lstArticles[index] = articleUpdated;
     var index = $scope.gridOptions.data.map(function(element) { return element._id; }).indexOf(articleUpdated._id);
-    $scope.gridOptions.data[index] = articleUpdated;
-    successOnPageAdminArticle("L'article à bien était mis à jour");
+    
+    
+    if (index !== -1) {
+      $scope.gridOptions.data.splice(index, 1);
+      $scope.gridOptions.data.splice(1, 0, articleUpdated);
+      $scope.gridOptions.data.splice(6, 0, $scope.gridOptions.data.splice(5, 1)[0]);
+      successOnPageAdminArticle("L'article à bien était mis à jour");
+    }
+    // $scope.gridOptions.data[index] = articleUpdated;
   });
   
   socket.on('ErrorOnArticleUpdated', function(data) {

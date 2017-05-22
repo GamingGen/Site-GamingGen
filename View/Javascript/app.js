@@ -5,10 +5,10 @@
   const adminLayout = 'container-fluid admin';
   const normalLayout = 'container';
   
-  app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', '$qProvider',
-    function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $qProvider) {
+  app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', '$compileProvider',
+    function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $compileProvider) {
       
-      // $qProvider.errorOnUnhandledRejections(false);
+      $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ftp|blob):|data:image\//);
       
       // Système de routage
       $stateProvider

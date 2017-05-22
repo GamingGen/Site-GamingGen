@@ -25,18 +25,19 @@ const Schema   = mongoose.Schema;
  * @param {String} picture - Lien vers l'image de couverture
  */
 let ArticleSchema = new Schema({
-    pseudo        : { type: String, required: true },
-    title         : { type: String, required: true },
-    desc          : { type: String, required: true },
-    text          : { type: String, required: true },
-    update_at     : { type: Date },
-    register_date : { type: Date },
-    comments      : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
-    type          : {
-                      hot_news      : { type : Boolean, default : true },
-                      critical_info : { type : Boolean, default : false }
-                  },
-    picture       : { type: String, required: true }
+    pseudo              : { type: String, required: true },
+    title               : { type: String, required: true },
+    desc                : { type: String, required: true },
+    text                : { type: String, required: true },
+    update_at           : { type: Date },
+    register_date       : { type: Date },
+    comments            : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    type                : {
+                            hot_news      : { type : Boolean, default : true },
+                            critical_info : { type : Boolean, default : false }
+                        },
+    picture             : { type: String, required: true },
+    first_frame_picture : { data: String, contentType: String }
 });
 
 /**

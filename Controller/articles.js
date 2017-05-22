@@ -4,8 +4,9 @@
 const articleSchema = require('../Model/articleSchema');
 
 // Récupération des modules
-const express	= require('express');
-const router	= express.Router();
+const express = require('express');
+const router  = express.Router();
+const gm      = require('gm');
 
 // -------------------------------------------------------------------------- //
 //                                 Init                                       //
@@ -86,9 +87,31 @@ let articleEvent = function(ServerEvent) {
         picture       : data.picture
       });
       
+      if(data.picture.toLowerCase().includes('.gif')) {
+        console.log('data.picture: ', data.picture);
+        gm(data.picture)
+        .selectFrame(0)
+        .toBuffer('PNG', function(err, buffer){
+          if (err) {
+            console.log('err toBuffer img: ', err);
+          }
+          newArticle.first_frame_picture.data = buffer.toString('base64');
+          newArticle.first_frame_picture.contentType = 'image/png';
+          
+          saveArticle();
+        });
+      }
+      else {
+        saveArticle();
+      }
+    }
+    else {
+      ServerEvent.emit('ErrorOnArticleUpdated', 'You are not Authorized', socket);
+    }
+    
+    function saveArticle () {
       newArticle.save(function(err, article) {
         if (err) {
-          //throw err;
           console.error(err);
           ServerEvent.emit('ErrorOnArticleUpdated', err.message, socket);
         }
@@ -96,9 +119,6 @@ let articleEvent = function(ServerEvent) {
           ServerEvent.emit('ArticleSaved', article, socket);
         }
       });
-    }
-    else {
-      ServerEvent.emit('ErrorOnArticleUpdated', 'You are not Authorized', socket);
     }
   });
   ServerEvent.on('updateArticle', function(data, socket) {

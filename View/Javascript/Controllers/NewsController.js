@@ -21,10 +21,6 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
   $http.get('/articles').then(function(articles) {
     newsCtrl.lstArticles = articles.data;
     
-    // Triage des commentaire du plus récent au plus ancien
-    newsCtrl.lstArticles.sort(function (a, b) {
-      return b.id - a.id;
-    });
     newsLength = newsCtrl.lstArticles.length;
     $scope.disableInfiniteScroll = newsLength < $scope.step;
     $scope.loadMore();
