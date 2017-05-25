@@ -120,6 +120,13 @@
     
     <script type="text/javascript" src="Javascript/app.js"></script>
     <!-- endbuild -->
+    <!-- message Cookie -->
+    <input class="checkbox-cb" id="checkbox-cb" type="checkbox" />
+<div class="cookie-bar">
+  <span class="message">Ce site internet utilise les cookies pour fonctionner de la meilleure des façons. En visitant ce site, vous acceptez les <a href="#">closes.</a></span>
+  <span class="mobile">Ce site internet utilise les cookies<a href="#">En savoir plus</a></span>
+  <label for="checkbox-cb" class="close-cb">x</label>
+</div>
 
     <!--<div data-simplebar>-->
       <!-- Inscription Modal -->
@@ -202,15 +209,17 @@
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="bottomFooter row">
-                  <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" >S'inscrire</a>
-                  <a type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
-                </div>
-                <div class="row">
+                   <div class="row">
                   <div ng-show="isPseudoExist" class="alert alert-danger" role="alert">Ce pseudo existe déjà</div>
                   <div ng-show="isMailExist" class="alert alert-danger" role="alert">Cette adresse mail existe déjà</div>
                 </div>
+                  <div class="bottomFooter row">
+                  <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" >S'inscrire</a>
+                  <a type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
+                </div>
+                </div>
+                
+               
               </form>
             </div>
           </div>
@@ -377,41 +386,8 @@
               
               <!--<li><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>-->
 
-              <div class="socialHeader socialHeaderXS hidden-sm hidden-md hidden-lg">
-                <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
-                  <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
-                  <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
-                </li>
-                <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
-                <li ng-show="" ui-sref-active="active" class="socialBloc demiSocial dropdown">
-                  <div class="socialBloc demiSocial">
-                    <a class="bienvenue-user-pseudo-alernate socialLink compte dropdown-toggle"><img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b></a>
-                    <a href="" class="socialLink compte dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                      Mon Compte
-                    </a>
-                    <ul class="socialLink compte dropdown-menu">
-                      <li ng-show="User.accessLvl > 5"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                      <li ng-show="User.accessLvl > 5"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                      <li ng-show="User.accessLvl > 5"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
-                    </ul>
-                  </div>
-                </li>
-                <li ui-sref-active="active" class="dropdown">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    L'association<span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a ui-sref="staff">L'équipe Gaming Gen</a></li>
-                    <li><a ui-sref="events">Nos précédents événements</a></li>
-                    <li><a ui-sref="media">Médias</a></li>
-                    <li><a ui-sref="info.mention">Mentions légales</a></li>
-                    <li><a ui-sref="info.contact">Contact</a></li>
-                  </ul>
-                </li>
+             
+                
                 <div class="socialHeader socialHeaderXS hidden-sm hidden-md hidden-lg">
                   <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
                     <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
@@ -453,7 +429,6 @@
                   </ul>
                 </li>
               </ul>
-            </div>
           </div>
         </div>
       </nav>
