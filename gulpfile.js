@@ -44,14 +44,14 @@ gulp.task('docco', ['cleanDoc'], () => {
 
 gulp.task('jsdoc', ['cleanDoc'], (cb) => {
   var config = require('./confJSDoc.json');
-  gulp.src(sources)
+  return gulp.src(sources)
     .pipe(jsdoc(config, cb));
 });
 
 gulp.task('styles', function(){  
-    gulp.src(sassFiles)
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest(cssDest));
+  return gulp.src(sassFiles)
+    .pipe(sass({noCache: true}).on('error', sass.logError))
+    .pipe(gulp.dest(cssDest));
 });
 
 gulp.task('prod', () => {
