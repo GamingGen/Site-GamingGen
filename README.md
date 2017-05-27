@@ -131,6 +131,9 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
             # Configuration Cloud9 Files
             .c9
             
+            # Configuration Visual Code Files
+            .vscode
+            
             # Dependency directory
             node_modules
             npm-debug.log
@@ -138,11 +141,22 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
             # DataBase
             data
             
+            # Certificat
+            *.pem
+            *.csr
+            certbot-auto
+            
             # Only for Dev
-            mongod
-            mongodRepair
-            mongodShutDown
+            mongod*
+            mongodRepair*
+            mongodShutDown*
+            *.bat
             adminMongo
+            dump*
+            View/dist
+            View/css
+            View/js
+            OnlyForCloude9/tmp
 
 4.  Tools
         - http://blog.mlab.com/2012/06/introducing-dex-the-index-bot/
