@@ -32,19 +32,22 @@
             
             <div class="content"><div class='highlight'><pre><span class="hljs-meta">'use strict'</span>;
 
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
 <span class="hljs-keyword">const</span> winston = <span class="hljs-built_in">require</span>(<span class="hljs-string">'winston'</span>);
 winston.emitErrs = <span class="hljs-literal">true</span>;
 
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 
-<span class="hljs-keyword">const</span> logPath = <span class="hljs-string">'./Logs/all-logs.log'</span>;
+<span class="hljs-keyword">const</span> dirname = <span class="hljs-string">'Logs'</span>;
+<span class="hljs-keyword">const</span> logPath = path.join(__dirname, <span class="hljs-string">'..'</span>, dirname, <span class="hljs-string">'all-logs.log'</span>);
+<span class="hljs-keyword">const</span> logErrorPath = path.join(__dirname, <span class="hljs-string">'..'</span>, dirname, <span class="hljs-string">'all-errors-logs.log'</span>);
 
-fs.access(logPath, fs.R_OK | fs.W_OK, (err) =&gt; {
-  <span class="hljs-built_in">console</span>.log(err ? <span class="hljs-string">'no access!'</span> : <span class="hljs-string">'can read/write'</span>);
+fs.access(path.dirname(logPath), fs.R_OK | fs.W_OK, (err) =&gt; {
   <span class="hljs-keyword">if</span> (err) {
-    fs.mkdir(<span class="hljs-string">'Logs'</span>, (err) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'no access !'</span>);
+    fs.mkdir(dirname, (err) =&gt; {
       <span class="hljs-keyword">if</span> (err) {
-        <span class="hljs-built_in">console</span>.log(err);
+        <span class="hljs-built_in">console</span>.error(err);
       }
       <span class="hljs-keyword">else</span> {
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Log Folder Created'</span>);
@@ -57,8 +60,19 @@ fs.access(logPath, fs.R_OK | fs.W_OK, (err) =&gt; {
 <span class="hljs-keyword">var</span> logger = <span class="hljs-keyword">new</span> winston.Logger({
   <span class="hljs-attr">transports</span>: [
     <span class="hljs-keyword">new</span> winston.transports.File({
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'info-file'</span>,
       <span class="hljs-attr">level</span>: <span class="hljs-string">'info'</span>,
       <span class="hljs-attr">filename</span>: logPath,
+      <span class="hljs-attr">handleExceptions</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">json</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">maxsize</span>: <span class="hljs-number">5242880</span>, <span class="hljs-comment">//5MB</span>
+      maxFiles: <span class="hljs-number">5</span>,
+      <span class="hljs-attr">colorize</span>: <span class="hljs-literal">false</span>
+    }),
+    <span class="hljs-keyword">new</span> winston.transports.File({
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'error-file'</span>,
+      <span class="hljs-attr">level</span>: <span class="hljs-string">'error'</span>,
+      <span class="hljs-attr">filename</span>: logErrorPath,
       <span class="hljs-attr">handleExceptions</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">json</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">maxsize</span>: <span class="hljs-number">5242880</span>, <span class="hljs-comment">//5MB</span>
@@ -66,7 +80,7 @@ fs.access(logPath, fs.R_OK | fs.W_OK, (err) =&gt; {
       <span class="hljs-attr">colorize</span>: <span class="hljs-literal">false</span>
     }),
     <span class="hljs-keyword">new</span> winston.transports.Console({
-      <span class="hljs-attr">level</span>: <span class="hljs-string">'debug'</span>,
+      <span class="hljs-attr">level</span>: <span class="hljs-string">'error'</span>,
       <span class="hljs-attr">handleExceptions</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">json</span>: <span class="hljs-literal">false</span>,
       <span class="hljs-attr">colorize</span>: <span class="hljs-literal">true</span>

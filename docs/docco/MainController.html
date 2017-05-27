@@ -34,7 +34,7 @@
 
 <span class="hljs-keyword">var</span> AppControllers = angular.module(<span class="hljs-string">'AppControllers'</span>);
 
-AppControllers.controller(<span class="hljs-string">'mainCtrl'</span>, [<span class="hljs-string">'UserService'</span>, <span class="hljs-string">'$location'</span>, <span class="hljs-string">'$state'</span>, <span class="hljs-string">'$scope'</span>, <span class="hljs-string">'socket'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-string">'$http'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">UserService, $location, $state, $scope, socket, $window, $http</span>) </span>{</pre></div></div>
+AppControllers.controller(<span class="hljs-string">'mainCtrl'</span>, [<span class="hljs-string">'UserService'</span>, <span class="hljs-string">'$location'</span>, <span class="hljs-string">'$state'</span>, <span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$transitions'</span>, <span class="hljs-string">'socket'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-string">'$http'</span>, <span class="hljs-string">'$document'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">UserService, $location, $state, $scope, $transitions, socket, $window, $http, $document</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -95,6 +95,15 @@ AppControllers.controller(<span class="hljs-string">'mainCtrl'</span>, [<span cl
   
   socket.on(<span class="hljs-string">'toogleLive'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">live</span>) </span>{
     $scope.live = live;
+    
+    <span class="hljs-keyword">if</span> (live.notificationOff !== <span class="hljs-literal">true</span>) {
+      live.title = live.Youtube === <span class="hljs-literal">true</span> ? <span class="hljs-string">'Live Youtube !'</span> : <span class="hljs-string">'Live Twitch !'</span>;
+      live.picture = live.Youtube === <span class="hljs-literal">true</span> ? <span class="hljs-string">'https://www.youtube.com/yt/brand/media/image/YouTube-icon-full_color.png'</span> : <span class="hljs-string">'https://s3-us-west-2.amazonaws.com/web-design-ext-production/p/Combologo_474x356.png'</span>;
+      live.state = <span class="hljs-string">'live'</span>;
+      live.options = <span class="hljs-literal">undefined</span>;
+
+      showNotification(live);
+    }
   });
   
   socket.on(<span class="hljs-string">'isMailExist'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
@@ -104,6 +113,52 @@ AppControllers.controller(<span class="hljs-string">'mainCtrl'</span>, [<span cl
   socket.on(<span class="hljs-string">'isPseudoExist'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
     <span class="hljs-built_in">console</span>.log(data);
     $scope.isPseudoExist = data;
+  });
+  
+  socket.on(<span class="hljs-string">'NewArticle'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">NewArticle</span>) </span>{
+    NewArticle.state = <span class="hljs-string">'article'</span>;
+    NewArticle.options = {<span class="hljs-attr">id</span>: NewArticle._id};
+    showNotification(NewArticle);
+  });
+  
+  socket.on(<span class="hljs-string">'ArticleUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">articleUpdated</span>) </span>{
+    articleUpdated.state = <span class="hljs-string">'article'</span>;
+    articleUpdated.options = {<span class="hljs-attr">id</span>: articleUpdated._id};
+    showNotification(articleUpdated);
+  });
+  
+  socket.on(<span class="hljs-string">'UserPermissionsUpdatedOk'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertInfo(<span class="hljs-string">'Permissions mises à jour pour le user : '</span> + data.pseudo);
+  });
+  
+  socket.on(<span class="hljs-string">'UserPermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    $http.get(<span class="hljs-string">'/users/refresh'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      UserService.refreshAccess(data.access);
+    }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(err);
+    });
+    alertInfo(<span class="hljs-string">'Vos drois ont était mis à jours'</span>);
+  });
+  
+  socket.on(<span class="hljs-string">'ErrorOnUserPermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(data);
+    alertError(data.message);
+  });
+  
+  socket.on(<span class="hljs-string">'RolesUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertInfo(<span class="hljs-string">'Permissions mises à jour pour la configuration : '</span> + data.name);
+  });
+  
+  socket.on(<span class="hljs-string">'ErrorOnRolesUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertError(data.message);
+  });
+  
+  socket.on(<span class="hljs-string">'PermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertInfo(<span class="hljs-string">'Permissions mises à jour pour la configuration : '</span> + data.name);
+  });
+  
+  socket.on(<span class="hljs-string">'ErrorOnPermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertError(data.message);
   });</pre></div></div>
             
         </li>
@@ -120,7 +175,7 @@ AppControllers.controller(<span class="hljs-string">'mainCtrl'</span>, [<span cl
             </div>
             
             <div class="content"><div class='highlight'><pre>  socket.on(<span class="hljs-string">'BanUser'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user</span>) </span>{
-    <span class="hljs-keyword">if</span> ($scope.User !== <span class="hljs-literal">undefined</span> &amp;&amp; $scope.User.pseudo === user) {
+    <span class="hljs-keyword">if</span> ($scope.User !== <span class="hljs-literal">undefined</span> &amp;&amp; $scope.User.pseudo === user.pseudo) {
       UserService.logout().success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         $state.go(<span class="hljs-string">'home'</span>);
       });
@@ -197,11 +252,15 @@ $scope.connectionPassword = ‘’;</p>
       UserService.MajCurrentUser();
       $scope.User = UserService.currentUser;
       <span class="hljs-built_in">console</span>.log($scope.User);
+        
+      $(<span class="hljs-string">'#connectionModal'</span>).modal(<span class="hljs-string">'toggle'</span>);
       
       $scope.connectionEmail = <span class="hljs-string">''</span>;
       $scope.connectionPassword = <span class="hljs-string">''</span>;
-    }, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params"></span>) </span>{
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params">err</span>) </span>{
       <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Connexion Error -_-'</span>);
+      
+      alertError(err);
       
       $scope.connectionEmail = <span class="hljs-string">''</span>;
       $scope.connectionPassword = <span class="hljs-string">''</span>;
@@ -233,7 +292,7 @@ $scope.connectionPassword = ‘’;</p>
     
     <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(user));
     $http.post(<span class="hljs-string">'/users/insert'</span>, <span class="hljs-built_in">JSON</span>.stringify(user))
-      .success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)</span>{
         $scope.firstName = <span class="hljs-string">''</span>;
         $scope.lastName  = <span class="hljs-string">''</span>;
         $scope.pseudo    = <span class="hljs-string">''</span>;
@@ -244,8 +303,13 @@ $scope.connectionPassword = ‘’;</p>
         $scope.connectionEmail = user.email;
         $scope.connectionPassword = user.password;
         $scope.submitLogin();
+        
+        $(<span class="hljs-string">'#registrationModal'</span>).modal(<span class="hljs-string">'toggle'</span>);
+        
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'data: '</span>, data.data);
+        alertInfo(data.data.message);
       })
-      .error(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      .catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
         $scope.firstName = <span class="hljs-string">''</span>;
         $scope.lastName  = <span class="hljs-string">''</span>;
         $scope.pseudo    = <span class="hljs-string">''</span>;
@@ -253,6 +317,9 @@ $scope.connectionPassword = ‘’;</p>
         $scope.zip       = <span class="hljs-string">''</span>;
         $scope.birthday  = <span class="hljs-string">''</span>;
         $scope.email     = <span class="hljs-string">''</span>;
+
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'err: '</span>, err);
+        alertError(err.message);
     });
     
   };</pre></div></div>
@@ -274,8 +341,11 @@ $scope.connectionPassword = ‘’;</p>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Logout Call'</span>);
     
     UserService.logout()
-    .success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
       $state.go(<span class="hljs-string">'home'</span>);
+    })
+    .catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(err);
     });
   };</pre></div></div>
             
@@ -328,7 +398,11 @@ $scope.isPseudoExist = false;</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  };
+  
+  $scope.toTheTop = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $<span class="hljs-built_in">document</span>.scrollTop(<span class="hljs-number">0</span>, <span class="hljs-number">500</span>);
+  };</pre></div></div>
             
         </li>
         
@@ -426,6 +500,17 @@ else {
 
             </div>
             
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.Notification &amp;&amp; Notification.permission !== <span class="hljs-string">"granted"</span>) {
+    Notification.requestPermission(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">status</span>) </span>{
+      <span class="hljs-keyword">if</span> (Notification.permission !== status) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'getStatusNotification: '</span>, status);
+        Notification.permission = status;
+      }
+    });
+  }
+  
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotification</span> (<span class="hljs-params">data</span>) </span>{</pre></div></div>
+            
         </li>
         
         
@@ -434,6 +519,87 @@ else {
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Si l’utilisateur accepte les notifications, sinon rien ne se passe</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.Notification &amp;&amp; Notification.permission === <span class="hljs-string">"granted"</span>) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'First '</span>, Notification.permission);
+      <span class="hljs-keyword">var</span> notif = <span class="hljs-keyword">new</span> Notification(data.title, {<span class="hljs-attr">tag</span>: data.title, <span class="hljs-attr">body</span>: data.desc, <span class="hljs-attr">icon</span>: data.picture});
+      notif.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        $state.go(data.state, data.options);
+        notif.close();
+        <span class="hljs-built_in">window</span>.focus();
+      };
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.Notification &amp;&amp; Notification.permission !== <span class="hljs-string">"denied"</span>) {
+      Notification.requestPermission(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">status</span>) </span>{
+        <span class="hljs-keyword">if</span> (Notification.permission !== status) {
+          Notification.permission = status;
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Si l’utilisateur a accepté les notifications, sinon rien ne se passe</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (status === <span class="hljs-string">"granted"</span>) {
+          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Second '</span>, Notification.permission);
+          <span class="hljs-keyword">var</span> notif = <span class="hljs-keyword">new</span> Notification(data.title, {<span class="hljs-attr">tag</span>: data.title, <span class="hljs-attr">body</span>: data.desc, <span class="hljs-attr">icon</span>: data.picture});
+          notif.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            $state.go(data.state, data.options);
+            notif.close();
+            <span class="hljs-built_in">window</span>.focus();
+          };
+        }
+      });
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Gestion des alerts</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">alertInfo</span>(<span class="hljs-params">info</span>) </span>{
+    $(<span class="hljs-string">"#msgInfo"</span>).html(info);
+    $(<span class="hljs-string">"#msgInfo"</span>).show().delay(<span class="hljs-number">3000</span>).fadeOut();
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">alertError</span>(<span class="hljs-params">err</span>) </span>{
+    $(<span class="hljs-string">"#msgError"</span>).html(err);
+    $(<span class="hljs-string">"#msgError"</span>).show().delay(<span class="hljs-number">3000</span>).fadeOut();
+  }
+  
+  $transitions.onSuccess({}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ 
+    <span class="hljs-built_in">document</span>.body.scrollTop = <span class="hljs-built_in">document</span>.documentElement.scrollTop = <span class="hljs-number">0</span>;
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>Collapse Menu responsive</p>
 
@@ -446,11 +612,11 @@ else {
         </li>
         
         
-        <li id="section-21">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <p>Modal Register Modal</p>
 
@@ -473,11 +639,11 @@ else {
         </li>
         
         
-        <li id="section-22">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <p>RAZ Connection Modal</p>
 
@@ -492,11 +658,11 @@ else {
         </li>
         
         
-        <li id="section-23">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <p>Find the right method, call on correct element</p>
 
@@ -517,11 +683,11 @@ else {
         </li>
         
         
-        <li id="section-24">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p>Whack fullscreen</p>
 

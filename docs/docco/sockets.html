@@ -44,10 +44,23 @@
 'use strict'</span>;
 
 <span class="hljs-keyword">const</span> socketio     = <span class="hljs-built_in">require</span>(<span class="hljs-string">'socket.io'</span>);
-<span class="hljs-keyword">const</span> mongoAdapter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'socket.io-redis'</span>);
-<span class="hljs-keyword">const</span> check        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'check-types'</span>);
-<span class="hljs-keyword">const</span> adapter      = mongoAdapter({ <span class="hljs-attr">host</span>: <span class="hljs-string">'localhost'</span>, <span class="hljs-attr">port</span>: <span class="hljs-number">6379</span> });
+<span class="hljs-keyword">const</span> mongoAdapter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'socket.io-mongodb'</span>);
+<span class="hljs-keyword">const</span> check        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'check-types'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>const adapter      = mongoAdapter(‘mongodb://localhost:27017/socket-io’);</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
 <span class="hljs-built_in">module</span>.exports.listen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">server, sessionMiddleware, ServerEvent, colors</span>) </span>{
 	<span class="hljs-keyword">let</span> io                = socketio(server);
 	<span class="hljs-keyword">let</span> printerClientId   = <span class="hljs-string">""</span>;
@@ -60,28 +73,15 @@
         </li>
         
         
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p>Configuration de MongoAdapter pour pouvoir l’utiliser en mode Cluster</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>	io.adapter(adapter);</pre></div></div>
-            
-        </li>
-        
-        
         <li id="section-3">
             <div class="annotation">
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>adapter.pubsubClient.on(‘error’, console.error);
+              <p>Configuration de MongoAdapter pour pouvoir l’utiliser en mode Cluster
+io.adapter(adapter);
+adapter.pubsubClient.on(‘error’, console.error);
 adapter.channel.on(‘error’, console.error);</p>
 
             </div>
@@ -101,6 +101,33 @@ adapter.channel.on(‘error’, console.error);</p>
             
             <div class="content"><div class='highlight'><pre>	io.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">socket, next</span>) </span>{
 		sessionMiddleware(socket.request, socket.request.res, next);
+	});
+
+	ServerEvent.on(<span class="hljs-string">'ErrorOnRolesUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'ErrorOnRolesUpdated'</span>, data);
+	});
+		
+	ServerEvent.on(<span class="hljs-string">'RolesUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'RolesUpdated'</span>, data);
+	});
+
+	ServerEvent.on(<span class="hljs-string">'ErrorOnPermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'ErrorOnPermissionsUpdated'</span>, data);
+	});
+		
+	ServerEvent.on(<span class="hljs-string">'PermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'PermissionsUpdated'</span>, data);
+	});
+
+	ServerEvent.on(<span class="hljs-string">'ErrorOnUserPermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'ErrorOnUserPermissionsUpdated'</span>, data);
+	});
+		
+	ServerEvent.on(<span class="hljs-string">'UserPermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socketIds, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'UserPermissionsUpdatedOk'</span>, data);
+		socketIds.forEach(<span class="hljs-function"><span class="hljs-params">socketId</span> =&gt;</span> {
+			io.to(socketId).emit(<span class="hljs-string">'UserPermissionsUpdated'</span>, data);
+		});
 	});
 	
 	ServerEvent.on(<span class="hljs-string">'isMailExistResult'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
@@ -175,11 +202,30 @@ console.log(printerCookId);</p>
 	});
 		
 	ServerEvent.on(<span class="hljs-string">'ArticleSaved'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'articleOk'</span>);
 		io.sockets.emit(<span class="hljs-string">'NewArticle'</span>, data);
+	});
+		
+	ServerEvent.on(<span class="hljs-string">'ErrorOnArticleUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'ErrorOnArticleUpdated'</span>, data);
+	});
+		
+	ServerEvent.on(<span class="hljs-string">'ArticleUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'articleOk'</span>);
+		io.sockets.emit(<span class="hljs-string">'ArticleUpdated'</span>, data);
+	});
+		
+	ServerEvent.on(<span class="hljs-string">'ArticleRemoved'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		io.sockets.emit(<span class="hljs-string">'ArticleRemoved'</span>, data._id);
 	});
 		
 	ServerEvent.on(<span class="hljs-string">'CommentSaved'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
 		io.sockets.emit(<span class="hljs-string">'NewComment'</span>, data);
+	});
+		
+	ServerEvent.on(<span class="hljs-string">'CommentRemoved'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'CommentRemoved'</span>, data);
+		socket.broadcast.emit(<span class="hljs-string">'CommentRemoved'</span>, {<span class="hljs-attr">_id</span>: data._id, <span class="hljs-attr">article_id</span>: data.article_id});
 	});
 	
 	ServerEvent.on(<span class="hljs-string">'AllOrdersFound'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
@@ -241,8 +287,40 @@ console.log(printerCookId);</p>
             
             <div class="content"><div class='highlight'><pre>  io.sockets.on(<span class="hljs-string">'connection'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">socket</span>) </span>{
 	  
-	  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Client Connecté'</span>);
-	  
+	  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Client Connecté'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Save the socket.id</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'socket.request.session: '</span>, <span class="hljs-built_in">JSON</span>.stringify(socket.request.session));
+		<span class="hljs-keyword">if</span> (socket.request.session.passport &amp;&amp; socket.request.session.passport.user &amp;&amp; socket.request.session.passport.user.socketId) {
+			socket.request.session.passport.user.socketId = socket.id;
+			socket.request.session.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+				<span class="hljs-keyword">if</span> (err) {
+					<span class="hljs-built_in">console</span>.log(err);
+				}
+			});
+		}
+		
+		socket.on(<span class="hljs-string">'UpdateRoles'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+			ServerEvent.emit(<span class="hljs-string">'UpdateRoles'</span>, data, socket);
+			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: UpdateRoles'</span>);
+		});
+		
+		socket.on(<span class="hljs-string">'UpdatePermissions'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+			ServerEvent.emit(<span class="hljs-string">'UpdatePermissions'</span>, data, socket);
+			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: UpdatePermissions'</span>);
+		});
 	  
 	  socket.on(<span class="hljs-string">'isMailExist'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
 	  	ServerEvent.emit(<span class="hljs-string">'isMailExist'</span>, data, socket);
@@ -250,6 +328,10 @@ console.log(printerCookId);</p>
 		
 		socket.on(<span class="hljs-string">'isPseudoExist'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
 			ServerEvent.emit(<span class="hljs-string">'isPseudoExist'</span>, data, socket);
+		});
+		
+		socket.on(<span class="hljs-string">'UpdateUserPermissions'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+			ServerEvent.emit(<span class="hljs-string">'UpdateUserPermissions'</span>, data, socket);
 		});
 		
 		socket.on(<span class="hljs-string">'IamTheClientPrinter'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -316,17 +398,6 @@ console.log(printerCookId);</p>
 			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: saveShopOrder'</span>);
 		});
 		
-		socket.on(<span class="hljs-string">'saveArticle'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Reception article Client'</span>);
-			ServerEvent.emit(<span class="hljs-string">'saveArticle'</span>, data, socket);
-			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: saveArticle'</span>);
-		});
-		
-		socket.on(<span class="hljs-string">'saveComment'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-			ServerEvent.emit(<span class="hljs-string">'saveComment'</span>, data, socket);
-			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: saveComment'</span>);
-		});
-		
 		socket.on(<span class="hljs-string">'getAllOrders'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
 			ServerEvent.emit(<span class="hljs-string">'findAllOrders'</span>, socket);
 			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: findAllOrders'</span>);
@@ -338,12 +409,14 @@ console.log(printerCookId);</p>
 		});
 		
 		socket.on(<span class="hljs-string">'getLive'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+			Live.notificationOff = <span class="hljs-literal">true</span>;
 			socket.emit(<span class="hljs-string">'toogleLive'</span>, Live);
 		});
 		
 		socket.on(<span class="hljs-string">'LiveOff'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
 			Live.Youtube = <span class="hljs-literal">false</span>;
 			Live.Twitch = <span class="hljs-literal">false</span>;
+			Live.notificationOff = <span class="hljs-literal">true</span>;
 			io.sockets.emit(<span class="hljs-string">'toogleLive'</span>, Live);
 			<span class="hljs-built_in">console</span>.log(Live);
 		});
@@ -351,15 +424,17 @@ console.log(printerCookId);</p>
 		socket.on(<span class="hljs-string">'LiveYoutube'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
 			Live.Youtube = <span class="hljs-literal">true</span>;
 			Live.Twitch = <span class="hljs-literal">false</span>;
+			Live.notificationOff = <span class="hljs-literal">false</span>;
+			Live.desc	= <span class="hljs-string">'WIP'</span>;
 			io.sockets.emit(<span class="hljs-string">'toogleLive'</span>, Live);
-			<span class="hljs-built_in">console</span>.log(Live);
 		});
 		
 		socket.on(<span class="hljs-string">'LiveTwitch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
 			Live.Twitch = <span class="hljs-literal">true</span>;
 			Live.Youtube = <span class="hljs-literal">false</span>;
+			Live.notificationOff = <span class="hljs-literal">false</span>;
+			Live.desc	= <span class="hljs-string">'WIP'</span>;
 			io.sockets.emit(<span class="hljs-string">'toogleLive'</span>, Live);
-			<span class="hljs-built_in">console</span>.log(Live);
 		});
 		
 		socket.on(<span class="hljs-string">'getLiveSource'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -378,16 +453,41 @@ console.log(printerCookId);</p>
 		socket.on(<span class="hljs-string">'ChangeChannelTwitch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
 			twitch = data;
 			io.sockets.emit(<span class="hljs-string">'ChangeChannelTwitch'</span>, data);
+		});
+		
+		socket.on(<span class="hljs-string">'saveArticle'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+			ServerEvent.emit(<span class="hljs-string">'saveArticle'</span>, data, socket);
+			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: saveArticle'</span>);
+		});
+		
+		socket.on(<span class="hljs-string">'updateArticle'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+			ServerEvent.emit(<span class="hljs-string">'updateArticle'</span>, data, socket);
+			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: updateArticle'</span>);
+		});
+		
+		socket.on(<span class="hljs-string">'rmArticle'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+			ServerEvent.emit(<span class="hljs-string">'rmArticle'</span>, data, socket);
+			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: rmArticle'</span>);
+		});
+		
+		socket.on(<span class="hljs-string">'saveComment'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+			ServerEvent.emit(<span class="hljs-string">'saveComment'</span>, data, socket);
+			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: saveComment'</span>);
+		});
+		
+		socket.on(<span class="hljs-string">'rmComment'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+			ServerEvent.emit(<span class="hljs-string">'rmComment'</span>, data, socket);
+			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: rmComment'</span>);
 		});</pre></div></div>
             
         </li>
         
         
-        <li id="section-10">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <p>———————– Décompte uniquement des User Connecté ———————– //</p>
 
@@ -420,11 +520,11 @@ console.log(printerCookId);</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>send to current request socket client</p>
 
@@ -435,11 +535,11 @@ console.log(printerCookId);</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <p>sending to all clients, include sender</p>
 
@@ -450,11 +550,11 @@ console.log(printerCookId);</p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <p>sending to all clients except sender</p>
 
@@ -465,11 +565,11 @@ console.log(printerCookId);</p>
         </li>
         
         
-        <li id="section-14">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p>sending to all clients in ‘game’ room(channel) except sender</p>
 
@@ -480,11 +580,11 @@ console.log(printerCookId);</p>
         </li>
         
         
-        <li id="section-15">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <p>sending to all clients in ‘game’ room(channel), include sender</p>
 
@@ -495,11 +595,11 @@ console.log(printerCookId);</p>
         </li>
         
         
-        <li id="section-16">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p>sending to individual socketid</p>
 

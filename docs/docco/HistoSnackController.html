@@ -72,8 +72,10 @@ AppControllers.controller(<span class="hljs-string">'histosnackCtrl'</span>, [<s
     }
   });
   
-  $http.get(<span class="hljs-string">'/snacks/getYears'</span>).success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-    histo.years = data;
+  $http.get(<span class="hljs-string">'/snacks/getYears'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    histo.years = data.data;
+  }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(err);
   });</pre></div></div>
             
         </li>
@@ -90,8 +92,10 @@ AppControllers.controller(<span class="hljs-string">'histosnackCtrl'</span>, [<s
             </div>
             
             <div class="content"><div class='highlight'><pre>  $scope.SearchByYear = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">year</span>) </span>{
-    $http.get(<span class="hljs-string">'/snacks/getOrders/'</span> + year).success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-      histo.elements = data;
+    $http.get(<span class="hljs-string">'/snacks/getOrders/'</span> + year).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+      histo.elements = data.data;
+    }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(err);
     });
   };
   

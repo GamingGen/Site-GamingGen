@@ -47,7 +47,7 @@ router.get(<span class="hljs-string">'/'</span>, <span class="hljs-function"><sp
 
 router.post(<span class="hljs-string">'/insert'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">var</span> newWatchList = <span class="hljs-keyword">new</span> watchListSchema({
-    <span class="hljs-attr">username</span>      : req.query.username,
+    <span class="hljs-attr">pseudo</span>        : req.query.pseudo,
     <span class="hljs-attr">register_date</span> :  req.query.register_date 
   });
   
@@ -67,7 +67,7 @@ router.post(<span class="hljs-string">'/insert'</span>, <span class="hljs-functi
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-built_in">console</span>.log(req.query.username + <span class="hljs-string">' Existe Déjà !'</span>);
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-built_in">console</span>.error(req.query.pseudo + <span class="hljs-string">' Existe Déjà !'</span>);
     }
   });
 });
@@ -77,7 +77,7 @@ router.post(<span class="hljs-string">'/update'</span>, <span class="hljs-functi
     <span class="hljs-string">'name'</span>: req.query.name
   },
   <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, user</span>) </span>{
-    <span class="hljs-built_in">console</span>.log((user));
+    <span class="hljs-built_in">console</span>.error(user);
   });
 });
 

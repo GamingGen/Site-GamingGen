@@ -35,13 +35,7 @@
  */</span>
 <span class="hljs-meta">'use strict'</span>;
 
-<span class="hljs-keyword">var</span> AppControllers = angular.module(<span class="hljs-string">'AppControllers'</span>, []);
-
-
-AppControllers.directive(<span class="hljs-string">'modal'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> {
-    <span class="hljs-attr">template</span>: <span class="hljs-string">'../Partial/modal.html'</span>,
-    <span class="hljs-attr">restrict</span>: <span class="hljs-string">'E'</span><span class="hljs-comment">//,</span></pre></div></div>
+<span class="hljs-keyword">var</span> AppControllers = angular.module(<span class="hljs-string">'AppControllers'</span>, []);</pre></div></div>
             
         </li>
         
@@ -52,7 +46,11 @@ AppControllers.directive(<span class="hljs-string">'modal'</span>, <span class="
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>transclude: true,
+              <p>AppControllers.directive(‘modal’, function () {
+  return {
+    template: ‘../Partial/modal.html’,
+    restrict: ‘E’//,
+transclude: true,
 replace:true,
 scope:true,
 link: function postLink(scope, element, attrs) {
@@ -109,12 +107,11 @@ link: function postLink(scope, element, attrs) {
       scope.$parent[attrs.visible] = false;
     });
   });
-}</p>
+}
+  };
+});</p>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>  };
-});</pre></div></div>
             
         </li>
         

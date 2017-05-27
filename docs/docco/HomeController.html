@@ -33,7 +33,7 @@
             <div class="content"><div class='highlight'><pre><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">var</span> AppControllers = angular.module(<span class="hljs-string">'AppControllers'</span>);
-AppControllers.controller(<span class="hljs-string">'homeCtrl'</span>, [<span class="hljs-string">'$http'</span>, <span class="hljs-string">'$scope'</span>, <span class="hljs-string">'socket'</span>, <span class="hljs-string">'$filter'</span>, <span class="hljs-string">'$location'</span>, <span class="hljs-string">'$anchorScroll'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$http, $scope, socket, $filter, $location, $anchorScroll</span>)</span>{</pre></div></div>
+AppControllers.controller(<span class="hljs-string">'homeCtrl'</span>, [<span class="hljs-string">'$http'</span>, <span class="hljs-string">'$scope'</span>, <span class="hljs-string">'socket'</span>, <span class="hljs-string">'$filter'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$http, $scope, socket</span>)</span>{</pre></div></div>
             
         </li>
         
@@ -50,7 +50,8 @@ AppControllers.controller(<span class="hljs-string">'homeCtrl'</span>, [<span cl
             
             <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> news      = <span class="hljs-keyword">this</span>;
   news.articles = [];
-  news.defaultPicture = <span class="hljs-string">"Img/Articles/default-thumbnail.jpg"</span>;</pre></div></div>
+  news.defaultPicture = <span class="hljs-string">"Img/Articles/default-thumbnail.jpg"</span>;
+  news.moreArticles = <span class="hljs-string">"https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg"</span>;</pre></div></div>
             
         </li>
         
@@ -90,17 +91,27 @@ $scope.videoPresentation = “MUg1WBEPLCE”;</p>
     player.mute();
   });
   
-  $http.get(<span class="hljs-string">'/articles'</span>).success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-    news.articles = data;
+  $http.get(<span class="hljs-string">'/articles/home'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    news.articles = data.data;
+  }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(err);
   });
   
   socket.on(<span class="hljs-string">'NewArticle'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-    data.register_date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toISOString();
-    <span class="hljs-built_in">console</span>.log(data);
     news.articles.push(data);
   });
   
-  socket.on(<span class="hljs-string">'NewComment'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{</pre></div></div>
+  socket.on(<span class="hljs-string">'ArticleUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">articleUpdated</span>) </span>{
+    <span class="hljs-keyword">var</span> index = news.articles.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>) </span>{ <span class="hljs-keyword">return</span> element._id; }).indexOf(articleUpdated._id);
+    <span class="hljs-keyword">if</span> (index !== <span class="hljs-number">-1</span>) {
+      news.articles[index] = articleUpdated;
+    }
+    <span class="hljs-keyword">else</span> {
+      news.articles.push(articleUpdated);
+    }
+  });
+  
+  socket.on(<span class="hljs-string">'ArticleRemoved'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -111,12 +122,19 @@ $scope.videoPresentation = “MUg1WBEPLCE”;</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>On met à jour le commentaire dans la liste</p>
+              <p>var index = news.articles.map(function(element) { return element._id; }).indexOf(id);
+news.articles.splice(index, 1);</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    news.articles.find(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">art</span>) </span>{<span class="hljs-keyword">return</span> art.id === data.articleId}).comments.push(data);
-  });</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      $http.get(<span class="hljs-string">'/articles/home'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+      news.articles = data.data;
+    }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(err);
+    });
+  });
+  
+  socket.on(<span class="hljs-string">'NewComment'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -127,14 +145,12 @@ $scope.videoPresentation = “MUg1WBEPLCE”;</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>—– Public Méthode —–</p>
+              <p>On met à jour le commentaire dans la liste</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $scope.scrollTo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id</span>) </span>{
-      $location.hash(id);
-      $anchorScroll();
-   };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    news.articles.find(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">article</span>) </span>{<span class="hljs-keyword">return</span> article._id === data.article_id}).comments.push(data);
+  });</pre></div></div>
             
         </li>
         
@@ -145,7 +161,7 @@ $scope.videoPresentation = “MUg1WBEPLCE”;</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>—– Private Méthode —–</p>
+              <p>—– Public Méthode —–</p>
 
             </div>
             
@@ -157,6 +173,19 @@ $scope.videoPresentation = “MUg1WBEPLCE”;</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>—– Private Méthode —–</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>—– jQuery —–</p>
 

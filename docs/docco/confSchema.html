@@ -63,7 +63,6 @@
  * @param {Number} teams.nb_max_managers_by_team - WIP
  * @param {Number} teams.nb_hour_before_team_freez - WIP
  * @param {Number} users.password_min_length - required: true WIP
- * @param {Array} roles - WIP
  * @param {Number} payment.nominal_price - WIP
  * @param {Number} payment.bonus_price - WIP
  * @param {Number} payment.minimal_payement_to_bonus - WIP
@@ -71,75 +70,45 @@
  * @param {Number} snack.printer_client_length_element - WIP
  * @param {Number} snack.printer_cook_length_element - WIP
  * @param {Array} snack.type_menu - WIP
+ * @param {String} permission.name - WIP
  * @param {String} roles.name - WIP
- * @param {String} roles.pages.name - WIP
- * @param {Boolean} roles.pages.allowed - WIP
  * @param {Number} roles.level - WIP
- * @param {String} pages.name - WIP
+ * @param {String} permissions.name - WIP
  * @param {String} shop.type_order.name - WIP
  */</span>
 <span class="hljs-keyword">var</span> ConfSchema = <span class="hljs-keyword">new</span> Schema({
-    <span class="hljs-attr">name</span>      : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">index</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span> },
-    <span class="hljs-attr">teams</span>     : {
-                  <span class="hljs-attr">nb_max_teams</span>              : <span class="hljs-built_in">Number</span>,
-                  <span class="hljs-attr">nb_max_players_by_team</span>    : <span class="hljs-built_in">Number</span>,
-                  <span class="hljs-attr">nb_max_managers_by_team</span>   : <span class="hljs-built_in">Number</span>,
-                  <span class="hljs-attr">nb_hour_before_team_freez</span> : <span class="hljs-built_in">Number</span>
-                },
-    <span class="hljs-attr">users</span>     : {
-                   <span class="hljs-attr">password_min_length</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> }
-                },
-    <span class="hljs-attr">roles</span>                     : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Array</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
-    <span class="hljs-attr">payment</span>                   : {
-                                  <span class="hljs-attr">nominal_price</span>             : <span class="hljs-built_in">Number</span>,
-                                  <span class="hljs-attr">bonus_price</span>               : <span class="hljs-built_in">Number</span>,
-                                  <span class="hljs-attr">minimal_payement_to_bonus</span> : <span class="hljs-built_in">Number</span>
-                },
-    <span class="hljs-attr">snack</span>     : {
-                  <span class="hljs-attr">nominal_time_preparation</span>      : <span class="hljs-built_in">Number</span>,
-                  <span class="hljs-attr">printer_client_length_element</span> : <span class="hljs-built_in">Number</span>,
-                  <span class="hljs-attr">printer_cook_length_element</span>   : <span class="hljs-built_in">Number</span>,
-                  <span class="hljs-attr">type_menu</span>                     : <span class="hljs-built_in">Array</span>
-                },
-    <span class="hljs-attr">roles</span>     : [{
-                  <span class="hljs-attr">name</span>  : <span class="hljs-built_in">String</span>,
-                  <span class="hljs-attr">pages</span> : [{
-                            <span class="hljs-attr">name</span>    : <span class="hljs-built_in">String</span>,
-                            <span class="hljs-attr">allowed</span> : <span class="hljs-built_in">Boolean</span>
-                          }],
-                  <span class="hljs-attr">level</span> : <span class="hljs-built_in">Number</span>
-                }],
-    <span class="hljs-attr">pages</span>     : [{
-                  <span class="hljs-attr">name</span>  : <span class="hljs-built_in">String</span>
-                }],
-    <span class="hljs-attr">shop</span>      : {
-                  <span class="hljs-attr">type_order</span>  : [{
-                                  <span class="hljs-attr">name</span>  : <span class="hljs-built_in">String</span>
-                                }]
-                }
+    <span class="hljs-attr">name</span>        : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">index</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">teams</span>       : {
+                    <span class="hljs-attr">nb_max_teams</span>              : <span class="hljs-built_in">Number</span>,
+                    <span class="hljs-attr">nb_max_players_by_team</span>    : <span class="hljs-built_in">Number</span>,
+                    <span class="hljs-attr">nb_max_managers_by_team</span>   : <span class="hljs-built_in">Number</span>,
+                    <span class="hljs-attr">nb_hour_before_team_freez</span> : <span class="hljs-built_in">Number</span>
+                  },
+    <span class="hljs-attr">users</span>       : {
+                    <span class="hljs-attr">password_min_length</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> }
+                  },
+    <span class="hljs-attr">payment</span>     : {
+                    <span class="hljs-attr">nominal_price</span>             : <span class="hljs-built_in">Number</span>,
+                    <span class="hljs-attr">bonus_price</span>               : <span class="hljs-built_in">Number</span>,
+                    <span class="hljs-attr">minimal_payement_to_bonus</span> : <span class="hljs-built_in">Number</span>
+                  },
+    <span class="hljs-attr">snack</span>       : {
+                    <span class="hljs-attr">nominal_time_preparation</span>      : <span class="hljs-built_in">Number</span>,
+                    <span class="hljs-attr">printer_client_length_element</span> : <span class="hljs-built_in">Number</span>,
+                    <span class="hljs-attr">printer_cook_length_element</span>   : <span class="hljs-built_in">Number</span>,
+                    <span class="hljs-attr">type_menu</span>                     : <span class="hljs-built_in">Array</span>
+                  },
+    <span class="hljs-attr">roles</span>       : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Object</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-string">'"MEMBRE": ["canDoNothing"]'</span>},
+    <span class="hljs-attr">permissions</span> : [{
+                    <span class="hljs-attr">name</span>  : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Object</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-string">'"name": "canDoNothing"'</span>}
+                  }],
+    <span class="hljs-attr">shop</span>        : {
+                    <span class="hljs-attr">type_order</span>  : [{
+                                    <span class="hljs-attr">name</span>  : <span class="hljs-built_in">String</span>
+                                  }]
+                  }
 });
 
-<span class="hljs-comment">/**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-3">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>ConfSchema.post(‘init’, function(doc) {
-  console.log(‘ConfSchema : ‘, doc._id);
-});</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
 
 <span class="hljs-comment">/**
  * @function preValidate

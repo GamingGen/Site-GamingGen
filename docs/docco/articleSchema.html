@@ -40,8 +40,7 @@
  * @requires Schema
  */</span>
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
-<span class="hljs-keyword">const</span> Schema   = mongoose.Schema;
-<span class="hljs-keyword">const</span> Comment  = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./commentSchema'</span>);</pre></div></div>
+<span class="hljs-keyword">const</span> Schema   = mongoose.Schema;</pre></div></div>
             
         </li>
         
@@ -55,8 +54,6 @@
               <p>Variables</p>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">let</span> id = <span class="hljs-number">0</span>;</pre></div></div>
             
         </li>
         
@@ -73,27 +70,46 @@
             
             <div class="content"><div class='highlight'><pre><span class="hljs-comment">/**
  * @class ArticleSchema
- * @param {Number} id - required: true, unique: true, index: true, trim: true
- * @param {String} username - required: true
+ * @param {String} pseudo - required: true
  * @param {String} desc - required: true
  * @param {String} text - required: true
- * @param {Date} register_date - required: true, default: Date.now
+ * @param {Date} update_at - required: true
+ * @param {Date} register_date - required: true
  * @param {Array} comments - Liste des commentaires
+ * @param {Object} type - Type de l'article
+ * @param {String} picture - Lien vers l'image de couverture
  */</span>
 <span class="hljs-keyword">let</span> ArticleSchema = <span class="hljs-keyword">new</span> Schema({
-    <span class="hljs-attr">id</span>            : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">index</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span> },
-    <span class="hljs-attr">username</span>      : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
-    <span class="hljs-attr">title</span>         : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
-    <span class="hljs-attr">desc</span>          : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
-    <span class="hljs-attr">text</span>          : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
-    <span class="hljs-attr">register_date</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-built_in">Date</span>.now },
-    <span class="hljs-attr">comments</span>      : { <span class="hljs-attr">type</span>: [Comment.Schema] }
+    <span class="hljs-attr">pseudo</span>              : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">title</span>               : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">desc</span>                : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">text</span>                : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">update_at</span>           : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span> },
+    <span class="hljs-attr">register_date</span>       : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span> },
+    <span class="hljs-attr">comments</span>            : [{ <span class="hljs-attr">type</span>: Schema.Types.ObjectId, <span class="hljs-attr">ref</span>: <span class="hljs-string">'Comment'</span> }],
+    <span class="hljs-attr">type</span>                : {
+                            <span class="hljs-attr">hot_news</span>      : { <span class="hljs-attr">type</span> : <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">default</span> : <span class="hljs-literal">true</span> },
+                            <span class="hljs-attr">critical_info</span> : { <span class="hljs-attr">type</span> : <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">default</span> : <span class="hljs-literal">false</span> }
+                        },
+    <span class="hljs-attr">picture</span>             : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">first_frame_picture</span> : { <span class="hljs-attr">data</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">contentType</span>: <span class="hljs-built_in">String</span> }
 });
 
 <span class="hljs-comment">/**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
- */</span></pre></div></div>
+ * @function preValidate
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description WIP
+ */</span>
+ArticleSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+  next();
+});
+
+<span class="hljs-comment">/**
+ * @function prefindOneAndUpdate
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Pour l'instant aucune vérification avant la MAJ
+ */</span>
+ArticleSchema.pre(<span class="hljs-string">'findOneAndUpdate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -104,21 +120,16 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>ArticleSchema.post(‘init’, function(doc) {
-  console.log(‘ArticleSchema : ‘, doc._id);
-  id = doc.id;
-  console.log(‘id: ‘, id);
-});</p>
+              <p>console.log(‘before this._update: ‘, this._update);</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-comment">/**
- * @function preValidate
- * @param {function} next - Permet d'appeler le prochain middleware
- * @description MAJ de l'id et de la date d'enregistrement
- */</span>
-ArticleSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>._update &amp;&amp; <span class="hljs-keyword">this</span>._update[<span class="hljs-string">'$push'</span>] &amp;&amp; <span class="hljs-keyword">this</span>._update[<span class="hljs-string">'$push'</span>].comments) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Do Nothing'</span>);
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">this</span>._update.update_at = <span class="hljs-built_in">Date</span>.now();
+  }</pre></div></div>
             
         </li>
         
@@ -129,16 +140,11 @@ ArticleSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Set de l’id</p>
+              <p>console.log(‘after this._update: ‘, this._update);</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">this</span>.id = id++;
-  
-  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.register_date) {
-    <span class="hljs-keyword">this</span>.register_date = <span class="hljs-built_in">Date</span>.now();
-  }
-  next();
+            <div class="content"><div class='highlight'><pre>  next();
 });
 
 <span class="hljs-comment">/**
@@ -147,15 +153,23 @@ ArticleSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs
  * @description Pour l'instant aucune vérification avant l'enregistrement
  */</span>
 ArticleSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+  <span class="hljs-keyword">this</span>.update_at = <span class="hljs-built_in">Date</span>.now();
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isNew) {
+    <span class="hljs-keyword">this</span>.register_date = <span class="hljs-keyword">this</span>.update_at;
+  }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.critical_info === <span class="hljs-literal">false</span> &amp;&amp; <span class="hljs-keyword">this</span>.hot_news === <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">this</span>.hot_news = <span class="hljs-literal">true</span>;
+  }
   next();
 });
 
 <span class="hljs-comment">/**
- * @function prefindOneAndUpdate
+ * @function findOneAndRemove
  * @param {function} next - Permet d'appeler le prochain middleware
- * @description Pour l'instant aucune vérification avant la MAJ
+ * @description Permet de supprimer la reference de l'article
  */</span>
-ArticleSchema.pre(<span class="hljs-string">'findOneAndUpdate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+ArticleSchema.pre(<span class="hljs-string">'findOneAndRemove'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+  mongoose.model(<span class="hljs-string">'Comment'</span>).remove({<span class="hljs-string">'article_id'</span>: <span class="hljs-keyword">this</span>._conditions._id}).exec();
   next();
 });
 

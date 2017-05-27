@@ -39,8 +39,8 @@
 <span class="hljs-comment">/**
  * @requires Schema
  */</span>
-<span class="hljs-keyword">const</span> mongoose              = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
-<span class="hljs-keyword">const</span> Schema                = mongoose.Schema;</pre></div></div>
+<span class="hljs-keyword">const</span> mongoose  = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<span class="hljs-keyword">const</span> Schema    = mongoose.Schema;</pre></div></div>
             
         </li>
         
@@ -54,8 +54,6 @@
               <p>Variables</p>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">let</span> id = <span class="hljs-number">0</span>;</pre></div></div>
             
         </li>
         
@@ -72,42 +70,18 @@
             
             <div class="content"><div class='highlight'><pre><span class="hljs-comment">/**
  * @class CommentSchema
- * @param {Number} id - required: true, unique: true, index: true, trim: true
- * @param {String} username - required: true
+ * @param {ObjectID} article_id - Id de l'article associé
+ * @param {String} pseudo - required: true
  * @param {String} text - required: true
- * @param {Date} register_date - required: true, default: Date.now
- * @param {Number} articleId - Id de l'article associé
+ * @param {Date} register_date - required: true
  */</span>
 <span class="hljs-keyword">var</span> CommentSchema = <span class="hljs-keyword">new</span> Schema({
-    <span class="hljs-attr">id</span>            : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">index</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span> },
-    <span class="hljs-attr">username</span>      : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">article_id</span>    : { <span class="hljs-attr">type</span>: Schema.Types.ObjectId, <span class="hljs-attr">ref</span>: <span class="hljs-string">'Article'</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">pseudo</span>        : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
     <span class="hljs-attr">text</span>          : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
-    <span class="hljs-attr">register_date</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-built_in">Date</span>.now },
-    <span class="hljs-attr">articleId</span>     : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> }
+    <span class="hljs-attr">register_date</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> }
 });
 
-<span class="hljs-comment">/**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
- */</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-4">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>CommentSchema.post(‘init’, function(doc) {
-  console.log(‘CommentSchema : ‘, doc._id);
-  id = doc.id;
-});</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
 <span class="hljs-comment">/**
  * @function preValidate
  * @param {function} next - Permet d'appeler le prochain middleware
@@ -118,18 +92,18 @@ CommentSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs
         </li>
         
         
-        <li id="section-5">
+        <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Set de l’id</p>
+              <p>Set de l’id
+this.id = id++;</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">this</span>.id = id++;
-  
+            <div class="content"><div class='highlight'><pre>  
   <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.register_date) {
     <span class="hljs-keyword">this</span>.register_date = <span class="hljs-built_in">Date</span>.now();
   }
@@ -151,6 +125,16 @@ CommentSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-fun
  * @description Pour l'instant aucune vérification avant la MAJ
  */</span>
 CommentSchema.pre(<span class="hljs-string">'findOneAndUpdate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+  next();
+});
+
+<span class="hljs-comment">/**
+ * @function findOneAndRemove
+ * @param {function} next - Permet d'appeler le prochain middleware
+ * @description Permet de supprimer la reference de l'article
+ */</span>
+CommentSchema.pre(<span class="hljs-string">'findOneAndRemove'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+  mongoose.model(<span class="hljs-string">'Article'</span>).update({<span class="hljs-attr">comments</span>: <span class="hljs-keyword">this</span>._conditions._id}, { <span class="hljs-attr">$pull</span>: { <span class="hljs-attr">comments</span>: <span class="hljs-keyword">this</span>._conditions._id }}).exec();
   next();
 });
 

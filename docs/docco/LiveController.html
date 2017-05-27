@@ -94,7 +94,6 @@ player.setVolume(1.0);</p>
   
   socket.on(<span class="hljs-string">'ChangeLiveSource'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
     $scope.youtubeLive = data.id;
-    <span class="hljs-built_in">console</span>.log(data);
   });
   
   socket.emit(<span class="hljs-string">'getChannelTwitch'</span>);

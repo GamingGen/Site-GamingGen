@@ -57,39 +57,18 @@
             
             <div class="content"><div class='highlight'><pre><span class="hljs-comment">/**
  * @class AccueilSchema
- * @param {String} username - required: true
+ * @param {String} pseudo - required: true
  * @param {String} title - required: true
  * @param {String} text - required: true
  * @param {Date} register_date - required: true, default: Date.now
  */</span>
 <span class="hljs-keyword">let</span> AccueilSchema = <span class="hljs-keyword">new</span> Schema({
-    <span class="hljs-attr">username</span>      : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">pseudo</span>        : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
     <span class="hljs-attr">title</span>         : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
     <span class="hljs-attr">text</span>          : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
     <span class="hljs-attr">register_date</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-built_in">Date</span>.now }
 });
 
-<span class="hljs-comment">/**
- * @function postInit
- * @description Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-3">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>AccueilSchema.post(‘init’, function(doc) {
-  console.log(‘AccueilSchema : ‘, doc._id);
-});</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
 <span class="hljs-comment">/**
  * @function preValidate
  * @param {function} next - Permet d'appeler le prochain middleware

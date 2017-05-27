@@ -68,8 +68,10 @@ AppControllers.controller(<span class="hljs-string">'shopCtrl'</span>, [<span cl
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $http.get(<span class="hljs-string">'/shop/getProducts'</span>).success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-    shop.lists = data.elements;
+            <div class="content"><div class='highlight'><pre>  $http.get(<span class="hljs-string">'/shop/getProducts'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    shop.lists = data.data.elements;
+  }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(err);
   });
   
   $scope.idSelectedElement = <span class="hljs-literal">undefined</span>;</pre></div></div>

@@ -48,24 +48,10 @@
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
               <p>————————————————————————– //
-                               Events                                      //
+                                Init                                       //
 ————————————————————————– //</p>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">let</span> commentEvent = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ServerEvent</span>) </span>{
-  
-  ServerEvent.on(<span class="hljs-string">'saveComment'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
-    <span class="hljs-keyword">var</span> newComment = <span class="hljs-keyword">new</span> commentSchema({
-      <span class="hljs-attr">username</span>      : data.username,
-      <span class="hljs-attr">text</span>          : data.text,
-      <span class="hljs-attr">articleId</span>     : data.articleId
-    });
-    articleSchema.findOne({<span class="hljs-string">'id'</span> : data.articleId}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
-      newComment.validate();
-      result.comments.push(newComment);
-      result.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
-        <span class="hljs-keyword">if</span> (err) {</pre></div></div>
             
         </li>
         
@@ -76,20 +62,23 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>throw err;</p>
+              <p>————————————————————————– //
+                               Events                                      //
+————————————————————————– //</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>          <span class="hljs-built_in">console</span>.log(err);
-        }
-        <span class="hljs-keyword">else</span> {
-          <span class="hljs-keyword">delete</span> data.text;
-          ServerEvent.emit(<span class="hljs-string">'CommentSaved'</span>, newComment, socket);
-        }
-      });
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">let</span> commentEvent = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ServerEvent</span>) </span>{
+  
+  ServerEvent.on(<span class="hljs-string">'saveComment'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+    <span class="hljs-keyword">var</span> newComment = <span class="hljs-keyword">new</span> commentSchema({
+      <span class="hljs-attr">article_id</span>    : data.article_id,
+      <span class="hljs-attr">pseudo</span>        : data.pseudo,
+      <span class="hljs-attr">text</span>          : data.text
     });
-  });
-};</pre></div></div>
+    
+    newComment.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) {</pre></div></div>
             
         </li>
         
@@ -99,6 +88,59 @@
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>throw err;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-built_in">console</span>.error(err);
+      }
+      <span class="hljs-keyword">else</span> {
+        articleSchema.findOneAndUpdate({<span class="hljs-attr">_id</span>: newComment.article_id}, {<span class="hljs-attr">$push</span>: {<span class="hljs-attr">comments</span>: newComment._id}}, {<span class="hljs-attr">new</span>: <span class="hljs-literal">true</span>}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+          <span class="hljs-keyword">if</span> (err) {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'err: '</span>, err);
+          }
+          <span class="hljs-keyword">else</span> {
+            ServerEvent.emit(<span class="hljs-string">'CommentSaved'</span>, newComment, socket);
+          }
+        });
+      }
+    });
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>TODO : Clear article.comments[]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  ServerEvent.on(<span class="hljs-string">'rmComment'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+    commentSchema.findOneAndRemove({<span class="hljs-attr">_id</span>: data._id}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, comment</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'err: '</span>, err);
+      }
+      <span class="hljs-keyword">else</span> {
+        ServerEvent.emit(<span class="hljs-string">'CommentRemoved'</span>, comment, socket);
+      }
+    });
+  });
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               <p>Export</p>
 

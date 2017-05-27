@@ -33,14 +33,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-AccueilSchema.html">AccueilSchema</a></li><li><a href="module-ArticleSchema.html">ArticleSchema</a></li><li><a href="module-CommentSchema.html">CommentSchema</a></li><li><a href="module-ConfSchema.html">ConfSchema</a></li><li><a href="module-menuSnackSchema.html">menuSnackSchema</a></li><li><a href="module-OrderSchema.html">OrderSchema</a></li><li><a href="module-PartenairesSchema.html">PartenairesSchema</a></li><li><a href="module-ShopSchema.html">ShopSchema</a></li><li><a href="module-SnackSchema.html">SnackSchema</a></li><li><a href="module-TeamSchema.html">TeamSchema</a></li><li><a href="module-userSchema.html">userSchema</a></li><li><a href="module-WatchListSchema.html">WatchListSchema</a></li>
+					<li><a href="module-AccueilSchema.html">AccueilSchema</a></li><li><a href="module-ArticleSchema.html">ArticleSchema</a></li><li><a href="module-CommentSchema.html">CommentSchema</a></li><li><a href="module-ConfSchema.html">ConfSchema</a></li><li><a href="module-menuSnackSchema.html">menuSnackSchema</a></li><li><a href="module-OrderSchema.html">OrderSchema</a></li><li><a href="module-PartenairesSchema.html">PartenairesSchema</a></li><li><a href="module-SessionSchema.html">SessionSchema</a></li><li><a href="module-ShopSchema.html">ShopSchema</a></li><li><a href="module-SnackSchema.html">SnackSchema</a></li><li><a href="module-TeamSchema.html">TeamSchema</a></li><li><a href="module-userSchema.html">userSchema</a></li><li><a href="module-WatchListSchema.html">WatchListSchema</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-AccueilSchema-AccueilSchema.html">AccueilSchema~AccueilSchema</a></li><li><a href="module-ArticleSchema-ArticleSchema.html">ArticleSchema~ArticleSchema</a></li><li><a href="module-CommentSchema-CommentSchema.html">CommentSchema~CommentSchema</a></li><li><a href="module-ConfSchema-ConfSchema.html">ConfSchema~ConfSchema</a></li><li><a href="module-menuSnackSchema-menuSnackSchema.html">menuSnackSchema~menuSnackSchema</a></li><li><a href="module-OrderSchema-OrderSchema.html">OrderSchema~OrderSchema</a></li><li><a href="module-PartenairesSchema-PartenairesSchema.html">PartenairesSchema~PartenairesSchema</a></li><li><a href="module-ShopSchema-ShopSchema.html">ShopSchema~ShopSchema</a></li><li><a href="module-SnackSchema-SnackSchema.html">SnackSchema~SnackSchema</a></li><li><a href="module-TeamSchema-TeamSchema.html">TeamSchema~TeamSchema</a></li><li><a href="module-userSchema-UserSchema.html">userSchema~UserSchema</a></li><li><a href="module-WatchListSchema-WatchListSchema.html">WatchListSchema~WatchListSchema</a></li>
+					<li><a href="module-AccueilSchema-AccueilSchema.html">AccueilSchema~AccueilSchema</a></li><li><a href="module-ArticleSchema-ArticleSchema.html">ArticleSchema~ArticleSchema</a></li><li><a href="module-CommentSchema-CommentSchema.html">CommentSchema~CommentSchema</a></li><li><a href="module-ConfSchema-ConfSchema.html">ConfSchema~ConfSchema</a></li><li><a href="module-menuSnackSchema-menuSnackSchema.html">menuSnackSchema~menuSnackSchema</a></li><li><a href="module-OrderSchema-OrderSchema.html">OrderSchema~OrderSchema</a></li><li><a href="module-PartenairesSchema-PartenairesSchema.html">PartenairesSchema~PartenairesSchema</a></li><li><a href="module-SessionSchema-SessionSchema.html">SessionSchema~SessionSchema</a></li><li><a href="module-ShopSchema-ShopSchema.html">ShopSchema~ShopSchema</a></li><li><a href="module-SnackSchema-SnackSchema.html">SnackSchema~SnackSchema</a></li><li><a href="module-TeamSchema-TeamSchema.html">TeamSchema~TeamSchema</a></li><li><a href="module-userSchema-UserSchema.html">userSchema~UserSchema</a></li><li><a href="module-WatchListSchema-WatchListSchema.html">WatchListSchema~WatchListSchema</a></li>
 				</ul>
 			</li>
 			
@@ -217,7 +217,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="~postInit"><span class="type-signature">&lt;inner> </span>postInit()</h4>
+    <h4 class="name" id="~findOneAndRemove"><span class="type-signature">&lt;inner> </span>findOneAndRemove(next)</h4>
     
     
 </dt>
@@ -225,7 +225,7 @@
 
     
     <div class="description">
-        Affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé) et on le stocke dans la variable id
+        Permet de supprimer la reference de l'article
     </div>
     
 
@@ -234,6 +234,56 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Permet d'appeler le prochain middleware</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -637,7 +687,7 @@
 
     
     <div class="description">
-        MAJ de l'id et de la date d'enregistrement
+        WIP
     </div>
     
 
@@ -803,7 +853,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-03-24T22:40:29+00:00
+		on 2017-05-27T10:48:51+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

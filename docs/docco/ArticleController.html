@@ -38,7 +38,7 @@
 
 <span class="hljs-keyword">var</span> AppControllers = angular.module(<span class="hljs-string">'AppControllers'</span>);
 
-AppControllers.controller(<span class="hljs-string">'articleCtrl'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$http'</span>, <span class="hljs-string">'socket'</span>, <span class="hljs-string">'$sce'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, $http, socket, $sce</span>) </span>{</pre></div></div>
+AppControllers.controller(<span class="hljs-string">'articleCtrl'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$http'</span>, <span class="hljs-string">'$state'</span>, <span class="hljs-string">'socket'</span>, <span class="hljs-string">'$sce'</span>, <span class="hljs-string">'UserService'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, $http, $state, socket, $sce, UserService</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -49,23 +49,21 @@ AppControllers.controller(<span class="hljs-string">'articleCtrl'</span>, [<span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>INIT</p>
+              <p>—– Init —–</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> articlesCtrl = <span class="hljs-keyword">this</span>;
-  articlesCtrl.currentArticle = <span class="hljs-literal">undefined</span>;
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> commentsLength            = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">var</span> jump                      = <span class="hljs-number">0</span>;
+  $scope.disableInfiniteScroll  = <span class="hljs-literal">true</span>;
+  $scope.step                   = <span class="hljs-number">5</span>;
+  $scope.maxLength              = <span class="hljs-number">500</span>;
+  $scope.comments               = [];
+  <span class="hljs-keyword">var</span> articlesCtrl              = <span class="hljs-keyword">this</span>;
+  articlesCtrl.currentArticle   = {};
+  articlesCtrl.showCommentZone  = <span class="hljs-literal">false</span>;
   
-  <span class="hljs-keyword">if</span> ($scope.idArticle !== <span class="hljs-literal">undefined</span>) {
-    $http.get(<span class="hljs-string">'/articles/'</span> + $scope.idArticle).success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">art</span>) </span>{
-      <span class="hljs-keyword">if</span> (art !== <span class="hljs-literal">null</span>)
-        articlesCtrl.currentArticle = art;
-      <span class="hljs-keyword">else</span>
-        errorOnGetArticle();
-    }).error(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-      errorOnGetArticle();
-    });
-  }</pre></div></div>
+  <span class="hljs-keyword">var</span> user = UserService.currentUser;</pre></div></div>
             
         </li>
         
@@ -76,14 +74,27 @@ AppControllers.controller(<span class="hljs-string">'articleCtrl'</span>, [<span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Fonction de rendu HTML</p>
+              <p>—– GET / SET Data —–</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $scope.renderHtml = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">html_code</span>)
-  </span>{
-      <span class="hljs-keyword">return</span> $sce.trustAsHtml(html_code);
-  };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> ($scope.idArticle !== <span class="hljs-literal">undefined</span>) {
+    $http.get(<span class="hljs-string">'/articles/'</span> + $scope.idArticle).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">article</span>) </span>{
+      <span class="hljs-keyword">if</span> (article !== <span class="hljs-literal">null</span>)
+      {
+        articlesCtrl.currentArticle = article.data;
+        commentsLength = articlesCtrl.currentArticle.comments.length;
+        $scope.disableInfiniteScroll = commentsLength &lt; $scope.step;
+        $scope.loadMore();
+      }
+      <span class="hljs-keyword">else</span>
+      {
+        errorOnPageArticle();
+      }
+    }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      errorOnPageArticle();
+    });
+  }</pre></div></div>
             
         </li>
         
@@ -94,14 +105,46 @@ AppControllers.controller(<span class="hljs-string">'articleCtrl'</span>, [<span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Gestion des erreurs</p>
+              <p>—– Public Méthode —–</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">errorOnGetArticle</span>(<span class="hljs-params"></span>) </span>{
-    $(<span class="hljs-string">"#msgError"</span>).html(<span class="hljs-string">"Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement."</span>);
-    $(<span class="hljs-string">"#msgError"</span>).show().delay(<span class="hljs-number">3000</span>).fadeOut();
-  }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  $scope.submitComment = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (user.isLoggedIn &amp;&amp; $scope.commentText &amp;&amp; $scope.commentText.length &gt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">var</span> comment = {
+        <span class="hljs-attr">article_id</span>  : $(<span class="hljs-string">'#articleId'</span>).val(),
+        <span class="hljs-attr">pseudo</span>      : user.pseudo,
+        <span class="hljs-attr">text</span>        : $scope.commentText
+      };
+      
+      socket.emit(<span class="hljs-string">'saveComment'</span>, comment);
+      
+      $scope.commentText = <span class="hljs-string">""</span>;
+      articlesCtrl.showCommentZone = <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-keyword">else</span> {
+      errorOnPageArticle(<span class="hljs-string">"Une erreur c'est produit lors de l'envoit de votre commentaire, veuillez réessayer ultérieurement."</span>);
+    }
+  };
+
+  $scope.loadMore = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'loadMore() Fired...'</span>);
+    <span class="hljs-keyword">if</span>(articlesCtrl.currentArticle.comments) {
+      <span class="hljs-keyword">if</span> ($scope.comments.length &gt;= commentsLength) {
+        $scope.disableInfiniteScroll = <span class="hljs-literal">true</span>;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'infiniteScroll disable'</span>);
+      }
+      <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">if</span> (($scope.comments.length + $scope.step) &gt; commentsLength) {
+          jump = commentsLength;
+        }
+        <span class="hljs-keyword">else</span> {
+          jump = $scope.comments.length + $scope.step;
+        }
+        $scope.comments = articlesCtrl.currentArticle.comments.slice(<span class="hljs-number">0</span>, jump);
+      }
+    }
+  };</pre></div></div>
             
         </li>
         
@@ -112,11 +155,18 @@ AppControllers.controller(<span class="hljs-string">'articleCtrl'</span>, [<span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Ecoute de l’ajout d’un commentaire</p>
+              <p>Fonction de rendu HTML</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  socket.on(<span class="hljs-string">'NewComment'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  $scope.renderHtml = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">html_code</span>)
+  </span>{
+    <span class="hljs-keyword">return</span> $sce.trustAsHtml(html_code);
+  };
+  
+  $scope.toggleCommentZone = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    articlesCtrl.showCommentZone = !articlesCtrl.showCommentZone;
+  };</pre></div></div>
             
         </li>
         
@@ -127,13 +177,9 @@ AppControllers.controller(<span class="hljs-string">'articleCtrl'</span>, [<span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>On met à jour le commentaire dans la liste</p>
+              <p>—– Private Méthode —–</p>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (articlesCtrl.currentArticle.id === data.articleId)
-      articlesCtrl.currentArticle.comments.push(data);
-  });</pre></div></div>
             
         </li>
         
@@ -144,15 +190,66 @@ AppControllers.controller(<span class="hljs-string">'articleCtrl'</span>, [<span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Reset de la modale des commentaires</p>
+              <p>Gestion des erreurs</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $(<span class="hljs-string">'#modalComment'</span>).on(<span class="hljs-string">'hide.bs.modal'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    tinymce.activeEditor.setContent(<span class="hljs-string">'&lt;p&gt;&lt;/p&gt;'</span>);
-  });
-  
-}]);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">errorOnPageArticle</span>(<span class="hljs-params">text</span>) </span>{
+    <span class="hljs-keyword">var</span> message = text || <span class="hljs-string">"Erreur lors de la récupération de l'article, veuillez réessayer ultérieurement."</span>;
+
+    $(<span class="hljs-string">"#msgError"</span>).html(message);
+    $(<span class="hljs-string">"#msgError"</span>).show().delay(<span class="hljs-number">3000</span>).fadeOut();
+    <span class="hljs-keyword">if</span> (text === <span class="hljs-literal">undefined</span>) {
+      $state.go(<span class="hljs-string">'home'</span>);
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>—– Events —–</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  socket.on(<span class="hljs-string">'NewComment'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>On met à jour le commentaire dans la liste</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (articlesCtrl.currentArticle._id === data.article_id)
+      $scope.comments.push(data);
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>—– jQuery —–</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>}]);</pre></div></div>
             
         </li>
         

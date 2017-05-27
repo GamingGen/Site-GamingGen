@@ -101,12 +101,13 @@
     <span class="hljs-attr">password</span>  : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
     <span class="hljs-attr">email</span>     : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">match</span>: <span class="hljs-regexp">/.{2,}\@.{2,10}\..{2,3}/</span> },
     <span class="hljs-attr">general</span>   : {
-                  <span class="hljs-attr">first_name</span>    : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
-                  <span class="hljs-attr">last_name</span>     : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+                  <span class="hljs-attr">first_name</span>    : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">lowercase</span>: <span class="hljs-literal">true</span> },
+                  <span class="hljs-attr">last_name</span>     : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">lowercase</span>: <span class="hljs-literal">true</span> },
                   <span class="hljs-attr">birthday</span>      : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
                   <span class="hljs-attr">zip</span>           : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
-                  <span class="hljs-attr">update_at</span>     : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>, <span class="hljs-attr">default</span>: <span class="hljs-built_in">Date</span>.now },
-                  <span class="hljs-attr">register_date</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>, <span class="hljs-attr">default</span>: <span class="hljs-built_in">Date</span>.now }
+                  <span class="hljs-attr">update_at</span>     : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span> },
+                  <span class="hljs-attr">register_date</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span> },
+                  <span class="hljs-attr">number_phone</span>  : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">match</span>: <span class="hljs-regexp">/[\+]{0,1}[\d]{0,2}[ |(\d)]{0,4}[\d{1,10}| |\.]{1,14}/</span> }
                 },
     <span class="hljs-attr">team</span>      : {
                   <span class="hljs-attr">name</span>          : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">ref</span>: <span class="hljs-string">'Team'</span> },
@@ -117,33 +118,14 @@
     <span class="hljs-attr">access</span>    : {
                   <span class="hljs-attr">token</span>         : <span class="hljs-built_in">String</span>,
                   <span class="hljs-attr">level</span>         : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-number">0</span> },
-                  <span class="hljs-attr">groups</span>        : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Array</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: [<span class="hljs-string">'member'</span>] }, <span class="hljs-comment">// TODO Save a referential Array in DB</span>
-                  ban           : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-literal">false</span> },
+                  <span class="hljs-attr">permissions</span>   : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Array</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-string">'member'</span>},
+                  <span class="hljs-attr">roles</span>         : <span class="hljs-built_in">Object</span>,
+                  <span class="hljs-attr">ban</span>           : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-literal">false</span> },
+                  <span class="hljs-attr">lost_password</span> : { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">default</span>: <span class="hljs-literal">false</span> },
                   <span class="hljs-attr">validationKey</span> : <span class="hljs-built_in">String</span>
                 }
 });
 
-<span class="hljs-comment">/**
- * @function postInit
- * @description Ici seul un console.log affiche l'id du document (permet de vérifier que tous les schémas on bien était chargé)
- */</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-4">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>UserSchema.post(‘init’, function(doc) {
-  console.log(‘UserSchema : ‘, doc._id);
-});</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
 <span class="hljs-comment">/**
  * @function preValidate
  * @param {function} next - Permet d'appeler le prochain middleware
@@ -166,10 +148,9 @@ UserSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs-fu
  * @description Chiffre le MDP et enregistre nouvel utilisateur
  */</span>
 UserSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
-  <span class="hljs-keyword">var</span> dateNow = <span class="hljs-built_in">Date</span>.now();
-  <span class="hljs-keyword">this</span>.general.update_at = dateNow;
+  <span class="hljs-keyword">this</span>.general.update_at = <span class="hljs-built_in">Date</span>.now();
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isNew) {
-    <span class="hljs-keyword">this</span>.general.register_date = dateNow;
+    <span class="hljs-keyword">this</span>.general.register_date = <span class="hljs-keyword">this</span>.general.update_at;
     <span class="hljs-keyword">this</span>.password = bcrypt.hashSync(<span class="hljs-keyword">this</span>.password, saltRounds);
   }
   next();
@@ -182,7 +163,7 @@ UserSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-functi
  * @todo terminer l'implémentation
  */</span>
 UserSchema.pre(<span class="hljs-string">'findOneAndUpdate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.password);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'pass: '</span>, <span class="hljs-keyword">this</span>.password);
   <span class="hljs-keyword">this</span>.update({}, {<span class="hljs-attr">$set</span>: { <span class="hljs-attr">update_at</span>:  <span class="hljs-built_in">Date</span>.now } });
   next();
 });
@@ -191,8 +172,27 @@ UserSchema.pre(<span class="hljs-string">'findOneAndUpdate'</span>, <span class=
  * @function postSave
  * @description Affiche en console que l'enregistrement est un succès
  */</span>
-UserSchema.post(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'User saved successfully!'</span>);
+UserSchema.post(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, doc, next</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Gestion en cas d’une clé dupliquée</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (error.name === <span class="hljs-string">'MongoError'</span> &amp;&amp; error.code === <span class="hljs-number">11000</span>) {
+    next(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'There was a duplicate key error'</span>));
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'User saved successfully!'</span>);
+    next(error);
+  }
 });
 
 
@@ -207,7 +207,9 @@ UserSchema.post(<span class="hljs-string">'save'</span>, <span class="hljs-funct
 UserSchema.statics.authenticate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">email, password, callback</span>) </span>{
   <span class="hljs-built_in">console</span>.log(email);
   <span class="hljs-built_in">console</span>.log(password);
-	<span class="hljs-keyword">this</span>.findOne({ <span class="hljs-attr">email</span>: email }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, user</span>) </span>{
+	<span class="hljs-keyword">this</span>.findOne({ <span class="hljs-attr">email</span>: email })
+  .populate(<span class="hljs-string">'confs.roles'</span>)
+  .exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, user</span>) </span>{
 		<span class="hljs-keyword">if</span> (user &amp;&amp; bcrypt.compareSync(password, user.password)) {</pre></div></div>
             
         </li>
@@ -223,8 +225,9 @@ UserSchema.statics.authenticate = <span class="hljs-function"><span class="hljs-
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>		  user.password = <span class="hljs-string">''</span>;
-		  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'user after delete: '</span>, user);
+            <div class="content"><div class='highlight'><pre>      user = user.toObject();
+      <span class="hljs-keyword">delete</span> user.password;
+      <span class="hljs-built_in">console</span>.log(user);
 			callback(<span class="hljs-literal">null</span>, user);
 		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (user || !error) {</pre></div></div>
             
@@ -241,7 +244,8 @@ UserSchema.statics.authenticate = <span class="hljs-function"><span class="hljs-
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>			error = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Your email address or password is invalid. Please try again."</span>);
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error: '</span>, error);
+			error = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Your email address or password is invalid. Please try again."</span>);
 			callback(error, <span class="hljs-literal">null</span>);
 		} <span class="hljs-keyword">else</span> {</pre></div></div>
             
