@@ -15,11 +15,25 @@
         .state('home', {
           url         : '/home',
           templateUrl : '../Partial/home.html',
-          onEnter     : function() {
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In home Section !');
+            ManageViewService.setView(normalLayout);
             particlesJS.load('particles-js', 'Conf/particles.json', function() {
               console.log('callback - particles.js config loaded');
             });
-          }
+          }]
+        })
+        .state('404', {
+          url         : '/404',
+          templateUrl : '../Partial/404.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(adminLayout);
+          }],
+          onExit      : ['ManageViewService', function(ManageViewService) {
+            console.log('I am Out 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }]
         })
         .state('article', {
           url         : '/articles/:id',
@@ -213,7 +227,7 @@
         });
       
       // Route par defaut
-      $urlRouterProvider.otherwise('/home');
+      $urlRouterProvider.otherwise('404');
       
       // Supprime le caractère ! dans l'url
       $locationProvider.hashPrefix('');
@@ -250,6 +264,10 @@
             else if (response.status === 500) {
               console.log('500');
               $state.go('home');
+            }
+            else if (response.status === 404) {
+              console.log('404');
+              $state.go('404');
             }
             return deferred.promise;
           }
