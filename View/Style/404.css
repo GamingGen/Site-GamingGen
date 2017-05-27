@@ -19,17 +19,17 @@
   right:0;
   flex-direction:column;
 }
-.texte, .lien{
+.notFoundTexte, .notFoundLink{
   font-size:0.12em!important;
   color:white;
 }
-.lien a{
+.notFoundLink a{
   color:white;
 }
 
 /*body{*/
 /*  margin:0;*/
 /*}*/
-/*h1, h2, h3{*/
+/*h1, h2, h3 {*/
 /*  margin:0;*/
 /*}*/

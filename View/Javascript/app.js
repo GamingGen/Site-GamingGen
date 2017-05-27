@@ -46,6 +46,14 @@
           url         : '/articles',
           templateUrl : '../Partial/news.html',
         })
+        .state('competition', {
+          url         : '/competition',
+          templateUrl : '../Partial/competition.html',
+        })
+        .state('festival', {
+          url         : '/festival',
+          templateUrl : '../Partial/festival.html',
+        })
         .state('usersValidate', {
           url         : '/users/validate/:hash',
           templateUrl : '../Partial/home.html',
