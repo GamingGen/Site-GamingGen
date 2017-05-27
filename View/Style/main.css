@@ -594,10 +594,13 @@ hr {
 }
 
 .bienvenue-user-pseudo{
-  padding: 4px 30px 4px 5px;
+  padding:9px 30px 10px;
 }
 .mon-compte-container {
   position: relative;
+}
+.mon-compte-container a{
+  font-family: 'Droid Sans', sans-serif!important;
 }
 .mon-compte {
   padding: 13px 30px 14px;
@@ -752,13 +755,17 @@ margin-top: 0px!important;
 }
 
 .slider {
-  background: url("../Img/General/LAN-PARTY.min.jpg") center center no-repeat;
+  background: url("../Img/General/slide2.jpg") center center no-repeat;
   background-size: cover;
   position:relative;
   margin-top: 1px;
   height: 450px;
   width:100vw;
   overflow: hidden;
+}
+.slider:before{
+  content:'';
+  
 }
 .slider img{
   margin-top:-300px;
@@ -768,8 +775,8 @@ margin-top: 0px!important;
   text-transform: uppercase;
 }
 .resizeProfil {
-  width: 33px;
-  height:33px;
+  width:24px;
+  height:24px;
 }
 
 
@@ -808,6 +815,8 @@ margin-top: 0px!important;
   z-index:15;
   color:#F4F4F4;
   float:left;
+  cursor:pointer;   
+  position: absolute;
 }
 .img-rounded{
   border-radius:2px;
@@ -1475,17 +1484,39 @@ height:25vw;
   
 }
 .bienvenue-user-pseudo-alternate{
-      left: -60px;
+      left: 0px;
   border-left:none!important;
 }
 .bienvenue-user-pseudo-alternate:hover{
   background:transparent!important;
 }
+.demiSocial .compte img{
+  width:24px;
+}
+ul.socialLink.compte.dropdown-menu{
+  flex-direction:column;
+  height:auto!important;
+  font-family:;
+  margin-top:0px!important;
+  font-family: 'Droid Sans', sans-serif!important;
+  top:0px;
+}
+ul.socialLink.compte.dropdown-menu a{
+  font-family: 'Droid Sans', sans-serif!important;
+  font-size:1em;
+}
+ul.socialLink.compte:hover{
+  flex-direction:column;
+  height:auto!important;
+  background:none;
+}
 .admin-alternate{
   position:absolute;
+  left: 75px;
+  top:60px;
 }
 .demiSocial-alternate{
- right: -60px!important;
+ right: 0px!important;
 }
 .socialBloc{
   right:0px;
@@ -1510,6 +1541,10 @@ height:25vw;
   transition: all 0.3s ease-out;
   border-left:1px solid #6b6b6b;
 }
+.socialLink .compte .dropdown-menu{
+  height:auto!important;
+  font-family: 'Droid Sans', sans-serif!important;
+}
 .instagram{
   border-top:1px solid #6b6b6b;
 }
@@ -1523,7 +1558,10 @@ height:25vw;
 }
 .demiSocial .compte{
   align-items:center;
+  font-family: 'Droid Sans', sans-serif!important;
   font-size:1em;
+  width:auto;
+  border-left:none;
   text-transform: inherit;
   color:white;
 }
@@ -1733,7 +1771,7 @@ height:25vw;
   z-index:99;
 }
 .navbar-toggle{
-  margin-right: 30%;
+  margin-right: 50%;
 }
 .navbar-brand{
   display: block;
@@ -1764,6 +1802,17 @@ border-top: 0px;
 }
 }*/
 @media screen and (max-width: 1400px){
+  ul.socialLink.compte.dropdown-menu {
+    /* opacity: 1; */
+    position: absolute!important;
+    flex-direction: column;
+    height: auto!important;
+    font-family: ;
+    /* margin-top: 100%!important; */
+    z-index: 99999;
+    font-family: 'Droid Sans', sans-serif!important;
+    top: 100%;
+  }
   .demiSocial {
     right: 200px;
     display: flex!important;
@@ -1845,7 +1894,7 @@ border-top: 0px;
     margin-top: 0px!important;
   }
   .dropdown-menu li, .dropdown-menu a{
-    background: rgba(0,0,0,0)!important;
+    background: rgba(0,0,0,0.5)!important;
   }
   .navbar-header {
     float: none;
@@ -1959,10 +2008,16 @@ border-top: 0px;
   }
 }
 @media screen and (max-width: 768px) {
-  
-.carousel{
-  width: 90%;
-}
+  .instafeed .first-case {
+    width: 100%!important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .carousel{
+    width: 90%;
+  }
   .navbar-nav{
     margin-top: 80px;
   }
@@ -2012,6 +2067,9 @@ border-top: 0px;
   }
 }
 @media screen and (max-width: 660px) {
+  .titreArticleContent h1{
+    font-size: 2.5em;
+  }
   .navbar-toggle {
    margin-right:5%;
    margin-top: 0px;
@@ -2090,4 +2148,106 @@ blockquote {
 .comments-title {
   color: #88B205;
   font-weight: bold;
+}
+.cookie-bar {
+  
+  font-family: 'Droid Sans', sans-serif;
+  position: fixed;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+      justify-content:center;
+      align-items:center;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 70px;
+  text-align: center;
+  line-height: 30px;
+  background: #232323;
+  color: rgba(255, 255, 255, 0.5);
+  z-index:9999;
+  font-size: 14px;
+  font-weight: 100;
+  -webkit-transition: .8s;
+  transition: .8s;
+  -webkit-animation: slideIn .8s;
+          animation: slideIn .8s;
+  -webkit-animation-delay: .8s;
+          animation-delay: .8s;
+}
+.cookie-bar .message {
+  white-space: nowrap;
+}
+@media (max-width: 767px) {
+  .cookie-bar .message {
+    display: none;
+  }
+}
+.cookie-bar .mobile {
+  display: none;
+}
+@media (max-width: 767px) {
+  .cookie-bar .mobile {
+    display: inline-block;
+  }
+}
+
+@-webkit-keyframes slideIn {
+  0% {
+    -webkit-transform: translateY(70px);
+            transform: translateY(70px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    -webkit-transform: translateY(70px);
+            transform: translateY(70px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+.close-cb {
+  border: none;
+  color: white;
+  background: none;
+  position: absolute;
+  display: inline-block;
+  right: 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  line-height: 30px;
+  height: 30px;
+  width: 30px;
+  font-size: 16px;
+  font-weight: bold;
+   display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+      justify-content:center;
+      align-items:center;
+}
+.close-cb:hover {
+}
+
+.checkbox-cb {
+  display: none;
+}
+.checkbox-cb:checked + .cookie-bar {
+  -webkit-transform: translateY(70px);
+          transform: translateY(70px);
+}
+
+a {
+  color: #5cf2ff;
 }
