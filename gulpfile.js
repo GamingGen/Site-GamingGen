@@ -22,7 +22,7 @@ const pathDocs    = ['./docs/docco/', './docs/jsdoc/'];
 
 // Tâche "watch"
 gulp.task('watch', () => {
-  gulp.watch(sources, ['default']);
+  gulp.watch(sources, ['docs']);
   gulp.watch(sassFiles, ['styles']);
 });
 
@@ -44,13 +44,13 @@ gulp.task('docco', ['cleanDoc'], () => {
 
 gulp.task('jsdoc', ['cleanDoc'], (cb) => {
   var config = require('./confJSDoc.json');
-  return gulp.src(sources)
+  gulp.src(sources)
     .pipe(jsdoc(config, cb));
 });
 
 gulp.task('styles', function(){  
   return gulp.src(sassFiles)
-    .pipe(sass({noCache: true}).on('error', sass.logError))
+    .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest(cssDest));
 });
 
@@ -67,7 +67,11 @@ gulp.task('build', (callback) => {
   runSequence('clean', 'styles', 'prod', callback);
 });
 
+gulp.task('docs', ['docco', 'jsdoc'], () => {
+  
+});
+
 // Tâche par défaut
-gulp.task('default', ['docco', 'jsdoc', 'styles'], () => {
+gulp.task('default', ['docs', 'styles'], () => {
   
 });
