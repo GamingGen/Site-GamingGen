@@ -1493,6 +1493,12 @@ height:25vw;
 .demiSocial .compte img{
   width:24px;
 }
+.compteTop{
+  width:100px!important;
+}
+.overlay{
+  position:fixed!important;
+}
 ul.socialLink.compte.dropdown-menu{
   flex-direction:column;
   height:auto!important;

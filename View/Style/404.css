@@ -9,18 +9,21 @@
 }
 .contentConstru{
   color:rgba(255,255,255,0.8);
-  font-family:'verdana';
-  font-weight:100;
-  font-size:7em;
   
+    font-family: TitlingGothicFBCondRegular;
+  font-weight:100;
   position:absolute;
   display:flex;
-  top:0;
-  right:0;
+  top:15%;
+  right:20%;
   flex-direction:column;
 }
+.contentConstru h1{
+  font-size:24em;
+  color:rgba(255,255,255,0.6);
+}
 .notFoundTexte, .notFoundLink{
-  font-size:0.12em!important;
+  font-size:1em!important;
   color:white;
 }
 .notFoundLink a{
