@@ -38,6 +38,10 @@
         .state('article', {
           url         : '/articles/:id',
           templateUrl : '../Partial/article.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
           controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
              $scope.idArticle = $stateParams.id;
           }]
@@ -45,14 +49,26 @@
         .state('news', {
           url         : '/articles',
           templateUrl : '../Partial/news.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
         })
         .state('competition', {
           url         : '/competition',
           templateUrl : '../Partial/competition.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
         })
         .state('festival', {
           url         : '/festival',
           templateUrl : '../Partial/festival.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
         })
         .state('usersValidate', {
           url         : '/users/validate/:hash',
@@ -63,15 +79,27 @@
         })
         .state('live', {
           url         : '/live',
-          templateUrl : '../Partial/live.html'
+          templateUrl : '../Partial/live.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
         })
         .state('shop', {
           url         : '/shop',
-          templateUrl : '../Partial/Shop/shop.html'
+          templateUrl : '../Partial/Shop/shop.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
         })
         .state('shop.order', {
           url         : '/order',
           templateUrl : '../Partial/Shop/orderShop.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
           data        : {
             permissions: {
               only: ['ADMIN', 'ADMIN_VENDEUR', 'VENDEUR'],
@@ -82,6 +110,10 @@
         .state('shop.histo', {
           url         : '/histo',
           templateUrl : '../Partial/Shop/histoShop.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
           data        : {
             permissions: {
               only: ['ADMIN', 'ADMIN_VENDEUR', 'VENDEUR'],
@@ -91,11 +123,19 @@
         })
         .state('snack', {
           url         : '/snack',
-          templateUrl : '../Partial/Snack/snack.html'
+          templateUrl : '../Partial/Snack/snack.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
         })
         .state('snack.staff', {
           url         : '/staff',
           templateUrl : '../Partial/Snack/staff.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
           data        : {
             permissions: {
               only: ['ADMIN', 'SNAC_STAFF'],
@@ -106,6 +146,10 @@
         .state('snack.staff.commande', {
           url         : '/commande',
           templateUrl : '../Partial/Snack/commande.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
           data        : {
             permissions: {
               only: ['ADMIN', 'SNAC_STAFF'],
@@ -116,6 +160,10 @@
         .state('snack.staff.histo', {
           url         : '/histoSnack',
           templateUrl : '../Partial/Snack/histoSnack.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
           data        : {
             permissions: {
               only: ['ADMIN', 'SNAC_STAFF'],
@@ -126,6 +174,10 @@
         .state('admin', {
           url         : '/admin',
           templateUrl : '../Partial/Admin/admin.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
           data        : {
             permissions: {
               only: ['canSeeAdmin']
