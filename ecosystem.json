@@ -40,7 +40,8 @@
         "NODE_ENV"                      : "production",
         "NODE_TLS_REJECT_UNAUTHORIZED"  : "0",
         "NODEMAILER_MAIL"               : process.env.NODEMAILER_MAIL,
-        "NODEMAILER_PASS"               : process.env.NODEMAILER_PASS
+        "NODEMAILER_PASS"               : process.env.NODEMAILER_PASS,
+        "PORT"                          : process.env.PORT
       }
     },
     "production"    : {
@@ -57,7 +58,8 @@
         "NODE_ENV"                      : "production",
         "NODE_TLS_REJECT_UNAUTHORIZED"  : "0",
         "NODEMAILER_MAIL"               : process.env.NODEMAILER_MAIL,
-        "NODEMAILER_PASS"               : process.env.NODEMAILER_PASS
+        "NODEMAILER_PASS"               : process.env.NODEMAILER_PASS,
+        "PORT"                          : process.env.PORT
       }
     },
   }
