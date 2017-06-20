@@ -287,7 +287,7 @@
         });
       
       // Route par defaut
-      $urlRouterProvider.otherwise('404');
+      $urlRouterProvider.otherwise('home');
       
       // Supprime le caractère ! dans l'url
       $locationProvider.hashPrefix('');
