@@ -73,8 +73,9 @@
         .state('usersValidate', {
           url         : '/users/validate/:hash',
           templateUrl : '../Partial/home.html',
-          onEnter     : ['$stateParams', 'UserService', function($stateParams, UserService) {
+          onEnter     : ['$stateParams', 'UserService', function($stateParams, UserService, ManageViewService) {
             UserService.validate($stateParams.hash);
+            ManageViewService.setView(normalLayout);
           }]
         })
         .state('live', {
