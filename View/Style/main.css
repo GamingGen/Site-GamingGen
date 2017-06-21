@@ -2388,6 +2388,7 @@ a {
   height: 500px;
   left: 0px;
   overflow: hidden;
+  z-index: 2;
 }
 .vertCMS .blocCMSimgLeft .imgBackground img {
   transform: scale(1);
@@ -2517,7 +2518,13 @@ a {
   height: 500px;
   right: 10%;
   overflow: hidden;
+  z-index: 2;
 }
+
+
+.pageCMS .texte{z-index:3;}
+
+
 .vertCMS .blocCMSimgRight .imgBackground img {
   transform: scale(1);
   width: 100%;
@@ -2797,7 +2804,7 @@ a {
 .vertCMS .blocCMSimgCenterTexteLeft .texte {
   position: relative;
   width: 100%;
-  padding-top: 100px;
+  /*padding-top: 100px;*/
 }
 .vertCMS .blocCMSimgCenterTexteLeft .texte h2 {
   display: flex;
@@ -3314,7 +3321,7 @@ a {
 .orangeCMS .blocCMSimgCenterTexteLeft .texte {
   position: relative;
   width: 100%;
-  padding-top: 100px;
+  /*padding-top: 100px;*/
 }
 .orangeCMS .blocCMSimgCenterTexteLeft .texte h2 {
   display: flex;
