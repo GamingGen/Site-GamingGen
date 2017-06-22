@@ -2255,9 +2255,9 @@ blockquote {
           transform: translateY(70px);
 }
 
-a {
-  color: #5cf2ff;
-}
+/*a {*/
+/*  color: #5cf2ff;*/
+/*}*/
 .wow {
   visibility: hidden;
 }
