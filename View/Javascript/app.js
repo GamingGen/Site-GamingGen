@@ -58,7 +58,6 @@
           url         : '/competition',
           templateUrl : '../Partial/competition.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
         })
@@ -66,7 +65,13 @@
           url         : '/festival',
           templateUrl : '../Partial/festival.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
+            ManageViewService.setView(normalLayout);
+          }],
+        })
+        .state('partner', {
+          url         : '/partner',
+          templateUrl : '../Partial/partner.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
           }],
         })
