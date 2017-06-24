@@ -1120,7 +1120,7 @@ height:25vw;
 }
 .commentTitle{
   fill:rgba(0,0,0,0.2);
-  position: absolute;
+  position: relative;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -2394,6 +2394,7 @@ blockquote {
 .vertCMS .blocCMSimgLeft .imgBackground img {
   transform: scale(1);
   min-width: 100%;
+      max-width: 100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -2450,6 +2451,7 @@ blockquote {
 }
 .vertCMS .blocCMSimgLeft span img {
   filter: grayscale(100%);
+      max-width: 100%;
   -webkit-filter: grayscale(100%);
   -moz-filter: grayscale(100%);
   -ms-filter: grayscale(100%);
@@ -2528,6 +2530,7 @@ blockquote {
 
 .vertCMS .blocCMSimgRight .imgBackground img {
   transform: scale(1);
+      max-width: 100%;
   width: 100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
@@ -2589,6 +2592,7 @@ blockquote {
   -ms-filter: grayscale(100%);
   -o-filter: grayscale(100%);
   object-fit: cover;
+      max-width: 100%;
 }
 .vertCMS .blocCMSimgCenterTexteRight {
   min-height: 450px;
@@ -2642,6 +2646,7 @@ blockquote {
 .vertCMS .blocCMSimgCenterTexteRight:hover .imgBackground img {
   -webkit-filter: grayscale(0%);
   filter: grayscale(0%);
+  
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
   transform: scale(1.03);
 }
@@ -2658,6 +2663,7 @@ blockquote {
 .vertCMS .blocCMSimgCenterTexteRight .imgBackground img {
   transform: scale(1);
   width: 200%;
+      max-width: 100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -2718,6 +2724,7 @@ blockquote {
   -ms-filter: grayscale(100%);
   -o-filter: grayscale(100%);
   object-fit: cover;
+      max-width: 100%;
 }
 .vertCMS .blocCMSimgCenterTexteLeft {
   min-height: 450px;
@@ -2770,6 +2777,7 @@ blockquote {
 }
 .vertCMS .blocCMSimgCenterTexteLeft:hover .imgBackground img {
   -webkit-filter: grayscale(0%);
+  
   filter: grayscale(0%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
   transform: scale(1.03);
@@ -2786,6 +2794,7 @@ blockquote {
 }
 .vertCMS .blocCMSimgCenterTexteLeft .imgBackground img {
   transform: scale(1);
+      max-width: 100%;
   width: 200%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
@@ -2848,6 +2857,7 @@ blockquote {
   -ms-filter: grayscale(100%);
   -o-filter: grayscale(100%);
   object-fit: cover;
+      max-width: 100%;
 }
 
 .orangeCMS .blocCMSimgLeft {
@@ -2913,10 +2923,12 @@ blockquote {
   height: 500px;
   left: 0px;
   overflow: hidden;
+  z-index:2;
 }
 .orangeCMS .blocCMSimgLeft .imgBackground img {
   transform: scale(1);
   min-width: 100%;
+      max-width: 100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -2978,6 +2990,7 @@ blockquote {
   -ms-filter: grayscale(100%);
   -o-filter: grayscale(100%);
   object-fit: cover;
+      max-width: 100%;
 }
 .orangeCMS .blocCMSimgRight {
   display: flex;
@@ -2988,7 +3001,7 @@ blockquote {
   position: relative;
   display: flex;
   margin-top: 20px;
-  width: 50%;
+  width: 50%
   height: 100%;
   padding: 20px 40px 20px 40px;
   color: #333;
@@ -3042,10 +3055,12 @@ blockquote {
   height: 500px;
   right: 10%;
   overflow: hidden;
+  z-index:2;
 }
 .orangeCMS .blocCMSimgRight .imgBackground img {
   transform: scale(1);
   width: 100%;
+      max-width: 100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -3106,6 +3121,7 @@ blockquote {
   -ms-filter: grayscale(100%);
   -o-filter: grayscale(100%);
   object-fit: cover;
+      max-width: 100%;
 }
 .orangeCMS .blocCMSimgCenterTexteRight {
   min-height: 450px;
@@ -3174,7 +3190,8 @@ blockquote {
 }
 .orangeCMS .blocCMSimgCenterTexteRight .imgBackground img {
   transform: scale(1);
-  width: 200%;
+  width: 200%;    
+  max-width: 100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -3235,6 +3252,7 @@ blockquote {
   -ms-filter: grayscale(100%);
   -o-filter: grayscale(100%);
   object-fit: cover;
+      max-width: 100%;
 }
 .orangeCMS .blocCMSimgCenterTexteLeft {
   min-height: 450px;
@@ -3304,6 +3322,7 @@ blockquote {
 .orangeCMS .blocCMSimgCenterTexteLeft .imgBackground img {
   transform: scale(1);
   width: 200%;
+      max-width: 100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -3365,6 +3384,12 @@ blockquote {
   -ms-filter: grayscale(100%);
   -o-filter: grayscale(100%);
   object-fit: cover;
+      max-width: 100%;
+  
+}
+.pageCMS .texte{
+  z-index:3;
+  
 }
 
 .pageCMS{
