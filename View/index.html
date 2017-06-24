@@ -17,12 +17,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.4/css/datetimepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.4/ui-grid.min.css">
+    <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.min.css">-->
     
     <!-- build:css css/min.css -->
     <link rel="stylesheet" href="Style/please-wait.css">
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.min.css">-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.4/ui-grid.min.css">
-     <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
     <link rel="stylesheet" href="Style/jasny-bootstrap.min.css">
     <link rel="stylesheet" href="Style/main.css">
     <link rel="stylesheet" href="Style/loading-bar.css" media="all">
@@ -36,7 +36,7 @@
     <!-- Splash Screen -->
     <div class="inner" ng-view>
     </div>
-    <script type="text/javascript" src="Javascript/Lib/please-wait.min.js"></script>
+    <script type="text/javascript" src="please-wait.min.js"></script>
     <script type="text/javascript">
       window.loading_screen = window.pleaseWait({
         logo: "Img/logowh.svg",
@@ -123,17 +123,22 @@
     <script type="text/javascript" src="Javascript/Locales/angular-locale_fr-fr.js"></script>
     
     <script type="text/javascript" src="Javascript/app.js"></script>
-    <script type="text/javascript">
-    new WOW().init();
-    </script>
     <!-- endbuild -->
+    
+    
+    <script type="text/javascript">
+      new WOW().init();
+    </script>
+    
+    
     <!-- message Cookie -->
     <input class="checkbox-cb" id="checkbox-cb" type="checkbox" />
-<div class="cookie-bar">
-  <span class="message">Ce site internet utilise les cookies pour fonctionner de la meilleure des façons. En visitant ce site, vous acceptez les <a href="#">closes.</a></span>
-  <span class="mobile">Ce site internet utilise les cookies<a href="#">En savoir plus</a></span>
-  <label for="checkbox-cb" class="close-cb">x</label>
-</div>
+    <div class="cookie-bar">
+      <span class="message">Ce site internet utilise les cookies pour fonctionner de la meilleure des façons. En visitant ce site, vous acceptez les <a href="#">closes.</a></span>
+      <span class="mobile">Ce site internet utilise les cookies<a href="#">En savoir plus</a></span>
+      <label for="checkbox-cb" class="close-cb">x</label>
+    </div>
+    
     <!-- Inscription Modal -->
     <div class="modal fade container" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
       <div class="modal-dialog modal-lg" role="document">
@@ -256,6 +261,40 @@
         </div>
       </div>
     </div>
+  
+    <!-- Contact Modal -->
+    <div class="modal fade container" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content inscriptionModal">
+          <div class="blocInscriptionModal smallModalConnexion row">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              
+            <div class="modal-header col-md-6">
+              <span class="titreModalConnection">Nous contacter</span>
+                <span class="backgroundInscription"></span>
+            </div>
+            <div class="modal-body col-md-6">
+              <form ng-submit="submitLogin()" name="formConnection" novalidate>
+                <div class="row">
+                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
+                    <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
+                    <label for="connectionEmail">Email* : </label>                  
+                  </div>
+                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
+                    <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
+                    <label for="connectionPassword">Mot de Passe* : </label>
+                </div>
+                </div>
+              </form>
+              <div class="bottomFooter row">
+                <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid">Connexion</a>
+                <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -278,10 +317,10 @@
                   Mon Compte
                 </a>
                 <ul class="socialLink compte dropdown-menu">
-                  <li ng-show="User.accessLvl > 5"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                  <li ng-show="User.accessLvl > 5"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                  <li ng-show="User.accessLvl > 5"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-                    <li role="separator" class="divider"></li>
+                  <!--<li ng-show="User.accessLvl > 5"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>-->
+                  <!--<li ng-show="User.accessLvl > 5"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>-->
+                  <!--<li ng-show="User.accessLvl > 5"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>-->
+                    <!--<li role="separator" class="divider"></li>-->
                     <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
                   <li role="separator" class="divider"></li>
                   <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
@@ -347,20 +386,20 @@
                 <span>Gaming Gen 6</span><span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><a ui-sref="404">Les compétitions</a></li>
-                <li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="404">Festival du jeu</a></li>
-                <li><a ui-sref="404">Forum des métiers du digital</a></li>
-                <li><a ui-sref="404">Le Plan</a></li>
+                <li><a ui-sref="festival">Gaming World</a></li>
+                <li><a ui-sref="competition">Gaming Arena</a></li>
+                <!--<li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="404">Festival du jeu</a></li>-->
+                <!--<li><a ui-sref="404">Le Plan</a></li>-->
                 <!--<li role="separator" class="divider"></li>-->
-                <li><a ui-sref="404">Le Programme</a></li>
+                <!--<li><a ui-sref="404">Le Programme</a></li>-->
                 <!--<li role="separator" class="divider"></li>-->
-                <li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>
+                <!--<li ng-show="User.isLoggedIn && User.accessLvl >= 10"><a ui-sref="snack.joueur.commande">Le Snack</a></li>-->
               </ul>
             </li>
             <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
-              <a class="autoCollapse" ui-sref="shop.order">Le magasin</a>
+              <!--<a class="autoCollapse" ui-sref="shop.order">Le magasin</a>-->
             <li>
-              <a class="autoCollapse" ui-sref="404">Les Partenaires</a>
+              <!--<a class="autoCollapse" ui-sref="404">Les Partenaires</a>-->
             </li>
             <li>
               <a class="autoCollapse" ui-sref="news">News</a>
@@ -368,18 +407,18 @@
             <li>
               <a class="autoCollapse" ui-sref="live">Live <img ng-src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a>
             </li>
-            <li ui-sref-active="active" class="dropdown">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                L'association<span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a ui-sref="404">L'équipe Gaming Gen</a></li>
-                <li><a ui-sref="404">Nos précédents événements</a></li>
-                <li><a ui-sref="404">Médias</a></li>
-                <li><a ui-sref="404">Mentions légales</a></li>
-                <li><a ui-sref="404">Contact</a></li>
-              </ul>
-            </li>
+            <!--<li ui-sref-active="active" class="dropdown">-->
+            <!--  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
+            <!--    L'association<span class="caret"></span>-->
+            <!--  </a>-->
+            <!--  <ul class="dropdown-menu">-->
+            <!--    <li><a ui-sref="404">L'équipe Gaming Gen</a></li>-->
+            <!--    <li><a ui-sref="404">Nos précédents événements</a></li>-->
+            <!--    <li><a ui-sref="404">Médias</a></li>-->
+            <!--    <li><a ui-sref="404">Mentions légales</a></li>-->
+            <!--    <li><a ui-sref="404">Contact</a></li>-->
+            <!--  </ul>-->
+            <!--</li>-->
             
             <!--<li><a ui-sref="admin.articles"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Articles</a></li>-->
               
@@ -395,10 +434,10 @@
                     Mon Compte
                   </a>
                   <ul class="socialLink compte dropdown-menu">
-                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-                    <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-                    <li role="separator" class="divider"></li>
+                    <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>-->
+                    <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>-->
+                    <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>-->
+                    <!--<li role="separator" class="divider"></li>-->
                     <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
                     <li role="separator" class="divider"></li>
                     <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
@@ -448,10 +487,10 @@
             Mon Compte
           </a>
           <ul class="loggedmenu dropdown-menu">
-            <li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>
-            <li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>
-            <li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>
-            <li ng-show="User.accessLvl > 1" role="separator" class="divider"></li>
+            <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>-->
+            <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>-->
+            <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>-->
+            <!--<li ng-show="User.accessLvl > 1" role="separator" class="divider"></li>-->
             <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
             <li role="separator" class="divider"></li>
             <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
@@ -613,17 +652,17 @@
             <a href="https://twitter.com/gaminggenlan" target="_blank" >Twitter</a>
             <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" >Instagram</a>
             <a ui-sref="home">Accueil</a>
-            <a ui-sref="404">Gaming gen 6</a>
-            <a ui-sref="404">Compétitions</a>
-            <a ui-sref="404">Festival du jeu</a>
-            <a ui-sref="404">Plan</a>
-            <a ui-sref="404">Programme</a>
+            <!--<a ui-sref="404">Gaming gen 6</a>-->
+            <!--<a ui-sref="404">Compétitions</a>-->
+            <!--<a ui-sref="404">Festival du jeu</a>-->
+            <!--<a ui-sref="404">Plan</a>-->
+            <!--<a ui-sref="404">Programme</a>-->
             <a ui-sref="live">Live</a>
             <a ui-sref="news">News</a>
-            <a ui-sref="404">Partenaires</a>
-            <a ui-sref="404">Galerie</a>
-            <a ui-sref="404">Association</a>
-            <a ui-sref="404">Infos utiles</a>
+            <!--<a ui-sref="404">Partenaires</a>-->
+            <!--<a ui-sref="404">Galerie</a>-->
+            <!--<a ui-sref="404">Association</a>-->
+            <!--<a ui-sref="404">Infos utiles</a>-->
             <a href="" ng-click="toTheTop()">ScrollToTop</a>
         </div>
       </div>
