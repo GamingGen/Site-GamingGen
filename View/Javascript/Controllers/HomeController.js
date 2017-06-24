@@ -6,7 +6,7 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
   var news      = this;
   news.articles = [];
   news.defaultPicture = "Img/Articles/default-thumbnail.jpg";
-  news.moreArticles = "https://overwatch-a.akamaihd.net/img/logos/overwatch-share-3d5a268515283007bdf3452e877adac466d579f4b44abbd05aa0a98aba582eeaebc4541f1154e57ec5a43693345bebda953381a7b75b58adbd29d3f3eb439ad2.jpg";
+  news.moreArticles = "Img/General/genevert.png";
   
   
   // ----- GET / SET Data -----

@@ -1723,6 +1723,11 @@ ul.socialLink.compte:hover{
 .firstThumbNews a img, .otherThumbNews a img {
   object-fit: cover;
 }
+
+.lastThumbNew a img {
+  object-fit: contain;
+}
+
 .wrapperPreviewNews{
   display:block;
   position:relative;
