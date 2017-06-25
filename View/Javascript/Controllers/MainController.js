@@ -96,6 +96,11 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   socket.on('mailContactSent', function(data) {
     alertInfo('Mail envoyé');
+    $('#contactModal').modal('toggle');
+    
+    $scope.contactEmail   = '';
+    $scope.contactObjet   = null;
+    $scope.contactMessage = '';
   });
   
   socket.on('ErrorOnMailContactSent', function(data) {
@@ -228,13 +233,21 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     console.log('sendMail Call');
     
     var data = {
-      email : $scope.contactEmail,
+      email   : $scope.contactEmail,
       subject : $scope.contactObjet,
-      text : $scope.contactMessage
+      text    : $scope.contactMessage
     };
     
     console.log('data: ', data);
     socket.emit('sendMailContact', data);
+  };
+  
+  $scope.clearMail = function() {
+    console.log('clearMail Call');
+    
+    $scope.contactEmail   = '';
+    $scope.contactObjet   = null;
+    $scope.contactMessage = '';
   };
   
   $scope.toTheTop = function() {
