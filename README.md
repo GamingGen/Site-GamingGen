@@ -222,4 +222,7 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
 
 10. Tests (Obligatoire !!!)
         - https://www.grafikart.fr/formations/javascript-unit-test/test-angularjs-mocks
+
+11. MailTo :
+        - https://blog.hubspot.com/marketing/set-gmail-as-browser-default-email-client-ht
 ```

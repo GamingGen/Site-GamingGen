@@ -1240,7 +1240,6 @@ height:25vw;
     position: absolute;
     top: 0px;
     left: 50%;
-    transform:rotate(180deg);
 }
 .articles{
   position:relative;
