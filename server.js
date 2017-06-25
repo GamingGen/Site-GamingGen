@@ -37,6 +37,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const MongoStore    = require('connect-mongo')(session);
 const os            = require('os');
 const moment        = require('moment');
+const nodemailer    = require('nodemailer');
 const sticky        = require('sticky-session');
 
 
@@ -188,6 +189,11 @@ app.use('/shop', Shop.router);
 app.use('/order', Order.router);
 
 
+// Events
+ServerEvent.on('sendMailContact', (data, socket) => {
+  SendMail(data.email, data.subject, 'contact@gaming-gen.fr', data.text, socket);
+});
+
 // Functions
 function shouldCompress(req, res) {
   if (req.headers['x-no-compression']) {
@@ -220,6 +226,54 @@ function startMessage (err, nodeVersion, refVersion) {
     console.log(`La version du serveur Node.JS : `.data + process.version.warn);
     console.log(`Le serveur Node.JS fonctionne sur la plateforme : `.data + process.platform.warn);
   }
+}
+
+// Mail...
+// create reusable transporter object using SMTP transport 
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: process.env.NODEMAILER_MAIL,
+        pass: process.env.NODEMAILER_PASS
+    }
+});
+
+function SendMail(from, subject, to, text, socket) {
+  // Gestion mail Contact
+  console.log('Sending Mail...'.info);
+  text = `Vous avez reçu un mail de : ${from} : \n\n${text}`;
+  // setup e-mail data with unicode symbols 
+  var mailOptions = {
+      from: from, // sender address 
+      to: to, // list of receivers 
+      subject: subject, // Subject line 
+      text: text, // plaintext body 
+      // html: html, // html body
+      attachments: []
+  };
+  
+  // Pour attacher des pièces
+  // for(let IMG of tabIMG) {
+  //   attach = {};
+  //   attach.filename = IMG;
+  //   attach.path = IMG;
+  //   mailOptions.attachments.push(attach);
+  // }
+  
+  // send mail with defined transport object 
+  transporter.sendMail(mailOptions, (error, info) => {
+    console.log('info: ', info);
+      if(error) {
+        console.error(error);
+        // res.status(500).json({message : `Problème lors de l'envoie du mail`});
+        ServerEvent.emit('ErrorOnMailContactSent', error, socket);
+      }
+      else {
+        console.log(`Message sent: ${info}`);
+        // res.status(200).json({message : 'Mail envoyé !'});
+        ServerEvent.emit('mailContactSent', info, socket);
+      }
+  });
 }
 
 // Check Version of Node before Launch.
