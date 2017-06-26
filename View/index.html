@@ -46,6 +46,7 @@
     </script>
 
     <!-- Load Frameworks -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bowser/1.7.0/bowser.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-resource.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
@@ -688,7 +689,7 @@
       var everythingLoaded = setInterval(function() {
         if (/loaded|complete/.test(document.readyState)) {
           clearInterval(everythingLoaded);
-          if(typeof angular === 'undefined') {
+          if(typeof angular === 'undefined' || bowser.msie) {
             console.log('Oo, nous avons un problème avec Angular.JS...');
             setTimeout(function() {
               var pg = document.getElementsByClassName("pg-removing");
