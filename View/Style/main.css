@@ -761,7 +761,7 @@ margin-top: 0px!important;
 }
 
 .slider {
-  background: url("../Img/General/slide2.jpg") center center no-repeat;
+  background: url("../Img/General/SLIDER-GG6.png") center center no-repeat;
   background-size: cover;
   position:relative;
   margin-top: 1px;
@@ -1246,7 +1246,6 @@ height:25vw;
     position: absolute;
     top: 0px;
     left: 50%;
-    transform:rotate(180deg);
 }
 .articles{
   position:relative;

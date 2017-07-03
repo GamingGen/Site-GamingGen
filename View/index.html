@@ -46,6 +46,7 @@
     </script>
 
     <!-- Load Frameworks -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bowser/1.7.0/bowser.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-resource.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
@@ -94,6 +95,7 @@
     <script type="text/javascript" src="Javascript/Controllers/HistoSnackController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/HomeController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/CompetitionController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/FestivalController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/LiveController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/MainController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/ShopController.js"></script>
@@ -264,12 +266,12 @@
     </div>
   
     <!-- Contact Modal -->
+    <!--contact@gaming-gen.fr-->
     <div class="modal fade container" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content inscriptionModal">
           <div class="blocInscriptionModal smallModalConnexion row">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              
             <div class="modal-header col-md-6">
               <span class="titreModalConnection">Nous contacter</span>
                 <span class="backgroundInscription"></span>
@@ -277,19 +279,32 @@
             <div class="modal-body col-md-6">
               <form ng-submit="submitLogin()" name="formConnection" novalidate>
                 <div class="row">
-                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionEmail.$invalid && !formConnection.connectionEmail.$pristine }">
-                    <input type="email" ng-model="connectionEmail" class="form-control" id="connectionEmail" placeholder="Email" required/>
-                    <label for="connectionEmail">Email* : </label>                  
+                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.contactObjet.$invalid && !formConnection.contactObjet.$pristine }">
+                    <select name="contactObjet" ng-model="contactObjet">
+                      <option value="Devenir partenaire">Devenir partenaire</option>
+                      <option value="Informations Gaming Arena">Informations Gaming Arena</option>
+                      <option value="Informations Gaming World">Informations Gaming World</option>
+                      <option value="Rejoindre l'équipe Gaming Gen">Rejoindre l'équipe Gaming Gen</option>
+                      <option value="Autre">Autre</option>
+                    </select>
+                    <label for="contactObjet">Objet* : </label>                  
                   </div>
-                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.connectionPassword.$invalid && !formConnection.connectionPassword.$pristine }">
-                    <input type="password" ng-model="connectionPassword" class="form-control" id="connectionPassword" placeholder="Mot de Passe" required/>
-                    <label for="connectionPassword">Mot de Passe* : </label>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.contactEmail.$invalid && !formConnection.contactEmail.$pristine }">
+                    <input type="email" ng-model="contactEmail" class="form-control" id="contactEmail" placeholder="Email" required/>
+                    <label for="contactEmail">Email* : </label>                  
+                  </div>
+                  <div class="col-md-12 form-group" ng-class="{ 'has-error' : formConnection.contactMessage.$invalid && !formConnection.contactMessage.$pristine }">
+                    <textarea ng-model="contactMessage" class="form-control" id="contactMessage" placeholder="Votre message ici ..." required></textarea>
+                    <label for="contactMessage">Message : </label>
                 </div>
                 </div>
               </form>
               <div class="bottomFooter row">
-                <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid">Connexion</a>
-                <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
+                <a type="submit" ng-click="sendMail()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid">Envoyer</a>
+                <a type="button" ng-click="clearMail()" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
               </div>
             </div>
           </div>
@@ -603,8 +618,9 @@
       <!--  </div>-->
       <!--</section>-->
     
-    <div ng-show="showSlider" class="slider">
-      <a ui-sref="#"></a>
+    <div ng-show="showSlider" >
+      <!--<img ng-src="../Img/General/SLIDER-GG6.png" class="slider" alt="...">-->
+      <img class="slider" alt="...">
     </div>
     <div ng-class="mainView">
       <div ui-view autoscroll="false"></div>
@@ -612,27 +628,27 @@
     <div class="footer fullwidth">
       <div class="superFooter row">
         <div class="reassurance Zero col-xs-12 col-sm-6 col-md-3">
-          <a ui-sref="404">
+          <a ui-sref="news">
             <h2>TU VEUX EN SAVOIR PLUS ?</h2>
             <p></p>
           </a>
         </div>
         <div class="reassurance First col-xs-12 col-sm-6 col-md-3">
-          <a ui-sref="404">
+          <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSdSuPG1NjKIn7Y5W0mCQs0JNFv4LwbavQRiE2ql-_U5J279SA/viewform?c=0&w=1&usp=send_form">
           <img src='../Img/General/benevole.svg'/>
             <h2>DEVENIR BÉNÉVOLE</h2>
             <p>On fait des réunions sympas.</p>
           </a>
         </div>
         <div class="reassurance Second col-xs-12 col-sm-6 col-md-3">
-          <a ui-sref="404">
+          <a target="_blank" href="mailto:contact@gaming-gen.fr?subject=Devenir Exposant GG6">
             <img src='../Img/exposant.svg'/>
             <h2>DEVENIR EXPOSANT</h2>
             <p>Grande renommée pour toi !</p>
           </a>
         </div>
         <div class="reassurance Third col-xs-12 col-sm-6 col-md-3">
-          <a ui-sref="404">
+          <a ui-sref="competition">
             <img src='../Img/tournoireassurance.svg' width="168"/>
             <h2>PARTICIPER AUX TOURNOIS</h2>
             <p>Devenir le pro de tes rêves.</p>
@@ -664,6 +680,7 @@
             <!--<a ui-sref="404">Galerie</a>-->
             <!--<a ui-sref="404">Association</a>-->
             <!--<a ui-sref="404">Infos utiles</a>-->
+            <a href="" data-toggle="modal" data-target="#contactModal">Contact</a>
             <a href="" ng-click="toTheTop()">ScrollToTop</a>
         </div>
       </div>
@@ -673,7 +690,7 @@
       var everythingLoaded = setInterval(function() {
         if (/loaded|complete/.test(document.readyState)) {
           clearInterval(everythingLoaded);
-          if(typeof angular === 'undefined') {
+          if(typeof angular === 'undefined' || bowser.msie) {
             console.log('Oo, nous avons un problème avec Angular.JS...');
             setTimeout(function() {
               var pg = document.getElementsByClassName("pg-removing");

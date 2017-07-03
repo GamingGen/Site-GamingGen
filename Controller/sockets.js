@@ -35,6 +35,14 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		sessionMiddleware(socket.request, socket.request.res, next);
 	});
 
+	ServerEvent.on('mailContactSent', function(data, socket) {
+		socket.emit('mailContactSent', data);
+	});
+
+	ServerEvent.on('ErrorOnMailContactSent', function(data, socket) {
+		socket.emit('ErrorOnMailContactSent', data);
+	});
+
 	ServerEvent.on('ErrorOnRolesUpdated', function(data, socket) {
 		socket.emit('ErrorOnRolesUpdated', data);
 	});
@@ -167,6 +175,11 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 				}
 			});
 		}
+		
+		socket.on('sendMailContact', function(data) {
+			ServerEvent.emit('sendMailContact', data, socket);
+			console.log('Emit: sendMailContact');
+		});
 		
 		socket.on('UpdateRoles', function(data) {
 			ServerEvent.emit('UpdateRoles', data, socket);

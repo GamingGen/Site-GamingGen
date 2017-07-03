@@ -15,9 +15,10 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   
   // ----- GET / SET Data -----
-  $scope.User = UserService.currentUser;
-  $scope.isMailExist = false;
+  $scope.User          = UserService.currentUser;
+  $scope.isMailExist   = false;
   $scope.isPseudoExist = false;
+  $scope.contactObjet  = null;
   
   // Pour récupérer les infos en cas de coupure réseau
   socket.on('connect', function() {
@@ -90,6 +91,19 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   });
   
   socket.on('ErrorOnPermissionsUpdated', function(data) {
+    alertError(data.message);
+  });
+  
+  socket.on('mailContactSent', function(data) {
+    alertInfo('Mail envoyé');
+    $('#contactModal').modal('toggle');
+    
+    $scope.contactEmail   = '';
+    $scope.contactObjet   = null;
+    $scope.contactMessage = '';
+  });
+  
+  socket.on('ErrorOnMailContactSent', function(data) {
     alertError(data.message);
   });
 
@@ -213,6 +227,27 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
     
     // $scope.isMailExist = false;
     // $scope.isPseudoExist = false;
+  };
+  
+  $scope.sendMail = function() {
+    console.log('sendMail Call');
+    
+    var data = {
+      email   : $scope.contactEmail,
+      subject : $scope.contactObjet,
+      text    : $scope.contactMessage
+    };
+    
+    console.log('data: ', data);
+    socket.emit('sendMailContact', data);
+  };
+  
+  $scope.clearMail = function() {
+    console.log('clearMail Call');
+    
+    $scope.contactEmail   = '';
+    $scope.contactObjet   = null;
+    $scope.contactMessage = '';
   };
   
   $scope.toTheTop = function() {
