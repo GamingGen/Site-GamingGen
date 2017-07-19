@@ -768,6 +768,7 @@ margin-top: 0px!important;
   height: 450px;
   width:100vw;
   overflow: hidden;
+  display: grid;
 }
 .slider:before{
   content:'';
