@@ -760,13 +760,14 @@ margin-top: 0px!important;
 }
 
 .slider {
-  background: url("../Img/General/SLIDER-GG6.png") center center no-repeat;
+  background: url("../Img/General/SLIDER-GG6V4.png") center center no-repeat;
   background-size: cover;
   position:relative;
   margin-top: 1px;
   height: 450px;
   width:100vw;
   overflow: hidden;
+  display: grid;
 }
 .slider:before{
   content:'';

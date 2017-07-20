@@ -24,6 +24,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
   
   tinymce.init({
     selector: 'textarea',
+    // allow_unsafe_link_target: true,
     height: 500,
     // plugins: [
     //   'advlist autolink lists link image charmap print preview anchor',
@@ -32,7 +33,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
     // ],
     plugins: [
       'advlist autolink lists link image',
-      'searchreplace visualblocks',
+      'searchreplace visualblocks code',
       'contextmenu paste emoticons textcolor colorpicker textpattern imagetools'
     ],
     // toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
@@ -153,7 +154,8 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
   
   $scope.getContent = function() {
     if (user && user.isLoggedIn) {
-      var text = tinymce.activeEditor.getContent().replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
+      var text = tinymce.activeEditor.getContent({format : 'raw'}).replace(new RegExp('<img', 'g'), '<img class="img-responsive"');
+      console.log(text);
       var article = {
             pseudo    : user.pseudo,
             title     : $scope.title,
@@ -195,7 +197,7 @@ AppControllers.controller('adminArticleCtrl', ['$scope', '$http', '$location', '
     $scope.desc = '';
     $scope.picture = '';
     $scope.type.name = "hot_news";
-    tinymce.activeEditor.setContent('<br /><p><strong><em>--</em></strong><strong><em><br /></em></strong><strong><em>Gaming Gen, le jeu est dans nos g&egrave;nes !</em></strong></p>');
+    tinymce.activeEditor.setContent($scope.tinymceModel);
     $scope.selectedArticle = undefined;
     $scope.idChildSelectedElement = undefined;
     $scope.idSelectedElement = undefined;
