@@ -31,11 +31,9 @@ text-rendering: optimizeLegibility;
     margin-top: 30px;
   }
 }
-
-
-
 body {
   -webkit-font-smoothing: antialiased;
+  font-family: 'Droid Sans',sans-serif;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   /*word-wrap: break-word;*/
@@ -76,7 +74,10 @@ body {
   /*background-color: LightSkyBlue !important;*/
   /*background-color: MediumTurquoise !important;*/
 }
-
+ul, li{
+  font-family: 'Droid Sans',sans-serif;
+  font-size:1em;
+}
 p, h3, label {
   color: #000;
   font-family: 'Droid Sans', sans-serif;
@@ -3380,7 +3381,7 @@ blockquote {
   z-index: 2;
   position: relative;
   margin-left: 30%;
-  color: var(--vert);
+  color: var(--orange);
   font-size: 4em;
 }
 .orangeCMS .blocCMSimgCenterTexteLeft .texte h2:after {
