@@ -489,7 +489,7 @@
         <!--</a>-->
         
         <!--A supprimer dès que l'inscription est terminé-->
-        <a href="https://www.eventbrite.fr/e/billets-gaming-gen-level6-23-24-sept-35858622104?ref=ebtn" target="_blank"><img src="https://www.eventbrite.fr/custombutton?eid=35858622104" alt="Eventbrite - Gaming Gen #Level6 23-24 Sept." /></a>
+        <a ng-hide="User.isLoggedIn" href="https://www.eventbrite.fr/e/billets-gaming-gen-level6-23-24-sept-35858622104?ref=ebtn" target="_blank"><img src="https://www.eventbrite.fr/custombutton?eid=35858622104" alt="Eventbrite - Gaming Gen #Level6 23-24 Sept." /></a>
 
       
       <!--A décommenter dès que l'inscription est terminé-->
@@ -685,6 +685,7 @@
             <!--<a ui-sref="404">Galerie</a>-->
             <!--<a ui-sref="404">Association</a>-->
             <!--<a ui-sref="404">Infos utiles</a>-->
+            <a ui-sref="legalNotice">Mentions légales</a>
             <a href="" data-toggle="modal" data-target="#contactModal">Contact</a>
             <a href="" ng-click="toTheTop()">ScrollToTop</a>
         </div>

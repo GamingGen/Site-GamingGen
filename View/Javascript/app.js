@@ -54,16 +54,16 @@
             ManageViewService.setView(normalLayout);
           }],
         })
-        .state('competition', {
-          url         : '/competition',
-          templateUrl : '../Partial/competition.html',
+        .state('arena', {
+          url         : '/arena',
+          templateUrl : '../Partial/arena.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
           }],
         })
-        .state('festival', {
-          url         : '/festival',
-          templateUrl : '../Partial/festival.html',
+        .state('world', {
+          url         : '/world',
+          templateUrl : '../Partial/world.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
           }],
@@ -71,6 +71,13 @@
         .state('partner', {
           url         : '/partner',
           templateUrl : '../Partial/partner.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            ManageViewService.setView(normalLayout);
+          }],
+        })
+        .state('legalNotice', {
+          url         : '/legalNotice',
+          templateUrl : '../Partial/legalNotice.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
           }],
