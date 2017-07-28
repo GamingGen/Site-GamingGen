@@ -70,7 +70,7 @@
         })
         .state('partner', {
           url         : '/partner',
-          templateUrl : '../Partial/partner.html',
+          templateUrl : '../Partial/partners.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
           }],
