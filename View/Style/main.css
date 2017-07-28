@@ -2441,6 +2441,7 @@ blockquote {
 }
 .vertCMS .blocCMSimgLeft .imgBackground {
   position: absolute;
+  padding:0;
   width: 50%;
   height: 500px;
   left: 0px;
@@ -2449,8 +2450,8 @@ blockquote {
 }
 .vertCMS .blocCMSimgLeft .imgBackground img {
   transform: scale(1);
-  min-width: 100%;
-      max-width: 100%;
+  height: auto;
+    min-width: 100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -2575,6 +2576,7 @@ blockquote {
   position: absolute;
   width: 60%;
   height: 500px;
+  padding:0;
   right: 10%;
   overflow: hidden;
   z-index: 2;
@@ -2586,8 +2588,7 @@ blockquote {
 
 .vertCMS .blocCMSimgRight .imgBackground img {
   transform: scale(1);
-      max-width: 100%;
-  width: 100%;
+  height:100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -2713,13 +2714,13 @@ blockquote {
   position: absolute;
   width: 30%;
   height: 500px;
+  padding:0;
   left: 20%;
   overflow: hidden;
 }
 .vertCMS .blocCMSimgCenterTexteRight .imgBackground img {
   transform: scale(1);
-  width: 200%;
-      max-width: 100%;
+  height:100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -2843,6 +2844,7 @@ blockquote {
 }
 .vertCMS .blocCMSimgCenterTexteLeft .imgBackground {
   position: absolute;
+  padding:0;
   width: 30%;
   height: 500px;
   left: 50%;
@@ -2850,8 +2852,7 @@ blockquote {
 }
 .vertCMS .blocCMSimgCenterTexteLeft .imgBackground img {
   transform: scale(1);
-      max-width: 100%;
-  width: 200%;
+  height:100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -2866,6 +2867,13 @@ blockquote {
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.4);
+}
+.vertCMS .blocCMSimgCenterTexteLeft .video .texte{
+  width:100%;
+}
+.vertCMS .video .texte h2,
+.vertCMS .video .texte p{
+  margin-left: 5%;
 }
 .vertCMS .blocCMSimgCenterTexteLeft .texte {
   position: relative;
@@ -2977,14 +2985,15 @@ blockquote {
   position: absolute;
   width: 50%;
   height: 500px;
+  padding:0;
   left: 0px;
   overflow: hidden;
   z-index:2;
 }
 .orangeCMS .blocCMSimgLeft .imgBackground img {
   transform: scale(1);
-  min-width: 100%;
-      max-width: 100%;
+  height: auto;
+    min-width: 100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -3108,6 +3117,7 @@ blockquote {
 .orangeCMS .blocCMSimgRight .imgBackground {
   position: absolute;
   width: 60%;
+  padding:0;
   height: 500px;
   right: 10%;
   overflow: hidden;
@@ -3115,8 +3125,7 @@ blockquote {
 }
 .orangeCMS .blocCMSimgRight .imgBackground img {
   transform: scale(1);
-  width: 100%;
-      max-width: 100%;
+  height:100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -3240,14 +3249,14 @@ blockquote {
 .orangeCMS .blocCMSimgCenterTexteRight .imgBackground {
   position: absolute;
   width: 30%;
+  padding:0;
   height: 500px;
   left: 20%;
   overflow: hidden;
 }
 .orangeCMS .blocCMSimgCenterTexteRight .imgBackground img {
   transform: scale(1);
-  width: 200%;    
-  max-width: 100%;
+  height:100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -3371,6 +3380,7 @@ blockquote {
 }
 .orangeCMS .blocCMSimgCenterTexteLeft .imgBackground {
   position: absolute;
+  padding:0;
   width: 30%;
   height: 500px;
   left: 50%;
@@ -3378,8 +3388,7 @@ blockquote {
 }
 .orangeCMS .blocCMSimgCenterTexteLeft .imgBackground img {
   transform: scale(1);
-      max-width: 100%;
-  width: 200%;
+  height:100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
@@ -3506,6 +3515,7 @@ blockquote {
   position: absolute;
   width: 60%;
   height: 500px;
+  padding:0;
   left: 20%;
   overflow: hidden;
   z-index:2;
@@ -3518,8 +3528,7 @@ blockquote {
 }
 .orangeCMS .blocCMSimgCenterTexteCenter .imgBackground img {
   transform: scale(1);
-  width: 200%;
-      max-width: 100%;
+  height:100%;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.43, 0.07, 0.41, 1);
