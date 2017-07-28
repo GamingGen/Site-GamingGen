@@ -221,7 +221,7 @@
                 <div ng-show="isMailExist" class="alert alert-danger" role="alert">Cette adresse mail existe déjà</div>
               </div>
                 <div class="bottomFooter row">
-                  <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid" >S'inscrire</a>
+                  <a type="submit" ng-click="formRegistration.$valid && submitRegister()" class="btnForm ValidInscription" ng-disabled="formRegistration.$invalid">S'inscrire</a>
                   <a type="button" id="closeRegister" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>
                 </div>
               </div>
@@ -318,7 +318,8 @@
         <div class="navbar-header">
           <div class="socialHeader hidden-xs">
             <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
-              <a href="" class="socialLink compte compteTop" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
+              <!--<a href="" class="socialLink compte compteTop" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>-->
+              <a href="https://www.eventbrite.fr/o/gaming-generation-14418911767" class="socialLink compte compteTop" target="_blank">Billeterie</a>
               <a href="" class="socialLink compte compteTop" data-toggle="modal" data-target="#connectionModal">Connexion</a>
             </li>
             <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
@@ -440,7 +441,8 @@
               
             <div class="socialHeader socialHeaderXS hidden-sm hidden-md hidden-lg">
               <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
-                <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>
+                <a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal" target="_blank">S'inscrire</a>
+                <a href="https://www.eventbrite.fr/o/gaming-generation-14418911767" class="socialLink compte">Billeterie</a>
                 <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
               </li>
               <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
@@ -489,7 +491,7 @@
         <!--</a>-->
         
         <!--A supprimer dès que l'inscription est terminé-->
-        <a ng-hide="User.isLoggedIn" href="https://www.eventbrite.fr/e/billets-gaming-gen-level6-23-24-sept-35858622104?ref=ebtn" target="_blank"><img src="https://www.eventbrite.fr/custombutton?eid=35858622104" alt="Eventbrite - Gaming Gen #Level6 23-24 Sept." /></a>
+        <a ng-hide="User.isLoggedIn" href="https://www.eventbrite.fr/o/gaming-generation-14418911767" target="_blank"><img src="https://www.eventbrite.fr/custombutton?eid=35858622104" alt="Eventbrite - Gaming Gen #Level6 23-24 Sept." /></a>
 
       
       <!--A décommenter dès que l'inscription est terminé-->
