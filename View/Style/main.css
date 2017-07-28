@@ -42,11 +42,14 @@ body {
   background-repeat: no-repeat,
   no-repeat,
   repeat;
+  
   background-size: 100% 10px,
   100% 449px,
   auto auto;
 }
-
+.cmsEntry p{
+  font-size:1.2em;
+}
 /*body{*/
 /*word-wrap: break-word;*/
 /*  height: 100%;*/
@@ -1055,6 +1058,13 @@ height:25vw;
   width:15px;
   margin-right: 25px;
 }
+.arrowGowhite{
+  position:absolute;
+  right:8px;
+  fill:white;
+  top: calc(50% - 22px);
+  width:15px;
+}
 .triggerComment{
   display:flex;
   justify-content:center;
@@ -1980,8 +1990,23 @@ border-top: 0px;
     box-shadow: none;
   }
 }
-
-
+.beCo{
+  background:#FF9000;
+  color:white;
+  padding:20px;
+  font-size:1.5em;
+  position:relative;
+  margin-top:50px;
+  bottom:0;
+  display:flex;
+}
+.beCo a{
+  text-decoration: none;
+  color:white;
+}
+.imgPlan img{
+  width:100%;
+}
 /*TABLETTE*/
 @media screen and (max-width: 1028px) {
   .listNewsPage{
