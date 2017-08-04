@@ -1,17 +1,10 @@
 'use strict';
 
 var AppControllers = angular.module('AppControllers');
-AppControllers.controller('festivalCtrl', ['$http', '$scope', 'socket', '$filter', function($http, $scope, socket){
+AppControllers.controller('arenaCtrl', ['$http', '$scope', 'socket', '$filter', function($http, $scope, socket){
   // ----- Init -----
   
-  
   // ----- GET / SET Data -----
-  $scope.videoFestival = "1UDR9KEGkTM";
-  $scope.playerVars = {
-    controls: 1,
-    autoplay: 0
-  };
-  
   
   // ----- Public Méthode -----
   
