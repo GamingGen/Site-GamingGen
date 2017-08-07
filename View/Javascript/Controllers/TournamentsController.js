@@ -1,7 +1,7 @@
 'use strict';
 
 var AppControllers = angular.module('AppControllers');
-AppControllers.controller('worldCtrl', ['$http', '$scope', 'socket', '$filter', function($http, $scope, socket){
+AppControllers.controller('tournamentsCtrl', ['$http', '$scope', 'socket', '$filter', function($http, $scope, socket){
   // ----- Init -----
   
   
