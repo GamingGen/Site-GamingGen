@@ -66,9 +66,9 @@
             ManageViewService.setView(normalLayout);
           }],
         })
-        .state('partner', {
-          url         : '/partner',
-          templateUrl : '../Partial/partners.html',
+        .state('exponent-and-partner', {
+          url         : '/exponent-and-partner',
+          templateUrl : '../Partial/exponent-and-partner.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
           }],
