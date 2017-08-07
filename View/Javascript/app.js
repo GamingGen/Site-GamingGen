@@ -73,34 +73,34 @@
             ManageViewService.setView(normalLayout);
           }],
         })
-        .state('tournaments', {
-          url         : '/tournaments',
-          templateUrl : '../Partial/tournaments.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('hearthStone', {
-          url         : '/hearthStone',
-          templateUrl : '../Partial/hearthStone.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('counterStrike', {
-          url         : '/counterStrike',
-          templateUrl : '../Partial/counterStrike.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('clashRoyale', {
-          url         : '/clashRoyale',
-          templateUrl : '../Partial/clashRoyale.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
+        // .state('tournaments', {
+        //   url         : '/tournaments',
+        //   templateUrl : '../Partial/tournaments.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('hearthStone', {
+        //   url         : '/hearthStone',
+        //   templateUrl : '../Partial/hearthStone.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('counterStrike', {
+        //   url         : '/counterStrike',
+        //   templateUrl : '../Partial/counterStrike.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('clashRoyale', {
+        //   url         : '/clashRoyale',
+        //   templateUrl : '../Partial/clashRoyale.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
         .state('legalNotice', {
           url         : '/legalNotice',
           templateUrl : '../Partial/legalNotice.html',
