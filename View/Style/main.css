@@ -1892,8 +1892,16 @@ border-top: 0px;
 }
 
 @media screen and (max-width: 1260px) {
+  .imgGame {
+    overflow: hidden;
+    height: 400px!important;
+}
 }
 @media (max-width: 1150px) {
+  .imgGame {
+    overflow: hidden;
+    height: 400px!important;
+}
   
 .carousel{
   width: 70%;
@@ -2009,6 +2017,10 @@ border-top: 0px;
 }
 /*TABLETTE*/
 @media screen and (max-width: 1028px) {
+  .imgGame {
+    overflow: hidden;
+    height: 300px!important;
+}
   .listNewsPage{
     flex-direction:column;
   }
@@ -3637,9 +3649,10 @@ blockquote {
       text-align: center;
     display: flex;
     top: -8px;
+    opacity:0;
     transition: all 0.3s ease;
   margin-bottom:24px;
-  color:white;
+  color:black;
     position: relative;
     justify-content: center;
 }
@@ -3662,7 +3675,7 @@ blockquote {
   content:'';
   position:absolute;
   width:calc(100% - 29px);
-  height:60px;
+  height:0px;
   top:0;
   left:15px;
   z-index:3;
@@ -3696,7 +3709,183 @@ blockquote {
 }
 .slotPartner:hover h1{
   top:5%;
+  opacity:1;
   color:black;
 }
-
+p.texteArticleContent {
+    font-size: 1.4em;
+    color: #252525;
+}
+.gamePage{
+  margin-top:15px;
+  margin-bottom:150px;
+}
+.sentenceGame span{
+  display:block;
+    position:relative;
+    font-size:3em;
+  font-family: TitlingGothicFBCondRegular;
+}
+.sentenceGame h2{
+  margin-top:40px;
+}
+.sentenceGame p{
+   font-size: 1.4em;
+}
+.sentenceGame span:after{
+  display:flex;
+  content:'';
+  position:absolute;
+        left:0;
+        bottom:0;
+        height:5px;
+        width:100%;
+        background:#64DC13;
+}
+.titleToggle{
+    font-family: TitlingGothicFBCondRegular;
+  margin-left:15%;
+  font-size:40px;
+      height: 60px;
+      cursor:pointer;
+}
+.titleToggle:before{
+  content: '';
+  position: relative;
+  background: #64DC13;
+  margin-top: 18px;
+  display: flex;
+  height: 4px;
+  left: -30px;
+  width: 20px;
+  top: 25px;
+}
+.titleToggle:after{
+  content: '';
+  position: relative;
+  background: #64DC13;
+  display: flex;
+  top: -44px;
+  left: -22px;
+  height: 20px;
+  width: 4px;
+}
+.showToggle{
+   font-size: 1.2em;
+}
+.reminderGame{
+  background:#e0e0e0;
+  padding:20px;
+	display:flex;  
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+.reminderGame p{
+  font-size:1.2em;
+}
+.reminderGame h1{
+  text-align:center;
+      display: flex;
+    }
+.bagReminder{
+  fill: #7B7B7B;
+    position: relative;
+    display: flex;
+    top: 0px;
+    left: 15px;
+  
+}
+.imgGame img{
+  width:100%;
+}
+.imgGame {
+  overflow:hidden;
+  height: 500px;
+}
+.slotPartner{
+  height:260px;
+}
+.gameTournament{
+  height:260px;
+  overflow:hidden;
+  margin-top:15px;
+}
+.gameTournament a{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  cursor:pointer;
+  z-index:2;
+}
+.gameTournament img{
+    height: 100%;
+}
+.gameTournament:after{
+  content:'';
+  background:#63DC13;
+  opacity:0.8;
+  position:absolute;
+  display:flex;
+  top:100%;
+  left:15px;
+  width:calc(100% - 15px);
+  height:100%;
+  transition:all 0.3s ease;
+}
+.wrapperTextGame{
+  width:100%;
+  height:100%;
+  top:15%;
+  left:15px;
+  display:flex;
+  opacity:0;
+  justify-content:center;
+  align-items:center;
+  align-content:center;
+  position:absolute;
+  transition:all 1s ease;
+  z-index: 1;
+  flex-direction:column;
+}
+.gameTournament:hover:after{
+  top:0;
+}
+.gameTournament:hover .wrapperTextGame{
+  opacity:1;
+  top:0;
+}
+.tournament{
+  margin-bottom:100px;
+}
+.nameGame, .numberTournament{
+  width:calc(100% - 15px);
+  display:flex;
+  position:relative;
+  justify-content:center;
+  align-items:center;
+  align-content:center;
+}
+.nameGame{
+  font-size:1.6em;
+}
+.numberTournament{
+  font-size:1.2em;
+}
+.numberTournament:after{
+  content:'+';
+  position:absolute;
+  width:50px;
+  height:50px;
+  top:100%;
+  left:50%;
+}
+.additionalInfos{
+  display:flex;
+  justify-content:space-between;
+  margin-top:40px;
+  flex-direction:row;
+}
 
