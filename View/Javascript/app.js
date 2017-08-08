@@ -39,7 +39,6 @@
           url         : '/articles/:id',
           templateUrl : '../Partial/article.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
           controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
@@ -47,10 +46,9 @@
           }]
         })
         .state('news', {
-          url         : '/articles',
+          url         : '/news',
           templateUrl : '../Partial/news.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
         })
@@ -70,39 +68,39 @@
         })
         .state('partner', {
           url         : '/partner',
-          templateUrl : '../Partial/partners.html',
+          templateUrl : '../Partial/partner.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
           }],
         })
-        .state('tournaments', {
-          url         : '/tournaments',
-          templateUrl : '../Partial/tournaments.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('hearthStone', {
-          url         : '/hearthStone',
-          templateUrl : '../Partial/hearthStone.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('counterStrike', {
-          url         : '/counterStrike',
-          templateUrl : '../Partial/counterStrike.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('clashRoyale', {
-          url         : '/clashRoyale',
-          templateUrl : '../Partial/clashRoyale.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
+        // .state('tournaments', {
+        //   url         : '/tournaments',
+        //   templateUrl : '../Partial/tournaments.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('hearthStone', {
+        //   url         : '/hearthStone',
+        //   templateUrl : '../Partial/hearthStone.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('counterStrike', {
+        //   url         : '/counterStrike',
+        //   templateUrl : '../Partial/counterStrike.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('clashRoyale', {
+        //   url         : '/clashRoyale',
+        //   templateUrl : '../Partial/clashRoyale.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
         .state('legalNotice', {
           url         : '/legalNotice',
           templateUrl : '../Partial/legalNotice.html',
@@ -122,7 +120,6 @@
           url         : '/live',
           templateUrl : '../Partial/live.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
         })
@@ -130,7 +127,6 @@
           url         : '/shop',
           templateUrl : '../Partial/Shop/shop.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
         })
@@ -138,7 +134,6 @@
           url         : '/order',
           templateUrl : '../Partial/Shop/orderShop.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
           data        : {
@@ -152,7 +147,6 @@
           url         : '/histo',
           templateUrl : '../Partial/Shop/histoShop.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
           data        : {
@@ -166,7 +160,6 @@
           url         : '/snack',
           templateUrl : '../Partial/Snack/snack.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
         })
@@ -174,7 +167,6 @@
           url         : '/staff',
           templateUrl : '../Partial/Snack/staff.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
           data        : {
@@ -188,7 +180,6 @@
           url         : '/commande',
           templateUrl : '../Partial/Snack/commande.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
           data        : {
@@ -202,7 +193,6 @@
           url         : '/histoSnack',
           templateUrl : '../Partial/Snack/histoSnack.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
           data        : {
@@ -216,7 +206,6 @@
           url         : '/admin',
           templateUrl : '../Partial/Admin/admin.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
-            console.log('I am In 404 Section !');
             ManageViewService.setView(normalLayout);
           }],
           data        : {
