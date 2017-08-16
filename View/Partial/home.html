@@ -59,7 +59,7 @@
               </h2>
               
             </span>
-            {{article.desc}}...
+            <!--{{article.desc}}...-->
             <img ng-hide="hover" ng-if="article.first_frame_picture.data.length > 0" class="imgThumbNews" ng-src="data:{{article.first_frame_picture.contentType}};base64,{{article.first_frame_picture.data}}" alt="{{article.desc}}">
             <img ng-show="hover || (article.first_frame_picture === undefined && article.first_frame_picture.data === undefined)" class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
           </a>
