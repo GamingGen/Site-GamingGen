@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="row">
-      <div ng-repeat="article in news.articles | orderBy : '-update_at' | limitTo : 4">
+      <div ng-repeat="article in news.articles | orderBy : '-update_at' | limitTo : 4" title="{{article.desc}}">
         <div ng-mouseenter="hover=true" ng-mouseleave="hover=false" ng-class="{ 'blanc' : hover, 'firstThumbNews col-xs-12 col-lg-8' : $index === 0, 'otherThumbNews col-xs-12 col-sm-6 col-lg-4' : $index > 0 }">
           <a type="button" class="lirearticle" ui-sref="article({ id: article._id })">
             <span class="wrapperPreviewNews">
@@ -59,7 +59,6 @@
               </h2>
               
             </span>
-            <!--{{article.desc}}...-->
             <img ng-hide="hover" ng-if="article.first_frame_picture.data.length > 0" class="imgThumbNews" ng-src="data:{{article.first_frame_picture.contentType}};base64,{{article.first_frame_picture.data}}" alt="{{article.desc}}">
             <img ng-show="hover || (article.first_frame_picture === undefined && article.first_frame_picture.data === undefined)" class="imgThumbNews" ng-src="{{article.picture || news.defaultPicture}}" alt="{{article.desc}}">
           </a>
