@@ -81,6 +81,7 @@
 <span class="hljs-keyword">const</span> MongoStore    = <span class="hljs-built_in">require</span>(<span class="hljs-string">'connect-mongo'</span>)(session);
 <span class="hljs-keyword">const</span> os            = <span class="hljs-built_in">require</span>(<span class="hljs-string">'os'</span>);
 <span class="hljs-keyword">const</span> moment        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
+<span class="hljs-keyword">const</span> nodemailer    = <span class="hljs-built_in">require</span>(<span class="hljs-string">'nodemailer'</span>);
 <span class="hljs-keyword">const</span> sticky        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'sticky-session'</span>);</pre></div></div>
             
         </li>
@@ -419,6 +420,23 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
+              <p>Events</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>ServerEvent.on(<span class="hljs-string">'sendMailContact'</span>, (data, socket) =&gt; {
+  SendMail(data.email, data.subject, <span class="hljs-string">'contact@gaming-gen.fr'</span>, data.text, socket);
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
               <p>Functions</p>
 
             </div>
@@ -429,11 +447,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-20">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <p>don’t compress responses with this request header </p>
 
@@ -445,11 +463,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-21">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p>fallback to standard filter function </p>
 
@@ -464,11 +482,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-22">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>req.user is available for use here</p>
 
@@ -481,11 +499,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-23">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <p>denied</p>
 
@@ -497,11 +515,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-24">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <p>Gestion message de démarrage</p>
 
@@ -522,11 +540,159 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-25">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Mail…
+create reusable transporter object using SMTP transport </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> transporter = nodemailer.createTransport({
+    <span class="hljs-attr">service</span>: <span class="hljs-string">'Gmail'</span>,
+    <span class="hljs-attr">auth</span>: {
+        <span class="hljs-attr">user</span>: process.env.NODEMAILER_MAIL,
+        <span class="hljs-attr">pass</span>: process.env.NODEMAILER_PASS
+    }
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SendMail</span>(<span class="hljs-params">from, subject, to, text, socket</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Gestion mail Contact</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Sending Mail...'</span>.info);
+  text = <span class="hljs-string">`Vous avez reçu un mail de : <span class="hljs-subst">${<span class="hljs-keyword">from</span>}</span> : \n\n<span class="hljs-subst">${text}</span>`</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>setup e-mail data with unicode symbols </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> mailOptions = {
+      <span class="hljs-attr">from</span>: <span class="hljs-keyword">from</span>, <span class="hljs-comment">// sender address </span>
+      to: to, <span class="hljs-comment">// list of receivers </span>
+      subject: subject, <span class="hljs-comment">// Subject line </span>
+      text: text, <span class="hljs-comment">// plaintext body </span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>html: html, // html body</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      attachments: []
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>Pour attacher des pièces
+for(let IMG of tabIMG) {
+  attach = {};
+  attach.filename = IMG;
+  attach.path = IMG;
+  mailOptions.attachments.push(attach);
+}</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>send mail with defined transport object </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  transporter.sendMail(mailOptions, (error, info) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'info: '</span>, info);
+      <span class="hljs-keyword">if</span>(error) {
+        <span class="hljs-built_in">console</span>.error(error);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>res.status(500).json({message : <code>Problème lors de l&#39;envoie du mail</code>});</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        ServerEvent.emit(<span class="hljs-string">'ErrorOnMailContactSent'</span>, error, socket);
+      }
+      <span class="hljs-keyword">else</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Message sent: <span class="hljs-subst">${info}</span>`</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>res.status(200).json({message : ‘Mail envoyé !’});</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        ServerEvent.emit(<span class="hljs-string">'mailContactSent'</span>, info, socket);
+      }
+  });
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p>Check Version of Node before Launch.</p>
 
@@ -568,11 +734,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-26">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>Création du serveur</p>
 
@@ -588,11 +754,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-27">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <p>pmx.emit(‘user:register’, {
   user : ‘Alex registered’,
@@ -609,11 +775,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-28">
+        <li id="section-37">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <p>Handle uploads through Resumable.js
 app.post(‘/upload’, function(req, res){
@@ -624,11 +790,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-29">
+        <li id="section-38">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <p>  resumable.post(req, function(status, filename, original_filename, identifier, nomFinal){
     //console.log(‘POST’, status, original_filename, identifier);</p>
@@ -638,11 +804,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-30">
+        <li id="section-39">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-39">&#182;</a>
               </div>
               <pre><code><span class="hljs-keyword">if</span> (status == <span class="hljs-string">'done'</span>) {
   <span class="hljs-keyword">var</span> racine            = <span class="hljs-string">"/home/pi/www/"</span>;
@@ -657,11 +823,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-31">
+        <li id="section-40">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-40">&#182;</a>
               </div>
               <pre><code>  <span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 </code></pre>
@@ -670,11 +836,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-32">
+        <li id="section-41">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-41">&#182;</a>
               </div>
               <pre><code>  nomFinal = nomFinal + <span class="hljs-string">'.'</span> + resumableFilename.substr((resumableFilename.lastIndexOf(<span class="hljs-string">'.'</span>) +<span class="hljs-number">1</span>));
 </code></pre>
@@ -683,11 +849,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-33">
+        <li id="section-42">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-42">&#182;</a>
               </div>
               <pre><code>  fs.exists(destFileFinal, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">exists</span>) </span>{
     <span class="hljs-keyword">if</span> (! exists) {
@@ -700,11 +866,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-34">
+        <li id="section-43">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-43">&#182;</a>
               </div>
               <pre><code>    <span class="hljs-keyword">var</span> ws = fs.createWriteStream(destFileFinal);
 </code></pre>
@@ -713,11 +879,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-35">
+        <li id="section-44">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-44">&#182;</a>
               </div>
               <pre><code>    resumable.write(identifier, ws);
     ws.on(<span class="hljs-string">'finish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -732,11 +898,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-36">
+        <li id="section-45">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-45">&#182;</a>
               </div>
               <pre><code>res.send(status, {
   <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> Uncomment this funciton to enable cross-domain request.</span>
@@ -750,11 +916,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-37">
+        <li id="section-46">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-46">&#182;</a>
               </div>
               <p>// Handle status checks on chunks through Resumable.js
 app.get(‘/upload’, function(req, res){
@@ -769,11 +935,11 @@ app.get(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-38">
+        <li id="section-47">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-38">&#182;</a>
+                <a class="pilcrow" href="#section-47">&#182;</a>
               </div>
               <p>app.get(‘/download/:identifier’, function(req, res){
   resumable.write(req.params.identifier, res);

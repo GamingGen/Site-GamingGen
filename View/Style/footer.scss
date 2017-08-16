@@ -1,0 +1,86 @@
+.bottomFooter{
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-left:15px;
+  padding-right: 15px;
+}
+
+.footerLinks{
+  padding-bottom: 40px;
+  padding-top: 40px;
+  text-align:left;
+}
+
+.footerLinks a{
+  padding: 5px 5px 5px;
+  font-family: 'TitlingGothicFBCondRegular';
+  text-transform:uppercase;
+  color:#7B7B7B;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footer{
+  background:#232323;
+}
+
+.instafeed{
+  display:flex;
+  width:100vw;
+  height:20vw;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-top:50px;
+  margin-bottom: 50px;
+}
+
+.instafeed .first-case{
+  width: 20% !important;
+}
+
+.reassurance{
+  display: flex;
+  height:350px;
+  background:#262626;
+  padding:100px;
+}
+
+.reassurance a{
+  display:flex;
+  position:absolute;
+  justify-content: center;
+  top:0;
+  left:0;
+  align-content:center;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+  height:100%;
+  cursor:pointer;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  border-right:1px solid rgba(0,0,0,0.1);
+}
+
+.reassurance:first-child a{
+  padding: 100px;
+}
+
+.reassurance a:hover{
+  background:rgba(0,0,0,0.1);
+}
+
+.reassurance h2, .reassurance p{
+  color:#757575;
+}
+
+.First, .Second, .Third{
+  padding:50px;
+  background:#2e2e2e;
+}

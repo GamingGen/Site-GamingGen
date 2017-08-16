@@ -1,0 +1,69 @@
+.contentListNews{
+  margin-top:40px;
+  margin-bottom:50px;
+}
+
+.listNewsPage{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  height:auto;
+  padding-top:20px;
+  padding-bottom:20px;
+  border-bottom:1px dashed #BABABA;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.listNewsPage:hover{
+  background: rgba(0,0,0,0.05);
+}
+
+.listNewsPage div{
+  margin-right:10px;
+  margin-left:10px;
+}
+
+.toggleNews{
+  display: flex;
+  right: 0;
+  position: absolute;
+  width:100%;
+  height:100%;
+  justify-content:flex-end;
+  align-items:center;
+}
+
+.categoryListNews{
+  font-family: 'Droid Sans', sans-serif;
+}
+
+.wrapperPreviewNews{
+  display:block;
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  top:0;
+  left:0;
+  z-index:5;
+  padding: 20px 10px 20px 40px;
+  color: #FFF;
+  margin-top: 0px;
+  background: rgba(0,0,0,0.4);
+}
+
+.wrapperPreviewNews h1{
+  width:100%;
+}
+
+.toggleNews .badge-right{
+  color:rgba(0,0,0,0.8);
+}
+
+.img-news {
+  width: 100px;
+  margin-right: 10px;
+}

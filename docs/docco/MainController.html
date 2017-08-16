@@ -71,9 +71,10 @@ AppControllers.controller(<span class="hljs-string">'mainCtrl'</span>, [<span cl
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $scope.User = UserService.currentUser;
-  $scope.isMailExist = <span class="hljs-literal">false</span>;
-  $scope.isPseudoExist = <span class="hljs-literal">false</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  $scope.User          = UserService.currentUser;
+  $scope.isMailExist   = <span class="hljs-literal">false</span>;
+  $scope.isPseudoExist = <span class="hljs-literal">false</span>;
+  $scope.contactObjet  = <span class="hljs-literal">null</span>;</pre></div></div>
             
         </li>
         
@@ -158,6 +159,19 @@ AppControllers.controller(<span class="hljs-string">'mainCtrl'</span>, [<span cl
   });
   
   socket.on(<span class="hljs-string">'ErrorOnPermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertError(data.message);
+  });
+  
+  socket.on(<span class="hljs-string">'mailContactSent'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertInfo(<span class="hljs-string">'Mail envoyé'</span>);
+    $(<span class="hljs-string">'#contactModal'</span>).modal(<span class="hljs-string">'toggle'</span>);
+    
+    $scope.contactEmail   = <span class="hljs-string">''</span>;
+    $scope.contactObjet   = <span class="hljs-literal">null</span>;
+    $scope.contactMessage = <span class="hljs-string">''</span>;
+  });
+  
+  socket.on(<span class="hljs-string">'ErrorOnMailContactSent'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
     alertError(data.message);
   });</pre></div></div>
             
@@ -399,6 +413,27 @@ $scope.isPseudoExist = false;</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>  };
+  
+  $scope.sendMail = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'sendMail Call'</span>);
+    
+    <span class="hljs-keyword">var</span> data = {
+      <span class="hljs-attr">email</span>   : $scope.contactEmail,
+      <span class="hljs-attr">subject</span> : $scope.contactObjet,
+      <span class="hljs-attr">text</span>    : $scope.contactMessage
+    };
+    
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'data: '</span>, data);
+    socket.emit(<span class="hljs-string">'sendMailContact'</span>, data);
+  };
+  
+  $scope.clearMail = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'clearMail Call'</span>);
+    
+    $scope.contactEmail   = <span class="hljs-string">''</span>;
+    $scope.contactObjet   = <span class="hljs-literal">null</span>;
+    $scope.contactMessage = <span class="hljs-string">''</span>;
+  };
   
   $scope.toTheTop = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     $<span class="hljs-built_in">document</span>.scrollTop(<span class="hljs-number">0</span>, <span class="hljs-number">500</span>);

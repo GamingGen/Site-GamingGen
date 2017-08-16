@@ -1,0 +1,118 @@
+.goldPartner{
+  
+}
+
+.silverPartner{
+  
+}
+
+.bronzePartner{
+  
+}
+
+
+.partenaires{
+  overflow:hidden;
+}
+.partenaires .img{
+  position:relative;
+  z-index:1;
+  object-fit:cover;
+}
+
+.partnerImg img{
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+}
+.partenaires .texte{
+  padding-left:30px;
+  padding-right:30px;
+  width:100%;
+  height:100%;
+  top:0%;
+  left:0;
+  position:absolute;
+  color:black;
+  z-index:4;
+  transition:all 0.3s ease;
+}
+.partenaires h1{
+  text-align: center;
+  display: flex;
+  top: -8px;
+  opacity:0;
+  transition: all 0.3s ease;
+  margin-bottom:24px;
+  color:black;
+  position: relative;
+  justify-content: center;
+}
+.partenaires p{
+  opacity:0;
+  transition:all 0.3s ease;
+}
+.partenaires a{
+  position:absolute;
+  width:calc(100% - 30px);
+  height:100%;
+  top:0;
+  z-index:5;
+}
+.slotPartner{
+  overflow:hidden;
+  margin-bottom:30px;
+}
+.slotPartner:after{
+  content:'';
+  position:absolute;
+  width:calc(100% - 29px);
+  height:0px;
+  top:0;
+  left:15px;
+  z-index:3;
+  opacity:0.9;
+  transition:all 0.3s ease;
+  background:rgba(0,0,0,0.8);
+}
+.arenaPartner:hover:after{
+  background:#64DC13;
+}
+.worldPartner:hover:after{
+  background:#FF9000;
+}
+.jobPartner:hover:after{
+  background:#0c46a0;
+}
+.jobPartner .texte p, .jobPartner .texte h1{
+  color: white!important;
+}
+.instiPartner:hover:after{
+  background:#CCC;
+}
+.slotPartner:hover:after{
+  top:0;
+  height:100%;
+}
+.slotPartner:hover .texte{
+  opacity:1;
+  top:0%;
+}
+.slotPartner:hover p{
+  opacity:1;
+  top:5%;
+}
+.slotPartner:hover h1{
+  top:5%;
+  opacity:1;
+  color:black;
+}
+
+.slotPartner{
+  height:260px;
+}
+
+.jobs h2{
+  color:#0C46A0;
+}

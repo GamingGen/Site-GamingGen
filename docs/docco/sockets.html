@@ -103,6 +103,14 @@ adapter.channel.on(‘error’, console.error);</p>
 		sessionMiddleware(socket.request, socket.request.res, next);
 	});
 
+	ServerEvent.on(<span class="hljs-string">'mailContactSent'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'mailContactSent'</span>, data);
+	});
+
+	ServerEvent.on(<span class="hljs-string">'ErrorOnMailContactSent'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
+		socket.emit(<span class="hljs-string">'ErrorOnMailContactSent'</span>, data);
+	});
+
 	ServerEvent.on(<span class="hljs-string">'ErrorOnRolesUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, socket</span>) </span>{
 		socket.emit(<span class="hljs-string">'ErrorOnRolesUpdated'</span>, data);
 	});
@@ -311,6 +319,11 @@ console.log(printerCookId);</p>
 				}
 			});
 		}
+		
+		socket.on(<span class="hljs-string">'sendMailContact'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+			ServerEvent.emit(<span class="hljs-string">'sendMailContact'</span>, data, socket);
+			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Emit: sendMailContact'</span>);
+		});
 		
 		socket.on(<span class="hljs-string">'UpdateRoles'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
 			ServerEvent.emit(<span class="hljs-string">'UpdateRoles'</span>, data, socket);
