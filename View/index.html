@@ -700,11 +700,23 @@
     </div>
     <!-- Check if Angular is compatible, and remove the Splash Screen if Ok-->
     <script>
+      var minWidth = 400;
       var everythingLoaded = setInterval(function() {
         if (/loaded|complete/.test(document.readyState)) {
           clearInterval(everythingLoaded);
           if(typeof angular === 'undefined' || bowser.msie) {
             console.log('Oo, nous avons un problème avec Angular.JS...');
+            setTimeout(function() {
+              var pg = document.getElementsByClassName("pg-removing");
+              while (pg.length)
+              {
+                pg[0].className = pg[0].className.replace(/\bpg-removing\b/g, "");
+              }
+              window.loading_screen.updateLoadingHtml("<p class='loading-message'>Sorry, this WebApp is not compatible with your Browser -_-</p>");
+            }, 1000);
+          }
+          else if (window.screen.availWidth < minWidth) {
+            console.log('Oo, nous avons un problème avec la résolution de l\'écran...');
             setTimeout(function() {
               var pg = document.getElementsByClassName("pg-removing");
               while (pg.length)
