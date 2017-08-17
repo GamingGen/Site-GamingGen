@@ -306,6 +306,40 @@
   font-size:0.5em;
 }
 
+.box{
+  min-height:290px;
+}
+
+.box{
+  float:left;
+  position:relative;
+  height:200px;
+}
+
+.box a{
+  font-size:3em;
+  font-family: 'TitlingGothicFBCondRegular';
+  display:flex;
+  width:100%;
+  height:100%;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  flex-direction:column;
+  text-decoration:none;
+  z-index:15;
+  color:#F4F4F4;
+  float:left;
+  cursor:pointer;   
+  position: absolute;
+}
+
+.boxright a {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
 .boxleft{
   background:url('../Img/General/fest.jpg')center center;
   background-size: cover;
