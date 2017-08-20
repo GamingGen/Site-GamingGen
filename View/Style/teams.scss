@@ -1,0 +1,14 @@
+.teamWrapper p{
+  font-size:1.2em;
+  padding:16px;
+}
+.teamWrapper p:after{
+  content:'';
+  position:absolute;
+  background:#64DC13;
+  height:4px;
+  width:50px;
+  bottom:10px;
+  left:16px;
+}
+  
