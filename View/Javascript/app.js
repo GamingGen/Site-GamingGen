@@ -73,6 +73,13 @@
             ManageViewService.setView(normalLayout);
           }],
         })
+        .state('teams', {
+          url         : '/teams',
+          templateUrl : '../Partial/teams.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            ManageViewService.setView(normalLayout);
+          }],
+        })
         .state('tournaments', {
           url         : '/tournaments',
           templateUrl : '../Partial/tournaments.html',

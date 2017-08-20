@@ -22,7 +22,6 @@ const pathDocs    = ['./docs/docco/', './docs/jsdoc/'];
 
 // Tâche "watch"
 gulp.task('watch', () => {
-  gulp.watch(sources, ['docs']);
   gulp.watch(sassFiles, ['styles']);
 });
 
