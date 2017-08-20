@@ -715,7 +715,7 @@
               window.loading_screen.updateLoadingHtml("<p class='loading-message'>Sorry, this WebApp is not compatible with your Browser -_-</p>");
             }, 1000);
           }
-          else if (window.screen.availWidth < minWidth) {
+          else if (window.screen.width < minWidth) {
             console.log('Oo, nous avons un problème avec la résolution de l\'écran...');
             setTimeout(function() {
               var pg = document.getElementsByClassName("pg-removing");
