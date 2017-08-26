@@ -98,12 +98,12 @@
     <script type="text/javascript" src="Javascript/Controllers/CounterStrikeController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/HearthStoneController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/ClashRoyaleController.js"></script>
-    <script type="text/javascript" src="Javascript/Controllers/TeamsController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/TournamentsController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/LiveController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/MainController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/ShopController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/SnackController.js"></script>
+    <script type="text/javascript" src="Javascript/Controllers/PartnersController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/ArticleController.js"></script>
     <script type="text/javascript" src="Javascript/Controllers/NewsController.js"></script>
     
@@ -701,7 +701,7 @@
     </div>
     <!-- Check if Angular is compatible, and remove the Splash Screen if Ok-->
     <script>
-      var minWidth = 360;
+      var minWidth = 400;
       var everythingLoaded = setInterval(function() {
         if (/loaded|complete/.test(document.readyState)) {
           clearInterval(everythingLoaded);
@@ -716,7 +716,7 @@
               window.loading_screen.updateLoadingHtml("<p class='loading-message'>Sorry, this WebApp is not compatible with your Browser -_-</p>");
             }, 1000);
           }
-          else if (window.screen.width < minWidth) {
+          else if (window.screen.availWidth < minWidth) {
             console.log('Oo, nous avons un problème avec la résolution de l\'écran...');
             setTimeout(function() {
               var pg = document.getElementsByClassName("pg-removing");
