@@ -7,7 +7,7 @@
         <li role="presentation" ng-class="{active: isSelected(3)}"><a ng-click="selectTab(3)">Gestion des Users</a></li>
       </ul>
       <br/>
-      <div class"pannel" ng-show="isSelected(1)">
+      <div class="pannel" ng-show="isSelected(1)">
         <div class="col-md-4">
           <form ng-submit="formMenu.$valid && addPermission()" name="formMenu" novalidate>
             <div class="form-group">
@@ -22,7 +22,7 @@
           <div ui-view="lstPermissions"></div>
         </div>
       </div>
-      <div class"pannel" ng-show="isSelected(2)">
+      <div class="pannel" ng-show="isSelected(2)">
         <div class="col-md-4">
           <div ui-view="lstRoles"></div>
         </div>
@@ -33,7 +33,7 @@
           <div ui-view="lstPermissions"></div>
         </div>
       </div>
-       <div class"pannel" ng-show="isSelected(3)">
+       <div class="pannel" ng-show="isSelected(3)">
         <div class="col-md-6">
           <div ui-view="lstUsers"></div>
         </div>
