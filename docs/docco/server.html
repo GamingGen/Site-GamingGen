@@ -401,6 +401,7 @@ Order.orderEvent(ServerEvent);</pre></div></div>
             </div>
             
             <div class="content"><div class='highlight'><pre>app.use(express.static(path.join(__dirname, <span class="hljs-string">'View'</span>)));
+app.use(express.static(path.join(__dirname, <span class="hljs-string">'node_modules'</span>, <span class="hljs-string">'socket.io-client'</span>, <span class="hljs-string">'dist'</span>)));
 app.use(<span class="hljs-string">'/users'</span>, User.router);
 app.use(<span class="hljs-string">'/confs'</span>, Conf.router);
 app.use(<span class="hljs-string">'/articles'</span>, Article.router);
@@ -683,7 +684,11 @@ for(let IMG of tabIMG) {
             <div class="content"><div class='highlight'><pre>        ServerEvent.emit(<span class="hljs-string">'mailContactSent'</span>, info, socket);
       }
   });
-}</pre></div></div>
+}
+
+app.head(<span class="hljs-string">'/health'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  res.sendStatus(<span class="hljs-number">200</span>);
+});</pre></div></div>
             
         </li>
         

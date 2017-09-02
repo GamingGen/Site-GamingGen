@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="manifest.appcache" ng-app="GamingGen">
+<html ng-app="GamingGen">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,13 +13,13 @@
     <link rel="icon" href="Img/General/favicon.ico"/>
     <link rel="icon" type="image/png" href="Img/General/favicon.png"/>
     
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" async>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" async>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" async>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.4/css/datetimepicker.min.css" async>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.6/ui-grid.min.css" async>
-    <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css" async>
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.min.css" async>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" defer>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" defer>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" defer>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.4/css/datetimepicker.min.css" defer>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.6/ui-grid.min.css" defer>
+    <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css" defer>
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.19.4/select.min.css" defer>-->
     
     
     
@@ -500,7 +500,7 @@
         <!--</a>-->
         
         <!--A supprimer dès que l'inscription est terminé-->
-        <a ng-hide="User.isLoggedIn" href="https://www.eventbrite.fr/o/gaming-generation-14418911767" target="_blank"><img src="https://www.eventbrite.fr/custombutton?eid=35858622104" alt="Eventbrite - Gaming Gen #Level6 23-24 Sept." /></a>
+        <a ng-hide="User.isLoggedIn" href="https://www.eventbrite.fr/o/gaming-generation-14418911767" target="_blank"><img src="Img/General/eventbritebutton.png" alt="Eventbrite - Gaming Gen #Level6 23-24 Sept." /></a>
 
       
       <!--A décommenter dès que l'inscription est terminé-->
