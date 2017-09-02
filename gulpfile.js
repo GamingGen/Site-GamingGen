@@ -81,12 +81,12 @@ gulp.task('prod', () => {
   return gulp.src(indexSource)
     .pipe(plugins.plumber())
     .pipe(plugins.useref())
+    .pipe(gulpif('*.html', htmlmin(optionsMinHTML)))
     .pipe(gulpif('*.js', uglify()))
     .pipe(gulpif('*.css', minifyCss({debug: false}, (details) => {
       console.log(`${details.name}: ${details.stats.originalSize}`);
       console.log(`${details.name}: ${details.stats.minifiedSize}`);
     })))
-    .pipe(gulpif('*.html', htmlmin(optionsMinHTML)))
     .pipe(gulp.dest(destination));
 });
 
