@@ -15,7 +15,8 @@ const socketio     = require('socket.io');
 const mongoAdapter = require('socket.io-mongodb');
 const check        = require('check-types');
 // const adapter      = mongoAdapter('mongodb://localhost:27017/socket-io');
-
+	
+	
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
 	let io                = socketio(server);
 	let printerClientId   = "";
@@ -24,7 +25,8 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	let youtube           = {};
 	let twitch            = {};
 	let Live              = {}; // TODO A déplacer
-    
+	
+
 	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
 	// io.adapter(adapter);
 	// adapter.pubsubClient.on('error', console.error);

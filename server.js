@@ -178,6 +178,7 @@ ServerEvent.on('error', (err) => {
 
 // Routing
 app.use(express.static(path.join(__dirname, 'View')));
+app.use(express.static(path.join(__dirname, 'node_modules', 'socket.io-client', 'dist')));
 app.use('/users', User.router);
 app.use('/confs', Conf.router);
 app.use('/articles', Article.router);
@@ -275,6 +276,10 @@ function SendMail(from, subject, to, text, socket) {
       }
   });
 }
+
+app.head('/health', function (req, res) {
+  res.sendStatus(200);
+});
 
 // Check Version of Node before Launch.
 fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
