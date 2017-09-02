@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ui.grid', 'ui.grid.selection', 'ui.grid.pinning', 'ui.grid.autoResize', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'SocketF', 'RolesS', 'Slider', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear', 'ui.bootstrap.datetimepicker']);
+  var app = angular.module('GamingGen', ['ui.router', 'permission', 'permission.ui', 'ui.grid', 'ui.grid.selection', 'ui.grid.pinning', 'ui.grid.autoResize', 'ngclipboard', 'AuthServices', 'ContainerService', 'AppControllers' ,'SocketF', 'RolesS', 'UserS', 'youtube-embed', 'angular-loading-bar', 'cfp.loadingBar', 'ngAnimate', 'duScroll', 'infinite-scroll', 'ngImageAppear', 'ui.bootstrap.datetimepicker']);  // , 'Slider'
   var adminLayout = 'container-fluid admin';
   var normalLayout = 'container';
   
