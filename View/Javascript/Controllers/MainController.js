@@ -13,6 +13,9 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   pages.snack     = [];
   pages.snackRPI  = [];
   
+  $scope.slider = '../Img/Slider/SLIDER-GG6V4.png';
+  $scope.sliderSRCSET = '../Img/Slider/SLIDER-GG6-MOBILE-660.png 660w, ../Img/Slider/SLIDER-GG6-TABLET-992.png 992w, ../Img/Slider/SLIDER-GG6V4.png 2000w';
+  
   
   // ----- GET / SET Data -----
   $scope.User          = UserService.currentUser;

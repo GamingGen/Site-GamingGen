@@ -516,23 +516,21 @@
   opacity:1;
 }
 
+// .slider:before{
+//   content:'';
+// }
+
 .slider {
-  background: url("../Img/General/SLIDER-GG6V4.png") center center no-repeat;
-  background-size: cover;
-  position:relative;
   margin-top: 1px;
   height: 450px;
-  width:100vw;
+  width: 100vw;
   overflow: hidden;
-  display: grid;
 }
-.slider:before{
-  content:'';
-  
-}
-.slider img{
-  margin-top:-300px;
-  width:100vw;
+
+.slider img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .instafeed .first-case {
