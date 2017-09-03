@@ -47,7 +47,7 @@
       
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/ServiceWorker/main.js').then(function(reg) {
+          navigator.serviceWorker.register('/ServiceWorker.js').then(function(reg) {
             // registration worked
             if(reg.installing) {
               console.log('Service worker installing');
