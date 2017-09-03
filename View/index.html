@@ -49,6 +49,13 @@
         window.addEventListener('load', function() {
           navigator.serviceWorker.register('/ServiceWorker/main.js').then(function(reg) {
             // registration worked
+            if(reg.installing) {
+              console.log('Service worker installing');
+            } else if(reg.waiting) {
+              console.log('Service worker installed');
+            } else if(reg.active) {
+              console.log('Service worker active');
+            }
             console.log('Registration succeeded. Scope is ' + reg.scope);
           }).catch(function(error) {
             // registration failed
@@ -647,7 +654,7 @@
       <!--</section>-->
     
     <div ng-show="showSlider" class="slider" >
-      <img ng-src="{{slider}}" ng-srcset="{{sliderSRCSET}}" alt="...">
+      <img ng-src="{{slider}}" ng-srcset="{{sliderSRCSET}}" alt="Slider">
     </div>
     <div ng-class="mainView">
       <div ui-view autoscroll="false"></div>
