@@ -81,6 +81,7 @@ gulp.task('optimizeImg', function () {
 });
 
 gulp.task('resizeImg', function () {
+  console.log('Run resizeImg !');
   gulp.src(imageSource, { nodir: true })
     .pipe(gulp.dest(`${destination}/Img`))
     .pipe(gulpIgnore.exclude('*.svg'))
