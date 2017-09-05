@@ -203,6 +203,9 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     - https://github.com/mlazarov/ddos-stress
     - https://github.com/justintv/Twitch-API
     - https://www.atlassian.com/git/tutorials/undoing-changes/git-clean
+    - https://filipbech.github.io/2017/02/service-worker-and-caching-from-other-origins
+    - http://12devsofxmas.co.uk/2016/01/day-9-service-worker-santas-little-performance-helper/
+    - 
     
     
         - https://www.tipeeestream.com/
