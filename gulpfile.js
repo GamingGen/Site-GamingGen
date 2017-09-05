@@ -78,7 +78,6 @@ gulp.task('optimizeImg', function () {
     .pipe(gulp.dest(`${destination}/Img`))
     .pipe(webp({method: 6}))
     .pipe(gulp.dest(`${destination}/Img`));
-    
 });
 
 gulp.task('resizeImg', function () {

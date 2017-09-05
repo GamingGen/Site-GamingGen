@@ -34,8 +34,8 @@
       "ref"               : "origin/develop",
       "repo"              : "https://github.com/GamingGen/Site-GamingGen.git",
       "path"              : "/home/nodeuser/www/pre-production",
-      "pre-deploy-local"  : "echo 'This is a local executed command test Pre-Prod'",
-      "post-deploy"       : "npm install; gulp build; gulp optimizeImg; rm -fr View/Partial View/Javascript View/Img View/Style View/css View/js docs OnlyForCloude9 OnlyForVisualCode karma.conf.js .eslintrc .editorconfig; mv View/dist/* View/; rm -fr View/dist; pm2 startOrReload ecosystem.json;",
+      "pre-deploy-local"  : "echo 'Backup BDD Pre-Prod and process app update'; mongodump --archive=/var/tmp/gaming-gen_pp.gz --gzip --db gaminggen",
+      "post-deploy"       : "npm install && gulp build && gulp optimizeImg && rm -fr View/Partial View/Javascript View/Img View/Style View/css View/js docs OnlyForCloude9 OnlyForVisualCode karma.conf.js .eslintrc .editorconfig && mv View/dist/* View/ && rm -fr View/dist && pm2 startOrReload ecosystem.json;",
       "env" : {
         "NODE_ENV"                      : "production",
         "NODE_TLS_REJECT_UNAUTHORIZED"  : "0",
@@ -52,8 +52,8 @@
       "ref"               : "origin/develop",
       "repo"              : "https://github.com/GamingGen/Site-GamingGen.git",
       "path"              : "/home/nodeuser/www/production",
-      "pre-deploy-local"  : "echo 'This is a local executed command test Prod'",
-      "post-deploy"       : "npm install; gulp build; gulp optimizeImg; rm -fr View/Partial View/Javascript View/Img View/Style View/css View/js docs OnlyForCloude9 OnlyForVisualCode karma.conf.js .eslintrc .editorconfig; mv View/dist/* View/; rm -fr View/dist; pm2 startOrReload ecosystem.json;",
+      "pre-deploy-local"  : "echo 'Backup BDD Prod and process app update'; mongodump --archive=/var/tmp/gaming-gen_prod.gz --gzip --db gaminggen",
+      "post-deploy"       : "npm install && gulp build && gulp optimizeImg && rm -fr View/Partial View/Javascript View/Img View/Style View/css View/js docs OnlyForCloude9 OnlyForVisualCode karma.conf.js .eslintrc .editorconfig && mv View/dist/* View/ && rm -fr View/dist && pm2 startOrReload ecosystem.json;",
       "env" : {
         "NODE_ENV"                      : "production",
         "NODE_TLS_REJECT_UNAUTHORIZED"  : "0",
