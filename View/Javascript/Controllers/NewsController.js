@@ -56,22 +56,23 @@ AppControllers.controller('newsCtrl', ['$scope', '$http', 'socket', function($sc
   function getObject(theObject, value) {
     var result = null;
     if(theObject instanceof Array) {
-        for(var i = 0; i < theObject.length; i++) {
-            result = getObject(theObject[i]);
-        }
+      for(var i = 0; i < theObject.length; i++) {
+        result = getObject(theObject[i]);
+      }
     }
     else
     {
-        for(var prop in theObject) {
-            console.log(prop + ': ' + theObject[prop]);
-            if(prop == '_id') {
-                if(theObject[prop] === value) {
-                    return theObject;
-                }
-            }
-            if(theObject[prop] instanceof Object || theObject[prop] instanceof Array)
-                result = getObject(theObject[prop]);
+      for(var prop in theObject) {
+        console.log(prop + ': ' + theObject[prop]);
+        if(prop == '_id') {
+          if(theObject[prop] === value) {
+            return theObject;
+          }
         }
+        if(theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
+          result = getObject(theObject[prop]);
+        }
+      }
     }
     return result;
   }
