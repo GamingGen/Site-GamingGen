@@ -22,7 +22,12 @@ jobs:
 			name: Build project
 			command: 'gulp build && gulp optimizeImg'
       
-  # Test:
+  Test:
+	steps:
+		run:
+			name: karma
+			command: karma start --single-run
+
 
 workflows:
 	version: 2
