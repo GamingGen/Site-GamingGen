@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    parallelism: 2
     docker:
       - image: circleci/node:7.10.0
       - image: mongo:3.4.4
@@ -10,5 +11,17 @@ jobs:
       - run:
           name: Update npm
           command: 'sudo npm install npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm wee
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Build project
+          command: 'npm install && gulp build && gulp optimizeImg'
       
   # Test:
