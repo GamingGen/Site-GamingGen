@@ -6,7 +6,7 @@ jobs:
       - image: mongo:3.4.4
     steps:
       - checkout
-      - run: echo "Begin bootUp"
+      # - run: echo "Begin bootUp"
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
@@ -16,7 +16,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: echo "Begin build"
+      # - run: echo "Begin build"
       - run:
         name: Build project
         command: 'gulp build && gulp optimizeImg'
