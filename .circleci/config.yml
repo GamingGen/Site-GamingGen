@@ -6,20 +6,20 @@ jobs:
       - image: mongo:3.4.4
     steps:
       - checkout
-      # - run: echo "Begin bootUp"
+      - run: echo "Begin bootUp"
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-        name: Install npm wee
-        command: npm install
+          name: Install npm wee
+          command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
-      # - run: echo "Begin build"
+      - run: echo "Begin build"
       - run:
-        name: Build project
-        command: 'gulp build && gulp optimizeImg'
+          name: Build project
+          command: 'gulp build && gulp optimizeImg'
       - save_cache:
           key: build-cache-{{ checksum "build.sha" }}
           paths:
@@ -35,8 +35,8 @@ jobs:
       - restore_cache:
           key: build-cache-{{ checksum "build.sha" }}
       - run:
-        name: karma
-        command: karma start --single-run
+          name: karma
+          command: karma start --single-run
 
 workflows:
   version: 2
