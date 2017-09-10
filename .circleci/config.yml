@@ -30,10 +30,6 @@ jobs:
       - image: mongo:3.4.4
     steps:
       - run: echo "Begin Tests"
-      # - restore_cache:
-      #   key: dependency-cache-{{ checksum "package.json" }}
-      # - restore_cache:
-      #   key: build-cache-{{ checksum "build.sha" }}
       run:
         name: karma
         command: karma start --single-run
