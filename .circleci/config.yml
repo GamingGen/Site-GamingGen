@@ -27,17 +27,17 @@ jobs:
 			name: karma
 			command: karma start --single-run
 
-workflows:
-	version: 2
-	build_and_test:
-		jobs:
-			- boot-up
-			- build: 
-				requires:
-					- boot-up
-			- test:
-				requires:
-					- build
+# workflows:
+# 	version: 2
+# 	build_and_test:
+# 		jobs:
+# 			- boot-up
+# 			- build: 
+# 				requires:
+# 					- boot-up
+# 			- test:
+# 				requires:
+# 					- build
 				# filters:
 				# 	branches:
 				# 	only: master
