@@ -18,11 +18,17 @@ jobs:
 				paths:
 					- node_modules
 	build:
+		docker:
+			- image: circleci/node:7.10.0
+			- image: mongo:3.4.4
 		steps:
 			- run:
 				name: Build project
 				command: 'gulp build && gulp optimizeImg'
   Test:
+		docker:
+			- image: circleci/node:7.10.0
+			- image: mongo:3.4.4
 		steps:
 			run:
 				name: karma
