@@ -12,14 +12,14 @@ jobs:
       - run:
           name: Install npm wee
           command: npm install
+      - run:
+          name: install gulp global
+          command: 'npm i -g gulp'
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
       - run: echo "Begin build"
-      - run:
-          name: install gulp global
-          command: 'npm i -g gulp'
       - run:
           name: Build project
           command: 'gulp build && gulp optimizeImg'
