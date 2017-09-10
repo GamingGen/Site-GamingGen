@@ -259,6 +259,33 @@
       </div>
     </div>
   
+    <!-- à propo Modal -->
+    <div class="modal fade container" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content inscriptionModal">
+          <div class="blocInscriptionModal smallModalConnexion row">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              
+            <div class="modal-header col-md-6">
+              <span class="titreModalConnection">A propos</span>
+                <span class="backgroundInscription"></span>
+            </div>
+            <div class="modal-body col-md-6">
+              Developpement App :
+              <br /><br />
+              Master : <img src="https://circleci.com/gh/GamingGen/Site-GamingGen/tree/master.svg?style=svg">
+              <br />
+              Develop : <img src="https://circleci.com/gh/GamingGen/Site-GamingGen/tree/develop.svg?style=svg">
+              <!--<div class="bottomFooter row">-->
+              <!--  <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid">Connexion</a>-->
+              <!--  <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>-->
+              <!--</div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
     <!-- Connexion Modal -->
     <div class="modal fade container" id="connectionModal" tabindex="-1" role="dialog" aria-labelledby="connectionModalLabel">
       <div class="modal-dialog modal-lg" role="document">
@@ -365,7 +392,7 @@
                   <!--<li ng-show="User.accessLvl > 5"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>-->
                   <!--<li ng-show="User.accessLvl > 5"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>-->
                     <!--<li role="separator" class="divider"></li>-->
-                    <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+                    <li><a ui-sref="about" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
                   <li role="separator" class="divider"></li>
                   <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
                 </ul>
@@ -484,7 +511,7 @@
                     <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>-->
                     <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>-->
                     <!--<li role="separator" class="divider"></li>-->
-                    <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+                    <li><a ui-sref="about" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
                     <li role="separator" class="divider"></li>
                     <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
                   </ul>
@@ -542,7 +569,7 @@
             <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>-->
             <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>-->
             <!--<li ng-show="User.accessLvl > 1" role="separator" class="divider"></li>-->
-            <li><a ui-sref="about"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+            <li><a ui-sref="about" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
             <li role="separator" class="divider"></li>
             <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
           </ul>

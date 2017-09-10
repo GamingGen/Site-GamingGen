@@ -14,6 +14,7 @@ const imageResize = require('gulp-image-resize');
 const webp        = require('gulp-webp');
 const rename      = require("gulp-rename");
 const runSequence = require('run-sequence');
+const sizeOf      = require('image-size');
 
 // Include plugins
 const plugins = require('gulp-load-plugins')(); // tous les plugins de package.json
@@ -37,6 +38,10 @@ const optionsMinHTML = {
   removeComments: true,
   collapseBooleanAttributes: true,
   removeEmptyAttributes: true
+};
+
+let onlyBigIMG = (file) => {
+  return sizeOf(file.path).width > ImageResizeMobile;
 };
 
 // Tâche "watch"
@@ -81,18 +86,18 @@ gulp.task('optimizeImg', function () {
 });
 
 gulp.task('resizeImg', function () {
-  console.log('Run resizeImg !');
   gulp.src(imageSource, { nodir: true })
-    .pipe(gulp.dest(`${destination}/Img`))
+    .pipe(gulp.dest(`${destination}/Img`));
+  gulp.src(imageSource, { nodir: true })
     .pipe(gulpIgnore.exclude('*.svg'))
     .pipe(gulpIgnore.exclude('**/OPTIMIZED*'))
-    .pipe(imageResize({
+    .pipe(gulpif(onlyBigIMG, imageResize({
       width: ImageResizeMobile,
       quelity: 1
-    }))
-    .pipe(rename(function (path) {
+    })))
+    .pipe(gulpif(onlyBigIMG, rename(function (path) {
       path.basename += `-${ImageResizeMobile}`;
-    }))
+    })))
     .pipe(gulp.dest(`${destination}/Img`));
 });
 
