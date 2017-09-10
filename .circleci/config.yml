@@ -24,7 +24,7 @@ jobs:
         key: build-cache-{{ checksum "build.sha" }}
         paths:
           - View
-  Test:
+  test:
     docker:
       - image: circleci/node:7.10.0
       - image: mongo:3.4.4
