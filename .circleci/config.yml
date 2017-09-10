@@ -34,7 +34,9 @@ workflows:
 	build_and_test:
 		jobs:
 			- bootUp
-			- build
+			- build: 
+				requires:
+					-bootUp
 			- test:
 				requires:
 					- build
