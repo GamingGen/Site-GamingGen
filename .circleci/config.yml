@@ -26,10 +26,10 @@ jobs:
       - run:
           name: Build project
           command: 'gulp build && gulp optimizeImg'
-      - save_cache:
-          key: build-cache-{{ checksum "build.sha" }}
-          paths:
-            - View
+      # - save_cache:
+      #     key: build-cache-{{ checksum "build.sha" }}
+      #     paths:
+      #       - View
   test:
     docker:
       - image: circleci/node:7.10.0
@@ -38,8 +38,8 @@ jobs:
       - run: echo "Begin Tests"
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
-      - restore_cache:
-          key: build-cache-{{ checksum "build.sha" }}
+      # - restore_cache:
+      #     key: build-cache-{{ checksum "build.sha" }}
       - run:
           name: karma
           command: 'karma start --single-run'
