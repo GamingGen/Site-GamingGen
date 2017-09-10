@@ -8,22 +8,22 @@ jobs:
       - checkout
       - run: echo "Begin bootUp"
       - restore_cache:
-        key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
         name: Install npm wee
         command: npm install
       - save_cache:
-        key: dependency-cache-{{ checksum "package.json" }}
-        paths:
-          - node_modules
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
       - run: echo "Begin build"
       - run:
         name: Build project
         command: 'gulp build && gulp optimizeImg'
       - save_cache:
-        key: build-cache-{{ checksum "build.sha" }}
-        paths:
-          - View
+          key: build-cache-{{ checksum "build.sha" }}
+          paths:
+            - View
   test:
     docker:
       - image: circleci/node:7.10.0
