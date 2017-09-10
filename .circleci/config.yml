@@ -18,6 +18,9 @@ jobs:
             - node_modules
       - run: echo "Begin build"
       - run:
+          name: install gulp global
+          command: 'npm i -g gulp'
+      - run:
           name: Build project
           command: 'gulp build && gulp optimizeImg'
       - save_cache:
