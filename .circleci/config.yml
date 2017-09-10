@@ -22,14 +22,26 @@ jobs:
 			- image: circleci/node:7.10.0
 			- image: mongo:3.4.4
 		steps:
+			- run: echo "Begin build"
+			- restore_cache:
+				key: dependency-cache-{{ checksum "package.json" }}
 			- run:
 				name: Build project
 				command: 'gulp build && gulp optimizeImg'
+			- save_cache:
+				key: dependency-cache-{{ checksum "build.sha" }}
+				paths:
+					- View
   Test:
 		docker:
 			- image: circleci/node:7.10.0
 			- image: mongo:3.4.4
 		steps:
+			- run: echo "Begin Tests"
+			- restore_cache:
+				key: dependency-cache-{{ checksum "package.json" }}
+			- restore_cache:
+				key: dependency-cache-{{ checksum "build.sha" }}
 			run:
 				name: karma
 				command: karma start --single-run
@@ -39,7 +51,7 @@ workflows:
 	build_and_test:
 		jobs:
 			- boot-up
-			- build: 
+			- build:
 				requires:
 					- boot-up
 			- test:
