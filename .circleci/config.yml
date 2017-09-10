@@ -1,7 +1,6 @@
 version: 2
 jobs:
 	build:
-		# parallelism: 2
 		docker:
 			- image: circleci/node:7.10.0
 			- image: mongo:3.4.4
@@ -47,6 +46,3 @@ workflows:
 			- test:
 				requires:
 					- build
-				# filters:
-				# 	branches:
-				# 	only: master
