@@ -1,13 +1,15 @@
 // Karma configuration
 // Generated on Thu Sep 29 2016 21:38:18 GMT+0000 (UTC)
 
-const base = '/home/ubuntu/workspace/node_modules/';
+const path = require('path');
+
+const base = path.join(__dirname, 'node_modules', '/');
 
 module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: 'View/Javascript/',
+    basePath: path.join('View', 'Javascript'),
 
 
     // frameworks to use
@@ -17,32 +19,36 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      base + 'angular/angular.min.js',
-      base + 'angular-ui-router/release/angular-ui-router.min.js',
-      base + 'angular-mocks/angular-mocks.js',
+      base + path.join('angular', 'angular.min.js'),
+      base + path.join('angular-ui-router', 'release', 'angular-ui-router.min.js'),
+      base + path.join('angular-mocks', 'angular-mocks.js'),
+      base + path.join('socket.io-client', 'dist', 'socket.io.slim.js'),
+      base + path.join('angular-permission', 'dist', 'angular-permission.min.js'),
+      // base + path.join('angular-permission', 'dist', 'angular-permission-ui.min.js'),
+      // base + path.join('angular-permission', 'dist', 'angular-permission-ng.min.js'),
       '*.js',
-      'Controllers/*.js', // Obligatoire ?
-      '**/*.js',
-      'http://localhost:8080/socket.io/socket.io.js'
+      path.join('Controllers', '*.js'), // Obligatoire ?
+      path.join('**', '*.js'),
+      // 'http://localhost:8080/socket.io/socket.io.js'
       // 'Tests/*Spec.js', // A supprimer
     ],
 
 
     // list of files to exclude
     exclude: [
-      'Lib/*.js',
-      'tinyMCE/*.js',
-      'tinyMCE/**/*.js'
+      path.join('Lib', '*.js'),
+      path.join('tinyMCE', '*.js'),
+      path.join('tinyMCE', '**', '*.js')
     ],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '*.js'   : ['babel'],
-      'Controllers/*.js': ['babel'], // Obligatoire ?
-      'Factories/*.js': ['babel'], // Obligatoire ?
-      'Services/*.js': ['babel'], // Obligatoire ?
+      // '*.js'   : ['babel'],
+      // 'Controllers/*.js': ['babel'], // Obligatoire ?
+      // 'Factories/*.js': ['babel'], // Obligatoire ?
+      // 'Services/*.js': ['babel'], // Obligatoire ?
       '**/*.js': ['babel']
     },
     

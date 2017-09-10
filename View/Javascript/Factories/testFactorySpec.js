@@ -3,7 +3,7 @@ describe('testFactory', function() {
   var Socket;
   
   beforeEach(function(){
-    angular.mock.module('Socket');
+    angular.mock.module('SocketF');
     angular.mock.inject(function(_socket_) {
       Socket = _socket_;
     });
