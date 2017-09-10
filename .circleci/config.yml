@@ -11,10 +11,13 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Install npm wee
-          command: npm install
+          command: 'npm install'
       - run:
           name: install gulp global
           command: 'sudo npm i -g gulp'
+      - run:
+          name: install GraphicsMagick
+          command: 'sudo apt-get install graphicsmagick'
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -39,7 +42,7 @@ jobs:
           key: build-cache-{{ checksum "build.sha" }}
       - run:
           name: karma
-          command: karma start --single-run
+          command: 'karma start --single-run'
 
 workflows:
   version: 2
