@@ -14,7 +14,7 @@ jobs:
           command: npm install
       - run:
           name: install gulp global
-          command: 'npm i -g gulp'
+          command: 'sudo npm i -g gulp'
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
