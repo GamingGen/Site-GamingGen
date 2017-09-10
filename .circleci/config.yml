@@ -1,7 +1,7 @@
 version: 2
 jobs:
 	bootUp:
-		parallelism: 2
+		# parallelism: 2
 		docker:
 			- image: circleci/node:7.10.0
 			- image: mongo:3.4.4
@@ -21,13 +21,11 @@ jobs:
 		- run:
 			name: Build project
 			command: 'gulp build && gulp optimizeImg'
-      
   Test:
 	steps:
 		run:
 			name: karma
 			command: karma start --single-run
-
 
 workflows:
 	version: 2
@@ -36,7 +34,7 @@ workflows:
 			- bootUp
 			- build: 
 				requires:
-					-bootUp
+					- bootUp
 			- test:
 				requires:
 					- build
