@@ -1,10 +1,10 @@
 {
-  "name": "site-gaminggen",
+  "name": "SI-GamingGen",
   "version": "1.4.0-alpha",
   "private": true,
   "main": "server.js",
   "homepage": "https://github.com/GamingGen/Site-GamingGen",
-  "description": "site-gaminggen",
+  "description": "This is the main tool for Gaming Gen organization",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/GamingGen/Site-GamingGen/issues"

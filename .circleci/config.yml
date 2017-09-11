@@ -72,9 +72,9 @@ jobs:
           key: v1-repo-{{ checksum ".circle-sha" }}
       - restore_cache:
           key: v1-dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: install mocha global
-          command: 'sudo npm i -g mocha'
+      # - run:
+      #     name: install mocha global
+      #     command: 'sudo npm i -g mocha'
       - run:
           name: install karma-cli global
           command: 'sudo npm i -g karma-cli'
