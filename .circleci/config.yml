@@ -50,19 +50,16 @@ jobs:
       - restore_cache:
           key: v1-repo-{{ checksum ".circle-sha" }}
       - run:
-          name: install gulp global
-          command: 'sudo npm i -g gulp'
-      - run:
           name: install GraphicsMagick
           command: 'sudo apt-get install graphicsmagick'
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
+      - run:
+          name: install gulp global
+          command: 'sudo npm i -g gulp'
       - run: echo "Begin build"
       - run:
           name: Build project
           command: 'gulp build && gulp optimizeImg'
+          
   test:
     docker:
       - image: circleci/node:7.10.0
