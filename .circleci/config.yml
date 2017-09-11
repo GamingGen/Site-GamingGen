@@ -75,9 +75,9 @@ jobs:
       - run:
           name: install mocha global
           command: 'sudo npm i -g mocha'
-      # - run:
-      #     name: install karma global
-      #     command: 'sudo npm i -g karma'
+      - run:
+          name: install karma-cli global
+          command: 'sudo npm i -g karma-cli'
       - run:
           name: karma
           command: 'karma start --single-run'
