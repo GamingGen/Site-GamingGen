@@ -21,19 +21,18 @@ jobs:
       - image: mongo:3.4.4
     working_directory: ~/circleci-gaming-gen
     steps:
-      - run: echo "Begin bootUp"
       - run:
           name: save SHA to a file
           command: echo $CIRCLE_SHA1 > .circle-sha
       - restore_cache:
           key: v1-repo-{{ checksum ".circle-sha" }}
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: v1-dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Install npm wee
           command: 'npm install'
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: v1-dependency-cache-{{ checksum "package.json" }}
           paths:
             - ~/circleci-gaming-gen/node_modules
     
@@ -43,14 +42,13 @@ jobs:
       - image: mongo:3.4.4
     working_directory: ~/circleci-gaming-gen
     steps:
-      - run: echo "Begin Build"
       - run:
           name: save SHA to a file
           command: echo $CIRCLE_SHA1 > .circle-sha
       - restore_cache:
           key: v1-repo-{{ checksum ".circle-sha" }}
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: v1-dependency-cache-{{ checksum "package.json" }}
       - run:
           name: install GraphicsMagick
           command: 'sudo apt-get install graphicsmagick'
@@ -68,14 +66,13 @@ jobs:
       - image: mongo:3.4.4
     working_directory: ~/circleci-gaming-gen
     steps:
-      - run: echo "Begin Tests"
       - run:
           name: save SHA to a file
           command: echo $CIRCLE_SHA1 > .circle-sha
       - restore_cache:
           key: v1-repo-{{ checksum ".circle-sha" }}
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: v1-dependency-cache-{{ checksum "package.json" }}
       - run:
           name: install karma global
           command: 'sudo npm i -g karma'
