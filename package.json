@@ -3,7 +3,13 @@
   "version": "1.4.0-alpha",
   "private": true,
   "main": "server.js",
-  "homepage": "https://github.com/GamingGen/Site-GamingGen",
+  "author": "Jérémy Young <darkterra01@gmail.com>",
+  "contributors": [
+    "Loïc Tardivel-Lacombe <loic.tardivel@gmail.com>",
+    "Laura Auboin Maurizio <lala@gaming-gen.fr>",
+    "Frédéric Guazzini <dolz@gaming-gen.fr>"
+  ],
+  "homepage": "http://www.gaming-gen.fr",
   "description": "This is the main tool for Gaming Gen organization",
   "license": "AGPL-3.0",
   "bugs": {

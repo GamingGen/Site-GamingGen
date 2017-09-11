@@ -83,6 +83,7 @@ const Snack       = require('./Controller/snacks');
 const MenuSnack   = require('./Controller/menuSnacks');
 const Shop        = require('./Controller/shop');
 const Order       = require('./Controller/order');
+const About       = require('./Controller/about');
 
 
 // Conf color
@@ -188,6 +189,7 @@ app.use('/snacks', Snack.router);
 app.use('/menusnacks', MenuSnack.router);
 app.use('/shop', Shop.router);
 app.use('/order', Order.router);
+app.use('/about', About.router);
 
 
 // Events

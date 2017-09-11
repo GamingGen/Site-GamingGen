@@ -271,11 +271,18 @@
                 <span class="backgroundInscription"></span>
             </div>
             <div class="modal-body col-md-6">
-              Developpement App :
+              Nom WebApp: <strong>{{about.name}}</strong>
               <br /><br />
-              Master : <img src="https://circleci.com/gh/GamingGen/Site-GamingGen/tree/master.svg?style=svg">
+              Master: <img src="https://circleci.com/gh/GamingGen/Site-GamingGen/tree/master.svg?style=svg">
               <br />
-              Develop : <img src="https://circleci.com/gh/GamingGen/Site-GamingGen/tree/develop.svg?style=svg">
+              Develop: <img src="https://circleci.com/gh/GamingGen/Site-GamingGen/tree/develop.svg?style=svg">
+              <br /><br />
+              Version: <p>{{about.version}}</p>
+              <br />
+              Autheur: <p>{{about.author}}</p>
+              <br />
+              Contributeurs : 
+              <p ng-repeat="contributor in about.contributors">{{contributor}}</p>
               <!--<div class="bottomFooter row">-->
               <!--  <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid">Connexion</a>-->
               <!--  <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>-->

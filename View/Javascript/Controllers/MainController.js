@@ -24,6 +24,12 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   $scope.isPseudoExist = false;
   $scope.contactObjet  = null;
   
+  $http.get('/about').then(function(about) {
+    $scope.about = about.data;
+  }).catch(function(err) {
+    console.log(err);
+  });
+  
   // Pour récupérer les infos en cas de coupure réseau
   socket.on('connect', function() {
     socket.emit('getLive');
