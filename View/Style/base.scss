@@ -11,7 +11,9 @@
   font-weight: normal;
   text-rendering: optimizeLegibility;
 }
-
+a{
+  cursor:pointer;
+}
 @media (max-width:768px) {
   .container {
     margin-top: 30px;
