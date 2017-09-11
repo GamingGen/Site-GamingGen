@@ -1,17 +1,54 @@
 version: 2
 jobs:
-  build:
+  checkout_code:
     docker:
       - image: circleci/node:7.10.0
       - image: mongo:3.4.4
+    working_directory: ~/circleci-gaming-gen
     steps:
       - checkout
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - save_cache:
+          key: v1-repo-{{ checksum ".circle-sha" }}
+          paths:
+            - ~/circleci-gaming-gen
+    
+  boot_up:
+    docker:
+      - image: circleci/node:7.10.0
+      - image: mongo:3.4.4
+    working_directory: ~/circleci-gaming-gen
+    steps:
       - run: echo "Begin bootUp"
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - restore_cache:
+          key: v1-repo-{{ checksum ".circle-sha" }}
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Install npm wee
           command: 'npm install'
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ~/circleci-gaming-gen/node_modules
+    
+  build:
+    docker:
+      - image: circleci/node:7.10.0
+      - image: mongo:3.4.4
+    working_directory: ~/circleci-gaming-gen
+    steps:
+      - run: echo "Begin Build"
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - restore_cache:
+          key: v1-repo-{{ checksum ".circle-sha" }}
       - run:
           name: install gulp global
           command: 'sudo npm i -g gulp'
@@ -26,23 +63,18 @@ jobs:
       - run:
           name: Build project
           command: 'gulp build && gulp optimizeImg'
-      # - save_cache:
-      #     key: build-cache-{{ checksum "build.sha" }}
-      #     paths:
-      #       - View
   test:
     docker:
       - image: circleci/node:7.10.0
       - image: mongo:3.4.4
+    working_directory: ~/circleci-gaming-gen
     steps:
       - run: echo "Begin Tests"
       - run:
-          name: Install npm wee
-          command: 'npm install'
-      # - restore_cache:
-      #     key: dependency-cache-{{ checksum "package.json" }}
-      # - restore_cache:
-      #     key: build-cache-{{ checksum "build.sha" }}
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - restore_cache:
+          key: v1-repo-{{ checksum ".circle-sha" }}
       - run:
           name: install karma global
           command: 'sudo npm i -g karma'
@@ -54,7 +86,13 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+      - checkout_code
+      - boot_up:
+          requires:
+            - checkout_code
+      - build:
+          requires:
+            - boot_up
       - test:
           requires:
-            - build
+            - boot_up
