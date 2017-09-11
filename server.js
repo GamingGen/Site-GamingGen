@@ -1,15 +1,21 @@
-/*
- * Version Alpha 1.1.0
- * Date de Création 30/04/2016
- * Date de modification 23/10/2016
- *
- * ~2 769 835 de lignes de code
- *
- * server.js
- * Point d'entrée de l'application 'Gaming-Gen' qui permet de gérer l'évènement
+ /**
+ * @file server.js
+ * @desc Point d'entrée de l'application 'Gaming-Gen'. <br />
+ * L'application Gaming-Gen permet de gérer entièrement notre évènement. <br />
+ * blablabla <br />
+ * <br />
+ * <b>~5 306 442</b> de lignes de code <br />
+ * <br />
+ * Date de Création 30/04/2016 <br />
+ * Date de modification 02/09/2017 <br />
  * 
- * Conçu par l'équipe de Gaming-Gen :
- *  - Jérémy Young      <darkterra01@gmail.com>
+ * @version Alpha 1.5.0
+ * 
+ * @author Jérémy Young            <darkterra01@gmail.com>
+ * @author Loïc Tardivel-Lacombe   <loic.tardivel@gmail.com>
+ * @author Laura Auboin Maurizio   <lala@gaming-gen.fr>
+ * @author Frédéric Guazzini       <dolz@gaming-gen.fr>
+ * 
  */
 
 'use strict';
@@ -20,24 +26,26 @@ const app           = express();
 const compression   = require('compression');
 const http          = require('http').Server(app);
 const path          = require('path');
-// let favicon      = require('serve-favicon');
 const cookieParser  = require('cookie-parser');
 const bodyParser    = require('body-parser');
 const colors        = require('colors');
-// let resumable    = require('./resumable-node.js')('tmp/');
-// let shelljs      = require('shelljs');
 const fs            = require('fs');
 const session       = require('express-session');
 const mongoose      = require('mongoose');
 const passport      = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore    = require('connect-mongo')(session);
+const os            = require('os');
+const moment        = require('moment');
+const nodemailer    = require('nodemailer');
+const sticky        = require('sticky-session');
 
-var logger          = require('./Controller/logger');
 
+// let resumable    = require('./resumable-node.js')('tmp/');
+// let shelljs      = require('shelljs');
 
 // PMX For PM2
-var pmx = require('pmx').init({
+const pmx = require('pmx').init({
   http          : true, // HTTP routes logging (default: true)
   ignore_routes : [/socket\.io/, /notFound/], // Ignore http routes with this pattern (Default: [])
   errors        : true, // Exceptions loggin (default: true)
@@ -46,34 +54,37 @@ var pmx = require('pmx').init({
   ports         : true  // Shows which ports your app is listening on (default: false)
 });
 
+
 // mongoose
-mongoose.connect('mongodb://localhost/gaminggen', (error) => {
-    if (error) {
-        console.log(error);
+mongoose.connect('mongodb://localhost/gaminggen', (err) => {
+    if (err) {
+        console.error(err);
         
         // TODO à changer (gestion tentatire reconnexions)
         process.exit(1);
     }
 });
 
+
 // Server Events
 let ServerEvent  = require('./Controller/ServerEvent');
 
-// Require Controllers
-var User        = require('./Controller/users');
-var Conf        = require('./Controller/confs');
-var Article     = require('./Controller/articles');
-var Comment     = require('./Controller/comments');
-var Partenaire  = require('./Controller/partenaires');
-var WatchList   = require('./Controller/watchLists');
-var Team        = require('./Controller/teams');
-var Snack       = require('./Controller/snacks');
-var MenuSnack   = require('./Controller/menuSnacks');
-var Shop        = require('./Controller/shop');
-var Order       = require('./Controller/order');
 
-// Require des Models
-var userSchema = require('./Model/userSchema');
+// Require Controllers
+const logger      = require('./Controller/logger');
+const User        = require('./Controller/users');
+const Conf        = require('./Controller/confs');
+const Article     = require('./Controller/articles');
+const Comment     = require('./Controller/comments');
+const Partenaire  = require('./Controller/partenaires');
+const WatchList   = require('./Controller/watchLists');
+const Team        = require('./Controller/teams');
+const Snack       = require('./Controller/snacks');
+const MenuSnack   = require('./Controller/menuSnacks');
+const Shop        = require('./Controller/shop');
+const Order       = require('./Controller/order');
+const About       = require('./Controller/about');
+
 
 // Conf color
 colors.setTheme({
@@ -89,21 +100,23 @@ colors.setTheme({
   error   : 'red'
 });
 
+
 // Conf port
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
+
 
 // Conf session
-var EXPRESS_SID_VALUE = 'Secret Keyboard DarkTerra Cat';
-var sessionMiddleware = session({
-    secret              : EXPRESS_SID_VALUE,
-    resave              : false,
-    saveUninitialized   : true,
-    store               : new MongoStore({ mongooseConnection: mongoose.connection })
+const EXPRESS_SID_VALUE = 'Secret Keyboard DarkTerra Cat';
+const sessionMiddleware = session({
+  secret              : EXPRESS_SID_VALUE,
+  resave              : true,
+  saveUninitialized   : true,
+  store               : new MongoStore({ mongooseConnection: mongoose.connection })
 });
+
 
 // Conf app
 app.use(compression({filter: shouldCompress}));
-// app.use(favicon(__dirname + '/View/Images/favicon.ico'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -113,31 +126,27 @@ app.use(passport.session());
 app.use(pmx.expressErrorHandler());
 app.use(require('morgan')("combined", { "stream": logger.stream }));
 
-// // Conf passport
-// passport.use(new LocalStrategy(userSchema.authenticate()));
-// passport.serializeUser(userSchema.serializeUser());
-// passport.deserializeUser(userSchema.deserializeUser());
-
 
 // Conf passport
-var authStrategy = new LocalStrategy({
+let authStrategy = new LocalStrategy({
 	usernameField: 'email',
 	passwordField: 'password'
-}, function(email, password, done) {
-	userSchema.authenticate(email, password, function(error, user){
+}, (email, password, done) => {
+	User.userSchema.authenticate(email, password, (error, user) => {
 		// You can write any kind of message you'd like.
 		// The message will be displayed on the next page the user visits.
 		// We're currently not displaying any success message for logging in.
+		console.log('server.js - error: ', error);
 		done(error, user, error ? { message: error.message } : null);
 	});
 });
 
-var authSerializer = function(user, done) {
-	done(null, user.id);
+let authSerializer = (user, done) => {
+	done(null, {_id: user._id, permissions: user.access.permissions});
 };
 
-var authDeserializer = function(id, done) {
-	userSchema.findById(id, function(error, user) {
+let authDeserializer = (user, done) => {
+	User.userSchema.findById(user._id, (error, user) => {
 		done(error, user);
 	});
 };
@@ -147,10 +156,9 @@ passport.serializeUser(authSerializer);
 passport.deserializeUser(authDeserializer);
 
 
-
-
 // Socket io
 require('./Controller/sockets').listen(http, sessionMiddleware, ServerEvent, colors);
+
 
 // Call Events Management
 Snack.snackEvent(ServerEvent);
@@ -162,13 +170,16 @@ User.userEvent(ServerEvent);
 Shop.shopEvent(ServerEvent);
 Order.orderEvent(ServerEvent);
 
+
 // Log Error
 ServerEvent.on('error', (err) => {
   console.log(err);
 });
 
+
 // Routing
 app.use(express.static(path.join(__dirname, 'View')));
+app.use(express.static(path.join(__dirname, 'node_modules', 'socket.io-client', 'dist')));
 app.use('/users', User.router);
 app.use('/confs', Conf.router);
 app.use('/articles', Article.router);
@@ -178,8 +189,15 @@ app.use('/snacks', Snack.router);
 app.use('/menusnacks', MenuSnack.router);
 app.use('/shop', Shop.router);
 app.use('/order', Order.router);
+app.use('/about', About.router);
 
 
+// Events
+ServerEvent.on('sendMailContact', (data, socket) => {
+  SendMail(data.email, data.subject, 'contact@gaming-gen.fr', data.text, socket);
+});
+
+// Functions
 function shouldCompress(req, res) {
   if (req.headers['x-no-compression']) {
     // don't compress responses with this request header 
@@ -189,42 +207,121 @@ function shouldCompress(req, res) {
   return compression.filter(req, res);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    // req.user is available for use here
+    console.log('Im Auth Muahahahahahahahahhahahahahahhahah !!!');
+    return next();
+  }
+
+  // denied
+  res.status(401);
+}
+
+// Gestion message de démarrage
+function startMessage (err, nodeVersion, refVersion) {
+  if (err) {
+    console.log(`La version du serveur Node.JS doit être plus récente : `.warn);
+    console.log(`Version demandé : ${refVersion}, votre version : ${nodeVersion}`.data);
+  }
+  else {
+    console.log(`\nVersion du server OK...`.verbose);
+    console.log(`La version du serveur Node.JS : `.data + process.version.warn);
+    console.log(`Le serveur Node.JS fonctionne sur la plateforme : `.data + process.platform.warn);
+  }
+}
+
+// Mail...
+// create reusable transporter object using SMTP transport 
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: process.env.NODEMAILER_MAIL,
+        pass: process.env.NODEMAILER_PASS
+    }
+});
+
+function SendMail(from, subject, to, text, socket) {
+  // Gestion mail Contact
+  console.log('Sending Mail...'.info);
+  text = `Vous avez reçu un mail de : ${from} : \n\n${text}`;
+  // setup e-mail data with unicode symbols 
+  var mailOptions = {
+      from: from, // sender address 
+      to: to, // list of receivers 
+      subject: subject, // Subject line 
+      text: text, // plaintext body 
+      // html: html, // html body
+      attachments: []
+  };
+  
+  // Pour attacher des pièces
+  // for(let IMG of tabIMG) {
+  //   attach = {};
+  //   attach.filename = IMG;
+  //   attach.path = IMG;
+  //   mailOptions.attachments.push(attach);
+  // }
+  
+  // send mail with defined transport object 
+  transporter.sendMail(mailOptions, (error, info) => {
+    console.log('info: ', info);
+      if(error) {
+        console.error(error);
+        // res.status(500).json({message : `Problème lors de l'envoie du mail`});
+        ServerEvent.emit('ErrorOnMailContactSent', error, socket);
+      }
+      else {
+        console.log(`Message sent: ${info}`);
+        // res.status(200).json({message : 'Mail envoyé !'});
+        ServerEvent.emit('mailContactSent', info, socket);
+      }
+  });
+}
+
+app.head('/health', function (req, res) {
+  res.sendStatus(200);
+});
 
 // Check Version of Node before Launch.
 fs.readFile(__dirname + '/package.json', 'utf8', (err, data) => {
     if (err) throw err;
     
+    const operator          = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
+    const refVersion        = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
+    const nodeVersion       = process.version.replace(/[^0-9.]/g, '').split('.');
+    const refVersionMajeur  = parseInt(refVersion[0], 10);
+    const refVersionMineur  = parseInt(refVersion[1], 10);
+    const refVersionFix     = parseInt(refVersion[2], 10);
+    const nodeVersionMajeur = parseInt(nodeVersion[0], 10);
+    const nodeVersionMineur = parseInt(nodeVersion[1], 10);
+    const nodeVersionFix    = parseInt(nodeVersion[2], 10);
     
-    // var refVersion = parseInt(JSON.parse(data).engines.node.replace(/[^0-9]/g, ''), 10);
-    // var nodeVersion = parseInt(process.version.replace(/[^0-9]/g, ''), 10);
-    
-    var operator = JSON.parse(data).engines.node.replace(/[0-9.]/g, '');
-    var refVersion = JSON.parse(data).engines.node.replace(/[^0-9.]/g, '').split('.');
-    var nodeVersion = process.version.replace(/[^0-9.]/g, '').split('.');
-    
-    console.log(operator);
-    console.log(refVersion);
-    console.log(nodeVersion);
-    
-    
-    
-    
-    if (parseInt(nodeVersion[0], 10) > parseInt(refVersion[0], 10)) {
-      console.log('Version du server OK...'.verbose);
-      console.log('La version du serveur Node.JS : '.data + process.version.warn);
-      console.log('Le serveur Node.JS fonctionne sur la plateforme : '.data + process.platform.warn);
+    if (operator === '>=') {
+      if (nodeVersionMajeur > refVersionMajeur) {
+        startMessage(undefined, nodeVersion, refVersion);
+      }
+      else if (nodeVersionMajeur == refVersionMajeur && nodeVersionMineur > refVersionMineur) {
+        startMessage(undefined, nodeVersion, refVersion);
+      }
+      else if (nodeVersionMajeur == refVersionMajeur && nodeVersionMineur == refVersionMineur && nodeVersionFix >= refVersionFix) {
+        startMessage(undefined, nodeVersion, refVersion);
+      }
+      else {
+        startMessage('not OK', nodeVersion, refVersion);
+        process.exit(1);
+      }
     }
     else {
-      console.log('La version du serveur Node.JS doit être plus récente : '.warn);
-      console.log('Version demandé : '.data + refVersion + ', votre version : '.data + nodeVersion);
+      console.log(`L'operateur (package.json => engine) doit être égal à : '>='`.warn);
       process.exit(1);
     }
-    
+
     // Création du serveur
     http.listen(port, () => {
-      console.log('\nSI-GamingGen listening at 127.0.0.1:'.verbose + port.verbose);
-      // console.log('La plateforme fonctionne depuis : '.data + tools.convertTimeToHuman(os.uptime()).warn);
+      console.log(`\n\nSI-GamingGen listening at 127.0.0.1:${port}`.verbose);
+      console.log('La plateforme fonctionne depuis : '.data + colors.warn(moment.duration((os.uptime().toFixed(0))*1000).humanize()));
+      console.log();
     });
   });
 

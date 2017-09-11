@@ -8,10 +8,21 @@
     "semi": 2
   },
   "globals": {
+    "window"        : false,
+    "document"      : false,
+    "bowser"        : false,
+    "WOW"           : false,
+    "ga"            : false,
     "angular"       : false,
+    "expect"        : false,
     "Snap"          : false,
     "$"             : false,
     "tinymce"       : false,
+    "URL"           : false,
+    "event"         : false,
+    "navigator"     : false,
+    "caches"        : false,
+    "fetch"         : false,
     "localStorage"  : false
   }
 }

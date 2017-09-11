@@ -1,0 +1,34 @@
+.overlay{
+  display:flex;
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+}
+
+.contentConstru{
+  color:rgba(255,255,255,0.8);
+  font-family: TitlingGothicFBCondRegular;
+  font-weight:100;
+  position:absolute;
+  display:flex;
+  top:15%;
+  right:20%;
+  flex-direction:column;
+}
+
+.contentConstru h1{
+  font-size:24em;
+  color:rgba(255,255,255,0.6);
+}
+
+.notFoundTexte, .notFoundLink{
+  font-size:1em!important;
+  color:white;
+}
+
+.notFoundLink a{
+  color:white;
+}

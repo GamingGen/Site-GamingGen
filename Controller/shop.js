@@ -10,7 +10,7 @@ var exports = module.exports = {};
 router.get('/', function (req, res) {
   shopSchema.find({}, null, {sort: {$natural: -1}}, function(err, results) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else {
         res.json(results);
@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
 router.get('/getProducts', function (req, res) {
   shopSchema.findOne({}, null, {sort: {$natural: -1}}, function(err, results) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else {
         res.json(results);
@@ -32,7 +32,7 @@ router.get('/getProducts', function (req, res) {
 router.get('/getProduct/:name', function (req, res) {
   shopSchema.findOne({}, function(err, results) {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
       else {
         var result = null;
@@ -57,7 +57,7 @@ var shopEvent = function(ServerEvent) {
     newShopSchema.save(function(err) {
       if (err) {
         //throw err;
-        console.log(err);
+        console.error(err);
       }
       else {
         ServerEvent.emit('saveSaved', data, socket);

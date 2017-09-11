@@ -1,0 +1,95 @@
+version: 2
+jobs:
+  checkout_code:
+    docker:
+      - image: circleci/node:7.10.0
+      - image: mongo:3.4.4
+    working_directory: ~/circleci-gaming-gen
+    steps:
+      - checkout
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - save_cache:
+          key: v1-repo-{{ checksum ".circle-sha" }}
+          paths:
+            - ~/circleci-gaming-gen
+    
+  boot_up:
+    docker:
+      - image: circleci/node:7.10.0
+      - image: mongo:3.4.4
+    working_directory: ~/circleci-gaming-gen
+    steps:
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - restore_cache:
+          key: v1-repo-{{ checksum ".circle-sha" }}
+      - restore_cache:
+          key: v1-dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm wee
+          command: 'npm install'
+      - save_cache:
+          key: v1-dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ~/circleci-gaming-gen/node_modules
+    
+  build:
+    docker:
+      - image: circleci/node:7.10.0
+      - image: mongo:3.4.4
+    working_directory: ~/circleci-gaming-gen
+    steps:
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - restore_cache:
+          key: v1-repo-{{ checksum ".circle-sha" }}
+      - restore_cache:
+          key: v1-dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install GraphicsMagick
+          command: 'sudo apt-get install graphicsmagick'
+      - run:
+          name: install gulp global
+          command: 'sudo npm i -g gulp'
+      - run:
+          name: Build project
+          command: 'gulp build && gulp optimizeImg'
+          
+  test:
+    docker:
+      - image: circleci/node:7.10.0
+      - image: mongo:3.4.4
+    working_directory: ~/circleci-gaming-gen
+    steps:
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - restore_cache:
+          key: v1-repo-{{ checksum ".circle-sha" }}
+      - restore_cache:
+          key: v1-dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install karma-cli global
+          command: 'sudo npm i -g karma-cli'
+      - run:
+          name: karma
+          command: 'karma start --single-run'
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkout_code
+      - boot_up:
+          requires:
+            - checkout_code
+      - build:
+          requires:
+            - boot_up
+      - test:
+          requires:
+            - boot_up

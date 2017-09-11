@@ -19,6 +19,9 @@ coverage
 # Configuration Cloud9 Files
 .c9
 
+# Configuration Visual Code Files
+.vscode
+
 # Dependency directory
 node_modules
 npm-debug.log
@@ -26,13 +29,21 @@ npm-debug.log
 # DataBase
 data
 
-# Only for Dev
-mongod
-mongodRepair
-mongodShutDown
-adminMongo
-dump
-
-# Only for LeadDev
+# Certificat
 *.pem
 *.csr
+certbot-auto
+
+# Only for Dev
+mongod*
+mongodRepair*
+mongodShutDown*
+*.bat
+adminMongo
+dump*
+View/dist
+View/css
+View/js
+View/Style/.sass-cache
+View/Style/*.css*
+OnlyForCloude9/tmp

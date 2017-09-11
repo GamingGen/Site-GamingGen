@@ -2,7 +2,7 @@
 
 var AppControllers = angular.module('AppControllers');
 
-AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$location', '$state', '$scope', 'socket', '$window', '$http', function(UserService, ManageViewService, $location, $state, $scope, socket, $window, $http) {
+AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$scope', '$transitions', 'socket', '$window', '$http', '$document', function(UserService, $location, $state, $scope, $transitions, socket, $window, $http, $document) {
   // ----- Init -----
   var user        = {};
   var pages       = {};
@@ -14,11 +14,21 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
   pages.snackRPI  = [];
   
   
+  $scope.slider = '../Img/Slider/OPTIMIZED-SLIDER-GG6V4.png';
+  $scope.sliderSRCSET = '../Img/Slider/OPTIMIZED-SLIDER-GG6-MOBILE-660.png 800w, ../Img/Slider/OPTIMIZED-SLIDER-GG6-TABLET-992.png 1300w, ../Img/Slider/OPTIMIZED-SLIDER-GG6V4.png 2000w';
+  
+  
   // ----- GET / SET Data -----
-  $scope.User = UserService.currentUser;
-  $scope.isMailExist = false;
+  $scope.User          = UserService.currentUser;
+  $scope.isMailExist   = false;
   $scope.isPseudoExist = false;
-  ManageViewService.setView('container');
+  $scope.contactObjet  = null;
+  
+  $http.get('/about').then(function(about) {
+    $scope.about = about.data;
+  }).catch(function(err) {
+    console.log(err);
+  });
   
   // Pour récupérer les infos en cas de coupure réseau
   socket.on('connect', function() {
@@ -28,6 +38,15 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
   
   socket.on('toogleLive', function(live) {
     $scope.live = live;
+    
+    if (live.notificationOff !== true) {
+      live.title = live.Youtube === true ? 'Live Youtube !' : 'Live Twitch !';
+      live.picture = live.Youtube === true ? 'https://www.youtube.com/yt/brand/media/image/YouTube-icon-full_color.png' : 'https://s3-us-west-2.amazonaws.com/web-design-ext-production/p/Combologo_474x356.png';
+      live.state = 'live';
+      live.options = undefined;
+
+      showNotification(live);
+    }
   });
   
   socket.on('isMailExist', function(data) {
@@ -39,9 +58,68 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
     $scope.isPseudoExist = data;
   });
   
+  socket.on('NewArticle', function(NewArticle) {
+    NewArticle.state = 'article';
+    NewArticle.options = {id: NewArticle._id};
+    showNotification(NewArticle);
+  });
+  
+  socket.on('ArticleUpdated', function(articleUpdated) {
+    articleUpdated.state = 'article';
+    articleUpdated.options = {id: articleUpdated._id};
+    showNotification(articleUpdated);
+  });
+  
+  socket.on('UserPermissionsUpdatedOk', function(data) {
+    alertInfo('Permissions mises à jour pour le user : ' + data.pseudo);
+  });
+  
+  socket.on('UserPermissionsUpdated', function(data) {
+    $http.get('/users/refresh').then(function() {
+      UserService.refreshAccess(data.access);
+    }).catch(function(err) {
+      console.log(err);
+    });
+    alertInfo('Vos drois ont était mis à jours');
+  });
+  
+  socket.on('ErrorOnUserPermissionsUpdated', function(data) {
+    console.log(data);
+    alertError(data.message);
+  });
+  
+  socket.on('RolesUpdated', function(data) {
+    alertInfo('Permissions mises à jour pour la configuration : ' + data.name);
+  });
+  
+  socket.on('ErrorOnRolesUpdated', function(data) {
+    alertError(data.message);
+  });
+  
+  socket.on('PermissionsUpdated', function(data) {
+    alertInfo('Permissions mises à jour pour la configuration : ' + data.name);
+  });
+  
+  socket.on('ErrorOnPermissionsUpdated', function(data) {
+    alertError(data.message);
+  });
+  
+  socket.on('mailContactSent', function(data) {
+    alertInfo('Mail envoyé');
+    $('#contactModal').modal('toggle');
+    
+    $scope.contactEmail   = '';
+    $scope.contactObjet   = null;
+    $scope.contactMessage = '';
+  });
+  
+  socket.on('ErrorOnMailContactSent', function(data) {
+    alertError(data.message);
+  });
+
   // Déconnexion si utilisateur banni
   socket.on('BanUser', function(user) {
-    if ($scope.User !== undefined && $scope.User.pseudo === user) {
+    if ($scope.User !== undefined && $scope.User.pseudo === user.pseudo) {
       UserService.logout().success(function() {
         $state.go('home');
       });
@@ -73,11 +151,15 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
       UserService.MajCurrentUser();
       $scope.User = UserService.currentUser;
       console.log($scope.User);
+        
+      $('#connectionModal').modal('toggle');
       
       $scope.connectionEmail = '';
       $scope.connectionPassword = '';
-    }, function error() {
+    }, function error(err) {
       console.log('Connexion Error -_-');
+      
+      alertError(err);
       
       $scope.connectionEmail = '';
       $scope.connectionPassword = '';
@@ -97,7 +179,7 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
     
     console.log(JSON.stringify(user));
     $http.post('/users/insert', JSON.stringify(user))
-      .success(function(){
+      .then(function(data){
         $scope.firstName = '';
         $scope.lastName  = '';
         $scope.pseudo    = '';
@@ -108,8 +190,13 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
         $scope.connectionEmail = user.email;
         $scope.connectionPassword = user.password;
         $scope.submitLogin();
+        
+        $('#registrationModal').modal('toggle');
+        
+        console.log('data: ', data.data);
+        alertInfo(data.data.message);
       })
-      .error(function() {
+      .catch(function(err) {
         $scope.firstName = '';
         $scope.lastName  = '';
         $scope.pseudo    = '';
@@ -117,18 +204,23 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
         $scope.zip       = '';
         $scope.birthday  = '';
         $scope.email     = '';
+
+        console.log('err: ', err);
+        alertError(err.message);
     });
     
   };
-  
   
   // Submit Logout
   $scope.Logout = function() {
     console.log('Logout Call');
     
     UserService.logout()
-    .success(function() {
+    .then(function() {
       $state.go('home');
+    })
+    .catch(function(err) {
+      console.log(err);
     });
   };
   
@@ -145,6 +237,31 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
     
     // $scope.isMailExist = false;
     // $scope.isPseudoExist = false;
+  };
+  
+  $scope.sendMail = function() {
+    console.log('sendMail Call');
+    
+    var data = {
+      email   : $scope.contactEmail,
+      subject : $scope.contactObjet,
+      text    : $scope.contactMessage
+    };
+    
+    console.log('data: ', data);
+    socket.emit('sendMailContact', data);
+  };
+  
+  $scope.clearMail = function() {
+    console.log('clearMail Call');
+    
+    $scope.contactEmail   = '';
+    $scope.contactObjet   = null;
+    $scope.contactMessage = '';
+  };
+  
+  $scope.toTheTop = function() {
+    $document.scrollTop(0, 500);
   };
   
   // Launch fullscreen for browsers that support it!
@@ -184,7 +301,61 @@ AppControllers.controller('mainCtrl', ['UserService', 'ManageViewService', '$loc
   
   
   // ----- jQuery -----
+  if (window.Notification && Notification.permission !== "granted") {
+    Notification.requestPermission(function (status) {
+      if (Notification.permission !== status) {
+        console.log('getStatusNotification: ', status);
+        Notification.permission = status;
+      }
+    });
+  }
   
+  function showNotification (data) {
+    // Si l'utilisateur accepte les notifications, sinon rien ne se passe
+    if (window.Notification && Notification.permission === "granted") {
+      console.log('First ', Notification.permission);
+      var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
+      notif.onclick = function () {
+        $state.go(data.state, data.options);
+        notif.close();
+        window.focus();
+      };
+    }
+    else if (window.Notification && Notification.permission !== "denied") {
+      Notification.requestPermission(function (status) {
+        if (Notification.permission !== status) {
+          Notification.permission = status;
+        }
+        
+        // Si l'utilisateur a accepté les notifications, sinon rien ne se passe
+        if (status === "granted") {
+          console.log('Second ', Notification.permission);
+          var notif = new Notification(data.title, {tag: data.title, body: data.desc, icon: data.picture});
+          notif.onclick = function () {
+            $state.go(data.state, data.options);
+            notif.close();
+            window.focus();
+          };
+        }
+      });
+    }
+  }
+  
+  // Gestion des alerts
+  function alertInfo(info) {
+    $("#msgInfo").html(info);
+    $("#msgInfo").show().delay(3000).fadeOut();
+  }
+
+  function alertError(err) {
+    $("#msgError").html(err);
+    $("#msgError").show().delay(3000).fadeOut();
+  }
+  
+  $transitions.onSuccess({}, function () { 
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  });
+
   // Collapse Menu responsive
   $('.dropdown-menu a, .navbar-brand, .autoCollapse, .toCollapse').on('click', function() {
     $('.navbar-collapse').collapse('hide');

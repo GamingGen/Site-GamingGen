@@ -1,6 +1,6 @@
 /*
- * Version Alpha 1.0.0
- * Date de modification 24/06/2016
+ * Version Alpha 1.1.0
+ * Date de modification 18/03/2017
  *
  * Socket.js
  *  Gère toute les communications dynamique
@@ -11,21 +11,65 @@
 
 'use strict';
 
-let socketio			= require('socket.io');
-let check					= require('check-types');
-
+const socketio     = require('socket.io');
+const mongoAdapter = require('socket.io-mongodb');
+const check        = require('check-types');
+// const adapter      = mongoAdapter('mongodb://localhost:27017/socket-io');
+	
+	
 module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors) {
-	let io                = socketio.listen(server);
+	let io                = socketio(server);
 	let printerClientId   = "";
 	let printerCookId     = "";
 	let printerShopId     = "";
 	let youtube           = {};
 	let twitch            = {};
 	let Live              = {}; // TODO A déplacer
-    
+	
+
+	// Configuration de MongoAdapter pour pouvoir l'utiliser en mode Cluster
+	// io.adapter(adapter);
+	// adapter.pubsubClient.on('error', console.error);
+	// adapter.channel.on('error', console.error);
+	
 	// Configuration de Socket.IO pour pouvoir avoir accès au sessions
 	io.use(function(socket, next) {
 		sessionMiddleware(socket.request, socket.request.res, next);
+	});
+
+	ServerEvent.on('mailContactSent', function(data, socket) {
+		socket.emit('mailContactSent', data);
+	});
+
+	ServerEvent.on('ErrorOnMailContactSent', function(data, socket) {
+		socket.emit('ErrorOnMailContactSent', data);
+	});
+
+	ServerEvent.on('ErrorOnRolesUpdated', function(data, socket) {
+		socket.emit('ErrorOnRolesUpdated', data);
+	});
+		
+	ServerEvent.on('RolesUpdated', function(data, socket) {
+		socket.emit('RolesUpdated', data);
+	});
+
+	ServerEvent.on('ErrorOnPermissionsUpdated', function(data, socket) {
+		socket.emit('ErrorOnPermissionsUpdated', data);
+	});
+		
+	ServerEvent.on('PermissionsUpdated', function(data, socket) {
+		socket.emit('PermissionsUpdated', data);
+	});
+
+	ServerEvent.on('ErrorOnUserPermissionsUpdated', function(data, socket) {
+		socket.emit('ErrorOnUserPermissionsUpdated', data);
+	});
+		
+	ServerEvent.on('UserPermissionsUpdated', function(data, socketIds, socket) {
+		socket.emit('UserPermissionsUpdatedOk', data);
+		socketIds.forEach(socketId => {
+			io.to(socketId).emit('UserPermissionsUpdated', data);
+		});
 	});
 	
 	ServerEvent.on('isMailExistResult', function(data, socket) {
@@ -61,11 +105,30 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	});
 		
 	ServerEvent.on('ArticleSaved', function(data, socket) {
+		socket.emit('articleOk');
 		io.sockets.emit('NewArticle', data);
+	});
+		
+	ServerEvent.on('ErrorOnArticleUpdated', function(data, socket) {
+		socket.emit('ErrorOnArticleUpdated', data);
+	});
+		
+	ServerEvent.on('ArticleUpdated', function(data, socket) {
+		socket.emit('articleOk');
+		io.sockets.emit('ArticleUpdated', data);
+	});
+		
+	ServerEvent.on('ArticleRemoved', function(data, socket) {
+		io.sockets.emit('ArticleRemoved', data._id);
 	});
 		
 	ServerEvent.on('CommentSaved', function(data, socket) {
 		io.sockets.emit('NewComment', data);
+	});
+		
+	ServerEvent.on('CommentRemoved', function(data, socket) {
+		socket.emit('CommentRemoved', data);
+		socket.broadcast.emit('CommentRemoved', {_id: data._id, article_id: data.article_id});
 	});
 	
 	ServerEvent.on('AllOrdersFound', function(data, socket) {
@@ -103,7 +166,32 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
   io.sockets.on('connection', function (socket) {
 	  
 	  console.log('Client Connecté');
-	  
+
+		// Save the socket.id
+		console.log('socket.request.session: ', JSON.stringify(socket.request.session));
+		if (socket.request.session.passport && socket.request.session.passport.user && socket.request.session.passport.user.socketId) {
+			socket.request.session.passport.user.socketId = socket.id;
+			socket.request.session.save(function(err) {
+				if (err) {
+					console.log(err);
+				}
+			});
+		}
+		
+		socket.on('sendMailContact', function(data) {
+			ServerEvent.emit('sendMailContact', data, socket);
+			console.log('Emit: sendMailContact');
+		});
+		
+		socket.on('UpdateRoles', function(data) {
+			ServerEvent.emit('UpdateRoles', data, socket);
+			console.log('Emit: UpdateRoles');
+		});
+		
+		socket.on('UpdatePermissions', function(data) {
+			ServerEvent.emit('UpdatePermissions', data, socket);
+			console.log('Emit: UpdatePermissions');
+		});
 	  
 	  socket.on('isMailExist', function(data) {
 	  	ServerEvent.emit('isMailExist', data, socket);
@@ -111,6 +199,10 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		
 		socket.on('isPseudoExist', function(data) {
 			ServerEvent.emit('isPseudoExist', data, socket);
+		});
+		
+		socket.on('UpdateUserPermissions', function(data) {
+			ServerEvent.emit('UpdateUserPermissions', data, socket);
 		});
 		
 		socket.on('IamTheClientPrinter', function() {
@@ -177,17 +269,6 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 			console.log('Emit: saveShopOrder');
 		});
 		
-		socket.on('saveArticle', function(data) {
-			console.log('Reception article Client');
-			ServerEvent.emit('saveArticle', data, socket);
-			console.log('Emit: saveArticle');
-		});
-		
-		socket.on('saveComment', function(data) {
-			ServerEvent.emit('saveComment', data, socket);
-			console.log('Emit: saveComment');
-		});
-		
 		socket.on('getAllOrders', function() {
 			ServerEvent.emit('findAllOrders', socket);
 			console.log('Emit: findAllOrders');
@@ -199,12 +280,14 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		});
 		
 		socket.on('getLive', function() {
+			Live.notificationOff = true;
 			socket.emit('toogleLive', Live);
 		});
 		
 		socket.on('LiveOff', function() {
 			Live.Youtube = false;
 			Live.Twitch = false;
+			Live.notificationOff = true;
 			io.sockets.emit('toogleLive', Live);
 			console.log(Live);
 		});
@@ -212,15 +295,17 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		socket.on('LiveYoutube', function() {
 			Live.Youtube = true;
 			Live.Twitch = false;
+			Live.notificationOff = false;
+			Live.desc	= 'WIP';
 			io.sockets.emit('toogleLive', Live);
-			console.log(Live);
 		});
 		
 		socket.on('LiveTwitch', function() {
 			Live.Twitch = true;
 			Live.Youtube = false;
+			Live.notificationOff = false;
+			Live.desc	= 'WIP';
 			io.sockets.emit('toogleLive', Live);
-			console.log(Live);
 		});
 		
 		socket.on('getLiveSource', function() {
@@ -239,6 +324,31 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		socket.on('ChangeChannelTwitch', function(data) {
 			twitch = data;
 			io.sockets.emit('ChangeChannelTwitch', data);
+		});
+		
+		socket.on('saveArticle', function(data) {
+			ServerEvent.emit('saveArticle', data, socket);
+			console.log('Emit: saveArticle');
+		});
+		
+		socket.on('updateArticle', function(data) {
+			ServerEvent.emit('updateArticle', data, socket);
+			console.log('Emit: updateArticle');
+		});
+		
+		socket.on('rmArticle', function(data) {
+			ServerEvent.emit('rmArticle', data, socket);
+			console.log('Emit: rmArticle');
+		});
+		
+		socket.on('saveComment', function(data) {
+			ServerEvent.emit('saveComment', data, socket);
+			console.log('Emit: saveComment');
+		});
+		
+		socket.on('rmComment', function(data) {
+			ServerEvent.emit('rmComment', data, socket);
+			console.log('Emit: rmComment');
 		});
 		
 		// ----------------------- Décompte uniquement des User Connecté ----------------------- //

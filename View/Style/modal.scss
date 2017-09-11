@@ -1,0 +1,131 @@
+.modal-content {
+  background:#232323;
+  border-radius: 10px!important;
+}
+
+.modal-header{
+  border-bottom:0px;
+  padding:0px!important;
+}
+
+.modal-footer{
+  border-top:0px!important;
+}
+
+h4.modal-title {
+  font-size:2em;
+  text-align:center;
+}
+
+.modal-body{
+  height:100%;
+  background:white;
+}
+
+.blocInscriptionModal{
+  height:100%;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.blocInscriptionModal .modal-header{
+  height:100%;
+  background:url('../Img/bgInscription.png');
+  background-size:cover;
+}
+
+.blocInscriptionModal label{
+  position: relative;
+  color: #232323;
+  opacity: 0;
+  font-family: 'Droid Sans', sans-serif;
+  top: -60px;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.blocInscriptionModal input{
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.blocInscriptionModal input[type="text"]::-webkit-input-placeholder,
+.blocInscriptionModal input[type="password"]:-ms-input-placeholder,
+.blocInscriptionModal input[type="date"]::-moz-placeholder,
+.blocInscriptionModal input[type="email"]:-moz-placeholder
+{
+  display:none;
+}
+
+.blocInscriptionModal input[type="text"]:focus+label, 
+.blocInscriptionModal input[type="password"]:focus+label, 
+.blocInscriptionModal input[type="date"]:focus+label,
+.blocInscriptionModal input[type="email"]:focus+label,
+.blocInscriptionModal input[type="number"]:focus+label
+{
+  color:#64DC13;
+  opacity: 1;
+  font-size:0.8em;
+}
+
+.blocInscriptionModal input[type="text"]:focus+input::-webkit-input-placeholder, 
+.blocInscriptionModal input[type="password"]:focus+input::-webkit-input-placeholder, 
+.blocInscriptionModal input[type="date"]:focus+input::-webkit-input-placeholder,
+.blocInscriptionModal input[type="email"]:focus+input::-webkit-input-placeholder,
+.blocInscriptionModal input[type="number"]:focus+input::-webkit-input-placeholder{
+  opacity:0;
+}
+
+.modal-header .close {
+  margin-top: -15px;
+}
+
+.modal-footer {
+  text-align: center;
+}
+
+.inscriptionModal{
+  height:450px;
+}
+
+.titreModalConnection{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items:center;
+  font-family: 'TitlingGothicFBCondRegular';
+  font-size: 2em;
+  text-transform: uppercase;
+  color:rgba(0,0,0,0.3);
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.modal-body .alert.alert-danger {
+  background-color: transparent;
+  color: #dc2b00;
+  border-color: transparent;
+  font-size: 1em;
+  background-color: transparent;
+  color: #dc2b00;
+  border-color: transparent;
+  font-size: 1em;
+  position: relative;
+  padding: 0;
+  top: 30px;
+  left: 15px;
+}
+
+.modal {
+  justify-content: center;
+  padding-right: 15px;
+  align-content: center;
+  align-items: center;
+}

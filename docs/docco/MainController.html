@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>MainController.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>MainController.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> AppControllers = angular.module(<span class="hljs-string">'AppControllers'</span>);
+
+AppControllers.controller(<span class="hljs-string">'mainCtrl'</span>, [<span class="hljs-string">'UserService'</span>, <span class="hljs-string">'$location'</span>, <span class="hljs-string">'$state'</span>, <span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$transitions'</span>, <span class="hljs-string">'socket'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-string">'$http'</span>, <span class="hljs-string">'$document'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">UserService, $location, $state, $scope, $transitions, socket, $window, $http, $document</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>—– Init —–</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> user        = {};
+  <span class="hljs-keyword">var</span> pages       = {};
+  
+  user.general    = {};
+  pages.admin     = [];
+  pages.gaminggen = [];
+  pages.snack     = [];
+  pages.snackRPI  = [];
+  
+  
+  $scope.slider = <span class="hljs-string">'../Img/Slider/SLIDER-GG6V4.png'</span>;
+  $scope.sliderSRCSET = <span class="hljs-string">'../Img/Slider/SLIDER-GG6-MOBILE-660.png 800w, ../Img/Slider/SLIDER-GG6-TABLET-992.png 1300w, ../Img/Slider/SLIDER-GG6V4.png 2000w'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>—– GET / SET Data —–</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.User          = UserService.currentUser;
+  $scope.isMailExist   = <span class="hljs-literal">false</span>;
+  $scope.isPseudoExist = <span class="hljs-literal">false</span>;
+  $scope.contactObjet  = <span class="hljs-literal">null</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Pour récupérer les infos en cas de coupure réseau</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  socket.on(<span class="hljs-string">'connect'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    socket.emit(<span class="hljs-string">'getLive'</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Connexion || Reconnexion'</span>);
+  });
+  
+  socket.on(<span class="hljs-string">'toogleLive'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">live</span>) </span>{
+    $scope.live = live;
+    
+    <span class="hljs-keyword">if</span> (live.notificationOff !== <span class="hljs-literal">true</span>) {
+      live.title = live.Youtube === <span class="hljs-literal">true</span> ? <span class="hljs-string">'Live Youtube !'</span> : <span class="hljs-string">'Live Twitch !'</span>;
+      live.picture = live.Youtube === <span class="hljs-literal">true</span> ? <span class="hljs-string">'https://www.youtube.com/yt/brand/media/image/YouTube-icon-full_color.png'</span> : <span class="hljs-string">'https://s3-us-west-2.amazonaws.com/web-design-ext-production/p/Combologo_474x356.png'</span>;
+      live.state = <span class="hljs-string">'live'</span>;
+      live.options = <span class="hljs-literal">undefined</span>;
+
+      showNotification(live);
+    }
+  });
+  
+  socket.on(<span class="hljs-string">'isMailExist'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    $scope.isMailExist = data;
+  });
+  
+  socket.on(<span class="hljs-string">'isPseudoExist'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(data);
+    $scope.isPseudoExist = data;
+  });
+  
+  socket.on(<span class="hljs-string">'NewArticle'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">NewArticle</span>) </span>{
+    NewArticle.state = <span class="hljs-string">'article'</span>;
+    NewArticle.options = {<span class="hljs-attr">id</span>: NewArticle._id};
+    showNotification(NewArticle);
+  });
+  
+  socket.on(<span class="hljs-string">'ArticleUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">articleUpdated</span>) </span>{
+    articleUpdated.state = <span class="hljs-string">'article'</span>;
+    articleUpdated.options = {<span class="hljs-attr">id</span>: articleUpdated._id};
+    showNotification(articleUpdated);
+  });
+  
+  socket.on(<span class="hljs-string">'UserPermissionsUpdatedOk'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertInfo(<span class="hljs-string">'Permissions mises à jour pour le user : '</span> + data.pseudo);
+  });
+  
+  socket.on(<span class="hljs-string">'UserPermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    $http.get(<span class="hljs-string">'/users/refresh'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      UserService.refreshAccess(data.access);
+    }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(err);
+    });
+    alertInfo(<span class="hljs-string">'Vos drois ont était mis à jours'</span>);
+  });
+  
+  socket.on(<span class="hljs-string">'ErrorOnUserPermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(data);
+    alertError(data.message);
+  });
+  
+  socket.on(<span class="hljs-string">'RolesUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertInfo(<span class="hljs-string">'Permissions mises à jour pour la configuration : '</span> + data.name);
+  });
+  
+  socket.on(<span class="hljs-string">'ErrorOnRolesUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertError(data.message);
+  });
+  
+  socket.on(<span class="hljs-string">'PermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertInfo(<span class="hljs-string">'Permissions mises à jour pour la configuration : '</span> + data.name);
+  });
+  
+  socket.on(<span class="hljs-string">'ErrorOnPermissionsUpdated'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertError(data.message);
+  });
+  
+  socket.on(<span class="hljs-string">'mailContactSent'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertInfo(<span class="hljs-string">'Mail envoyé'</span>);
+    $(<span class="hljs-string">'#contactModal'</span>).modal(<span class="hljs-string">'toggle'</span>);
+    
+    $scope.contactEmail   = <span class="hljs-string">''</span>;
+    $scope.contactObjet   = <span class="hljs-literal">null</span>;
+    $scope.contactMessage = <span class="hljs-string">''</span>;
+  });
+  
+  socket.on(<span class="hljs-string">'ErrorOnMailContactSent'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    alertError(data.message);
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Déconnexion si utilisateur banni</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  socket.on(<span class="hljs-string">'BanUser'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user</span>) </span>{
+    <span class="hljs-keyword">if</span> ($scope.User !== <span class="hljs-literal">undefined</span> &amp;&amp; $scope.User.pseudo === user.pseudo) {
+      UserService.logout().success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        $state.go(<span class="hljs-string">'home'</span>);
+      });
+    }
+  });
+  
+  $scope.$watch(<span class="hljs-string">'email'</span>, isMailExist);
+  $scope.$watch(<span class="hljs-string">'pseudo'</span>, isPseudoExist);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>$scope.connectionEmail = ‘darkterra01@gmail.com’;
+$scope.connectionPassword = ‘darkterra’;</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>—– Public Méthode —–</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Submit Login Modal</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.submitLogin = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'submitLogin Call'</span>);
+    
+    user.email = $scope.connectionEmail;
+    user.password = $scope.connectionPassword;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>$scope.connectionEmail = ‘’;
+$scope.connectionPassword = ‘’;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    
+    UserService.login(user)
+    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">success</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Connexion !!!'</span>);
+      UserService.MajCurrentUser();
+      $scope.User = UserService.currentUser;
+      <span class="hljs-built_in">console</span>.log($scope.User);
+        
+      $(<span class="hljs-string">'#connectionModal'</span>).modal(<span class="hljs-string">'toggle'</span>);
+      
+      $scope.connectionEmail = <span class="hljs-string">''</span>;
+      $scope.connectionPassword = <span class="hljs-string">''</span>;
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params">err</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Connexion Error -_-'</span>);
+      
+      alertError(err);
+      
+      $scope.connectionEmail = <span class="hljs-string">''</span>;
+      $scope.connectionPassword = <span class="hljs-string">''</span>;
+    });
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Submit Register Modal</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.submitRegister = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'submitRegister Call'</span>);
+    user.pseudo = $scope.pseudo;
+    user.password = $scope.password;
+    user.email = $scope.email;
+    user.general.first_name = $scope.firstName;
+    user.general.last_name = $scope.lastName;
+    user.general.birthday = $scope.birthday;
+    user.general.zip = $scope.zip;
+    
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(user));
+    $http.post(<span class="hljs-string">'/users/insert'</span>, <span class="hljs-built_in">JSON</span>.stringify(user))
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)</span>{
+        $scope.firstName = <span class="hljs-string">''</span>;
+        $scope.lastName  = <span class="hljs-string">''</span>;
+        $scope.pseudo    = <span class="hljs-string">''</span>;
+        $scope.password  = <span class="hljs-string">''</span>;
+        $scope.zip       = <span class="hljs-string">''</span>;
+        $scope.birthday  = <span class="hljs-string">''</span>;
+        $scope.email     = <span class="hljs-string">''</span>;
+        $scope.connectionEmail = user.email;
+        $scope.connectionPassword = user.password;
+        $scope.submitLogin();
+        
+        $(<span class="hljs-string">'#registrationModal'</span>).modal(<span class="hljs-string">'toggle'</span>);
+        
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'data: '</span>, data.data);
+        alertInfo(data.data.message);
+      })
+      .catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+        $scope.firstName = <span class="hljs-string">''</span>;
+        $scope.lastName  = <span class="hljs-string">''</span>;
+        $scope.pseudo    = <span class="hljs-string">''</span>;
+        $scope.password  = <span class="hljs-string">''</span>;
+        $scope.zip       = <span class="hljs-string">''</span>;
+        $scope.birthday  = <span class="hljs-string">''</span>;
+        $scope.email     = <span class="hljs-string">''</span>;
+
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'err: '</span>, err);
+        alertError(err.message);
+    });
+    
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Submit Logout</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.Logout = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Logout Call'</span>);
+    
+    UserService.logout()
+    .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      $state.go(<span class="hljs-string">'home'</span>);
+    })
+    .catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(err);
+    });
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>TEST RAZ Register Modal</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.closeRegister = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'closeRegister Call'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>$scope.firstName = ‘’;
+$scope.lastName = ‘’;
+$scope.pseudo = ‘’;
+$scope.password = ‘’;
+$scope.zip = ‘’;
+$scope.birthday = ‘’;
+$scope.email = ‘’;</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>$scope.isMailExist = false;
+$scope.isPseudoExist = false;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  };
+  
+  $scope.sendMail = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'sendMail Call'</span>);
+    
+    <span class="hljs-keyword">var</span> data = {
+      <span class="hljs-attr">email</span>   : $scope.contactEmail,
+      <span class="hljs-attr">subject</span> : $scope.contactObjet,
+      <span class="hljs-attr">text</span>    : $scope.contactMessage
+    };
+    
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'data: '</span>, data);
+    socket.emit(<span class="hljs-string">'sendMailContact'</span>, data);
+  };
+  
+  $scope.clearMail = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'clearMail Call'</span>);
+    
+    $scope.contactEmail   = <span class="hljs-string">''</span>;
+    $scope.contactObjet   = <span class="hljs-literal">null</span>;
+    $scope.contactMessage = <span class="hljs-string">''</span>;
+  };
+  
+  $scope.toTheTop = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $<span class="hljs-built_in">document</span>.scrollTop(<span class="hljs-number">0</span>, <span class="hljs-number">500</span>);
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Launch fullscreen for browsers that support it!</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.FullScreen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    launchIntoFullscreen(<span class="hljs-built_in">document</span>.documentElement);
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Cancel fullscreen for browsers that support it!</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.ExitFullScreen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    exitFullscreen();
+  };
+  
+  $scope.needFullScreen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>if ($location.path() === ‘/snack’) {
+  launchIntoFullscreen(document.documentElement);
+  console.log(‘Go to FullScreen’);
+}
+else {
+  exitFullscreen();
+  console.log(‘Go to Normal Screen’);
+};</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>—– Private Méthode —–</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isMailExist</span>(<span class="hljs-params">newValue, oldValue, scope</span>) </span>{
+    <span class="hljs-keyword">if</span> (newValue) {
+      socket.emit(<span class="hljs-string">'isMailExist'</span>, newValue);
+    }
+  };
+  
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isPseudoExist</span>(<span class="hljs-params">newValue, oldValue, scope</span>) </span>{
+    <span class="hljs-keyword">if</span> (newValue) {
+      socket.emit(<span class="hljs-string">'isPseudoExist'</span>, newValue);
+    }
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>—– jQuery —–</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.Notification &amp;&amp; Notification.permission !== <span class="hljs-string">"granted"</span>) {
+    Notification.requestPermission(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">status</span>) </span>{
+      <span class="hljs-keyword">if</span> (Notification.permission !== status) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'getStatusNotification: '</span>, status);
+        Notification.permission = status;
+      }
+    });
+  }
+  
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showNotification</span> (<span class="hljs-params">data</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Si l’utilisateur accepte les notifications, sinon rien ne se passe</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.Notification &amp;&amp; Notification.permission === <span class="hljs-string">"granted"</span>) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'First '</span>, Notification.permission);
+      <span class="hljs-keyword">var</span> notif = <span class="hljs-keyword">new</span> Notification(data.title, {<span class="hljs-attr">tag</span>: data.title, <span class="hljs-attr">body</span>: data.desc, <span class="hljs-attr">icon</span>: data.picture});
+      notif.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        $state.go(data.state, data.options);
+        notif.close();
+        <span class="hljs-built_in">window</span>.focus();
+      };
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.Notification &amp;&amp; Notification.permission !== <span class="hljs-string">"denied"</span>) {
+      Notification.requestPermission(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">status</span>) </span>{
+        <span class="hljs-keyword">if</span> (Notification.permission !== status) {
+          Notification.permission = status;
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Si l’utilisateur a accepté les notifications, sinon rien ne se passe</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (status === <span class="hljs-string">"granted"</span>) {
+          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Second '</span>, Notification.permission);
+          <span class="hljs-keyword">var</span> notif = <span class="hljs-keyword">new</span> Notification(data.title, {<span class="hljs-attr">tag</span>: data.title, <span class="hljs-attr">body</span>: data.desc, <span class="hljs-attr">icon</span>: data.picture});
+          notif.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            $state.go(data.state, data.options);
+            notif.close();
+            <span class="hljs-built_in">window</span>.focus();
+          };
+        }
+      });
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Gestion des alerts</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">alertInfo</span>(<span class="hljs-params">info</span>) </span>{
+    $(<span class="hljs-string">"#msgInfo"</span>).html(info);
+    $(<span class="hljs-string">"#msgInfo"</span>).show().delay(<span class="hljs-number">3000</span>).fadeOut();
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">alertError</span>(<span class="hljs-params">err</span>) </span>{
+    $(<span class="hljs-string">"#msgError"</span>).html(err);
+    $(<span class="hljs-string">"#msgError"</span>).show().delay(<span class="hljs-number">3000</span>).fadeOut();
+  }
+  
+  $transitions.onSuccess({}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ 
+    <span class="hljs-built_in">document</span>.body.scrollTop = <span class="hljs-built_in">document</span>.documentElement.scrollTop = <span class="hljs-number">0</span>;
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Collapse Menu responsive</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $(<span class="hljs-string">'.dropdown-menu a, .navbar-brand, .autoCollapse, .toCollapse'</span>).on(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $(<span class="hljs-string">'.navbar-collapse'</span>).collapse(<span class="hljs-string">'hide'</span>);
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Modal Register Modal</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $(<span class="hljs-string">'#closeRegister'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    $(<span class="hljs-string">'#firstName'</span>).val(<span class="hljs-string">''</span>);
+    $(<span class="hljs-string">'#lastName'</span>).val(<span class="hljs-string">''</span>);
+    $(<span class="hljs-string">'#pseudo'</span>).val(<span class="hljs-string">''</span>);
+    $(<span class="hljs-string">'#password'</span>).val(<span class="hljs-string">''</span>);
+    $(<span class="hljs-string">'#zip'</span>).val(<span class="hljs-string">''</span>);
+    $(<span class="hljs-string">'#birthday'</span>).val(<span class="hljs-string">''</span>);
+    $(<span class="hljs-string">'#email'</span>).val(<span class="hljs-string">''</span>);
+    
+    $scope.isMailExist = <span class="hljs-literal">false</span>;
+    $scope.isPseudoExist = <span class="hljs-literal">false</span>;
+    $scope.$apply();
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>RAZ Connection Modal</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $(<span class="hljs-string">'#closeConnection'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    $(<span class="hljs-string">'#connectionEmail'</span>).val(<span class="hljs-string">''</span>);
+    $(<span class="hljs-string">'#connectionPassword'</span>).val(<span class="hljs-string">''</span>);
+  });
+}]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Find the right method, call on correct element</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">launchIntoFullscreen</span>(<span class="hljs-params">element</span>) </span>{
+  <span class="hljs-keyword">if</span>(element.requestFullscreen) {
+    element.requestFullscreen();
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Whack fullscreen</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exitFullscreen</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span>(<span class="hljs-built_in">document</span>.exitFullscreen) {
+    <span class="hljs-built_in">document</span>.exitFullscreen();
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-built_in">document</span>.mozCancelFullScreen) {
+    <span class="hljs-built_in">document</span>.mozCancelFullScreen();
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-built_in">document</span>.webkitExitFullscreen) {
+    <span class="hljs-built_in">document</span>.webkitExitFullscreen();
+  }
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

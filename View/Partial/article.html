@@ -1,39 +1,94 @@
 <div ng-controller="articleCtrl as article">
     <!-- Article -->
-    <div>{{article.currentArticle.title}}</div>
-    <div>{{article.currentArticle.username}}</div><!-- Auteur de l'article -->
-    <div>{{article.currentArticle.register_date | date : 'dd MMMM yyyy'}}</div><!-- Date de l'article -->
-    <ng-bind-html ng-bind-html="renderHtml(article.currentArticle.text)"></ng-bind-html><!-- Contenu de l'article, en HTML -->
-    
-    <!-- Commentaires -->
-    <div>Commentaires</div>
-    <div ng-repeat="comment in article.currentArticle.comments | orderBy : 'register_date'"><!-- Liste des commentaires -->
-        <div>{{comment.username}}</div><!-- Auteur du commentaire -->
-        <div>{{comment.register_date | date : 'dd MMMM yyyy'}}</div><!-- Date du commentaire -->
-        <ng-bind-html ng-bind-html="renderHtml(comment.text)"></ng-bind-html><!-- Contenu du commentaire, en HTML -->
-    </div>
-    <div ng-show="!article.currentArticle.comments.length">Aucun commentaire pour l'instant...</div><!-- Si pas de commentaire, afficher ceci -->
-    <button data-toggle="modal" data-target="#modalComment" data-id="{{article.currentArticle.id}}">Commenter</button><!-- Bouton d'affichage de la pop-up de création de commentaire -->
-    
-    <!-- Modale d'ajout de commentaires -->
-    <div class="modal fade" id="modalComment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div role="document">
-            <div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><!-- Close button -->
-                <div id="myModalLabel">Commenter l'article !</div><!-- Titre de la modale -->
-                <div ng-controller="commentCtrl">
-                    
-                    <form><!-- Formulaire, contient essentiellement l'éditeur TinyMCE -->
-                      <input type="hidden" id="articleId" name="articleId" value="{{article.currentArticle.id}}"/>
-                      <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
-                    </form>
-                
-                    <!-- Bouton de fermeture / submit -->
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="getContent()" data-dismiss="modal" class="btn btn-primary">Valider</button>
-                </div>
-            </div>
+    <div class="fullwidth">
+      <div class="row">
+        <div class="titreArticleContent col-xs-10 col-lg-4 col-lg-offset-3 col-xs-offset-1">
+          <h1>
+            {{article.currentArticle.title}}
+          </h1>
+          <h3 class="sousTitreArticleContent">
+              {{article.currentArticle.pseudo}}
+          </h3><!-- Auteur de l'article -->
+          <p class="texteArticleContent">
+              {{article.currentArticle.register_date | date : 'dd MMMM yyyy'}}
+          </p><!-- Date de l'article -->
         </div>
+      </div>
+      <div class="row">
+        <div class="contentRealArticle col-lg-8 col-lg-offset-2">
+          <div>
+            <img ng-src="{{article.currentArticle.picture}}" ng-image-appear no-loader animation="blurInUp" class="img-rounded img-responsive img-center" alt="{{article.currentArticle.picture}}"/>
+          </div>
+          <br />
+          <ng-bind-html ng-bind-html="renderHtml(article.currentArticle.text)"></ng-bind-html><!-- Contenu de l'article, en HTML -->
+        </div>
+      </div>
     </div>
-    
+    <!-- Commentaires -->
+    <div class="blockCommentaire fullwidth">
+      <div class="row">
+        <div class="commentTitle col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve">
+                <path d="M80.948,50.154c0-1.401-1.136-2.537-2.537-2.537s-2.537,1.136-2.537,2.537c0,14.267-11.608,25.874-25.875,25.874  
+                S24.125,64.421,24.125,50.154c0-1.401-1.136-2.537-2.537-2.537c-1.401,0-2.537,1.136-2.537,2.537  
+                c0,16.21,12.53,29.539,28.412,30.835v8.937h-8.556c-1.401,0-2.537,1.136-2.537,2.537c0,1.401,1.136,2.537,2.537,2.537h22.186  
+                c1.401,0,2.537-1.136,2.537-2.537c0-1.401-1.136-2.537-2.537-2.537h-8.556v-8.937C68.419,79.694,80.948,66.364,80.948,50.154z"/>
+                <path d="M50,72.985c12.589,0,22.831-10.242,22.831-22.831V27.831C72.831,15.242,62.589,5,50,5S27.169,15.242,27.169,27.831v22.323 
+                C27.169,62.743,37.411,72.985,50,72.985z M32.243,27.831c0-9.791,7.966-17.757,17.757-17.757c8.931,0,16.323,6.635,17.556,15.23 
+                c-0.031-0.001-0.061-0.009-0.093-0.009H56.638c-1.401,0-2.537,1.136-2.537,2.537c0,1.401,1.136,2.537,2.537,2.537h10.825 
+                c0.101,0,0.196-0.018,0.294-0.03v6.147c-0.098-0.011-0.193-0.03-0.294-0.03H56.638c-1.401,0-2.537,1.136-2.537,2.537 
+                c0,1.401,1.136,2.537,2.537,2.537h10.825c0.101,0,0.196-0.018,0.294-0.03v6.147c-0.098-0.011-0.193-0.03-0.294-0.03H56.638 
+                c-1.401,0-2.537,1.136-2.537,2.537s1.136,2.537,2.537,2.537h10.825c0.032,0,0.061-0.008,0.093-0.009  
+                c-1.234,8.595-8.625,15.23-17.556,15.23c-9.791,0-17.757-7.966-17.757-17.757V27.831z"/>
+            </svg>
+              
+            <h1 class="text-center">
+              Commentaires
+            </h1>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div ng-show="!article.currentArticle.comments.length" class="noComment col-xs-12">
+          Aucun commentaire pour l'instant...
+        </div><!-- Si pas de commentaire, afficher ceci -->
+      </div>
+      <div permission permission-only="'canWriteComment'">
+        <div class="row">
+          <div class="triggerComment col-xs-12">
+            <a ng-click="toggleCommentZone()">Commenter</a><!-- Bouton d'affichage de la pop-up de création de commentaire -->
+          </div>
+        </div>
+        <div class="row">
+          <div role="document" class="commentTextArea col-xs-8 col-lg-5 col-xs-offset-2">
+            <form ng-show="article.showCommentZone" ng-submit="submitComment()" name="formComment" novalidate>
+              <div class="row">
+                <div class="col-xs-12 form-group">
+                  <input type="hidden" id="articleId" name="articleId" value="{{article.currentArticle._id}}"/>
+                  <label for="comment">Écrivez votre petit mot ci-dessous :</label>
+                  <textarea maxlength="{{maxLength}}" autofocus="autofocus" ng-model="commentText" class="form-control" id="comment" placeholder="Salut, j'aime la Gaming Gen ..." required></textarea>
+                  {{commentText.length || 0 }} / {{maxLength}}
+                  <input type="submit" value="Envoyer">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="disableInfiniteScroll">
+          <div ng-repeat="comment in comments | orderBy : '-register_date'"><!-- Liste des commentaires -->
+            <h6 class="userComment col-xs-8 col-lg-5 col-xs-offset-2">
+              {{comment.pseudo}}, le {{comment.register_date | date : 'dd MMMM yyyy'}}
+            </h6><!-- Auteur du commentaire -->
+            <div class="userCommentContent col-xs-8 col-lg-5 col-xs-offset-2">
+             {{comment.text.substring(0, maxlength)}}
+            </div>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

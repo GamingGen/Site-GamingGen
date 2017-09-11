@@ -1,0 +1,32 @@
+<div ng-controller="AdminListUsersCtrl as lstUsers">
+  <input type="search" ng-model="filter.pseudo" placeholder="Filter les utilisateurs" />
+  <button type="button" ng-click="updateUser()" class="pull-right btn btn-xs btn-warning">Mettre à jour</button>
+  <table class="table table-striped table-condensed table-hover">
+    <thead>
+      <tr>
+        <th class="col-xs-8">
+          Utilisateurs
+        </th>
+        <th class="col-xs-2">
+          Ban ?
+        </th>
+        <th class="col-xs-2">
+          Nrb Permissions ?
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in lstUsers.userList | orderBy : 'pseudo' | filter : filter" ng-click="setSelected(user)" ng-class="{success: user.pseudo === selectedUser.pseudo}">
+        <td>
+          {{user.pseudo}}
+        </td>
+        <td>
+          {{user.access.ban}}
+        </td>
+        <td>
+          {{user.access.permissions.length}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

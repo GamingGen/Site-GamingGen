@@ -2,18 +2,20 @@
 
 var ContainerService = angular.module('ContainerService', []);
 
-ContainerService.service('ManageViewService', function($rootScope, slider) {
+ContainerService.service('ManageViewService', ['$rootScope', function($rootScope) {  // , 'slider'
     this.setView = function(view) {
-        $rootScope.mainView = view;
+        // $rootScope.mainView = view;
         if (view.indexOf('admin') !== -1) {
-          slider.hide(true);
+          // slider.hide(true);
+            $rootScope.showSlider = false;
         }
         else {
-          slider.hide(false);
+          // slider.hide(false);
+        $rootScope.showSlider = true;
         }
         console.log(view);
     };
-    this.getView = function() {
-        return $rootScope.mainView;
-    };
-})
+    // this.getView = function() {
+    //     return $rootScope.mainView;
+    // };
+}]);

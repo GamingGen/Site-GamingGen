@@ -13,14 +13,18 @@ AppControllers.controller('adminMenuSnackCtrl', ['$scope', '$http', 'socket', fu
   
   
   // ----- GET / SET Data -----
-  $http.get('/confs/typeMenu').success(function(data) {
-    menu.list = data;
+  $http.get('/confs/typeMenu').then(function(data) {
+    menu.list = data.data;
     console.log(menu.list);
     $scope.type.name = menu.list[0].name;
+  }).catch(function(err) {
+    console.log(err);
   });
   
-  $http.get('/menusnacks/').success(function(data) {
-    menu.cartes = data;
+  $http.get('/menusnacks/').then(function(data) {
+    menu.cartes = data.data;
+  }).catch(function(err) {
+    console.log(err);
   });
   
   $scope.idSelectedElement = undefined;
@@ -107,10 +111,12 @@ AppControllers.controller('adminMenuSnackCtrl', ['$scope', '$http', 'socket', fu
     modal.find('.modal-title').text(id);
     modal.find('.modal-body').text('Loading...');
     
-    // $http.get('/articles/' + id).success(function(data) {
-    //   console.log(data);
+    // $http.get('/articles/' + id).then(function(data) {
+    //   console.log(data.data);
     //   modal.find('.modal-title').text(data.title);
     //   modal.find('.modal-body').text(data.text);
+    // }).catch(function(err) {
+    //   console.log(err);
     // });
   });
   

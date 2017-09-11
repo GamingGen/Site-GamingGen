@@ -8,9 +8,6 @@ var snackSchema = require('../Model/snackSchema');
 var exports = module.exports = {};
 
 router.get('/getAllOrders', function (req, res) {
-  // snackSchema.find({}, function (err, docs) {
-  //     res.json(docs);
-  // });
   snackSchema.find({}, null, {sort: {number: -1}}, function(err, results) {
       if (err) {
         console.log(err);
@@ -22,9 +19,6 @@ router.get('/getAllOrders', function (req, res) {
 });
 
 router.get('/getOrders/:year', function (req, res) {
-  // snackSchema.find({}, function (err, docs) {
-  //     res.json(docs);
-  // });
   snackSchema.find({year: req.params.year}, null, {sort: {number: -1}}, function(err, results) {
       if (err) {
         console.log(err);
@@ -36,9 +30,6 @@ router.get('/getOrders/:year', function (req, res) {
 });
 
 router.get('/getYears', function (req, res) {
-  // snackSchema.find({}, function (err, docs) {
-  //     res.json(docs);
-  // });
   snackSchema.distinct('year', function(err, results) {
       if (err) {
         console.log(err);
@@ -51,8 +42,8 @@ router.get('/getYears', function (req, res) {
 
 // router.post('/insert', function(req, res) {
 //   var newSnack = new snackSchema({
-//     username      : req.query.username,
-//     title         : req.query.title,
+//     pseudo       : req.query.pseudo,
+//     title        : req.query.title,
 //     text          : req.query.text
 //   });
   

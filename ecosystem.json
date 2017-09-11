@@ -7,7 +7,8 @@
     {
       "name"              : "SI-GamingGen",
       "script"            : "server.js",
-      "exec_mode"         : "fork",
+      "instances"         : 1,
+      "exec_mode"         : "cluster",
       "max_memory_restart": "512M",
       "port"              : 3000,
       "watch"             : false,
@@ -33,37 +34,33 @@
       "ref"               : "origin/develop",
       "repo"              : "https://github.com/GamingGen/Site-GamingGen.git",
       "path"              : "/home/nodeuser/www/pre-production",
-      "pre-deploy-local"  : "echo 'This is a local executed command test Prod'",
-      "post-deploy"       : "npm install ; pm2 startOrReload ecosystem.json --env production",
+      "pre-deploy"        : "echo 'Backup BDD Pre-Prod and process app update'; mongodump --archive=/tmp/gaming-gen_pp.gz --gzip --db gaminggen && rm -fr View/Img;",
+      "post-deploy"       : "npm install && gulp build && gulp optimizeImg && rm -fr View/Partial View/Javascript View/Img View/Style View/css View/js docs OnlyForCloude9 OnlyForVisualCode karma.conf.js .eslintrc .editorconfig && mv View/dist/* View/ && rm -fr View/dist && pm2 startOrReload ecosystem.json;",
       "env" : {
-        "NODE_ENV"  : "production",
-        "NODE_TLS_REJECT_UNAUTHORIZED"  : "0"
+        "NODE_ENV"                      : "production",
+        "NODE_TLS_REJECT_UNAUTHORIZED"  : "0",
+        "NODEMAILER_MAIL"               : process.env.NODEMAILER_MAIL,
+        "NODEMAILER_PASS"               : process.env.NODEMAILER_PASS,
+        "PORT"                          : process.env.PORT
       }
     },
-    
-    "Sebounet"    : {
-      "user"              : "jerem",
-      "host"              : "37.59.62.197",
+    "production"    : {
+      "user"              : "nodeuser",
+      "host"              : "gaming-gen.fr",
       "port"              : "22",
-      "ref"               : "origin/master",
-      "repo"              : "https://github.com/darkterra/Node-Nas-Manager.git",
-      "path"              : "/home/jerem/www/production",
-      "pre-deploy-local"  : "echo 'This is a local executed command test Prod'",
-      "post-deploy"       : "npm install ; pm2 startOrReload ecosystem.json --env production"
-    },
-    "dev" : {
-      "user"              : "pi",
-      "host"              : "88.178.56.66",
-      "port"              : "2223",
-      "key"               : "/home/ubuntu/.ssh/id_rsa_pm2_rpiB",
-      "ref"               : "origin/master",
-      "repo"              : "https://github.com/darkterra/Node-Nas-Manager.git",
-      "path"              : "/home/pi/www/development",
-      "pre-deploy-local"  : "echo 'This is a local executed command test Dev'",
-      "post-deploy"       : "npm install ; pm2 startOrReload ecosystem.json --env dev",
+      "key"               : "/home/ubuntu/.ssh/id_rsa_prod_nodeuser",
+      "ref"               : "origin/develop",
+      "repo"              : "https://github.com/GamingGen/Site-GamingGen.git",
+      "path"              : "/home/nodeuser/www/production",
+      "pre-deploy"        : "echo 'Backup BDD Prod and process app update'; mongodump --archive=/tmp/gaming-gen_prod.gz --gzip --db gaminggen && rm -fr View/Img;",
+      "post-deploy"       : "npm install && gulp build && gulp optimizeImg && rm -fr View/Partial View/Javascript View/Img View/Style View/css View/js docs OnlyForCloude9 OnlyForVisualCode karma.conf.js .eslintrc .editorconfig && mv View/dist/* View/ && rm -fr View/dist && pm2 startOrReload ecosystem.json;",
       "env" : {
-        "NODE_ENV"  : "dev"
+        "NODE_ENV"                      : "production",
+        "NODE_TLS_REJECT_UNAUTHORIZED"  : "0",
+        "NODEMAILER_MAIL"               : process.env.NODEMAILER_MAIL,
+        "NODEMAILER_PASS"               : process.env.NODEMAILER_PASS,
+        "PORT"                          : 80
       }
-    }
+    },
   }
 }

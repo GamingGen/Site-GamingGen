@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>HttpBuffer.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>HttpBuffer.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*'use strict';
+
+var HttpBufferFactory = angular.module('HttpBufferFactory', []);
+
+HttpBufferFactory.factory("httpBufferService", function($injector) {
+  var $http;
+  var buffer = {};
+  
+  return {
+    storeRequest: function(request) {
+      buffer = request;
+    },
+    retryLastRequest: function() {
+      
+      function successCallback(response) {
+        buffer.deferred.resolve(response);
+      }
+      
+      function errorCallback(response) {
+        buffer.deferred.reject(response);
+      }
+      $http = $http || $injector.get("$http");
+      $http(buffer.config).then(successCallback, errorCallback);
+    }
+  };
+});*/</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

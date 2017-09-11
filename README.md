@@ -20,9 +20,9 @@ Installation Prod (Ubuntu Server 16.04 LTS):
         - sudo apt-get install libcap2-bin
         - sudo setcap cap_net_bind_service=+ep /usr/bin/nodejs
     
-    2. Installer Node.JS(6.xx.x) & NPM (3.x)
+    2. Installer Node.JS(7.xx.x) & NPM (3.x)
         - sudo apt-get install curl
-        - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+        - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
         - sudo apt-get install -y nodejs
         - sudo npm install -g npm
         * [INFO]: https://github.com/nodesource/distributions
@@ -47,9 +47,12 @@ Installation Prod (Ubuntu Server 16.04 LTS):
         - pm2 install pm2-mongodb (Déjà activé ?)
         * [INFO]: http://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/
     
-    6. Certificat SSL
-        - Faire la demande (ou en créer un en auto-signé mais fortement déconseillé)
-        - pm2 install pm2-mongodb (Déjà activé ?)
+    6. Installer GraphicsMagick
+        - sudo apt-get install graphicsmagick
+        
+    7. Certificat SSL
+        - Faire la demande (ou en créer un en auto-signé mais fortement déconseillé) Let's Encrypt
+        * [INFO] https://www.unsimpleclic.com/lets-encrypt-un-certificat-ssl-gratuit-et-reconnu-par-tous-les-navigateurs_98699.html
         * [INFO]: https://www.sitepoint.com/how-to-use-ssltls-with-node-js/
 
 2. Configuration du serveur
@@ -66,7 +69,8 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     - Créer le Workspase (préciser le repo Github)
 
 2. Installation
-    1. Node.JS (6.x.x)
+    1. Node.JS (7.x.x)
+        - utiliser nvm (gestionnaire de version Node.js)
 
     2. MongoDB (3.x)
         - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
@@ -78,8 +82,8 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
     3. PM2
         - sudo npm install -g pm2
     
-    4. Grunt CLI
-        - npm install -g grunt-cli
+    4. Installer GraphicsMagick
+        - sudo apt-get install graphicsmagick
 
 3. Configuration
     1. Créer un dossier permettant d'accueillir la BDD
@@ -127,6 +131,9 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
             # Configuration Cloud9 Files
             .c9
             
+            # Configuration Visual Code Files
+            .vscode
+            
             # Dependency directory
             node_modules
             npm-debug.log
@@ -134,11 +141,22 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
             # DataBase
             data
             
+            # Certificat
+            *.pem
+            *.csr
+            certbot-auto
+            
             # Only for Dev
-            mongod
-            mongodRepair
-            mongodShutDown
+            mongod*
+            mongodRepair*
+            mongodShutDown*
+            *.bat
             adminMongo
+            dump*
+            View/dist
+            View/css
+            View/js
+            OnlyForCloude9/tmp
 
 4.  Tools
         - http://blog.mlab.com/2012/06/introducing-dex-the-index-bot/
@@ -152,37 +170,42 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
         - http://jasmine.github.io/2.0/introduction.html
         - http://www.responsinator.com/?url=https://si-gaminggen-darkterra-1.c9users.io/#/home
 
-5.  Infos
-        - https://cdnjs.com/libraries/angular.js/1.5.7
-        - http://www.angular-js.fr/decouvrez-angularjs/
-        - https://openclassrooms.com/courses/developpez-vos-applications-web-avec-angularjs/
-        - http://stackoverflow.com/questions/22189544/print-a-div-using-javascript-in-angularjs-single-page-aplication
-        - http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr
-        - http://www.tutoriel-angularjs.fr/tutoriel/2-utilisation-complete-d-angularjs/1-le-routage
-        - http://www.tinci.fr/blog/apprendre-angular-en-un-jour-le-guide-ultime/
-        - http://www.funnyant.com/angularjs-ui-router/
-        - https://egghead.io/lessons/angularjs-introduction-ui-router
-        - http://slides.com/timkindberg/ui-router#/
-        - https://github.com/imperugo/NodeJs-Sample/blob/master/Logging/WinstonSample/express-configuration/index.js
-        - https://blog.serverdensity.com/monitor-mongodb/
-        - http://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619
-        - https://github.com/jaredhanson/passport-local
-        - http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/
-        - http://www.synbioz.com/blog/les_collections_avec_mongodb
-        - https://davidwalsh.name/fullscreen
-        - http://jsfiddle.net/rabidGadfly/GF3Xg/
-        - https://scotch.io/bar-talk/bootstrap-3-tips-and-tricks-you-still-might-not-know
-        - http://www.tutorialspoint.com/mongodb/mongodb_quick_guide.htm
-        - https://jsfiddle.net/alexsuch/RLQhh/
-        - http://blogs.infinitesquare.com/b/seb/archives/gestion-authorization-angularjs#.V2vaP_mLTRY
-        - http://maxlab.fr/javascript/securiser-spa-partie2-client-angularjs/
-        - https://www.occitech.fr/blog/2014/04/lauthentification-avec-angularjs/
-        - https://hnryjms.github.io/2014/04/authentication/
-        - https://gist.github.com/aheckmann/2408370
-        - http://marketblog.envato.com/web-design/addons-plugins-extending-bootstrap/
-        - http://connect.adfab.fr/outils/les-tests-de-charge-kesako
-        - https://github.com/mlazarov/ddos-stress
-        - https://github.com/justintv/Twitch-API
+5. Infos
+    - https://cdnjs.com/libraries/angular.js/1.5.7
+    - https://www.grafikart.fr/formations/angularjs/directives
+    - http://www.angular-js.fr/decouvrez-angularjs/
+    - https://openclassrooms.com/courses/developpez-vos-applications-web-avec-angularjs/
+    - http://stackoverflow.com/questions/22189544/print-a-div-using-javascript-in-angularjs-single-page-aplication
+    - http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr
+    - http://www.tutoriel-angularjs.fr/tutoriel/2-utilisation-complete-d-angularjs/1-le-routage
+    - http://www.tinci.fr/blog/apprendre-angular-en-un-jour-le-guide-ultime/
+    - http://www.funnyant.com/angularjs-ui-router/
+    - https://egghead.io/lessons/angularjs-introduction-ui-router
+    - http://slides.com/timkindberg/ui-router#/
+    - https://github.com/imperugo/NodeJs-Sample/blob/master/Logging/WinstonSample/express-configuration/index.js
+    - https://blog.serverdensity.com/monitor-mongodb/
+    - http://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619
+    - https://github.com/jaredhanson/passport-local
+    - http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/
+    - http://www.synbioz.com/blog/les_collections_avec_mongodb
+    - https://davidwalsh.name/fullscreen
+    - http://jsfiddle.net/rabidGadfly/GF3Xg/
+    - https://scotch.io/bar-talk/bootstrap-3-tips-and-tricks-you-still-might-not-know
+    - http://www.tutorialspoint.com/mongodb/mongodb_quick_guide.htm
+    - https://jsfiddle.net/alexsuch/RLQhh/
+    - http://blogs.infinitesquare.com/b/seb/archives/gestion-authorization-angularjs#.V2vaP_mLTRY
+    - http://maxlab.fr/javascript/securiser-spa-partie2-client-angularjs/
+    - https://www.occitech.fr/blog/2014/04/lauthentification-avec-angularjs/
+    - https://hnryjms.github.io/2014/04/authentication/
+    - https://gist.github.com/aheckmann/2408370
+    - http://marketblog.envato.com/web-design/addons-plugins-extending-bootstrap/
+    - http://connect.adfab.fr/outils/les-tests-de-charge-kesako
+    - https://github.com/mlazarov/ddos-stress
+    - https://github.com/justintv/Twitch-API
+    - https://www.atlassian.com/git/tutorials/undoing-changes/git-clean
+    - https://filipbech.github.io/2017/02/service-worker-and-caching-from-other-origins
+    - http://12devsofxmas.co.uk/2016/01/day-9-service-worker-santas-little-performance-helper/
+    - 
     
     
         - https://www.tipeeestream.com/
@@ -202,4 +225,7 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
 
 10. Tests (Obligatoire !!!)
         - https://www.grafikart.fr/formations/javascript-unit-test/test-angularjs-mocks
+
+11. MailTo :
+        - https://blog.hubspot.com/marketing/set-gmail-as-browser-default-email-client-ht
 ```

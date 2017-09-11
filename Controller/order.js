@@ -8,9 +8,6 @@ var orderSchema = require('../Model/orderSchema');
 var exports = module.exports = {};
 
 router.get('/getAllOrders', function (req, res) {
-  // snackSchema.find({}, function (err, docs) {
-  //     res.json(docs);
-  // });
   orderSchema.find({}, null, {sort: {number: -1}}, function(err, results) {
       if (err) {
         console.log(err);
@@ -22,9 +19,6 @@ router.get('/getAllOrders', function (req, res) {
 });
 
 router.get('/getOrders/:year', function (req, res) {
-  // snackSchema.find({}, function (err, docs) {
-  //     res.json(docs);
-  // });
   orderSchema.find({year: req.params.year}, null, {sort: {number: -1}}, function(err, results) {
       if (err) {
         console.log(err);
@@ -36,9 +30,6 @@ router.get('/getOrders/:year', function (req, res) {
 });
 
 router.get('/getYears', function (req, res) {
-  // snackSchema.find({}, function (err, docs) {
-  //     res.json(docs);
-  // });
   orderSchema.distinct('year', function(err, results) {
       if (err) {
         console.log(err);
