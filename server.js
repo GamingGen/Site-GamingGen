@@ -9,7 +9,7 @@
  * Date de Création 30/04/2016 <br />
  * Date de modification 02/09/2017 <br />
  * 
- * @version Alpha 1.4.0
+ * @version Alpha 1.5.0
  * 
  * @author Jérémy Young            <darkterra01@gmail.com>
  * @author Loïc Tardivel-Lacombe   <loic.tardivel@gmail.com>
