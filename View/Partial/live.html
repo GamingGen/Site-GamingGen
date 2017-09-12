@@ -25,11 +25,11 @@
       <div ng-if="$parent.live.Twitch">
         <div class="embed-responsive embed-responsive-16by9">
           <!--<div id="TwitchPlayer"></div>-->
-          <iframe ng-src="{{channel}}" frameborder="0" scrolling="no"></iframe>
+          <iframe ng-src="{{::channel}}" frameborder="0" scrolling="no"></iframe>
         </div>
         
         <div class="well chat hidden-sm hidden-xs">
-          <iframe ng-src="{{chatChannel}}" frameborder="0" scrolling="no" height="500" width="340"></iframe>
+          <iframe ng-src="{{::chatChannel}}" frameborder="0" scrolling="no" height="500" width="340"></iframe>
         </div>
       </div>
     </div>

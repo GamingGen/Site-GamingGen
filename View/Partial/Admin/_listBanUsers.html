@@ -14,7 +14,7 @@
     <tbody>
       <tr ng-repeat="user in lstUsers.data.banList | orderBy : 'pseudo' | filter : filter">
         <td>
-          {{user.pseudo}}
+          {{::user.pseudo}}
         </td>
         <td>
           <button permission permission-only="'canUnBan'" ng-click="unbanUser(user)" class="btn btn-success center-block"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>

@@ -18,9 +18,6 @@
           onEnter     : ['ManageViewService', function(ManageViewService) {
             console.log('I am In home Section !');
             ManageViewService.setView(normalLayout);
-            particlesJS.load('particles-js', 'Conf/particles.json', function() {
-              console.log('callback - particles.js config loaded');
-            });
           }]
         })
         .state('404', {

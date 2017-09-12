@@ -18,13 +18,13 @@
     <tbody>
       <tr ng-repeat="user in lstUsers.userList | orderBy : 'pseudo' | filter : filter" ng-click="setSelected(user)" ng-class="{success: user.pseudo === selectedUser.pseudo}">
         <td>
-          {{user.pseudo}}
+          {{::user.pseudo}}
         </td>
         <td>
-          {{user.access.ban}}
+          {{::user.access.ban}}
         </td>
         <td>
-          {{user.access.permissions.length}}
+          {{::user.access.permissions.length}}
         </td>
       </tr>
     </tbody>

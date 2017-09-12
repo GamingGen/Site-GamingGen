@@ -87,19 +87,19 @@
                     <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                   </td>
                   <td>
-                    {{element.name}}
+                    {{::element.name}}
                   </td>
                   <td>
-                    {{element.type}}
+                    {{::element.type}}
                   </td>
                   <td>
-                    {{element.unit_price}}
+                    {{::element.unit_price}}
                   </td>
                   <td>
-                    {{element.quantity}}
+                    {{::element.quantity}}
                   </td>
                   <td>
-                    {{element.quantity_min}}
+                    {{::element.quantity_min}}
                   </td>
                 </tr>
               </tbody>
@@ -126,7 +126,7 @@
                   <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </td>
                 <td>
-                  {{carte.year}}
+                  {{::carte.year}}
                 </td>
               </tr>
             </tbody>
@@ -160,22 +160,22 @@
             <tbody>
               <tr ng-repeat="element in carte.elements" ng-click="setChildSelected($index)" ng-class="{success: $index === idChildSelectedElement}">
                 <td>
-                  <button ng-click="editRow(element.name)" class="btn btn-warning"data-toggle="modal" data-target="#adminSnackModal" data-id="{{element.name}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  <button ng-click="editRow(element.name)" class="btn btn-warning"data-toggle="modal" data-target="#adminSnackModal" data-id="{{::element.name}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                 </td>
                 <td>
-                  {{element.name}}
+                  {{::element.name}}
                 </td>
                 <td>
-                  {{element.type}}
+                  {{::element.type}}
                 </td>
                 <td>
-                  {{element.unit_price}}
+                  {{::element.unit_price}}
                 </td>
                 <td>
-                  {{element.quantity}}
+                  {{::element.quantity}}
                 </td>
                 <td>
-                  {{element.quantity_min}}
+                  {{::element.quantity_min}}
                 </td>
               </tr>
             </tbody>

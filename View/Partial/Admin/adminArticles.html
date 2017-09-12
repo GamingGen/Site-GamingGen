@@ -47,14 +47,14 @@
         <div class="row">
           <div class="col-md-3">
             <form>
-              <input type="text" maxlength="{{maxLengthTitle}}" class="form-control" id="title" ng-model="title" placeholder="Titre" required>
-              {{title.length || 0 }} / {{maxLengthTitle}}
+              <input type="text" maxlength="{{::maxLengthTitle}}" class="form-control" id="title" ng-model="title" placeholder="Titre" required>
+              {{::title.length || 0 }} / {{::maxLengthTitle}}
             </form>
           </div>
           <div class="col-md-9">
             <form>
-              <input type="text" maxlength="{{maxLengthDesc}}" class="form-control" id="desc" ng-model="desc" placeholder="Description" required>
-              {{desc.length || 0 }} / {{maxLengthDesc}}
+              <input type="text" maxlength="{{::maxLengthDesc}}" class="form-control" id="desc" ng-model="desc" placeholder="Description" required>
+              {{::desc.length || 0 }} / {{::maxLengthDesc}}
             </form>
           </div>
         </div>
@@ -130,24 +130,24 @@
           <!--    <tbody>-->
           <!--      <tr ng-repeat="article in article.lstArticles | orderBy : '-update_at' | filter : titleArticle" ng-click="setArticleSelected($index)" ng-class="{success: $index === selectedArticle}">-->
           <!--        <td>-->
-          <!--          <button ngclipboard data-clipboard-text="{{baseArticleUrl}}{{article._id}}" ngclipboard-success="onSuccess(e);" ngclipboard-error="onError(e);" class="btn btn-primary" title="Copier le lien"><i class="fa fa-clipboard" aria-hidden="true"></i></button>-->
+          <!--          <button ngclipboard data-clipboard-text="{{::baseArticleUrl}}{{article._id}}" ngclipboard-success="onSuccess(e);" ngclipboard-error="onError(e);" class="btn btn-primary" title="Copier le lien"><i class="fa fa-clipboard" aria-hidden="true"></i></button>-->
           <!--          <button permission permission-only="'ADMIN_REDACTEUR'" ng-click="prepareRemoveArticle(article)" class="btn btn-danger" data-toggle="modal" data-target="#rmModal" title="Supprimer l'article"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
           <!--          <button ng-show="(user.isLoggedIn && canEditArticle && article.pseudo === user.pseudo) || canEditOtherArticle" class="btn btn-warning" ng-click="editArticle(article)" title="modifier l'article"><i class="fa fa-pencil" aria-hidden="true"></i></button>-->
           <!--        </td>-->
           <!--        <td>-->
-          <!--          {{article.title}}-->
+          <!--          {{::article.title}}-->
           <!--        </td>-->
           <!--        <td>-->
-          <!--          {{article.desc}}-->
+          <!--          {{::article.desc}}-->
           <!--        </td>-->
           <!--        <td>-->
-          <!--          {{article.pseudo}}-->
+          <!--          {{::article.pseudo}}-->
           <!--        </td>-->
           <!--        <td>-->
-          <!--          {{article.register_date | date : 'dd MMM yyyy - HH:mm:ss'}}-->
+          <!--          {{::article.register_date | date : 'dd MMM yyyy - HH:mm:ss'}}-->
           <!--        </td>-->
           <!--        <td>-->
-          <!--          {{article.update_at | date : 'dd MMM yyyy - HH:mm:ss'}}-->
+          <!--          {{::article.update_at | date : 'dd MMM yyyy - HH:mm:ss'}}-->
           <!--        </td>-->
           <!--      </tr>-->
           <!--    </tbody>-->
@@ -186,16 +186,16 @@
               <tbody>
                 <tr ng-repeat="article in article.lstArticles | orderBy : '-update_at' | filter : titleArticle" ng-click="setSelected($index, article)" ng-class="{success: $index === idSelectedElement}">
                   <td>
-                    {{article.title}}
+                    {{::article.title}}
                   </td>
                   <td>
-                    {{article.pseudo}}
+                    {{::article.pseudo}}
                   </td>
                   <td>
-                    {{article.update_at | date : 'dd MMM yyyy - HH:mm:ss'}}
+                    {{::article.update_at | date : 'dd MMM yyyy - HH:mm:ss'}}
                   </td>
                   <td>
-                    {{article.comments.length}}
+                    {{::article.comments.length}}
                   </td>
                 </tr>
               </tbody>
@@ -227,13 +227,13 @@
                   </td>
                   </td>
                   <td>
-                    {{comment.text}}
+                    {{::comment.text}}
                   </td>
                   <td>
-                    {{comment.pseudo}}
+                    {{::comment.pseudo}}
                   </td>
                   <td>
-                    {{comment.register_date | date : 'dd MMM yyyy - HH:mm:ss'}}
+                    {{vcomment.register_date | date : 'dd MMM yyyy - HH:mm:ss'}}
                   </td>
                 </tr>
               </tbody>

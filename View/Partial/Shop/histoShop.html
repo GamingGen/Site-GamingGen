@@ -6,7 +6,7 @@
           Année <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li ng-repeat="year in histo.years"><a href="" ng-show="year" ng-click="SearchByYear(year)">{{year}}</a></li>
+          <li ng-repeat="year in histo.years"><a href="" ng-show="year" ng-click="SearchByYear(year)">{{::year}}</a></li>
         </ul>
       </div>
     </div>
@@ -39,19 +39,19 @@
         <tbody>
           <tr ng-repeat="element in histo.elements | orderBy : '-register_date'" ng-class="{danger: element.printed_client == 0}">
             <td>
-              {{element.year}}
+              {{::element.year}}
             </td>
             <td>
-              {{element.number}}
+              {{::element.number}}
             </td>
             <td>
-              {{element.name}}
+              {{::element.name}}
             </td>
             <td>
-              {{element.total | currency}}
+              {{::element.total | currency}}
             </td>
             <td>
-              {{element.printed_client > 0 ? 'Oui' : 'Non'}}
+              {{::element.printed_client > 0 ? 'Oui' : 'Non'}}
             </td>
             <td>
               <button ng-click="Print($index)" class="btn btn-info btn-sm"><i class="fa fa-print" aria-hidden="true"></i></button>

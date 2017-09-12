@@ -18,11 +18,11 @@
         <td>
           <button ng-show="lstPermissions.data.tab === 1" ng-click="removePermission(permission)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
           <div ng-hide="lstPermissions.data.tab === 1">
-            {{permission.allowed === true}}
+            {{::permission.allowed === true}}
           </div>
         </td>
         <td>
-          {{permission.name}}
+          {{::permission.name}}
         </td>
       </tr>
     </tbody>

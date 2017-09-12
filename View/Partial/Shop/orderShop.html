@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="pull-left">
-        <span class="label label-primary">Total: <b>{{shop.total | currency}}</b></span>
+        <span class="label label-primary">Total: <b>{{::shop.total | currency}}</b></span>
         <br/>
-        <span class="label label-default">Elements: {{shop.elements.length}}</span>
+        <span class="label label-default">Elements: {{::shop.elements.length}}</span>
       </div>
       <div class="col-xs-10 text-center">
         <div class="center-block">
@@ -27,7 +27,7 @@
           Goodies <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li ng-repeat="element in shop.lists | filter:{type:'Goodies'}"><a href="" ng-click="addRow(element.name, element.unit_price)" class="label-success"><b>{{element.name}}</b></a></li>
+          <li ng-repeat="element in shop.lists | filter:{type:'Goodies'}"><a href="" ng-click="addRow(element.name, element.unit_price)" class="label-success"><b>{{::element.name}}</b></a></li>
         </ul>
       </div>
       
@@ -36,7 +36,7 @@
           Remises <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li ng-repeat="element in shop.lists | filter:{type:'Discount'}"><a href="" ng-click="addDiscount(element.name, element.unit_price)" class="label-warning"><b>- {{element.name}}</b></a></li>
+          <li ng-repeat="element in shop.lists | filter:{type:'Discount'}"><a href="" ng-click="addDiscount(element.name, element.unit_price)" class="label-warning"><b>- {{::element.name}}</b></a></li>
         </ul>
       </div>
     </div>
@@ -68,13 +68,13 @@
                 <button ng-click="removeRow($index)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
               </td>
               <td>
-                {{element.quantity}}
+                {{::element.quantity}}
               </td>
               <td>
-                {{element.name}}
+                {{::element.name}}
               </td>
               <td>
-                {{element.price | currency}}
+                {{::element.price | currency}}
               </td>
               <td>
                 <button ng-click="addQuantity($index)" class="btn btn-success btn-xs"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
