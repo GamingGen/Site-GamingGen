@@ -271,18 +271,18 @@
                 <span class="backgroundInscription"></span>
             </div>
             <div class="modal-body col-md-6">
-              Nom WebApp: <strong>{{about.name}}</strong>
+              Nom WebApp: <strong>{{::about.name}}</strong>
               <br /><br />
               Master: <img src="https://circleci.com/gh/GamingGen/Site-GamingGen/tree/master.svg?style=svg">
               <br />
               Develop: <img src="https://circleci.com/gh/GamingGen/Site-GamingGen/tree/develop.svg?style=svg">
               <br /><br />
-              Version: <p>{{about.version}}</p>
+              Version: <p>{{::about.version}}</p>
               <br />
-              Autheur: <p>{{about.author}}</p>
+              Autheur: <p>{{::about.author}}</p>
               <br />
               Contributeurs : 
-              <p ng-repeat="contributor in about.contributors">{{contributor}}</p>
+              <p ng-repeat="contributor in about.contributors">{{::contributor}}</p>
               <!--<div class="bottomFooter row">-->
               <!--  <a type="submit" ng-click="submitLogin()" class="btnForm ValidInscription" ng-disabled="formConnection.$invalid">Connexion</a>-->
               <!--  <a type="button" id="closeConnection" class="btnForm CancelInscription" data-dismiss="modal">Annuler</a>-->
@@ -399,7 +399,7 @@
                   <!--<li ng-show="User.accessLvl > 5"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>-->
                   <!--<li ng-show="User.accessLvl > 5"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>-->
                     <!--<li role="separator" class="divider"></li>-->
-                    <li><a ui-sref="about" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
+                    <li><a ui-sref="about" ng-click="getAbout()" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
                   <li role="separator" class="divider"></li>
                   <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
                 </ul>
