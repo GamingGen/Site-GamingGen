@@ -10,7 +10,12 @@
               {{::article.currentArticle.pseudo}}
           </h3><!-- Auteur de l'article -->
           <p class="texteArticleContent">
-              {{::article.currentArticle.register_date | date : 'dd MMMM yyyy'}}
+              <div ng-if="article.currentArticle.register_date" class="pull-left">
+                Créer le: {{::article.currentArticle.register_date | date : 'dd MMMM yyyy'}}
+              </div>
+              <div ng-if="(article.currentArticle.register_date | date : 'dd MMMM yyyy') !== (article.currentArticle.update_at | date : 'dd MMMM yyyy')" class="pull-right">
+                Mis à jour le: {{::article.currentArticle.update_at | date : 'dd MMMM yyyy'}}
+              </div>
           </p><!-- Date de l'article -->
         </div>
       </div>
