@@ -12,6 +12,7 @@
       "max_memory_restart": "512M",
       "port"              : 3000,
       "watch"             : false,
+      "log_date_format"   : "YYYY-MM-DD HH:mm Z",
       "env"               : {
         "COMMON_VARIABLE"   : "true"
       },
