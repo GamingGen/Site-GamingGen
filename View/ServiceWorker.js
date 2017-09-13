@@ -1,4 +1,4 @@
-'use strict'; 
+'use strict';
 
 const CACHE_NAME = 'gaming-gen-cache-v1';
 let urlsToCache = [
