@@ -279,7 +279,7 @@
               <br /><br />
               Version: <p>{{::about.version}}</p>
               <br />
-              Autheur: <p>{{::about.author}}</p>
+              Auteur: <p>{{::about.author}}</p>
               <br />
               Contributeurs : 
               <p ng-repeat="contributor in about.contributors">{{::contributor}}</p>
@@ -789,6 +789,16 @@
             window.loading_screen.finish();
             
             new WOW().init();
+            
+            
+
+// navigator.storageQuota.queryInfo("temporary").then(function(info) {
+//   console.log('JYO');
+//   console.log(info.quota);
+//   // Result: <quota in bytes>
+//   console.log(info.usage);
+//   // Result: <used data in bytes>
+// });
             
             particlesJS.load('particles-js', 'Conf/particles.json', function() {
               console.log('callback - particles.js config loaded');

@@ -1,4 +1,4 @@
-# Dev Files
+# Only for Dev
 *.csv
 *.dat
 *.iml
@@ -15,6 +15,18 @@
 .idea
 .project
 coverage
+mongod*
+mongodRepair*
+mongodShutDown*
+*.bat
+adminMongo
+dump*
+View/dist
+View/css
+View/js
+View/Style/.sass-cache
+View/Style/*.css*
+OnlyForCloude9/tmp
 
 # Configuration Cloud9 Files
 .c9
@@ -29,21 +41,10 @@ npm-debug.log
 # DataBase
 data
 
+# Backup
+Backup
+
 # Certificat
 *.pem
 *.csr
 certbot-auto
-
-# Only for Dev
-mongod*
-mongodRepair*
-mongodShutDown*
-*.bat
-adminMongo
-dump*
-View/dist
-View/css
-View/js
-View/Style/.sass-cache
-View/Style/*.css*
-OnlyForCloude9/tmp
