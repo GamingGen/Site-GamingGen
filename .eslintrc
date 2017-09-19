@@ -11,6 +11,7 @@
     "window"        : false,
     "document"      : false,
     "bowser"        : false,
+    "Notification"  : false,
     "WOW"           : false,
     "ga"            : false,
     "angular"       : false,
