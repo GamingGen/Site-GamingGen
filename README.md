@@ -50,7 +50,12 @@ Installation Prod (Ubuntu Server 16.04 LTS):
     6. Installer GraphicsMagick
         - sudo apt-get install graphicsmagick
         
-    7. Certificat SSL
+    7. Installer libstdc
+        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        - sudo apt-get update
+        - sudo apt-get install libstdc++6
+        
+    8. Certificat SSL
         - Faire la demande (ou en créer un en auto-signé mais fortement déconseillé) Let's Encrypt
         * [INFO] https://www.unsimpleclic.com/lets-encrypt-un-certificat-ssl-gratuit-et-reconnu-par-tous-les-navigateurs_98699.html
         * [INFO]: https://www.sitepoint.com/how-to-use-ssltls-with-node-js/
@@ -78,12 +83,18 @@ Installation Dev (Cloude9 - Ubuntu 14.04 LTS):
         - sudo apt-get update
         - sudo apt-get install -y mongodb-org
         * [INFO]: https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/
+        * sudo touch /etc/init.d/mongod
     
     3. PM2
         - sudo npm install -g pm2
     
     4. Installer GraphicsMagick
         - sudo apt-get install graphicsmagick
+        
+    5. Installer libstdc
+        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        - sudo apt-get update
+        - sudo apt-get install libstdc++6
 
 3. Configuration
     1. Créer un dossier permettant d'accueillir la BDD

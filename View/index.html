@@ -546,14 +546,14 @@
         </div>
       </div>
     </nav>
-    <ul ng-show="showSlider" class="orangebox">
+    <!--<ul ng-show="showSlider" class="orangebox">-->
         <!--A décommenter dès que l'inscription est terminé-->
         <!--<a href="" class="btnins toCollapse" data-toggle="modal" data-target="#registrationModal">-->
         <!--  Créer un compte-->
         <!--</a>-->
         
         <!--A supprimer dès que l'inscription est terminé-->
-        <a ng-hide="User.isLoggedIn" href="https://www.eventbrite.fr/o/gaming-generation-14418911767" target="_blank"><img src="Img/General/eventbritebutton.png" alt="Eventbrite - Gaming Gen #Level6 23-24 Sept." /></a>
+    <!--    <a ng-hide="User.isLoggedIn" href="https://www.eventbrite.fr/o/gaming-generation-14418911767" target="_blank"><img src="Img/General/eventbritebutton.png" alt="Eventbrite - Gaming Gen #Level6 23-24 Sept." /></a>-->
 
       
       <!--A décommenter dès que l'inscription est terminé-->
@@ -563,26 +563,26 @@
         <!--</a>-->
       <!--</li>-->
       <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
-      <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">
-        <div class="bienvenue-user-pseudo">
-          <img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b>
-        </div>
-        <div class="mon-compte-container">
-          <a href="" class="dropdown-toggle mon-compte" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Mon Compte
-          </a>
-          <ul class="loggedmenu dropdown-menu">
+    <!--  <li ng-show="User.isLoggedIn" ui-sref-active="active" class="dropdown loggedici">-->
+    <!--    <div class="bienvenue-user-pseudo">-->
+    <!--      <img ng-src="../Img/Profils/defaultProfil.jpg" alt="..." class="resizeProfil img-circle"> Bienvenue  <b>{{User.pseudo}}</b>-->
+    <!--    </div>-->
+    <!--    <div class="mon-compte-container">-->
+    <!--      <a href="" class="dropdown-toggle mon-compte" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
+    <!--        Mon Compte-->
+    <!--      </a>-->
+    <!--      <ul class="loggedmenu dropdown-menu">-->
             <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.profil"><i class="fa fa-user-secret fa-fw" aria-hidden="true"></i> Mon profil</a></li>-->
             <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.team"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Ma Team</a></li>-->
             <!--<li ng-show="User.accessLvl > 1"><a ui-sref="member.stats"><i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Mes Stats</a></li>-->
             <!--<li ng-show="User.accessLvl > 1" role="separator" class="divider"></li>-->
-            <li><a ui-sref="about" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>
-            <li role="separator" class="divider"></li>
-            <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
+    <!--        <li><a ui-sref="about" data-toggle="modal" data-target="#aboutModal"><i class="fa fa-wrench fa-fw" aria-hidden="true"></i> A propos de</a></li>-->
+    <!--        <li role="separator" class="divider"></li>-->
+    <!--        <li ng-click="Logout()"><a href=""><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Déconnexion</a></li>-->
+    <!--      </ul>-->
+    <!--    </div>-->
+    <!--  </li>-->
+    <!--</ul>-->
     <!--Messages d'erreur -->
     <div id="msgError" class="alert alert-danger popUpMessage" role="alert"></div>
     <!--<div id="msgError" class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" role="alert"></div>-->

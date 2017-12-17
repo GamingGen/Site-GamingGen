@@ -39,6 +39,8 @@ const os            = require('os');
 const moment        = require('moment');
 const nodemailer    = require('nodemailer');
 const sticky        = require('sticky-session');
+const helmet        = require('helmet');
+const napa          = require('napajs');
 
 
 // let resumable    = require('./resumable-node.js')('tmp/');
@@ -100,12 +102,38 @@ colors.setTheme({
   error   : 'red'
 });
 
+//////////////////////////////////// TEST //////////////////////////////////////
+// Conf Zones
+const zone1 = napa.zone.create('zone1', { workers: 4 });
 
-// Conf port
+zone1.broadcast((state) => {
+    console.log(JSON.stringify(state));
+// }, [ {field1: 1} ])
+})
+.then(() => {
+    console.log('broadcast succeeded.');
+})
+.catch((error) => {
+    console.log(`broadcast failed: ${error}`);
+});
+
+zone1.execute((a, b, c) => {
+        return a + b + JSON.stringify(c);
+    }, [1, "hello", {field1: 1}])
+.then((result) => {
+    console.log('execute succeeded:', result.value);
+})
+.catch((error) => {
+    console.log('execute failed:', error);
+});
+
+//////////////////////////////////// TEST //////////////////////////////////////
+
+// Conf Port
 const port = process.env.PORT || 3000;
 
 
-// Conf session
+// Conf Session
 const EXPRESS_SID_VALUE = 'Secret Keyboard DarkTerra Cat';
 const sessionMiddleware = session({
   secret              : EXPRESS_SID_VALUE,
@@ -115,7 +143,8 @@ const sessionMiddleware = session({
 });
 
 
-// Conf app
+// Conf App
+app.use(helmet());
 app.use(compression({filter: shouldCompress}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
