@@ -14,7 +14,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   pages.snackRPI  = [];
   
   
-  $scope.slider = '../Img/Slider/OPTIMIZED-SLIDER-MC-GG.png';
+  $scope.slider = '../Img/Slider/OPTIMIZED-SLIDER-LG.jpg';
   $scope.sliderSRCSET = '../Img/Slider/OPTIMIZED-SLIDER-XS.jpg 800w, ../Img/Slider/OPTIMIZED-SLIDER-MD.jpg 1300w, ../Img/Slider/OPTIMIZED-SLIDER-LG.jpg 2000w';
   
   
