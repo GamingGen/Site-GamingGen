@@ -57,8 +57,12 @@ Installation Prod (Ubuntu Server 16.04 LTS):
         
     8. Certificat SSL
         - Faire la demande (ou en créer un en auto-signé mais fortement déconseillé) Let's Encrypt
-        * [INFO] https://www.unsimpleclic.com/lets-encrypt-un-certificat-ssl-gratuit-et-reconnu-par-tous-les-navigateurs_98699.html
+        * [INFO]: https://www.unsimpleclic.com/lets-encrypt-un-certificat-ssl-gratuit-et-reconnu-par-tous-les-navigateurs_98699.html
         * [INFO]: https://www.sitepoint.com/how-to-use-ssltls-with-node-js/
+    
+    9. Auth port 80
+        * [INFO ?]: https://www.digitalocean.com/community/tutorials/how-to-use-pm2-to-setup-a-node-js-production-environment-on-an-ubuntu-vps
+        * [INFO]: http://pm2.keymetrics.io/docs/usage/specifics/#listening-on-port-80-w-o-root
 
 2. Configuration du serveur
     1. Ouvrir les ports (TCP):

@@ -15,7 +15,7 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   
   $scope.slider = '../Img/Slider/OPTIMIZED-SLIDER-MC-GG.png';
-  $scope.sliderSRCSET = '../Img/SliderOPTIMIZED-SLIDER-MC-GG-MOBILE.png 800w, ../Img/Slider/OPTIMIZED-SLIDER-MC-GG-TABLET.png 1300w, ../Img/Slider/OPTIMIZED-SLIDER-MC-GG.png 2000w';
+  $scope.sliderSRCSET = '../Img/Slider/OPTIMIZED-SLIDER-XS.jpg 800w, ../Img/Slider/OPTIMIZED-SLIDER-MD.jpg 1300w, ../Img/Slider/OPTIMIZED-SLIDER-LG.jpg 2000w';
   
   
   // ----- GET / SET Data -----
