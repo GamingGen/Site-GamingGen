@@ -62,6 +62,7 @@
     "rcon": "^1.0.3",
     "request": "^2.81.0",
     "serve-favicon": "^2.4.3",
+    "sitemap-generator": "^7.5.2",
     "socket.io": "^2.0.3",
     "socket.io-mongodb": "^1.1.1",
     "sticky-session": "^1.1.2",
