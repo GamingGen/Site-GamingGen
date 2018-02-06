@@ -19,15 +19,23 @@ Installation Prod (Ubuntu Server 16.04 LTS):
         - sudo usermod -aG sudo nodeuser
         - sudo apt-get install libcap2-bin
         - sudo setcap cap_net_bind_service=+ep /usr/bin/nodejs
+        
+    2. Nginx
+        - sudo apt-get install -y nginx-full
+        - sudo add-apt-repository ppa:certbot/certbot
+        - sudo apt-get update
+        - sudo apt-get install python-certbot-nginx
+        - sudo nano /etc/nginx/sites-available/default <== TODO montrer un exemple
+        - 
     
-    2. Installer Node.JS(7.xx.x) & NPM (3.x)
+    3. Installer Node.JS(7.xx.x) & NPM (3.x)
         - sudo apt-get install curl
         - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
         - sudo apt-get install -y nodejs
         - sudo npm install -g npm
         * [INFO]: https://github.com/nodesource/distributions
     
-    3. Installer MongoDB (3.x)
+    4. Installer MongoDB (3.x)
         - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
         - echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
         - sudo apt-get update
@@ -35,32 +43,33 @@ Installation Prod (Ubuntu Server 16.04 LTS):
         - sudo nano /etc/systemd/system/mongodb.service => Voir le lien ci-dessous (how-to-install-mongob-on-ubuntu-16-04)
         * [INFO]: https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/
         * [INFO]: https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04
+        * [INFO]: https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-mongodb-on-ubuntu-16-04
     
-    4. Installer Git
+    5. Installer Git
         - sudo apt-get install software-properties-common
         - sudo add-apt-repository ppa:git-core/ppa
         - sudo apt-get update
         - sudo apt-get install git
     
-    5. Installer PM2
+    6. Installer PM2
         - sudo npm install pm2 -g
         - pm2 install pm2-mongodb (Déjà activé ?)
         * [INFO]: http://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/
     
-    6. Installer GraphicsMagick
+    7. Installer GraphicsMagick
         - sudo apt-get install graphicsmagick
         
-    7. Installer libstdc
+    8. Installer libstdc
         - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
         - sudo apt-get update
         - sudo apt-get install libstdc++6
         
-    8. Certificat SSL
+    9. Certificat SSL
         - Faire la demande (ou en créer un en auto-signé mais fortement déconseillé) Let's Encrypt
         * [INFO]: https://www.unsimpleclic.com/lets-encrypt-un-certificat-ssl-gratuit-et-reconnu-par-tous-les-navigateurs_98699.html
         * [INFO]: https://www.sitepoint.com/how-to-use-ssltls-with-node-js/
     
-    9. Auth port 80
+    ??? 9. Auth port 80
         * [INFO ?]: https://www.digitalocean.com/community/tutorials/how-to-use-pm2-to-setup-a-node-js-production-environment-on-an-ubuntu-vps
         * [INFO]: http://pm2.keymetrics.io/docs/usage/specifics/#listening-on-port-80-w-o-root
 

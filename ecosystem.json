@@ -60,7 +60,7 @@
         "NODE_TLS_REJECT_UNAUTHORIZED"  : "0",
         "NODEMAILER_MAIL"               : process.env.NODEMAILER_MAIL,
         "NODEMAILER_PASS"               : process.env.NODEMAILER_PASS,
-        "PORT"                          : 80
+        "PORT"                          : 3000
       }
     },
   }
