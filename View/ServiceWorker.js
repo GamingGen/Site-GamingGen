@@ -7,7 +7,7 @@ let urlsToCache = [
   '/please-wait.min.js',
   // '/Javascript/*',
   // '/Img/*',
-  '/Style/main.css',
+  // '/Style/main.css',
   // 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
   // 'https://maxcdn.bootstrapcdn.com/…tstrap/3.3.7/css/bootstrap-theme.min.css',
   // 'https://maxcdn.bootstrapcdn.com/…t-awesome/4.6.3/css/font-awesome.min.css',
