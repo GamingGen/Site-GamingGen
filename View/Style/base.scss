@@ -1231,3 +1231,39 @@ h1, h2, .panel-title, h4.modal-title {
   width:60%;
   margin:0 auto;
 }
+.tabbable{
+  .nav{
+    li{
+      background:#e2e1e1;
+      font-size:1.5em;
+      margin-right:8px;
+      margin-bottom:1px;
+      border:0px;
+      &.active{
+        background:#ececec;
+        a{
+          background:#ececec;
+          border:0px;
+        }
+      }
+      a{
+        border:0px;
+        color:#2e2e2e;
+      }
+    }
+  }
+    .tab-content{
+      padding:32px 48px;
+      background:#ececec;
+      a{
+        color:black;
+        font-size:1.5em;
+      }
+      h1{
+        color:#74DC13;
+      }
+      .tab-pane{
+        
+      }
+    }
+}
