@@ -26,7 +26,7 @@ Installation Prod (Ubuntu Server 16.04 LTS):
         - sudo apt-get update
         - sudo apt-get install python-certbot-nginx
         - sudo nano /etc/nginx/sites-available/default <== TODO montrer un exemple
-        - 
+        - sudo certbot --nginx -d example.com -d www.example.com
     
     3. Installer Node.JS(7.xx.x) & NPM (3.x)
         - sudo apt-get install curl

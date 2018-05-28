@@ -10,6 +10,7 @@
     
     <base href="/">
     
+    <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="Img/General/favicon.ico"/>
     <link rel="icon" type="image/png" href="Img/General/favicon.png"/>
     
@@ -39,6 +40,12 @@
     </div>
     <script type="text/javascript" src="please-wait.min.js"></script>
     <script type="text/javascript">
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('Progressive Web App Launch');
+      }
+      else {
+        console.log('Classic Web App Launch');
+      }
       window.loading_screen = window.pleaseWait({
         logo: "Img/logowh.svg",
         backgroundColor: '#232323',
@@ -553,7 +560,7 @@
         <!--</a>-->
         
         <!--A supprimer dès que l'inscription est terminé-->
-    <!--    <a ng-hide="User.isLoggedIn" href="https://www.eventbrite.fr/o/gaming-generation-14418911767" target="_blank"><img src="Img/General/eventbritebutton.png" alt="Eventbrite - Gaming Gen" /></a>-->
+    <!--    <a ng-hide="User.isLoggedIn" href="https://www.eventbrite.fr/o/gaming-generation-14418911767" target="_blank"><img src="Img/General/eventbritebutton.png" alt="Eventbrite - Gaming Gen #Level6 23-24 Sept." /></a>-->
 
       
       <!--A décommenter dès que l'inscription est terminé-->
@@ -737,7 +744,7 @@
             <a href="https://twitter.com/gaminggenlan" target="_blank" >Twitter</a>
             <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" >Instagram</a>
             <a ui-sref="home">Accueil</a>
-            <!--<a ui-sref="404">Gaming gen</a>-->
+            <!--<a ui-sref="404">Gaming gen 6</a>-->
             <!--<a ui-sref="404">Compétitions</a>-->
             <!--<a ui-sref="404">Festival du jeu</a>-->
             <!--<a ui-sref="404">Plan</a>-->

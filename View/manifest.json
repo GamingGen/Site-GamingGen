@@ -1,0 +1,21 @@
+{
+  "short_name": "Gaming-Gen",
+  "name": "Gaming-Gen App",
+  "icons": [
+    {
+      "src": "/Img/General/logo-150.png",
+      "type": "image/png",
+      "sizes": "150x150"
+    },
+    {
+      "src": "/Img/General/logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#232323",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#004d00"
+}

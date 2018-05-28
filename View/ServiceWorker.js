@@ -1,13 +1,13 @@
 'use strict';
 
-const CACHE_NAME = 'gaming-gen-cache-v1';
-let urlsToCache = [
-  '/',
-  '/index.html',
+const CACHE_NAME = 'gaming-gen-static-v1';
+let PRECACHE = [
+  // '/',
+  'index.html',
   '/please-wait.min.js',
-  // '/Javascript/*',
-  // '/Img/*',
-  // '/Style/main.css',
+  '/Javascript/app.js',
+  // '/Img/',
+  '/Style/main.css',
   // 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
   // 'https://maxcdn.bootstrapcdn.com/…tstrap/3.3.7/css/bootstrap-theme.min.css',
   // 'https://maxcdn.bootstrapcdn.com/…t-awesome/4.6.3/css/font-awesome.min.css',
@@ -20,25 +20,27 @@ let urlsToCache = [
   // 'https://www.google-analytics.com/analytics.js'
 ];
 
-this.addEventListener('install', (event) => {
+self.addEventListener('install', event => {
 //   event.registerForeignFetch({
 // 		scopes:['/'],
 // 		origins:['*'] // or simply '*' to allow all origins
 // 	});
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Opened cache');
-      return cache.addAll(urlsToCache.map((urlToPrefetch) => {
+      console.log('SW: Opened cache');
+      return cache.addAll(PRECACHE.map((urlToPrefetch) => {
+        console.log('SW: urlToPrefetch: ', urlToPrefetch);
         return new Request(urlToPrefetch, { mode: 'no-cors' });
       })).then(() => {
-        console.log('All resources have been fetched and cached.');
+        self.skipWaiting();
+        console.log('SW: All resources have been fetched and cached.');
       });
     })
   );
 });
 
-this.addEventListener('foreignfetch', event => {
-  console.log('try to foreignfetch:' + event.request.url);
+self.addEventListener('foreignfetch', event => {
+  console.log('SW: try to foreignfetch:' + event.request.url);
 	event.respondWith(fetch(event.request).then(response => {
 		return {
 			response: response,
@@ -48,36 +50,55 @@ this.addEventListener('foreignfetch', event => {
 	}));
 });
 
-// this.addEventListener('fetch', (event) => {
-//   console.log('try to fetch:' + event.request);
+// self.addEventListener('fetch', (event) => {
+//   console.log('SW: try to fetch:' + event.request);
 //   event.respondWith(
 //     caches.match(event.request)
 //   );
 // });
 
 
-this.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', event => {
   const requestURL = new URL(event.request.url);
   
-  if (/^\/Img.*\.(jpg|png)$/.test(requestURL.pathname)) {
+  console.log('SW: event.request: ', event.request);
+  
+  if (requestURL == location.origin && requestURL.pathname === '/') {
+    event.respondWith(caches.match('index.html'));
+    // return;
+  }
+  else if (/^\/Img.*\.(jpg|png)$/.test(requestURL.pathname)) {
     event.respondWith(returnWebpOrOriginal(event.request));
   }
   else if (/^(\/css\/|\/js\/)/.test(requestURL.pathname)) {
     event.respondWith(returnFromCacheOrFetch(event));
   }
+  // else if (event.request.url)
+  else if (event.request.url.startsWith(self.location.origin)) {
+    event.respondWith(returnFromCacheOrFetch(event));
+  }
 });
 
 function returnFromCacheOrFetch(event) {
-  return caches.open(CACHE_NAME).then((cache) => {
-    return cache.match(event.request).then((cacheResponse) => {
-      return cacheResponse || fetch(event.request).then(function(response) {
-        return caches.open(CACHE_NAME).then(function(cache) {
-          cache.put(event.request, response.clone());
-          return response;
-        });  
+  if (event.request.method === "GET") {
+    return caches.open(CACHE_NAME).then((cache) => {
+      return cache.match(event.request).then((cacheResponse) => {
+        return cacheResponse || fetch(event.request).then(function(response) {
+          return caches.open(CACHE_NAME).then(function(cache) {
+            cache.put(event.request, response.clone());
+            return response;
+          });  
+        });
       });
     });
-  });
+  }
+  // else {
+  //   console.log(`SW: Can't CACHE POST -_-`);
+  //   fetch(event.request).then(function(response) {
+  //     console.log('SW: response: ', response);
+  //     return response;
+  //   });
+  // }
 }
 
 
@@ -93,7 +114,7 @@ function returnWebpOrOriginal(request) {
   if (supportsWebp) {
     // If we support webp then adjust the URL to ask for the webp file
     const webpUrl = request.url.replace(/(jpg|png)$/, "webp");
-    console.log('webpUrl: ', webpUrl);
+    console.log('SW: webpUrl: ', webpUrl);
     // Then use fetch to return the webp file
     return fetch(webpUrl).then((response) => {
       // If not all the images have been converted then we fallback to requesting the original file.
