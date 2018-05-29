@@ -74,7 +74,7 @@ self.addEventListener('fetch', event => {
     event.respondWith(returnFromCacheOrFetch(event));
   }
   // else if (event.request.url)
-  else if (event.request.url.startsWith(self.location.origin)) {
+  else if (event.request.url.startsWith(self.location.origin) && !/^(\/socket.io\/)/.test(requestURL.pathname)) {
     event.respondWith(returnFromCacheOrFetch(event));
   }
 });
