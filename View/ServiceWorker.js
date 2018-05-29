@@ -1,23 +1,18 @@
 'use strict';
 
 const CACHE_NAME = 'gaming-gen-static-v1';
-let PRECACHE = [
+const DEV_PRECACHE = [
   // '/',
   'index.html',
   '/please-wait.min.js',
   '/Javascript/app.js',
-  // '/Img/',
   '/Style/main.css',
-  // 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-  // 'https://maxcdn.bootstrapcdn.com/…tstrap/3.3.7/css/bootstrap-theme.min.css',
-  // 'https://maxcdn.bootstrapcdn.com/…t-awesome/4.6.3/css/font-awesome.min.css',
-  // 'https://cdnjs.cloudflare.com/…epicker/1.1.4/css/datetimepicker.min.css',
-  // 'https://cdnjs.cloudflare.com/…bs/angular-ui-grid/4.0.6/ui-grid.min.css',
-  // 'https://daneden.github.io/animate.css/animate.min.css',
-  // 'https://static.hotjar.com/c/hotjar-390971.js?sv=5',
-  // 'https://player.twitch.tv/js/embed/v1.js',
-  // 'https://daneden.github.io/animate.css/animate.min.css',
-  // 'https://www.google-analytics.com/analytics.js'
+];
+
+const PROD_PRECACHE = [
+  'js/lib.min.js',
+  'js/main.min.js',
+  'css/min.css',
 ];
 
 self.addEventListener('install', event => {
@@ -25,15 +20,45 @@ self.addEventListener('install', event => {
 // 		scopes:['/'],
 // 		origins:['*'] // or simply '*' to allow all origins
 // 	});
+
+const myHeaders = new Headers();
+
+const myInit = { method: 'GET',
+               headers: myHeaders,
+               mode: 'cors',
+               cache: 'default' };
+
+const aboutRequest = new Request('/about',myInit);
+
+// bodyUsed:false
+// cache:"default"
+// credentials:"include"
+// destination:""
+// headers:Headers {}
+// integrity:""
+// keepalive:false
+// method:"GET"
+// mode:"cors"
+// redirect:"follow"
+// referrer:"https://si-gaminggen-darkterra-1.c9users.io/"
+// referrerPolicy:"no-referrer-when-downgrade"
+// signal:AbortSignal {aborted: false, onabort: null}
+// url:"https://si-gaminggen-darkterra-1.c9users.io/socket.io/?EIO=3&transport=polling&t=MEhC9DR&sid=eyfEb8-E60oib21OAACz"
+
+
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('SW: Opened cache');
-      return cache.addAll(PRECACHE.map((urlToPrefetch) => {
-        console.log('SW: urlToPrefetch: ', urlToPrefetch);
-        return new Request(urlToPrefetch, { mode: 'no-cors' });
-      })).then(() => {
-        self.skipWaiting();
-        console.log('SW: All resources have been fetched and cached.');
+    fetch(aboutRequest).then(response => response.json()).then(function(json) {
+      console.log('SW: json aboutRequest: ', json);
+      const PRECACHE = json.env === 'production' ? PROD_PRECACHE : DEV_PRECACHE;
+      caches.open(CACHE_NAME).then((cache) => {
+        console.log('SW: Opened cache');
+        return cache.addAll(DEV_PRECACHE.map((urlToPrefetch) => {
+          console.log('SW: urlToPrefetch: ', urlToPrefetch);
+          return new Request(urlToPrefetch, { mode: 'no-cors' });
+        })).then(() => {
+          self.skipWaiting();
+          console.log('SW: All resources have been fetched and cached.');
+        });
       });
     })
   );
@@ -50,13 +75,6 @@ self.addEventListener('foreignfetch', event => {
 	}));
 });
 
-// self.addEventListener('fetch', (event) => {
-//   console.log('SW: try to fetch:' + event.request);
-//   event.respondWith(
-//     caches.match(event.request)
-//   );
-// });
-
 
 self.addEventListener('fetch', event => {
   const requestURL = new URL(event.request.url);
@@ -65,7 +83,6 @@ self.addEventListener('fetch', event => {
   
   if (requestURL == location.origin && requestURL.pathname === '/') {
     event.respondWith(caches.match('index.html'));
-    // return;
   }
   else if (/^\/Img.*\.(jpg|png)$/.test(requestURL.pathname)) {
     event.respondWith(returnWebpOrOriginal(event.request));
