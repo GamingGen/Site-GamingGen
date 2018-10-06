@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="theme-color" content="#004d00">
     
-    <title>Gaming Gen: e-sport, geek & gaming events since 2005</title>
+    <!--<title>Gaming Gen: e-sport, geek & gaming events since 2005</title>-->
+    <title>Gaming Gen 7: 30-31 mars 2018, Gardanne - geek gaming esport</title>
     
     <base href="/">
     
@@ -46,6 +47,9 @@
       else {
         console.log('Classic Web App Launch');
       }
+      
+      console.log('--------------------- START ---------------------')
+      
       window.loading_screen = window.pleaseWait({
         logo: "Img/logowh.svg",
         backgroundColor: '#232323',
@@ -385,11 +389,11 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <div class="socialHeader hidden-xs">
-            <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
+            <!--<li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">-->
               <!--<a href="" class="socialLink compte compteTop" data-toggle="modal" data-target="#registrationModal">S'inscrire</a>-->
-              <a href="https://www.eventbrite.fr/o/gaming-generation-14418911767" class="socialLink compte compteTop" target="_blank">Billeterie</a>
-              <a href="" class="socialLink compte compteTop" data-toggle="modal" data-target="#connectionModal">Connexion</a>
-            </li>
+            <!--  <a href="https://www.eventbrite.fr/o/gaming-generation-14418911767" class="socialLink compte compteTop" target="_blank">Billeterie</a>-->
+            <!--  <a href="" class="socialLink compte compteTop" data-toggle="modal" data-target="#connectionModal">Connexion</a>-->
+            <!--</li>-->
             <!--A remplacer avec ng-if ! Impossible d'utiliser Jquery pour gérer proprement le collapse des dropdown-->
             <!--ng-if="isConnected && isAdmin" -->
             
@@ -412,7 +416,8 @@
                 </ul>
             </li>
             <li class="socialBloc demiSocial">
-              <a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>
+              <!--<a href="" class="socialLink heart"><img ng-src="../Img/General/heart.svg"></a>-->
+              <a href="" class="socialLink compte compteTop" data-toggle="modal" data-target="#connectionModal">Connexion</a>
               <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" class="socialLink instagram"><img ng-src="../Img/General/instagram.svg"></a>
             </li>
             <li class="socialBloc">
@@ -511,7 +516,7 @@
             <div class="socialHeader socialHeaderXS hidden-sm hidden-md hidden-lg">
               <li class="socialBloc demiSocial" ng-hide="User.isLoggedIn">
                 <!--<a href="" class="socialLink compte" data-toggle="modal" data-target="#registrationModal" target="_blank">S'inscrire</a>-->
-                <a href="https://www.eventbrite.fr/o/gaming-generation-14418911767" class="socialLink compte" target="_blank">Billeterie</a>
+                <!--<a href="https://www.eventbrite.fr/o/gaming-generation-14418911767" class="socialLink compte" target="_blank">Billeterie</a>-->
                 <a href="" class="socialLink compte" data-toggle="modal" data-target="#connectionModal">Connexion</a>
               </li>
               <!--Remettre le code suivant dans le ng-Show lorsque Dolz aura créer les bonnes classes : User.isLoggedIn-->
@@ -697,6 +702,9 @@
     <div ng-show="showSlider" class="slider" >
       <img ng-src="{{slider}}" ng-srcset="{{sliderSRCSET}}" alt="Slider">
     </div>
+    
+    <!--<button id="btnAdd">Install PWA</button>-->
+    
     <div ng-class="mainView">
       <div ui-view autoscroll="false"></div>
     </div>
@@ -716,7 +724,7 @@
           </a>
         </div>
         <div class="reassurance Second col-xs-12 col-sm-6 col-md-3">
-          <a target="_blank" href="mailto:contact@gaming-gen.fr?subject=Devenir Exposant GG6">
+          <a target="_blank" href="mailto:contact@gaming-gen.fr?subject=Devenir Exposant: GG7">
             <img src='../Img/exposant.svg'/>
             <h2>DEVENIR EXPOSANT</h2>
             <p>Grande renommée pour toi !</p>
@@ -744,7 +752,7 @@
             <a href="https://twitter.com/gaminggenlan" target="_blank" >Twitter</a>
             <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" >Instagram</a>
             <a ui-sref="home">Accueil</a>
-            <!--<a ui-sref="404">Gaming gen 6</a>-->
+            <!--<a ui-sref="404">Gaming Gen level 7</a>-->
             <!--<a ui-sref="404">Compétitions</a>-->
             <!--<a ui-sref="404">Festival du jeu</a>-->
             <!--<a ui-sref="404">Plan</a>-->
@@ -765,6 +773,49 @@
     
     <!-- Check if Angular is compatible, and remove the Splash Screen if Ok-->
     <script>
+    
+    
+    
+    
+      
+      
+      // let deferredPrompt;
+      
+      // const btnAdd = document.getElementById('btnAdd');
+      // window.addEventListener('beforeinstallprompt', (e) => {
+      //       console.log('---------------- beforeinstallprompt fired... ----------------');
+      //   // Prevent Chrome 67 and earlier from automatically showing the prompt
+      //   e.preventDefault();
+      //   // Stash the event so it can be triggered later.
+      //   deferredPrompt = e;
+        
+      //   console.log('----------- deferredPrompt: ', deferredPrompt);
+        
+      //   // Update UI notify the user they can add to home screen
+      //   btnAdd.style.display = 'block';
+      // });
+      
+      // btnAdd.addEventListener('click', (e) => {
+      //   // hide our user interface that shows our A2HS button
+      //   btnAdd.style.display = 'none';
+      //   // Show the prompt
+      //   deferredPrompt.prompt();
+      //   // Wait for the user to respond to the prompt
+      //   deferredPrompt.userChoice
+      //     .then((choiceResult) => {
+      //       if (choiceResult.outcome === 'accepted') {
+      //         console.log('User accepted the A2HS prompt');
+      //       } else {
+      //         console.log('User dismissed the A2HS prompt');
+      //       }
+      //       deferredPrompt = null;
+      //     });
+      // });
+
+    
+    
+    
+    
       var minWidth = 10;
       var everythingLoaded = setInterval(function() {
         if (/loaded|complete/.test(document.readyState)) {
@@ -797,8 +848,20 @@
             
             new WOW().init();
             
+            ///////////////////////////////////////////////////////////////////////////////////////////////////
+            if ('storage' in navigator && 'estimate' in navigator.storage) {
+              navigator.storage.estimate().then(({usage, quota}) => {
+                console.log(`Using ${usage} out of ${quota} bytes.`);
+              }).catch(error => {
+                console.error('Loading storage estimate failed:');
+                console.log(error.stack);
+              });
+            } else {
+              console.error('navigator.storage.estimate API unavailable.');
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////
             
-
+            
 // navigator.storageQuota.queryInfo("temporary").then(function(info) {
 //   console.log('JYO');
 //   console.log(info.quota);
@@ -813,8 +876,8 @@
             
             //Google Analitics Tracking Code for http://darkterra.fr
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            (i[r].q=i[r].q||[]).push(arguments);},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);
             })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
           
             ga('create', 'UA-91437932-1', 'auto');
@@ -822,7 +885,7 @@
           
             // Hotjar Tracking Code for http://darkterra.fr 
             (function(h,o,t,j,a,r){
-              h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+              h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments);};
               h._hjSettings={hjid:390971,hjsv:5};
               a=o.getElementsByTagName('head')[0];
               r=o.createElement('script');r.async=1;

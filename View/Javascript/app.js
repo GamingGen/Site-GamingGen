@@ -64,7 +64,7 @@
           }],
         })
         .state('partner', {
-          url         : '/partner',
+          url         : '/partenaires',
           templateUrl : '../Partial/partner.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
@@ -78,7 +78,7 @@
           }],
         })
         .state('tournaments', {
-          url         : '/tournaments',
+          url         : '/tournois',
           templateUrl : '../Partial/tournaments.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
