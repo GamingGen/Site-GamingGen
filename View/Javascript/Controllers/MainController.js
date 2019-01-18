@@ -171,13 +171,13 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   // Submit Register Modal
   $scope.submitRegister = function() {
     console.log('submitRegister Call');
-    user.pseudo = $scope.pseudo;
-    user.password = $scope.password;
-    user.email = $scope.email;
+    user.pseudo             = $scope.pseudo;
+    user.password           = $scope.password;
+    user.email              = $scope.email;
     user.general.first_name = $scope.firstName;
-    user.general.last_name = $scope.lastName;
-    user.general.birthday = $scope.birthday;
-    user.general.zip = $scope.zip;
+    user.general.last_name  = $scope.lastName;
+    user.general.birthday   = $scope.birthday;
+    user.general.zip        = $scope.zip;
     
     console.log(JSON.stringify(user));
     $http.post('/users/insert', JSON.stringify(user))
