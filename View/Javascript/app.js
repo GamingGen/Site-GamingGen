@@ -84,9 +84,9 @@
             ManageViewService.setView(normalLayout);
           }],
         })
-        .state('hearthStone', {
-          url         : '/hearthStone',
-          templateUrl : '../Partial/hearthStone.html',
+        .state('fifa19', {
+          url         : '/fifa19',
+          templateUrl : '../Partial/fifa19.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
           }],
@@ -98,9 +98,9 @@
             ManageViewService.setView(normalLayout);
           }],
         })
-        .state('clashRoyale', {
-          url         : '/clashRoyale',
-          templateUrl : '../Partial/clashRoyale.html',
+        .state('smashBrosUltimate', {
+          url         : '/smashBrosUltimate',
+          templateUrl : '../Partial/smashBrosUltimate.html',
           onEnter     : ['ManageViewService', function(ManageViewService) {
             ManageViewService.setView(normalLayout);
           }],
