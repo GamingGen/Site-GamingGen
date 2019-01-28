@@ -479,7 +479,7 @@
               <ul class="dropdown-menu">
                 <li><a ui-sref="world">Gaming World</a></li>
                 <li><a ui-sref="arena">Gaming Arena</a></li>
-                <li><a ui-sref="tournaments">Nos tournois</a></li>
+                <!--<li><a ui-sref="tournaments">Nos tournois</a></li>-->
                 <!--<li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="404">Festival du jeu</a></li>-->
                 <!--<li><a ui-sref="404">Le Plan</a></li>-->
                 <!--<li role="separator" class="divider"></li>-->
@@ -491,13 +491,16 @@
             <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
               <!--<a class="autoCollapse" ui-sref="shop.order">Le magasin</a>-->
             <li>
-              <a class="autoCollapse" ui-sref="partner">Les Partenaires</a>
+              <!--<a class="autoCollapse" ui-sref="partner">Les Partenaires</a>-->
             </li>
             <li>
               <a class="autoCollapse" ui-sref="news">News</a>
             </li>
             <li>
-              <a class="autoCollapse" ui-sref="live">Live <img ng-src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a>
+              <!--<a class="autoCollapse" ui-sref="live">Live <img ng-src="../Img/Live/live-icone-16.png" ng-show="live.Youtube || live.Twitch"></a>-->
+              
+              <!-- A décommenter lorsque la com sera prête -->
+              <!--<a href="http://po.st/gg7-billetteries" target="_blank">Billeteries</a>-->
             </li>
             <!--<li ui-sref-active="active" class="dropdown">-->
             <!--  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
@@ -568,7 +571,9 @@
         
         <!--A supprimer dès que l'inscription est terminé-->
     <!--    <a ng-hide="User.isLoggedIn" href="https://www.eventbrite.fr/o/gaming-generation-14418911767" target="_blank"><img src="Img/General/eventbritebutton.png" alt="Eventbrite - Gaming Gen #Level6 23-24 Sept." /></a>-->
-        <a ng-hide="User.isLoggedIn" href="https://gg7-csgo.eventbrite.fr/" target="_blank"><img src="Img/General/eventbritebutton.png" alt="Eventbrite - Gaming Gen #Level7 30-31 Mars." /></a>
+    
+        <!-- A décomenter lorsque la com sera prête-->
+        <!--<a ng-hide="User.isLoggedIn" href="http://po.st/gg7-billetteries" target="_blank"><img src="Img/General/eventbritebutton.png" alt="Eventbrite - Gaming Gen #Level7 30-31 Mars." /></a>-->
 
       
       <!--A décommenter dès que l'inscription est terminé-->
@@ -762,8 +767,8 @@
             <!--<a ui-sref="404">Programme</a>-->
             <a ui-sref="live">Live</a>
             <a ui-sref="news">News</a>
-            <a ui-sref="tournaments">Tournois</a>
-            <a ui-sref="partner">Exposants et Partenaires</a>
+            <a ui-sref="arena">Tournois</a>
+            <!--<a ui-sref="partner">Exposants et Partenaires</a>-->
             <!--<a ui-sref="404">Galerie</a>-->
             <!--<a ui-sref="404">Association</a>-->
             <!--<a ui-sref="404">Infos utiles</a>-->
