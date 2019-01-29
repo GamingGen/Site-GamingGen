@@ -15,35 +15,51 @@ const PROD_PRECACHE = [
   'css/min.css',
 ];
 
+// Remove old and unused caches...
+self.addEventListener('activate', event => {
+    console.log('Activate......................');
+  event.waitUntil(
+    caches.keys().then(keyList => {
+      return Promise.all(keyList.map(key => {
+        if (CACHE_NAME.indexOf(key) === -1) {
+          console.log('Delete this cache: ', key);
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+});
+
+// Install cache logic
 self.addEventListener('install', event => {
-//   event.registerForeignFetch({
-// 		scopes:['/'],
-// 		origins:['*'] // or simply '*' to allow all origins
-// 	});
+  //   event.registerForeignFetch({
+  // 		scopes:['/'],
+  // 		origins:['*'] // or simply '*' to allow all origins
+  // 	});
 
-const myHeaders = new Headers();
+  const myHeaders = new Headers();
+  
+  const myInit = { method: 'GET',
+                 headers: myHeaders,
+                 mode: 'cors',
+                 cache: 'default' };
+  
+  const aboutRequest = new Request('/about', myInit);
 
-const myInit = { method: 'GET',
-               headers: myHeaders,
-               mode: 'cors',
-               cache: 'default' };
-
-const aboutRequest = new Request('/about',myInit);
-
-// bodyUsed:false
-// cache:"default"
-// credentials:"include"
-// destination:""
-// headers:Headers {}
-// integrity:""
-// keepalive:false
-// method:"GET"
-// mode:"cors"
-// redirect:"follow"
-// referrer:"https://si-gaminggen-darkterra-1.c9users.io/"
-// referrerPolicy:"no-referrer-when-downgrade"
-// signal:AbortSignal {aborted: false, onabort: null}
-// url:"https://si-gaminggen-darkterra-1.c9users.io/socket.io/?EIO=3&transport=polling&t=MEhC9DR&sid=eyfEb8-E60oib21OAACz"
+  // bodyUsed:false
+  // cache:"default"
+  // credentials:"include"
+  // destination:""
+  // headers:Headers {}
+  // integrity:""
+  // keepalive:false
+  // method:"GET"
+  // mode:"cors"
+  // redirect:"follow"
+  // referrer:"https://si-gaminggen-darkterra-1.c9users.io/"
+  // referrerPolicy:"no-referrer-when-downgrade"
+  // signal:AbortSignal {aborted: false, onabort: null}
+  // url:"https://si-gaminggen-darkterra-1.c9users.io/socket.io/?EIO=3&transport=polling&t=MEhC9DR&sid=eyfEb8-E60oib21OAACz"
 
 
   event.waitUntil(
