@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'gaming-gen-static-v5';
+const CACHE_NAME = 'gaming-gen-static-v6';
 const DEV_PRECACHE = [
   // '/',
   'index.html',
