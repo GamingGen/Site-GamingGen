@@ -128,6 +128,10 @@ AppControllers.controller('mainCtrl', ['UserService', '$location', '$state', '$s
   
   
   // ----- Public Méthode -----
+  $scope.goRegistration = function() {
+    console.log('Bye bye');
+    $window.open('http://po.st/gg7-billetteries', '_blank');
+  };
   
   // Submit Login Modal
   $scope.getAbout = function () {
