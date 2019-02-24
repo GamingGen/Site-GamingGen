@@ -56,24 +56,24 @@
         loadingHtml: "<p class='loading-message'>Pour accéder au site, faites R2 - croix - carré - R1 - R1 - gauche - croix - rond... ou patientez quelques secondes...</p><div class='spinner'></div>"
       });
       
-      // if ('serviceWorker' in navigator) {
-      //   window.addEventListener('load', function() {
-      //     navigator.serviceWorker.register('/ServiceWorker.js').then(function(reg) {
-      //       // registration worked
-      //       if(reg.installing) {
-      //         console.log('Service worker installing');
-      //       } else if(reg.waiting) {
-      //         console.log('Service worker installed');
-      //       } else if(reg.active) {
-      //         console.log('Service worker active');
-      //       }
-      //       console.log('Registration succeeded. Scope is ' + reg.scope);
-      //     }).catch(function(error) {
-      //       // registration failed
-      //       console.log('Registration failed with ' + error);
-      //     });
-      //   });
-      // };
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/ServiceWorker.js').then(function(reg) {
+            // registration worked
+            if(reg.installing) {
+              console.log('Service worker installing');
+            } else if(reg.waiting) {
+              console.log('Service worker installed');
+            } else if(reg.active) {
+              console.log('Service worker active');
+            }
+            console.log('Registration succeeded. Scope is ' + reg.scope);
+          }).catch(function(error) {
+            // registration failed
+            console.log('Registration failed with ' + error);
+          });
+        });
+      };
     </script>
     
     <!-- Load Frameworks -->

@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'gaming-gen-static-v8';
+const CACHE_NAME = 'gaming-gen-static-v9';
 const DEV_PRECACHE = [
   // '/',
   'index.html',
@@ -17,7 +17,7 @@ const PROD_PRECACHE = [
 
 // Remove old and unused caches...
 self.addEventListener('activate', event => {
-    console.log('Activate......................');
+    console.log('Activate & Remove old and unused caches......................');
   event.waitUntil(
     caches.keys().then(keyList => {
       return Promise.all(keyList.map(key => {
@@ -32,85 +32,97 @@ self.addEventListener('activate', event => {
 
 // Install cache logic
 self.addEventListener('install', event => {
-  //   event.registerForeignFetch({
-  // 		scopes:['/'],
-  // 		origins:['*'] // or simply '*' to allow all origins
-  // 	});
-
-  const myHeaders = new Headers();
-  
-  const myInit = { method: 'GET',
-                 headers: myHeaders,
-                 mode: 'cors',
-                 cache: 'default' };
-  
-  const aboutRequest = new Request('/about', myInit);
-
-  // bodyUsed:false
-  // cache:"default"
-  // credentials:"include"
-  // destination:""
-  // headers:Headers {}
-  // integrity:""
-  // keepalive:false
-  // method:"GET"
-  // mode:"cors"
-  // redirect:"follow"
-  // referrer:"https://si-gaminggen-darkterra-1.c9users.io/"
-  // referrerPolicy:"no-referrer-when-downgrade"
-  // signal:AbortSignal {aborted: false, onabort: null}
-  // url:"https://si-gaminggen-darkterra-1.c9users.io/socket.io/?EIO=3&transport=polling&t=MEhC9DR&sid=eyfEb8-E60oib21OAACz"
-
-
+  // Desactivate the cache logic...
   event.waitUntil(
-    fetch(aboutRequest).then(response => response.json()).then(function(json) {
-      console.log('SW: json aboutRequest: ', json);
-      const PRECACHE = json.env === 'production' ? PROD_PRECACHE : DEV_PRECACHE;
-      caches.open(CACHE_NAME).then((cache) => {
-        console.log('SW: Opened cache');
-        return cache.addAll(DEV_PRECACHE.map((urlToPrefetch) => {
-          console.log('SW: urlToPrefetch: ', urlToPrefetch);
-          return new Request(urlToPrefetch, { mode: 'no-cors' });
-        })).then(() => {
-          self.skipWaiting();
-          console.log('SW: All resources have been fetched and cached.');
-        });
-      });
+    caches.keys().then(keyList => {
+      return Promise.all(keyList.map(key => {
+        if (CACHE_NAME.indexOf(key) === -1) {
+          console.log('Delete this cache: ', key);
+          return caches.delete(key);
+        }
+      }));
     })
   );
-});
-
-self.addEventListener('foreignfetch', event => {
-  console.log('SW: try to foreignfetch:' + event.request.url);
-	event.respondWith(fetch(event.request).then(response => {
-		return {
-			response: response,
-			origin: event.origin,
-			headers: ['Content-Type']
-		};
-	}));
-});
-
-
-self.addEventListener('fetch', event => {
-  const requestURL = new URL(event.request.url);
   
-  console.log('SW: event.request: ', event.request);
+//   //   event.registerForeignFetch({
+//   // 		scopes:['/'],
+//   // 		origins:['*'] // or simply '*' to allow all origins
+//   // 	});
+
+//   const myHeaders = new Headers();
   
-  if (requestURL == location.origin && requestURL.pathname === '/') {
-    event.respondWith(caches.match('index.html'));
-  }
-  else if (/^\/Img.*\.(jpg|png)$/.test(requestURL.pathname)) {
-    event.respondWith(returnWebpOrOriginal(event.request));
-  }
-  else if (/^(\/css\/|\/js\/)/.test(requestURL.pathname)) {
-    event.respondWith(returnFromCacheOrFetch(event));
-  }
-  // else if (event.request.url)
-  else if (event.request.url.startsWith(self.location.origin) && !/^(\/socket.io\/)/.test(requestURL.pathname)) {
-    event.respondWith(returnFromCacheOrFetch(event));
-  }
+//   const myInit = { method: 'GET',
+//                 headers: myHeaders,
+//                 mode: 'cors',
+//                 cache: 'default' };
+  
+//   const aboutRequest = new Request('/about', myInit);
+
+//   // bodyUsed:false
+//   // cache:"default"
+//   // credentials:"include"
+//   // destination:""
+//   // headers:Headers {}
+//   // integrity:""
+//   // keepalive:false
+//   // method:"GET"
+//   // mode:"cors"
+//   // redirect:"follow"
+//   // referrer:"https://si-gaminggen-darkterra-1.c9users.io/"
+//   // referrerPolicy:"no-referrer-when-downgrade"
+//   // signal:AbortSignal {aborted: false, onabort: null}
+//   // url:"https://si-gaminggen-darkterra-1.c9users.io/socket.io/?EIO=3&transport=polling&t=MEhC9DR&sid=eyfEb8-E60oib21OAACz"
+
+
+//   event.waitUntil(
+//     fetch(aboutRequest).then(response => response.json()).then(function(json) {
+//       console.log('SW: json aboutRequest: ', json);
+//       const PRECACHE = json.env === 'production' ? PROD_PRECACHE : DEV_PRECACHE;
+//       caches.open(CACHE_NAME).then((cache) => {
+//         console.log('SW: Opened cache');
+//         return cache.addAll(DEV_PRECACHE.map((urlToPrefetch) => {
+//           console.log('SW: urlToPrefetch: ', urlToPrefetch);
+//           return new Request(urlToPrefetch, { mode: 'no-cors' });
+//         })).then(() => {
+//           self.skipWaiting();
+//           console.log('SW: All resources have been fetched and cached.');
+//         });
+//       });
+//     })
+//   );
 });
+
+// self.addEventListener('foreignfetch', event => {
+//   console.log('SW: try to foreignfetch:' + event.request.url);
+// 	event.respondWith(fetch(event.request).then(response => {
+// 		return {
+// 			response: response,
+// 			origin: event.origin,
+// 			headers: ['Content-Type']
+// 		};
+// 	}));
+// });
+
+
+// self.addEventListener('fetch', event => {
+//   const requestURL = new URL(event.request.url);
+  
+//   console.log('SW: event.request: ', event.request);
+  
+//   if (requestURL == location.origin && requestURL.pathname === '/') {
+//     event.respondWith(caches.match('index.html'));
+//   }
+//   else if (/^\/Img.*\.(jpg|png)$/.test(requestURL.pathname)) {
+//     event.respondWith(returnWebpOrOriginal(event.request));
+//   }
+//   else if (/^(\/css\/|\/js\/)/.test(requestURL.pathname)) {
+//     event.respondWith(returnFromCacheOrFetch(event));
+//   }
+//   // else if (event.request.url)
+//   else if (event.request.url.startsWith(self.location.origin) && !/^(\/socket.io\/)/.test(requestURL.pathname)) {
+//     event.respondWith(returnFromCacheOrFetch(event));
+//   }
+// });
 
 function returnFromCacheOrFetch(event) {
   if (event.request.method === "GET") {
