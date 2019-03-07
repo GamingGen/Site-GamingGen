@@ -63,13 +63,13 @@
             ManageViewService.setView(normalLayout);
           }],
         })
-        // .state('partner', {
-        //   url         : '/partenaires',
-        //   templateUrl : '../Partial/partner.html',
-        //   onEnter     : ['ManageViewService', function(ManageViewService) {
-        //     ManageViewService.setView(normalLayout);
-        //   }],
-        // })
+        .state('partner', {
+          url         : '/partenaires',
+          templateUrl : '../Partial/partner.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            ManageViewService.setView(normalLayout);
+          }],
+        })
         .state('teams', {
           url         : '/teams',
           templateUrl : '../Partial/teams.html',
@@ -77,22 +77,22 @@
             ManageViewService.setView(normalLayout);
           }],
         })
-        // .state('tournaments', {
-        //   url         : '/tournois',
-        //   templateUrl : '../Partial/tournaments.html',
-        //   onEnter     : ['ManageViewService', function(ManageViewService) {
-        //     ManageViewService.setView(normalLayout);
-        //   }],
-        // })
+        .state('tournaments', {
+          url         : '/tournois',
+          templateUrl : '../Partial/tournaments.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            ManageViewService.setView(normalLayout);
+          }],
+        })
         
         // /!\ A décommenter une fois l'annonce faite /!\
-        // .state('fifa19', {
-        //   url         : '/fifa19',
-        //   templateUrl : '../Partial/fifa19.html',
-        //   onEnter     : ['ManageViewService', function(ManageViewService) {
-        //     ManageViewService.setView(normalLayout);
-        //   }],
-        // })
+        .state('fifa19', {
+          url         : '/fifa19',
+          templateUrl : '../Partial/fifa19.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            ManageViewService.setView(normalLayout);
+          }],
+        })
         .state('tournoi-csgo', {
           url         : '/tournoi-csgo',
           templateUrl : '../Partial/tournoi-csgo.html',
@@ -100,13 +100,13 @@
             ManageViewService.setView(normalLayout);
           }],
         })
-        // .state('smashBrosUltimate', {
-        //   url         : '/smashBrosUltimate',
-        //   templateUrl : '../Partial/smashBrosUltimate.html',
-        //   onEnter     : ['ManageViewService', function(ManageViewService) {
-        //     ManageViewService.setView(normalLayout);
-        //   }],
-        // })
+        .state('smashBrosUltimate', {
+          url         : '/smashBrosUltimate',
+          templateUrl : '../Partial/smashBrosUltimate.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            ManageViewService.setView(normalLayout);
+          }],
+        })
         .state('legalNotice', {
           url         : '/legalNotice',
           templateUrl : '../Partial/legalNotice.html',
