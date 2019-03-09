@@ -9,7 +9,7 @@ AppControllers.controller('clashRoyaleCtrl', ['$http', '$scope', 'socket', '$win
   // ----- Public Méthode -----
   $scope.goRegistration = function() {
     console.log('Bye bye');
-    $window.open('https://gg7-csgo.eventbrite.fr', '_blank');
+    $window.open('https://www.eventbrite.fr/e/billets-gaming-gen-level-7-tournoi-ssbu-55578945121', '_blank');
   };
   
   // ----- Private Méthode -----
