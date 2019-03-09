@@ -107,6 +107,13 @@
             ManageViewService.setView(normalLayout);
           }],
         })
+        .state('dragonBallFighterZ', {
+          url         : '/dragonBallFighterZ',
+          templateUrl : '../Partial/dragonBallFighterZ.html',
+          onEnter     : ['ManageViewService', function(ManageViewService) {
+            ManageViewService.setView(normalLayout);
+          }],
+        })
         .state('legalNotice', {
           url         : '/legalNotice',
           templateUrl : '../Partial/legalNotice.html',
