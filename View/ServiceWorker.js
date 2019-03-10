@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'gaming-gen-static-v10';
+const CACHE_NAME = 'gaming-gen-static-v10.1';
 const DEV_PRECACHE = [
   // '/',
   'index.html',
@@ -17,7 +17,8 @@ const PROD_PRECACHE = [
 
 // Remove old and unused caches...
 self.addEventListener('activate', event => {
-    console.log('Activate & Remove old and unused caches......................');
+  self.skipWaiting();
+  console.log('Activate & Remove old and unused caches......................');
   event.waitUntil(
     caches.keys().then(keyList => {
       return Promise.all(keyList.map(key => {
@@ -32,6 +33,7 @@ self.addEventListener('activate', event => {
 
 // Install cache logic
 self.addEventListener('install', event => {
+  self.skipWaiting();
   // Desactivate the cache logic...
   event.waitUntil(
     caches.keys().then(keyList => {
