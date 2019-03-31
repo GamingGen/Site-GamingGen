@@ -1,0 +1,108 @@
+<html>
+  <header>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Teko" rel="stylesheet">
+    <!--font-family: 'Roboto', sans-serif;-->
+    <style>
+      body {
+        overflow: hidden;
+        background-image: url('./fond tv.jpg');
+        color: white;
+      }
+      
+      .center {
+        display: flex;
+        justify-content: center;
+        /*align-content: flex-start;*/
+        /*align-items: flex-start;*/
+      }
+      
+      .center h1 {
+        font-family: 'Teko', sans-serif;
+      }
+      
+      .WebTV {
+        position: absolute;
+        top: 10px;
+        left: -5px;
+      }
+      
+      .ml15 {
+        /*align-self: flex-start;*/
+        /*font-weight: 800;*/
+        font-size: 150px;
+        text-transform: uppercase;
+        letter-spacing: 15px;
+      }
+      
+      .ml15 .word {
+        display: inline-block;
+        line-height: 1em;
+      }
+      
+      .casters {
+         font-size: 150px;
+        text-transform: uppercase;
+        letter-spacing: 15px;
+      }
+      
+      .casters .word {
+        display: inline-block;
+        line-height: 1em;
+      }
+    </style>
+  </header>
+  <body>
+    <img src="./WebTV.svg" class="WebTV" alt="Logo WebTV"/>
+    
+    <div class="center">
+      <h1 class="ml15">
+        <span class="word">Scène</span>
+        <span class="word">CS: GO</span>
+      </h1>
+    </div>
+    <div class="center">
+      <h1 class="casters">
+        <span class="word">Nous recrutons</span>
+        <span class="word">des casters</span>
+      </h1>
+    </div>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+    
+    <script>
+      anime.timeline({loop: true})
+      .add({
+        targets: '.ml15 .word',
+        scale: [14,1],
+        opacity: [0,1],
+        easing: "easeOutCirc",
+        duration: 800,
+        delay: function(el, i) {
+          return 800 * i + 1000;
+        }
+      }).add({
+        targets: '.ml15',
+        opacity: 0,
+        duration: 1000,
+        easing: "easeOutExpo",
+        delay: 8000
+      }).add({
+        targets: '.casters .word',
+        scale: [14,1],
+        opacity: [0,1],
+        easing: "easeOutCirc",
+        duration: 800,
+        delay: function(el, i) {
+          return 800 * i + 1000;
+        }
+      }).add({
+        targets: '.casters',
+        opacity: 0,
+        duration: 1000,
+        easing: "easeOutExpo",
+        delay: 5000
+      });
+    </script>
+  </body>
+</html>
