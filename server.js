@@ -40,7 +40,7 @@ const moment        = require('moment');
 const nodemailer    = require('nodemailer');
 const sticky        = require('sticky-session');
 const helmet        = require('helmet');
-const napa          = require('napajs');
+// const napa          = require('napajs');
 
 
 // let resumable    = require('./resumable-node.js')('tmp/');
@@ -104,28 +104,28 @@ colors.setTheme({
 
 //////////////////////////////////// TEST //////////////////////////////////////
 // Conf Zones
-const zone1 = napa.zone.create('zone1', { workers: 4 });
+// const zone1 = napa.zone.create('zone1', { workers: 4 });
 
-zone1.broadcast((state) => {
-    console.log(JSON.stringify(state));
-// }, [ {field1: 1} ])
-})
-.then(() => {
-    console.log('broadcast succeeded.');
-})
-.catch((error) => {
-    console.log(`broadcast failed: ${error}`);
-});
+// zone1.broadcast((state) => {
+//     console.log(JSON.stringify(state));
+// // }, [ {field1: 1} ])
+// })
+// .then(() => {
+//     console.log('broadcast succeeded.');
+// })
+// .catch((error) => {
+//     console.log(`broadcast failed: ${error}`);
+// });
 
-zone1.execute((a, b, c) => {
-        return a + b + JSON.stringify(c);
-    }, [1, "hello", {field1: 1}])
-.then((result) => {
-    console.log('execute succeeded:', result.value);
-})
-.catch((error) => {
-    console.log('execute failed:', error);
-});
+// zone1.execute((a, b, c) => {
+//         return a + b + JSON.stringify(c);
+//     }, [1, "hello", {field1: 1}])
+// .then((result) => {
+//     console.log('execute succeeded:', result.value);
+// })
+// .catch((error) => {
+//     console.log('execute failed:', error);
+// });
 
 //////////////////////////////////// TEST //////////////////////////////////////
 
