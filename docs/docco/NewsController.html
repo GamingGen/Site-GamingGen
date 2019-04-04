@@ -135,22 +135,23 @@ AppControllers.controller(<span class="hljs-string">'newsCtrl'</span>, [<span cl
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getObject</span>(<span class="hljs-params">theObject, value</span>) </span>{
     <span class="hljs-keyword">var</span> result = <span class="hljs-literal">null</span>;
     <span class="hljs-keyword">if</span>(theObject <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>) {
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; theObject.length; i++) {
-            result = getObject(theObject[i]);
-        }
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; theObject.length; i++) {
+        result = getObject(theObject[i]);
+      }
     }
     <span class="hljs-keyword">else</span>
     {
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> prop <span class="hljs-keyword">in</span> theObject) {
-            <span class="hljs-built_in">console</span>.log(prop + <span class="hljs-string">': '</span> + theObject[prop]);
-            <span class="hljs-keyword">if</span>(prop == <span class="hljs-string">'_id'</span>) {
-                <span class="hljs-keyword">if</span>(theObject[prop] === value) {
-                    <span class="hljs-keyword">return</span> theObject;
-                }
-            }
-            <span class="hljs-keyword">if</span>(theObject[prop] <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span> || theObject[prop] <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>)
-                result = getObject(theObject[prop]);
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> prop <span class="hljs-keyword">in</span> theObject) {
+        <span class="hljs-built_in">console</span>.log(prop + <span class="hljs-string">': '</span> + theObject[prop]);
+        <span class="hljs-keyword">if</span>(prop == <span class="hljs-string">'_id'</span>) {
+          <span class="hljs-keyword">if</span>(theObject[prop] === value) {
+            <span class="hljs-keyword">return</span> theObject;
+          }
         }
+        <span class="hljs-keyword">if</span>(theObject[prop] <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span> || theObject[prop] <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>) {
+          result = getObject(theObject[prop]);
+        }
+      }
     }
     <span class="hljs-keyword">return</span> result;
   }</pre></div></div>

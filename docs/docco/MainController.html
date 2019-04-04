@@ -59,8 +59,8 @@ AppControllers.controller(<span class="hljs-string">'mainCtrl'</span>, [<span cl
   pages.snackRPI  = [];
   
   
-  $scope.slider = <span class="hljs-string">'../Img/Slider/SLIDER-GG6V4.png'</span>;
-  $scope.sliderSRCSET = <span class="hljs-string">'../Img/Slider/SLIDER-GG6-MOBILE-660.png 800w, ../Img/Slider/SLIDER-GG6-TABLET-992.png 1300w, ../Img/Slider/SLIDER-GG6V4.png 2000w'</span>;</pre></div></div>
+  $scope.slider = <span class="hljs-string">'../Img/Slider/OPTIMIZED-SLIDER-LG.jpg'</span>;
+  $scope.sliderSRCSET = <span class="hljs-string">'../Img/Slider/OPTIMIZED-SLIDER-XS.jpg 800w, ../Img/Slider/OPTIMIZED-SLIDER-MD.jpg 1300w, ../Img/Slider/OPTIMIZED-SLIDER-LG.jpg 2000w'</span>;</pre></div></div>
             
         </li>
         
@@ -230,6 +230,11 @@ $scope.connectionPassword = ‘darkterra’;</p>
 
             </div>
             
+            <div class="content"><div class='highlight'><pre>  $scope.goRegistration = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Bye bye'</span>);
+    $<span class="hljs-built_in">window</span>.open(<span class="hljs-string">'http://po.st/gg7-billetteries'</span>, <span class="hljs-string">'_blank'</span>);
+  };</pre></div></div>
+            
         </li>
         
         
@@ -243,7 +248,15 @@ $scope.connectionPassword = ‘darkterra’;</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $scope.submitLogin = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <div class="content"><div class='highlight'><pre>  $scope.getAbout = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    $http.get(<span class="hljs-string">'/about'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">about</span>) </span>{
+      $scope.about = about.data;
+    }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+      <span class="hljs-built_in">console</span>.log(err);
+    });
+  };
+  
+  $scope.submitLogin = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'submitLogin Call'</span>);
     
     user.email = $scope.connectionEmail;
@@ -300,13 +313,13 @@ $scope.connectionPassword = ‘’;</p>
             
             <div class="content"><div class='highlight'><pre>  $scope.submitRegister = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'submitRegister Call'</span>);
-    user.pseudo = $scope.pseudo;
-    user.password = $scope.password;
-    user.email = $scope.email;
+    user.pseudo             = $scope.pseudo;
+    user.password           = $scope.password;
+    user.email              = $scope.email;
     user.general.first_name = $scope.firstName;
-    user.general.last_name = $scope.lastName;
-    user.general.birthday = $scope.birthday;
-    user.general.zip = $scope.zip;
+    user.general.last_name  = $scope.lastName;
+    user.general.birthday   = $scope.birthday;
+    user.general.zip        = $scope.zip;
     
     <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(user));
     $http.post(<span class="hljs-string">'/users/insert'</span>, <span class="hljs-built_in">JSON</span>.stringify(user))

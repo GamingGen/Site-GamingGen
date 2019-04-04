@@ -33,7 +33,7 @@
             <div class="content"><div class='highlight'><pre><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">var</span> AppControllers = angular.module(<span class="hljs-string">'AppControllers'</span>);
-AppControllers.controller(<span class="hljs-string">'hearthStoneCtrl'</span>, [<span class="hljs-string">'$http'</span>, <span class="hljs-string">'$scope'</span>, <span class="hljs-string">'socket'</span>, <span class="hljs-string">'$filter'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$http, $scope, socket</span>)</span>{</pre></div></div>
+AppControllers.controller(<span class="hljs-string">'hearthStoneCtrl'</span>, [<span class="hljs-string">'$http'</span>, <span class="hljs-string">'$scope'</span>, <span class="hljs-string">'socket'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$http, $scope, socket, $window</span>)</span>{</pre></div></div>
             
         </li>
         
@@ -73,6 +73,11 @@ AppControllers.controller(<span class="hljs-string">'hearthStoneCtrl'</span>, [<
               <p>—– Public Méthode —–</p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>  $scope.goRegistration = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Bye bye'</span>);
+    $<span class="hljs-built_in">window</span>.open(<span class="hljs-string">'https://www.eventbrite.fr/e/billets-gaming-gen-level-7-tournoi-fifa-19-55581063457'</span>, <span class="hljs-string">'_blank'</span>);
+  };</pre></div></div>
             
         </li>
         

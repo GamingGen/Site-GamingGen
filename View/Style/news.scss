@@ -18,9 +18,6 @@
   transition: all 0.3s ease-out;
 }
 
-.listNewsPage:hover{
-  background: rgba(0,0,0,0.05);
-}
 
 .listNewsPage div{
   margin-right:10px;
@@ -32,9 +29,9 @@
   right: 0;
   position: absolute;
   width:100%;
-  height:100%;
-  justify-content:flex-end;
-  align-items:center;
+  justify-content: flex-end;
+  align-items: center;
+  bottom: 8px;
 }
 
 .categoryListNews{
@@ -49,10 +46,10 @@
   top:0;
   left:0;
   z-index:5;
-  padding: 20px 10px 20px 40px;
+  padding: 20px 40px 20px 40px;
   color: #FFF;
   margin-top: 0px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(255,255,255,1);
 }
 
 .wrapperPreviewNews h1{
