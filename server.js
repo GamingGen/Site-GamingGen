@@ -221,6 +221,42 @@ app.use('/order', Order.router);
 app.use('/about', About.router);
 
 
+app.get('/demo-joueurs', (req, res) => {
+  fs.readdir(path.join(__dirname, 'View', 'demo-joueurs'), (err, files) => {
+    let response = "An error occur";
+    
+    if (err) {
+      console.error(err);
+    }
+    
+    if (files) {
+      response = files;
+    }
+    
+    const htmlToSend = `
+    <html>
+      <header>
+      <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="theme-color" content="#004d00">
+        
+        <title>Gaming Gen: Liste des démos joueurs CS: GO 2019</title>
+      </header>
+      <body>
+        <h1>Liste des démos joueurs CS: GO (Gaming Gen 2019)</h1>
+        <br /><br />
+        ${response.reduce((accumulator, currentValue) => {
+          accumulator += `<a href="https://www.gaming-gen.fr/demo-joueurs/${currentValue}" download="${currentValue}">${currentValue}</a><br />`;
+          return accumulator;
+          }, "<strong>No Files here</strong>")}
+      </body>
+    </html>`;
+      
+    res.status(200).send(htmlToSend);
+  });
+});
+
 // Events
 ServerEvent.on('sendMailContact', (data, socket) => {
   SendMail(data.email, data.subject, 'contact@gaming-gen.fr', data.text, socket);
