@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>about.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>about.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> express	= <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">var</span> router	= express.Router();
+
+<span class="hljs-keyword">const</span> modules = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../package.json'</span>);
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'process.env.NODE_ENV: '</span>, process.env.NODE_ENV);
+
+router.get(<span class="hljs-string">'/'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">let</span> about = {
+    <span class="hljs-attr">name</span>        : modules.name,
+    <span class="hljs-attr">version</span>     : modules.version,
+    <span class="hljs-attr">author</span>      : modules.author,
+    <span class="hljs-attr">contributors</span>: modules.contributors,
+    <span class="hljs-attr">env</span>: process.env.NODE_ENV || <span class="hljs-string">'development'</span>
+  };
+  res.json(about);
+});
+
+exports.router = router;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

@@ -41,7 +41,7 @@
  * Date de Création 30/04/2016 &lt;br /&gt;
  * Date de modification 02/09/2017 &lt;br /&gt;
  * 
- * @version Alpha 1.4.0
+ * @version Alpha 1.5.0
  * 
  * @author Jérémy Young            &lt;darkterra01@gmail.com&gt;
  * @author Loïc Tardivel-Lacombe   &lt;loic.tardivel@gmail.com&gt;
@@ -82,7 +82,8 @@
 <span class="hljs-keyword">const</span> os            = <span class="hljs-built_in">require</span>(<span class="hljs-string">'os'</span>);
 <span class="hljs-keyword">const</span> moment        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
 <span class="hljs-keyword">const</span> nodemailer    = <span class="hljs-built_in">require</span>(<span class="hljs-string">'nodemailer'</span>);
-<span class="hljs-keyword">const</span> sticky        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'sticky-session'</span>);</pre></div></div>
+<span class="hljs-keyword">const</span> sticky        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'sticky-session'</span>);
+<span class="hljs-keyword">const</span> helmet        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'helmet'</span>);</pre></div></div>
             
         </li>
         
@@ -93,8 +94,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>let resumable    = require(‘./resumable-node.js’)(‘tmp/‘);
-let shelljs      = require(‘shelljs’);</p>
+              <p>const napa          = require(‘napajs’);</p>
 
             </div>
             
@@ -106,6 +106,20 @@ let shelljs      = require(‘shelljs’);</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>let resumable    = require(‘./resumable-node.js’)(‘tmp/‘);
+let shelljs      = require(‘shelljs’);</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <p>PMX For PM2</p>
 
@@ -123,11 +137,11 @@ let shelljs      = require(‘shelljs’);</p>
         </li>
         
         
-        <li id="section-5">
+        <li id="section-6">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               <p>mongoose</p>
 
@@ -140,11 +154,11 @@ let shelljs      = require(‘shelljs’);</p>
         </li>
         
         
-        <li id="section-6">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p>TODO à changer (gestion tentatire reconnexions)</p>
 
@@ -157,11 +171,11 @@ let shelljs      = require(‘shelljs’);</p>
         </li>
         
         
-        <li id="section-7">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <p>Server Events</p>
 
@@ -172,11 +186,11 @@ let shelljs      = require(‘shelljs’);</p>
         </li>
         
         
-        <li id="section-8">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>Require Controllers</p>
 
@@ -193,16 +207,17 @@ let shelljs      = require(‘shelljs’);</p>
 <span class="hljs-keyword">const</span> Snack       = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Controller/snacks'</span>);
 <span class="hljs-keyword">const</span> MenuSnack   = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Controller/menuSnacks'</span>);
 <span class="hljs-keyword">const</span> Shop        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Controller/shop'</span>);
-<span class="hljs-keyword">const</span> Order       = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Controller/order'</span>);</pre></div></div>
+<span class="hljs-keyword">const</span> Order       = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Controller/order'</span>);
+<span class="hljs-keyword">const</span> About       = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Controller/about'</span>);</pre></div></div>
             
         </li>
         
         
-        <li id="section-9">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <p>Conf color</p>
 
@@ -224,13 +239,84 @@ let shelljs      = require(‘shelljs’);</p>
         </li>
         
         
-        <li id="section-10">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              <p>Conf port</p>
+              <p>////////////////////////////////// TEST //////////////////////////////////////
+Conf Zones
+const zone1 = napa.zone.create(‘zone1’, { workers: 4 });</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>zone1.broadcast((state) =&gt; {
+    console.log(JSON.stringify(state));
+// }, [ {field1: 1} ])
+})
+.then(() =&gt; {
+    console.log(‘broadcast succeeded.’);
+})
+.catch((error) =&gt; {
+    console.log(<code>broadcast failed: ${error}</code>);
+});</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>zone1.execute((a, b, c) =&gt; {
+        return a + b + JSON.stringify(c);
+    }, [1, “hello”, {field1: 1}])
+.then((result) =&gt; {
+    console.log(‘execute succeeded:’, result.value);
+})
+.catch((error) =&gt; {
+    console.log(‘execute failed:’, error);
+});</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>////////////////////////////////// TEST //////////////////////////////////////</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Conf Port</p>
 
             </div>
             
@@ -239,13 +325,13 @@ let shelljs      = require(‘shelljs’);</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              <p>Conf session</p>
+              <p>Conf Session</p>
 
             </div>
             
@@ -260,17 +346,18 @@ let shelljs      = require(‘shelljs’);</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
-              <p>Conf app</p>
+              <p>Conf App</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>app.use(compression({<span class="hljs-attr">filter</span>: shouldCompress}));
+            <div class="content"><div class='highlight'><pre>app.use(helmet());
+app.use(compression({<span class="hljs-attr">filter</span>: shouldCompress}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ <span class="hljs-attr">extended</span>: <span class="hljs-literal">true</span> }));
 app.use(cookieParser());
@@ -283,11 +370,11 @@ app.use(<span class="hljs-built_in">require</span>(<span class="hljs-string">'mo
         </li>
         
         
-        <li id="section-13">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <p>Conf passport</p>
 
@@ -302,11 +389,11 @@ app.use(<span class="hljs-built_in">require</span>(<span class="hljs-string">'mo
         </li>
         
         
-        <li id="section-14">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <p>You can write any kind of message you’d like.
 The message will be displayed on the next page the user visits.
@@ -336,11 +423,11 @@ passport.deserializeUser(authDeserializer);</pre></div></div>
         </li>
         
         
-        <li id="section-15">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <p>Socket io</p>
 
@@ -351,11 +438,11 @@ passport.deserializeUser(authDeserializer);</pre></div></div>
         </li>
         
         
-        <li id="section-16">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <p>Call Events Management</p>
 
@@ -373,11 +460,11 @@ Order.orderEvent(ServerEvent);</pre></div></div>
         </li>
         
         
-        <li id="section-17">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p>Log Error</p>
 
@@ -390,11 +477,11 @@ Order.orderEvent(ServerEvent);</pre></div></div>
         </li>
         
         
-        <li id="section-18">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>Routing</p>
 
@@ -410,16 +497,17 @@ app.use(<span class="hljs-string">'/teams'</span>, Team.router);
 app.use(<span class="hljs-string">'/snacks'</span>, Snack.router);
 app.use(<span class="hljs-string">'/menusnacks'</span>, MenuSnack.router);
 app.use(<span class="hljs-string">'/shop'</span>, Shop.router);
-app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></div>
+app.use(<span class="hljs-string">'/order'</span>, Order.router);
+app.use(<span class="hljs-string">'/about'</span>, About.router);</pre></div></div>
             
         </li>
         
         
-        <li id="section-19">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <p>Events</p>
 
@@ -432,11 +520,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-20">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <p>Functions</p>
 
@@ -448,11 +536,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-21">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <p>don’t compress responses with this request header </p>
 
@@ -464,11 +552,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-22">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p>fallback to standard filter function </p>
 
@@ -483,11 +571,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-23">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <p>req.user is available for use here</p>
 
@@ -500,11 +588,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-24">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <p>denied</p>
 
@@ -516,11 +604,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-25">
+        <li id="section-30">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
               <p>Gestion message de démarrage</p>
 
@@ -541,11 +629,11 @@ app.use(<span class="hljs-string">'/order'</span>, Order.router);</pre></div></d
         </li>
         
         
-        <li id="section-26">
+        <li id="section-31">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <p>Mail…
 create reusable transporter object using SMTP transport </p>
@@ -565,11 +653,11 @@ create reusable transporter object using SMTP transport </p>
         </li>
         
         
-        <li id="section-27">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p>Gestion mail Contact</p>
 
@@ -581,11 +669,11 @@ create reusable transporter object using SMTP transport </p>
         </li>
         
         
-        <li id="section-28">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <p>setup e-mail data with unicode symbols </p>
 
@@ -600,11 +688,11 @@ create reusable transporter object using SMTP transport </p>
         </li>
         
         
-        <li id="section-29">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p>html: html, // html body</p>
 
@@ -616,11 +704,11 @@ create reusable transporter object using SMTP transport </p>
         </li>
         
         
-        <li id="section-30">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>Pour attacher des pièces
 for(let IMG of tabIMG) {
@@ -635,11 +723,11 @@ for(let IMG of tabIMG) {
         </li>
         
         
-        <li id="section-31">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <p>send mail with defined transport object </p>
 
@@ -653,11 +741,11 @@ for(let IMG of tabIMG) {
         </li>
         
         
-        <li id="section-32">
+        <li id="section-37">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <p>res.status(500).json({message : <code>Problème lors de l&#39;envoie du mail</code>});</p>
 
@@ -671,11 +759,11 @@ for(let IMG of tabIMG) {
         </li>
         
         
-        <li id="section-33">
+        <li id="section-38">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <p>res.status(200).json({message : ‘Mail envoyé !’});</p>
 
@@ -693,11 +781,11 @@ app.head(<span class="hljs-string">'/health'</span>, <span class="hljs-function"
         </li>
         
         
-        <li id="section-34">
+        <li id="section-39">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-39">&#182;</a>
               </div>
               <p>Check Version of Node before Launch.</p>
 
@@ -739,11 +827,11 @@ app.head(<span class="hljs-string">'/health'</span>, <span class="hljs-function"
         </li>
         
         
-        <li id="section-35">
+        <li id="section-40">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-40">&#182;</a>
               </div>
               <p>Création du serveur</p>
 
@@ -759,11 +847,11 @@ app.head(<span class="hljs-string">'/health'</span>, <span class="hljs-function"
         </li>
         
         
-        <li id="section-36">
+        <li id="section-41">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-41">&#182;</a>
               </div>
               <p>pmx.emit(‘user:register’, {
   user : ‘Alex registered’,
@@ -780,11 +868,11 @@ app.head(<span class="hljs-string">'/health'</span>, <span class="hljs-function"
         </li>
         
         
-        <li id="section-37">
+        <li id="section-42">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-42">&#182;</a>
               </div>
               <p>Handle uploads through Resumable.js
 app.post(‘/upload’, function(req, res){
@@ -795,11 +883,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-38">
+        <li id="section-43">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-38">&#182;</a>
+                <a class="pilcrow" href="#section-43">&#182;</a>
               </div>
               <p>  resumable.post(req, function(status, filename, original_filename, identifier, nomFinal){
     //console.log(‘POST’, status, original_filename, identifier);</p>
@@ -809,11 +897,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-39">
+        <li id="section-44">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-39">&#182;</a>
+                <a class="pilcrow" href="#section-44">&#182;</a>
               </div>
               <pre><code><span class="hljs-keyword">if</span> (status == <span class="hljs-string">'done'</span>) {
   <span class="hljs-keyword">var</span> racine            = <span class="hljs-string">"/home/pi/www/"</span>;
@@ -828,11 +916,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-40">
+        <li id="section-45">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-40">&#182;</a>
+                <a class="pilcrow" href="#section-45">&#182;</a>
               </div>
               <pre><code>  <span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 </code></pre>
@@ -841,11 +929,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-41">
+        <li id="section-46">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-41">&#182;</a>
+                <a class="pilcrow" href="#section-46">&#182;</a>
               </div>
               <pre><code>  nomFinal = nomFinal + <span class="hljs-string">'.'</span> + resumableFilename.substr((resumableFilename.lastIndexOf(<span class="hljs-string">'.'</span>) +<span class="hljs-number">1</span>));
 </code></pre>
@@ -854,11 +942,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-42">
+        <li id="section-47">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-42">&#182;</a>
+                <a class="pilcrow" href="#section-47">&#182;</a>
               </div>
               <pre><code>  fs.exists(destFileFinal, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">exists</span>) </span>{
     <span class="hljs-keyword">if</span> (! exists) {
@@ -871,11 +959,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-43">
+        <li id="section-48">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-43">&#182;</a>
+                <a class="pilcrow" href="#section-48">&#182;</a>
               </div>
               <pre><code>    <span class="hljs-keyword">var</span> ws = fs.createWriteStream(destFileFinal);
 </code></pre>
@@ -884,11 +972,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-44">
+        <li id="section-49">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-44">&#182;</a>
+                <a class="pilcrow" href="#section-49">&#182;</a>
               </div>
               <pre><code>    resumable.write(identifier, ws);
     ws.on(<span class="hljs-string">'finish'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -903,11 +991,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-45">
+        <li id="section-50">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-45">&#182;</a>
+                <a class="pilcrow" href="#section-50">&#182;</a>
               </div>
               <pre><code>res.send(status, {
   <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> Uncomment this funciton to enable cross-domain request.</span>
@@ -921,11 +1009,11 @@ app.post(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-46">
+        <li id="section-51">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-46">&#182;</a>
+                <a class="pilcrow" href="#section-51">&#182;</a>
               </div>
               <p>// Handle status checks on chunks through Resumable.js
 app.get(‘/upload’, function(req, res){
@@ -940,11 +1028,11 @@ app.get(‘/upload’, function(req, res){
         </li>
         
         
-        <li id="section-47">
+        <li id="section-52">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-47">&#182;</a>
+                <a class="pilcrow" href="#section-52">&#182;</a>
               </div>
               <p>app.get(‘/download/:identifier’, function(req, res){
   resumable.write(req.params.identifier, res);

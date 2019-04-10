@@ -53,7 +53,7 @@
 }
 
 .titresectionarticles{
-  padding-top:40px;
+  margin-bottom:5vh;
 }
 
 .titresectionarticles h1, h2{
@@ -70,6 +70,20 @@
 .titresectionarticles h2{
   padding-top: 0.5em;
   padding-left: 10px;
+}
+
+.lirearticle{
+  display:flex;
+  flex-direction:column-reverse;
+  
+  box-shadow:0px 3px 15px rgba(0,0,0,0.05);
+  transition:all 0.7s ease;
+  border-radius:4px;
+  overflow:hidden;
+  &:hover{
+    box-shadow:0px 5px 30px rgba(0,0,0,0.05);
+  }
+  
 }
 
 .blocdesfeedback{
@@ -119,10 +133,6 @@
   margin-top:29px;
 }
 
-.firstThumbNews, .otherThumbNews{
-  height: 270px;
-  padding: 0;
-}
 
 .firstThumbNews span a, .otherThumbNews span a{
   width:100%;
@@ -139,7 +149,15 @@
 .lastThumbNew a img {
   object-fit: contain;
 }
-
+.wrapperPreviewNews{
+  padding:20px 40px 20px 40px;
+}
+.lastThumbNew{
+  a{
+    min-height:398.5px;
+    display:grid;
+  }
+}
 .lastThumbNew .wrapperPreviewNews{
   height:100%;
   display: flex;
@@ -170,11 +188,11 @@
   float:left;
   margin-right: 20px;
   font-size: 2.1em;
-  color:rgba(255,255,255,0.9);
+  color:#0a1402;
 }
 
 .imgThumbNews {
-  position: absolute;
+  position: relative;
   background-size:cover!important;
   height: 100%;
   width: 100%;
@@ -195,7 +213,7 @@
 }
 
 .previewTextThumbNews .ng-binding{
-  color:rgba(255,255,255,0.7);
+  color:#0a1402;
 }
 
 .blanc{
