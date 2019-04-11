@@ -393,7 +393,14 @@
   -ms-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-
+.rowArticlesHome{
+  display:flex;
+  flex-wrap:wrap;
+  .articlesHome{
+    display:flex;
+    margin-bottom:40px;
+  }
+}
 .boxmid:hover .smalltxt, .boxleft:hover .smalltxt{
   margin-top: 0px;
   margin-bottom: -10px;
