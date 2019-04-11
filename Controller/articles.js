@@ -37,7 +37,7 @@ router.get('/', function (req, res) {
 
 // Récupère uniquement les 4 dernier articles (Spécifique pour la Home)
 router.get('/home', function (req, res) {
-  articleSchema.find({}, {text : 0}, {sort: { update_at: -1 }, limit: 4 }, function (err, docs) {
+  articleSchema.find({}, {text : 0}, {sort: { update_at: -1 }, limit: 5 }, function (err, docs) {
     if (err) {
       console.error(err);
       res.status(500);
