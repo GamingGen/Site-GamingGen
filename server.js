@@ -224,6 +224,7 @@ app.use('/about', About.router);
 app.get('/demo-joueurs', (req, res) => {
   fs.readdir(path.join(__dirname, 'View', 'demo-joueurs'), (err, files) => {
     let response = "An error occur";
+    let initValue = "<strong>No Files here</strong>";
     
     if (err) {
       console.error(err);
@@ -231,6 +232,10 @@ app.get('/demo-joueurs', (req, res) => {
     
     if (files) {
       response = files;
+      
+      if (files.length > 0) {
+        initValue = "";
+      }
     }
     
     const htmlToSend = `
@@ -249,7 +254,7 @@ app.get('/demo-joueurs', (req, res) => {
         ${response.reduce((accumulator, currentValue) => {
           accumulator += `<a href="https://www.gaming-gen.fr/demo-joueurs/${currentValue}" download="${currentValue}">${currentValue}</a><br />`;
           return accumulator;
-          }, "<strong>No Files here</strong>")}
+          }, initValue)}
       </body>
     </html>`;
       
