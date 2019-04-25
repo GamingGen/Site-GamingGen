@@ -221,7 +221,12 @@ app.use('/order', Order.router);
 app.use('/about', About.router);
 
 
+let numberViews = 0;
+
 app.get('/demo-joueurs', (req, res) => {
+  numberViews++;
+  console.log('numberViews: ', numberViews);
+  
   fs.readdir(path.join(__dirname, 'View', 'demo-joueurs'), (err, files) => {
     let response = "An error occur";
     let initValue = "<strong>No Files here</strong>";
@@ -253,6 +258,47 @@ app.get('/demo-joueurs', (req, res) => {
         <br /><br />
         ${response.reduce((accumulator, currentValue) => {
           accumulator += `<a href="https://www.gaming-gen.fr/demo-joueurs/${currentValue}" download="${currentValue}">${currentValue}</a><br />`;
+          return accumulator;
+          }, initValue)}
+      </body>
+    </html>`;
+      
+    res.status(200).send(htmlToSend);
+  });
+});
+
+app.get('/ebot', (req, res) => {
+  fs.readdir(path.join(__dirname, 'View', 'Img', 'Ebot'), (err, files) => {
+    let response = "An error occur";
+    let initValue = "<strong>No Files here</strong>";
+    
+    if (err) {
+      console.error(err);
+    }
+    
+    if (files) {
+      response = files;
+      
+      if (files.length > 0) {
+        initValue = "";
+      }
+    }
+    
+    const htmlToSend = `
+    <html>
+      <header>
+      <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="theme-color" content="#004d00">
+        
+        <title>Gaming Gen: Ebot CS: GO 2019</title>
+      </header>
+      <body>
+        <h1>Ebot: stats 75 joueurs CS: GO (Gaming Gen 2019)</h1>
+        <br /><br />
+        ${response.reduce((accumulator, currentValue) => {
+          accumulator += `<a href="https://www.gaming-gen.fr/Img/Ebot/${currentValue}" download="/Img/Ebot/${currentValue}"><img src="/Img/Ebot/${currentValue}"></a><br />`;
           return accumulator;
           }, initValue)}
       </body>
