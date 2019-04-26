@@ -268,6 +268,18 @@ app.get('/demo-joueurs', (req, res) => {
 });
 
 app.get('/ebot', (req, res) => {
+  fs.readFile(path.join(__dirname, 'View', 'Partial', 'eBot.html'), 'utf8', (err, file) => {
+    if (err) {
+      res.status(500).end();
+    }
+    else {
+      console.log('file: ', file);
+      res.status(200).send(file.toString());
+    }
+  });
+});
+
+app.get('/ebotImg', (req, res) => {
   fs.readdir(path.join(__dirname, 'View', 'Img', 'Ebot'), (err, files) => {
     let response = "An error occur";
     let initValue = "<strong>No Files here</strong>";
@@ -298,7 +310,7 @@ app.get('/ebot', (req, res) => {
         <h1>Ebot: stats 75 joueurs CS: GO (Gaming Gen 2019)</h1>
         <br /><br />
         ${response.reduce((accumulator, currentValue) => {
-          accumulator += `<a href="https://www.gaming-gen.fr/Img/Ebot/${currentValue}" download="/Img/Ebot/${currentValue}"><img src="/Img/Ebot/${currentValue}"></a><br />`;
+          accumulator += `<a href="https://www.gaming-gen.fr/Img/Ebot/${currentValue}" download="${currentValue}"><img src="/Img/Ebot/${currentValue}"></a><br />`;
           return accumulator;
           }, initValue)}
       </body>
