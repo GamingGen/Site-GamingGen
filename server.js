@@ -273,7 +273,6 @@ app.get('/ebot', (req, res) => {
       res.status(500).end();
     }
     else {
-      console.log('file: ', file);
       res.status(200).send(file.toString());
     }
   });
