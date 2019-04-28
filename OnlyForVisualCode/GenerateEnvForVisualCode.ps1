@@ -15,13 +15,13 @@ else{
 }
 
 # mongod
-$mongod = """C:\Program Files\MongoDB\Server\3.4\bin\mongod"" --dbpath=""" + $dataDir + """"
+$mongod = """C:\Program Files\MongoDB\Server\4.0\bin\mongod"" --dbpath=""" + $dataDir + """"
 # $mongod = "mongod --dbpath=""" + $dataDir + """"
 # mongodRepair
-$mongodRepair = """C:\Program Files\MongoDB\Server\3.4\bin\mongod"" --dbpath=""" + $dataDir + """ --repair"
+$mongodRepair = """C:\Program Files\MongoDB\Server\4.0\bin\mongod"" --dbpath=""" + $dataDir + """ --repair"
 # $mongodRepair = "mongod --dbpath=""" + $dataDir + """ --repair"
 # mongodShutDown
-$mongodShutDown = """C:\Program Files\MongoDB\Server\3.4\bin\mongod"" --dbpath=""" + $dataDir + """ --shutdown"
+$mongodShutDown = """C:\Program Files\MongoDB\Server\4.0\bin\mongod"" --dbpath=""" + $dataDir + """ --shutdown"
 # $mongodShutDown = "mongod --dbpath=""" + $dataDir + """ --shutdown"
 
 
