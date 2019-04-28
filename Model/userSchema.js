@@ -7,7 +7,7 @@
 /**
  * @requires Général
  */
-const bcrypt    = require('bcrypt');
+const bcrypt    = require('bcryptjs');
 
 /**
  * @requires Schema
