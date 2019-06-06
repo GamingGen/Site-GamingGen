@@ -86,34 +86,34 @@
         })
         
         // /!\ A décommenter une fois l'annonce faite /!\
-        .state('fifa19', {
-          url         : '/fifa19',
-          templateUrl : '../Partial/fifa19.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('tournoi-csgo', {
-          url         : '/tournoi-csgo',
-          templateUrl : '../Partial/tournoi-csgo.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('smashBrosUltimate', {
-          url         : '/smashBrosUltimate',
-          templateUrl : '../Partial/smashBrosUltimate.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('dragonBallFighterZ', {
-          url         : '/dragonBallFighterZ',
-          templateUrl : '../Partial/dragonBallFighterZ.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
+        // .state('fifa19', {
+        //   url         : '/fifa19',
+        //   templateUrl : '../Partial/fifa19.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('tournoi-csgo', {
+        //   url         : '/tournoi-csgo',
+        //   templateUrl : '../Partial/tournoi-csgo.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('smashBrosUltimate', {
+        //   url         : '/smashBrosUltimate',
+        //   templateUrl : '../Partial/smashBrosUltimate.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('dragonBallFighterZ', {
+        //   url         : '/dragonBallFighterZ',
+        //   templateUrl : '../Partial/dragonBallFighterZ.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
         .state('legalNotice', {
           url         : '/legalNotice',
           templateUrl : '../Partial/legalNotice.html',
