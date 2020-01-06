@@ -13,12 +13,12 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
   news.detail1 = "";
   news.detail2 = "";
   
-  $http.get('/home/info').then(response => {
+  $http.get('/home/info').then(function (response) {
     news.title    = response.data.title;
     news.mainInfo = response.data.mainInfo;
     news.detail1  = response.data.detail1;
     news.detail2  = response.data.detail2;
-  }).catch(err => {
+  }).catch(function (err) {
     console.log(err);
   });
   
