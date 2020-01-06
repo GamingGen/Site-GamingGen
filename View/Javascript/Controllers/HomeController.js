@@ -8,6 +8,20 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
   news.defaultPicture = "Img/Articles/default-thumbnail.jpg";
   news.moreArticles = "Img/General/genevert.png";
   
+  news.title = "";
+  news.mainInfo = "Oups, erreur serveur";
+  news.detail1 = "";
+  news.detail2 = "";
+  
+  $http.get('/home/info').then(response => {
+    news.title    = response.data.title;
+    news.mainInfo = response.data.mainInfo;
+    news.detail1  = response.data.detail1;
+    news.detail2  = response.data.detail2;
+  }).catch(err => {
+    console.log(err);
+  });
+  
   
   // ----- GET / SET Data -----
   $scope.videoPresentation = "dGRWO7C6m6M";
@@ -22,8 +36,8 @@ AppControllers.controller('homeCtrl', ['$http', '$scope', 'socket', '$filter', f
     player.mute();
   });
   
-  $http.get('/articles/home').then(function(data) {
-    news.articles = data.data;
+  $http.get('/articles/home').then(function(toto) {
+    news.articles = toto.data;
   }).catch(function(err) {
     console.log(err);
   });

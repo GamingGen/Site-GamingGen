@@ -1,8 +1,23 @@
-<div ng-controller="adminLiveCtrl as live">
+<div ng-controller="adminHomeCtrl as home">
   <div class="row">
     <div class="col-md-12">
-      <button type="button" ng-click="toogleLive()" class="btn btn-info">Toogle Live</button>
-      <button type="button" ng-click="sendPost()" ng-disabled="true" class="btn btn-danger">POST</button>
+      <form ng-submit="formHome.$valid" name="formHome" novalidate>
+        <div class="form-group">
+          <label for="title">Titre : </label>
+          <input type="text" class="form-control" id="title" ng-model="title" placeholder="Entrez le titre" required>
+          <br/>
+          <label for="title">MainInfo : </label>
+          <input type="text" class="form-control" id="mainInfo" ng-model="mainInfo" placeholder="Entrez l'info Principale" required>
+          <br/>
+          <label for="title">Detail1 : </label>
+          <input type="text" class="form-control" id="detail1" ng-model="detail1" placeholder="Entrez le detail n°1" required>
+          <br/>
+          <label for="title">Detail 2 : </label>
+          <input type="text" class="form-control" id="detail2" ng-model="detail2" placeholder="Entrez le detail n°2" required>
+          <br/>
+          <button type="button" ng-click="formHome.$valid && updateInfosHome()" ng-disabled="!formHome.$valid" class="btn btn-info">Mise A Jour</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

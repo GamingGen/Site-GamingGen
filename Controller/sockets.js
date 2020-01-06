@@ -153,6 +153,15 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 	ServerEvent.on('ClientPrinterPrintedDone', function(data) {
 		io.sockets.emit('ClientPrinterPrintedDone', data);
 	});
+	
+	ServerEvent.on('currentHome', function(data, socket) {
+		// io.sockets.emit('ClientPrinterPrintedDone', data);
+		socket.emit('currentHome', data);
+	});
+	
+	ServerEvent.on('InfoSaved', function(data) {
+		io.sockets.emit('InfoSaved', data);
+	});
 		
 	// Banissement et déconnexion auto
 	ServerEvent.on('BanUser', function(data) {
@@ -349,6 +358,16 @@ module.exports.listen = function(server, sessionMiddleware, ServerEvent, colors)
 		socket.on('rmComment', function(data) {
 			ServerEvent.emit('rmComment', data, socket);
 			console.log('Emit: rmComment');
+		});
+		
+		socket.on('getCurrentHome', function(data) {
+			ServerEvent.emit('getCurrentHome', data, socket);
+			console.log('Emit: getCurrentHome');
+		});
+		
+		socket.on('updateInfoHome', function(data) {
+			ServerEvent.emit('updateInfoHome', data, socket);
+			console.log('Emit: updateInfoHome');
 		});
 		
 		// ----------------------- Décompte uniquement des User Connecté ----------------------- //
