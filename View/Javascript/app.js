@@ -49,27 +49,27 @@
             ManageViewService.setView(normalLayout);
           }],
         })
-        .state('arena', {
-          url         : '/arena',
-          templateUrl : '../Partial/tournaments.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('world', {
-          url         : '/world',
-          templateUrl : '../Partial/world.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
-        .state('partner', {
-          url         : '/partenaires',
-          templateUrl : '../Partial/partner.html',
-          onEnter     : ['ManageViewService', function(ManageViewService) {
-            ManageViewService.setView(normalLayout);
-          }],
-        })
+        // .state('arena', {
+        //   url         : '/arena',
+        //   templateUrl : '../Partial/tournaments.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('world', {
+        //   url         : '/world',
+        //   templateUrl : '../Partial/world.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
+        // .state('partner', {
+        //   url         : '/partenaires',
+        //   templateUrl : '../Partial/partner.html',
+        //   onEnter     : ['ManageViewService', function(ManageViewService) {
+        //     ManageViewService.setView(normalLayout);
+        //   }],
+        // })
         .state('teams', {
           url         : '/teams',
           templateUrl : '../Partial/teams.html',

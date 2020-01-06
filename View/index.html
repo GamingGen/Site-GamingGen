@@ -478,11 +478,12 @@
           <ul class="nav navbar-nav">
             <li ui-sref-active="active" class="dropdown">
               <a href="" class="displayBlockDropdown dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span>Gaming Gen</span><span class="caret"></span>
+                <!--<span>Gaming Gen</span><span class="caret"></span>-->
+                <span>Gaming Gen</span>
               </a>
               <ul class="dropdown-menu">
-                <li><a ui-sref="world">Gaming World</a></li>
-                <li><a ui-sref="arena">Gaming Arena</a></li>
+                <!--<li><a ui-sref="world">Gaming World</a></li>-->
+                <!--<li><a ui-sref="arena">Gaming Arena</a></li>-->
                 <!--<li><a ui-sref="tournaments">Nos tournois</a></li>-->
                 <!--<li ng-show="User.isLoggedIn && User.accessLvl >= 60"><a ui-sref="404">Festival du jeu</a></li>-->
                 <!--<li><a ui-sref="404">Le Plan</a></li>-->
@@ -495,7 +496,7 @@
             <li ng-show="User.isLoggedIn && User.accessLvl >= 50">
               <!--<a class="autoCollapse" ui-sref="shop.order">Le magasin</a>-->
             <li>
-              <a class="autoCollapse" ui-sref="partner">Les Partenaires</a>
+              <!--<a class="autoCollapse" ui-sref="partner">Les Partenaires</a>-->
             </li>
             <li>
               <a class="autoCollapse" ui-sref="news">News</a>
@@ -767,22 +768,22 @@
             <a ui-sref="home"><img alt="Logo" src="Img/logowh.svg"></a>
           </div>-->
           <div class="footerLinks col-xs-12 col-sm-8">
+            <a ui-sref="home">Accueil</a>
             <a href="" ng-hide="User.isLoggedIn" data-toggle="modal" data-target="#registrationModal">Inscription</a>
             <a href="" ng-hide="User.isLoggedIn" data-toggle="modal" data-target="#connectionModal">Connexion</a>
             <a href="https://www.facebook.com/gaming.gen.festival" target="_blank" >Facebook</a>
             <a href="https://twitter.com/gaminggenlan" target="_blank" >Twitter</a>
             <a href="https://www.instagram.com/gaming_gen_festival/" target="_blank" >Instagram</a>
-            <a ui-sref="home">Accueil</a>
             <a href="https://www.gaming-gen.fr/webtv.html" target="_blank">WebTV</a>
-            <!--<a ui-sref="404">Gaming Gen level 7</a>-->
+            <!--<a ui-sref="404">Gaming Gen level 8</a>-->
             <!--<a ui-sref="404">Compétitions</a>-->
             <!--<a ui-sref="404">Festival du jeu</a>-->
             <!--<a ui-sref="404">Plan</a>-->
             <!--<a ui-sref="404">Programme</a>-->
             <a ui-sref="live">Live</a>
             <a ui-sref="news">News</a>
-            <a ui-sref="arena">Tournois</a>
-            <a ui-sref="partner">Exposants et Partenaires</a>
+            <!--<a ui-sref="arena">Tournois</a>-->
+            <!--<a ui-sref="partner">Exposants et Partenaires</a>-->
             <!--<a ui-sref="404">Galerie</a>-->
             <!--<a ui-sref="404">Association</a>-->
             <!--<a ui-sref="404">Infos utiles</a>-->
