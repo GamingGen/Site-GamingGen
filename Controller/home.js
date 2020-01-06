@@ -19,7 +19,7 @@ const router  = express.Router();
 
 
 // Récupère les infos de la home
-router.get('/info', (req, res) => {
+router.get('/info', function (req, res) {
   homeSchema.find({}, {}, { sort: { update_at: -1 }, limit: 1 }, function (err, [doc]) {
     if (err) {
       console.error(err);
