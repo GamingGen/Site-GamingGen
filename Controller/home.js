@@ -20,7 +20,7 @@ const router  = express.Router();
 
 // Récupère les infos de la home
 router.get('/info', (req, res) => {
-  homeSchema.find({}, {}, { sort: { update_at: -1 }, limit: 1 }, (err, [doc]) => {
+  homeSchema.find({}, {}, { sort: { update_at: -1 }, limit: 1 }, function (err, [doc]) {
     if (err) {
       console.error(err);
       res.status(500);
@@ -41,7 +41,7 @@ router.get('/info', (req, res) => {
 let homeEvent = function(ServerEvent) {
   ServerEvent.on('getCurrentHome', function(data, socket) {
     console.log('home.js: getCurrentHome Fired !!!!');
-    homeSchema.find({}, {}, { sort: { update_at: -1 }, limit: 1 }, (err, [doc]) => {
+    homeSchema.find({}, {}, { sort: { update_at: -1 }, limit: 1 }, function (err, [doc]) {
       if (err) {
         console.error(err);
       }
