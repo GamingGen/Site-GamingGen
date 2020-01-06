@@ -59,28 +59,28 @@
           Aucun commentaire pour l'instant...
         </div><!-- Si pas de commentaire, afficher ceci -->
       </div>
-      <div permission permission-only="'canWriteComment'">
-        <div class="row">
-          <div class="triggerComment col-xs-12">
-            <a ng-click="toggleCommentZone()">Commenter</a><!-- Bouton d'affichage de la pop-up de création de commentaire -->
-          </div>
-        </div>
-        <div class="row">
-          <div role="document" class="commentTextArea col-xs-8 col-lg-5 col-xs-offset-2">
-            <form ng-show="article.showCommentZone" ng-submit="submitComment()" name="formComment" novalidate>
-              <div class="row">
-                <div class="col-xs-12 form-group">
-                  <input type="hidden" id="articleId" name="articleId" value="{{::article.currentArticle._id}}"/>
-                  <label for="comment">Écrivez votre petit mot ci-dessous :</label>
-                  <textarea maxlength="{{::maxLength}}" autofocus="autofocus" ng-model="commentText" class="form-control" id="comment" placeholder="Salut, j'aime la Gaming Gen ..." required></textarea>
-                  {{::commentText.length || 0 }} / {{::maxLength}}
-                  <input type="submit" value="Envoyer">
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+      <!--<div permission permission-only="'canWriteComment'">-->
+      <!--  <div class="row">-->
+      <!--    <div class="triggerComment col-xs-12">-->
+      <!--      <a ng-click="toggleCommentZone()">Commenter</a><!-- Bouton d'affichage de la pop-up de création de commentaire -->-->
+      <!--    </div>-->
+      <!--  </div>-->
+      <!--  <div class="row">-->
+      <!--    <div role="document" class="commentTextArea col-xs-8 col-lg-5 col-xs-offset-2">-->
+      <!--      <form ng-show="article.showCommentZone" ng-submit="submitComment()" name="formComment" novalidate>-->
+      <!--        <div class="row">-->
+      <!--          <div class="col-xs-12 form-group">-->
+      <!--            <input type="hidden" id="articleId" name="articleId" value="{{::article.currentArticle._id}}"/>-->
+      <!--            <label for="comment">Écrivez votre petit mot ci-dessous :</label>-->
+      <!--            <textarea maxlength="{{::maxLength}}" autofocus="autofocus" ng-model="commentText" class="form-control" id="comment" placeholder="Salut, j'aime la Gaming Gen ..." required></textarea>-->
+      <!--            {{::commentText.length || 0 }} / {{::maxLength}}-->
+      <!--            <input type="submit" value="Envoyer">-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </form>-->
+      <!--    </div>-->
+      <!--  </div>-->
+      <!--</div>-->
       <div class="row">
         <div infinite-scroll="loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="disableInfiniteScroll">
           <div ng-repeat="comment in comments | orderBy : '-register_date'"><!-- Liste des commentaires -->
